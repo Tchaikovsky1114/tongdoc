@@ -13,6 +13,7 @@ const useLoadFonts = () => {
     }
   }, [appIsReady]);
   
+
   useEffect(() => {
     async function prepare() {
       try {
@@ -24,18 +25,17 @@ const useLoadFonts = () => {
           'Noto400':require('../assets/fonts/NotoSansKR-Regular.otf'),
           'Noto300':require('../assets/fonts/NotoSansKR-Thin.otf'),
         });
+        setAppIsReady(true);
       } catch (e) {
         console.warn(e);
       } finally {
         // Tell the application to render
-        setAppIsReady(true);
+        
       }
     }
     prepare();
-  
 },[])
-
-
+  
   return {onLayoutRootView,appIsReady}
 };
 
