@@ -1,19 +1,15 @@
 import React,{useEffect} from 'react';
 import OnboardingCarousel from './OnBoardingCarousel';
 import {Text,View,StyleSheet,Dimensions,Pressable} from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+
 
 const {width} = Dimensions.get('window')
-const OnBoarding = () => {
-  const navigation = useNavigation()
+
+const OnBoarding = ({navigation}) => {
 
   const onMoveSignupScreenHandler = () => {
     navigation.navigate('Signup');
   }
-  useEffect(() => {
-    console.log(navigation.getState().routes);
-  },[])
-  
 
   // onboarding에서 유저가 어플리케이션 실행 이력이 있는 경우(asyncStorage에 접속 이력) main page로 redirecting..
   return (

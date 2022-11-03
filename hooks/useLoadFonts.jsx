@@ -11,7 +11,7 @@ const useLoadFonts = () => {
     if (appIsReady) {
       await SplashScreen.hideAsync();
     }
-  }, [appIsReady]);
+  }, []);
   
 
   useEffect(() => {
@@ -28,10 +28,8 @@ const useLoadFonts = () => {
         setAppIsReady(true);
       } catch (e) {
         console.warn(e);
-      } finally {
-        // Tell the application to render
-        
       }
+      console.log('fonts loaded');
     }
     prepare();
 },[])

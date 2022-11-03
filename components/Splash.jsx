@@ -14,30 +14,18 @@ export default function Splash() {
   },[])
 
   return (
-    <Modal>
     <View style={styles.greeting}>
-          <Image source={require('../assets/logo.png')} style={styles.splashImage} />
-        </View>
-    </Modal>
+      <Image source={require('../assets/logo.png')} style={styles.splashImage} />
+    </View>
   )
 }
 
 const styles = StyleSheet.create({
-  container: {
-    position:'absolute',
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
   greeting: {
-    position:'absolute',
     flex: 1,
     backgroundColor: '#2D63E2',
     alignItems: 'center',
     justifyContent: 'center',
-    width:'100%',
-    height:'100%'
   },
   splashImage:{
     width:224,
