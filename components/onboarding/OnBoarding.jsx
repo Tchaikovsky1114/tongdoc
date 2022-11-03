@@ -46,10 +46,11 @@ const styles = StyleSheet.create({
     backgroundColor:'#2D63E2',
     justifyContent:'center',
     alignItems:'center',
-    height:50
+    height:58
   },
   moveSignupButtonText:{
-    fontFamily:'Noto400',
+    fontFamily:'Noto500',
     color:'#fff',
+    fontSize:18
   },
 })

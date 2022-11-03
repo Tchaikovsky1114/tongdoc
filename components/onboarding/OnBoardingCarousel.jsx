@@ -3,6 +3,7 @@ import { Dimensions, View,StyleSheet,Text,ScrollView,Image } from 'react-native'
 import CircleIndicator from './CircleIndicator';
 import H1_30M from '../../style/H1_30M';
 import P_18R from '../../style/paragraph/P_18R';
+import P_20R from '../../style/paragraph/P_20R';
 
 const {width} = Dimensions.get('window');
 
@@ -59,7 +60,7 @@ const OnboardingCarousel = () => {
           </View>
 
           <View style={styles.imageBox}>
-          <Image source={item.imageURL} />
+          <Image style={styles.onBoardingImage} source={item.imageURL} />
           <CircleIndicator item={item} pressScrollXHandler={pressScrollXHandler} />
           </View>
           
@@ -95,12 +96,17 @@ const styles = StyleSheet.create({
     justifyContent:'center',
   },
   descriptionBox: {
-    flex:1,
+    flex:2,
     justifyContent:'flex-start',
+    marginTop:-8
   },
   imageBox:{
-    flex:4,
-    alignItems:'center'
+    flex:7,
+    alignItems:'center',
+    marginTop:-32
   },
-
+  onBoardingImage:{
+    width:188.67,
+    height:240
+  }
 })

@@ -1,5 +1,7 @@
 import React from 'react';
-import { StyleSheet, View, Pressable } from 'react-native';
+import { StyleSheet, View, Pressable,Dimensions } from 'react-native';
+
+
 
 const CircleIndicator = ({ item, pressScrollXHandler }) => {
   return (
@@ -48,16 +50,19 @@ export default CircleIndicator;
 
 const styles = StyleSheet.create({
   circleIndicator: {
-    flex: 0.5,
+    flex: 1,
     flexDirection: 'row',
-    marginTop: 72,
+    alignItems:'center',
+    justifyContent:'center',
+    marginTop: -144,
+    marginRight: 28
   },
   circle: {
-    width: 8,
-    height: 8,
-    borderRadius: 4,
+    width: 14,
+    height: 14,
+    borderRadius: 7,
     backgroundColor: '#DDDDDD',
-    marginLeft: 8,
+    marginLeft: 24,
   },
   activeCircle: {
     backgroundColor: '#2D63E2',

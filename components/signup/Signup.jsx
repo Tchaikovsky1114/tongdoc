@@ -3,10 +3,15 @@ import React from 'react'
 
 export default function Signup() {
   return (
-    <View>
-      <Text>Signup</Text>
+    <View style={styles.container}>
+      <Text>회원가입~~~~~</Text>
     </View>
   )
 }
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+  container:{
+    flex:1,
+    backgroundColor:'#eea'
+  }
+})

@@ -52,8 +52,8 @@ export default function App() {
     <View style={{flex: 1}} onLayout={onLayoutRootView}>
       <NavigationContainer>
         <Stack.Navigator>
-          <Stack.Screen name="Splash" component={Splash} />
-          <Stack.Screen name="OnBoarding" component={OnBoarding} /> 
+          <Stack.Screen name="Splash" component={Splash} options={{headerShown:false}} />
+          <Stack.Screen name="OnBoarding" component={OnBoarding} options={{headerShown:false}} /> 
           <Stack.Screen name="Home" component={HomeScreen} />
           <Stack.Screen name="Signup" component={SignupPage} />
         </Stack.Navigator>
