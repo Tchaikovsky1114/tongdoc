@@ -13,6 +13,9 @@ import * as Font from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen'
 
 import 'react-native-gesture-handler'
+import CertificationScreen from './screens/CertificationScreen';
+import CertificationResult from './components/certification/CertificationResult';
+import CertificationInProgress from './components/certification/CertificationInProgress';
 
 enableScreens();
 const Stack = createNativeStackNavigator();
@@ -54,10 +57,13 @@ export default function App() {
     <View style={{flex: 1}} onLayout={onLayoutRootView} >
       <NavigationContainer >
         <Stack.Navigator screenOptions={{animation:"slide_from_right"}} >
-          <Stack.Screen name="Splash" component={Splash} options={{headerShown:false,gestureDirection:'horizontal',gestureEnabled:false}}  />
-          <Stack.Screen name="OnBoarding" component={OnBoarding} options={{headerShown:false,gestureDirection:'horizontal'}} /> 
+          <Stack.Screen name="Splash" component={Splash} options={{headerShown:false}}  />
+          <Stack.Screen name="OnBoarding" component={OnBoarding} options={{headerShown:false}} /> 
           <Stack.Screen name="Home" component={HomeScreen}  />
           <Stack.Screen name="Signup" component={SignupPage} />
+          <Stack.Screen name="Signup/Certification" component={CertificationScreen} />
+          <Stack.Screen name="Signup/CertificationResult" component={CertificationResult} />
+          <Stack.Screen name="Signup/CertificationInProgress" component={CertificationInProgress} />
         </Stack.Navigator>
       </NavigationContainer>
       </View>

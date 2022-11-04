@@ -6,6 +6,7 @@ import * as Contacts from 'expo-contacts'
 import * as Notifications from 'expo-notifications';
 import * as SMS from 'expo-sms'
 import * as Location from 'expo-location';
+import { useNavigation } from '@react-navigation/native'
 
 
 // Notifications.setNotificationHandler({
@@ -19,7 +20,7 @@ import * as Location from 'expo-location';
 const {width} = Dimensions.get('window');
 
 export default function Signup() {
-
+  const navigation = useNavigation()
   const getAuthorityPressHandler = async () => {
     let allGrantedPermission = false;
     try{
@@ -85,9 +86,14 @@ export default function Signup() {
     } catch (err) {
       console.error(err)
       allGrantedPermission = false;
+    }finally{
+      console.log('allGrantedPermission', allGrantedPermission);
+      navigation.navigate('Signup/Certification')
     }
-    console.log('allGrantedPermission', allGrantedPermission);
+    
   }
+
+
   return (
     <View style={styles.container}>
 

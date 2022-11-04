@@ -9,7 +9,7 @@ export default function Splash() {
 
   useEffect(() => {
     const timer = setTimeout(() => navigation.navigate('OnBoarding')
-    , 1500)
+    , 2000)
     return () => clearTimeout(timer)
   },[])
 
