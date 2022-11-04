@@ -6,6 +6,27 @@
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
+    "plugins": [
+      [
+        "expo-media-library",
+        {
+          "photosPermission": "통신닥터에 카메라 접근을 허용해주세요.",
+          "savePhotosPermission": "통신닥터가 사진을 저장할 수 있게 허용해주세요.",
+          "isAccessMediaLocationEnabled":true
+        }
+      ],
+      [
+        "expo-notifications",
+        {
+          "icon": "./local/assets/notification-icon.png",
+          "color": "#ffffff",
+          "sounds": [
+            "./local/assets/notification-sound.wav",
+            "./local/assets/notification-sound-other.wav"
+          ]
+        }
+      ]
+    ],
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
