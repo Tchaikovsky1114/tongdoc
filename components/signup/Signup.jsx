@@ -1,19 +1,14 @@
-import {
-  Dimensions,
-  Pressable,
-  StyleSheet,
-  Text,
-  View,
-  Image,
-} from "react-native";
-import React from "react";
-import H4_24R from "../../style/H4_24R";
-import P_14R from "../../style/paragraph/P_14R";
-import * as Contacts from "expo-contacts";
-import * as Notifications from "expo-notifications";
-import * as SMS from "expo-sms";
-import * as Location from "expo-location";
-import { useNavigation } from "@react-navigation/native";
+
+import {Dimensions,Pressable, StyleSheet, Text, View,Image,Platform } from 'react-native'
+import React from 'react'
+import H4_24R from '../../style/H4_24R'
+import P_14R from '../../style/paragraph/P_14R'
+import * as Contacts from 'expo-contacts'
+import * as Notifications from 'expo-notifications';
+import * as SMS from 'expo-sms'
+import * as Location from 'expo-location';
+import { useNavigation } from '@react-navigation/native'
+
 
 // Notifications.setNotificationHandler({
 //   handleNotification: async () => ({
@@ -49,6 +44,8 @@ export default function Signup() {
       console.error(err);
       allGrantedPermission = false;
     }
+
+
     try {
       const isAvailable = await SMS.isAvailableAsync();
       if (isAvailable) {
@@ -60,28 +57,39 @@ export default function Signup() {
     } catch (error) {
       allGrantedPermission = false;
     }
-    try {
-      const { status: existingStatus } =
-        await Notifications.getPermissionsAsync();
+
+
+
+    try{
+      const { status:existingStatus } = await Notifications.getPermissionsAsync();
       let NotificationStatus = existingStatus;
-      if (existingStatus !== "granted") {
-        const { status: newStatus } =
-          await Notifications.requestPermissionsAsync();
-        NotificationStatus = newStatus;
-        allGrantedPermission = true;
+      if(existingStatus !== 'granted') {
+        const { status } = await Notifications.requestPermissionsAsync();
+        NotificationStatus = status;
+        allGrantedPermission = true
       }
       if (NotificationStatus !== "granted") {
         alert("푸시 알람에 대한 토큰 인증에 실패하였습니다.");
         allGrantedPermission = false;
         return;
       }
-      token = (await Notifications.getExpoPushTokenAsync()).data;
-      // console.log(token)
-      console.log("NotificationStatus", NotificationStatus);
-      // return token;
-    } catch (err) {
-      console.error(err);
-    }
+
+      const token = await Notifications.getExpoPushTokenAsync({
+        experienceId: 'tongdoc_app'
+      });
+      console.log(token)
+     
+      if(Platform.OS === 'android') {
+        Notifications.setNotificationChannelAsync('default', {
+          name: 'default',
+          importance: Notifications.AndroidImportance.MAX,
+          vibrationPattern: [0, 250, 250, 250],
+          lightColor: '#FF231F7C',
+        });
+      }
+    }catch(err){
+      console.error(err)
+    } 
     try {
       let { status } = await Location.requestForegroundPermissionsAsync();
       if (status === "granted") {
@@ -94,9 +102,10 @@ export default function Signup() {
     } catch (err) {
       console.error(err);
       allGrantedPermission = false;
-    } finally {
-      console.log("allGrantedPermission", allGrantedPermission);
-      navigation.navigate("Signup/Certification");
+
+    }finally{
+      console.log('allGrantedPermission', allGrantedPermission);
+      navigation.navigate('Signup/ChoiceSignMethod')
     }
   };
 

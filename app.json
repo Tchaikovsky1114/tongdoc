@@ -12,7 +12,7 @@
         {
           "photosPermission": "통신닥터에 카메라 접근을 허용해주세요.",
           "savePhotosPermission": "통신닥터가 사진을 저장할 수 있게 허용해주세요.",
-          "isAccessMediaLocationEnabled":true
+          "isAccessMediaLocationEnabled": true
         }
       ],
       [
@@ -33,55 +33,23 @@
       "backgroundColor": "#ffffff"
     },
     "updates": {
-      "fallbackToCacheTimeout": 0
+      "fallbackToCacheTimeout": 0,
+      "url": "https://u.expo.dev/a3143539-fa0c-4553-ac08-ecd426063869"
     },
     "assetBundlePatterns": [
       "**/*"
     ],
     "ios": {
       "supportsTablet": true,
-      "infoPlist":{
-        "LSApplicationQueriesSchemes": [
-          "kftc-bankpay",
-          "ispmobile",
-          "itms-apps",
-          "hdcardappcardansimclick",
-          "smhyundaiansimclick",
-          "shinhan-sr-ansimclick",
-          "smshinhanansimclick",
-          "kb-acp",
-          "mpocket.online.ansimclick",
-          "ansimclickscard",
-          "ansimclickipcollect",
-          "vguardstart",
-          "samsungpay",
-          "scardcertiapp",
-          "lottesmartpay",
-          "lotteappcard",
-          "cloudpay",
-          "nhappcardansimclick",
-          "nonghyupcardansimclick",
-          "citispay",
-          "citicardappkr",
-          "citimobileapp",
-          "kakaotalk",
-          "payco",
-          "chaipayment",
-          "kb-auth",
-          "hyundaicardappcardid",
-          "com.wooricard.wcard",
-          "lmslpay",
-          "lguthepay-xpay",
-          "liivbank",
-          "supertoss"
-        ],
+      "infoPlist": {
         "NSAppTransportSecurity": {
           "NSAllowsArbitraryLoads": true,
           "NSAllowsArbitraryLoadsInWebContent": true
-        }
+        },
+        "NSPhotoLibraryUsageDescription": "통신닥터에 카메라 접근을 허용해주세요.",
+        "NSPhotoLibraryAddUsageDescription": "통신닥터가 사진을 저장할 수 있게 허용해주세요."
       }
     },
-    
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
@@ -98,10 +66,18 @@
             "scheme": "exampleformanagedexpo"
           }
         }
+      ],
+      "permissions": [
+        "android.permission.READ_EXTERNAL_STORAGE",
+        "android.permission.WRITE_EXTERNAL_STORAGE",
+        "android.permission.ACCESS_MEDIA_LOCATION"
       ]
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "runtimeVersion": {
+      "policy": "sdkVersion"
     }
   }
 }
