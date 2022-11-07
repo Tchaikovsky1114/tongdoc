@@ -19,6 +19,7 @@ import CertificationInProgress from './components/certification/CertificationInP
 import { RecoilRoot } from 'recoil';
 import ChoiceSignMethod from './components/signup/ChoiceSignMethod';
 import TestKim from "./components/testmin/TestMin";
+import EmailAndPassword from "./components/signup/EmailAndPassword";
 
 enableScreens();
 const Stack = createNativeStackNavigator();
@@ -83,6 +84,7 @@ export default function App() {
           <Stack.Screen name="Signup/ChoiceSignMethod" component={ChoiceSignMethod} options={{title:''}} />
           <Stack.Screen name="Signup/CertificationInProgress" component={CertificationInProgress} options={{title:''}} />
           <Stack.Screen name="Signup/CertificationResult" component={CertificationResult} options={{title:''}} />
+          <Stack.Screen name="Signup/EmailAndPassword" component={EmailAndPassword} options={{title:''}} />
           <Stack.Screen name="Signin" component={SigninPage} />   
           {/* 김민영 테스트용 시작 */}
           <Stack.Screen name="TestKim" component={TestKim} />

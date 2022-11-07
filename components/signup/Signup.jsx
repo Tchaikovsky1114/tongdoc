@@ -139,7 +139,7 @@ export default function Signup() {
       <View style={styles.buttonBox}>
         
       {isLoading ?
-          <View style={styles.button}>
+          <View style={[styles.button,{opacity:0.8}]}>
           <ActivityIndicator size="large" color="#00ff00" />
           </View>
           : <Pressable onPress={getAuthorityPressHandler}>
@@ -148,8 +148,6 @@ export default function Signup() {
           </View> 
           </Pressable>
           }
-
-        
       </View>
     </View>
   );
