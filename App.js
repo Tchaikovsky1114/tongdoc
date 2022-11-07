@@ -1,16 +1,10 @@
 import { useEffect, useState, useCallback } from "react";
-import { StyleSheet, View, Text, Modal, Image } from "react-native";
+import { View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
-
 import OnBoarding from "./components/onboarding/OnBoarding";
 import SignupPage from "./screens/SignupPage";
 import SigninPage from "./screens/SigninPage";
 import HomeScreen from "./screens/HomeScreen";
-
-
-import OnBoarding from './components/onboarding/OnBoarding';
-import SignupPage from './screens/SignupPage';
-import HomeScreen from './screens/HomeScreen';
 import { createNativeStackNavigator, } from '@react-navigation/native-stack';
 import {enableScreens} from 'react-native-screens'
 import Splash from './components/Splash';
