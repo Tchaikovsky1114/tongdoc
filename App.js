@@ -18,6 +18,8 @@ import CertificationResult from "./components/certification/CertificationResult"
 import CertificationInProgress from "./components/certification/CertificationInProgress";
 import { RecoilRoot } from "recoil";
 import ChoiceSignMethod from "./components/signup/ChoiceSignMethod";
+import FindMailPage from "./screens/FindMail";
+import FindPwPage from "./screens/FindPw";
 
 enableScreens();
 const Stack = createNativeStackNavigator();
@@ -112,7 +114,21 @@ export default function App() {
               component={CertificationResult}
               options={{ title: "" }}
             />
-            <Stack.Screen name="Signin" component={SigninPage} />
+            <Stack.Screen
+              name="Signin"
+              component={SigninPage}
+              options={{ title: "" }}
+            />
+            <Stack.Screen
+              name="Signin/FindMail"
+              component={FindMailPage}
+              options={{ title: "" }}
+            />
+            <Stack.Screen
+              name="Signin/FindPw"
+              component={FindPwPage}
+              options={{ title: "" }}
+            />
           </Stack.Navigator>
         </NavigationContainer>
       </View>
