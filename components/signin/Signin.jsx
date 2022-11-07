@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import H3_26R from "../../style/H3_26R";
 import P_12R from "../../style/paragraph/P_12R";
+import Input from "../common/Input";
 
 const { width } = Dimensions.get("window");
 
@@ -18,18 +19,10 @@ const Signin = () => {
     <View style={styles.container}>
       <ScrollView style={styles.screen}>
         <KeyboardAvoidingView style={styles.screen} behavior="position">
-          <H3_26R children={"로그인"} style={styles.title} />
+          <H3_26R style={styles.title}>{"로그인"}</H3_26R>
           <View style={styles.inputBox}>
-            <TextInput
-              style={[styles.input, styles.inputMargin]}
-              placeholder="이메일"
-              placeholderTextColor={"#999999"}
-            />
-            <TextInput
-              style={styles.input}
-              placeholder="비밀번호"
-              placeholderTextColor={"#999999"}
-            />
+            <Input inputStyle={styles.inputMargin} placeholder="이메일" />
+            <Input inputStyle={styles.inputMargin} placeholder="비밀번호" />
           </View>
           <View style={styles.findBox}>
             <P_12R style={styles.findTextColor}>이메일 찾기</P_12R>
@@ -68,14 +61,7 @@ const styles = StyleSheet.create({
     flex: 1,
     marginBottom: 65.5,
   },
-  input: {
-    fontFamily: "Noto400",
-    fontSize: 14,
-    lineHeight: 22,
-    flex: 1,
-    borderBottomWidth: 1,
-    borderBottomColor: "#DDDDDD",
-  },
+
   inputMargin: {
     marginBottom: 24,
   },
