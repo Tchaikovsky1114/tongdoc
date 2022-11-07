@@ -72,6 +72,7 @@ export default function App() {
         <Stack.Navigator screenOptions={{
           animation:"slide_from_right",
           headerShadowVisible:false,
+          headerBackImageSource: require('./assets/common/back_arrow.png')
           }} >
           <Stack.Screen name="Splash" component={Splash} options={{headerShown:false}}  />
           <Stack.Screen name="OnBoarding" component={OnBoarding} options={{headerShown:false}} /> 

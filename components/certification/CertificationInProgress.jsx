@@ -16,6 +16,7 @@ export default function CertificationInProgress() {
       userInfo: data
     })
   }
+  
   const receiveCertificationFailedFromWebviewHandler = (err) => {
     alert(err)
   }

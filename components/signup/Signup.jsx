@@ -1,6 +1,6 @@
 
-import {Dimensions,Pressable, StyleSheet, Text, View,Image,Platform } from 'react-native'
-import React from 'react'
+import {Dimensions,Pressable, StyleSheet, Text, View,Image,Platform,ActivityIndicator } from 'react-native'
+import React,{useState} from 'react'
 import H4_24R from '../../style/H4_24R'
 import P_14R from '../../style/paragraph/P_14R'
 import * as Contacts from 'expo-contacts'
@@ -9,21 +9,15 @@ import * as SMS from 'expo-sms'
 import * as Location from 'expo-location';
 import { useNavigation } from '@react-navigation/native'
 
-
-// Notifications.setNotificationHandler({
-//   handleNotification: async () => ({
-//     shouldShowAlert:true,
-//     shouldPlaySound:false,
-//     shouldSetBadge:false,
-//   })
-// });
-
 const { width } = Dimensions.get("window");
 
 export default function Signup() {
   const navigation = useNavigation();
+  const [isLoading,setIsLoading] = useState(false)
+
   const getAuthorityPressHandler = async () => {
     let allGrantedPermission = false;
+    setIsLoading(true)
     try {
       const { status } = await Contacts.requestPermissionsAsync();
       if (status === "granted") {
@@ -106,6 +100,7 @@ export default function Signup() {
     }finally{
       console.log('allGrantedPermission', allGrantedPermission);
       navigation.navigate('Signup/ChoiceSignMethod')
+      setIsLoading(false)
     }
   };
 
@@ -142,11 +137,19 @@ export default function Signup() {
       </View>
 
       <View style={styles.buttonBox}>
-        <Pressable onPress={getAuthorityPressHandler}>
+        
+      {isLoading ?
+          <View style={styles.button}>
+          <ActivityIndicator size="large" color="#00ff00" />
+          </View>
+          : <Pressable onPress={getAuthorityPressHandler}>
           <View style={styles.button}>
             <Text style={styles.buttonText}>확인</Text>
-          </View>
-        </Pressable>
+          </View> 
+          </Pressable>
+          }
+
+        
       </View>
     </View>
   );
