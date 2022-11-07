@@ -4,27 +4,25 @@ import React from 'react'
 
 const {width} = Dimensions.get('window');
 
-export default function Button({onPress,text,style,textStyle}) {
+export default function Button({onPress,text,buttonStyle,textStyle}) {
   return (
+    
+    <View style={styles.buttonBox}>
     <Pressable onPress={onPress}>
-    <View style={[styles.moveSignupButton,style]}>
-      <Text style={[styles.moveSignupButtonText,textStyle]}>{text}</Text>
-    </View>
-  </Pressable>
+      <View style={[styles.button,buttonStyle]}>
+        <Text style={[styles.buttonText,textStyle]}>{text}</Text>
+      </View>
+    </Pressable>
+  </View>
   )
 }
 
 const styles = StyleSheet.create({
   buttonBox: {
-    width:200,
-    flex:1,
-    position:'absolute',
-    bottom:0,
-    left:0,
+    width
   },
   button:{
     flex:1,
-    width:200,
     backgroundColor:'#2D63E2',
     justifyContent:'center',
     alignItems:'center',
