@@ -63,37 +63,37 @@ export default function Signup() {
       allGrantedPermission = false;
     }
 
-    try {
-      const { status: existingStatus } =
-        await Notifications.getPermissionsAsync();
-      let NotificationStatus = existingStatus;
-      if (existingStatus !== "granted") {
-        const { status } = await Notifications.requestPermissionsAsync();
-        NotificationStatus = status;
-        allGrantedPermission = true;
-      }
-      if (NotificationStatus !== "granted") {
-        alert("푸시 알람에 대한 토큰 인증에 실패하였습니다.");
-        allGrantedPermission = false;
-        return;
-      }
+    // try {
+    //   const { status: existingStatus } =
+    //     await Notifications.getPermissionsAsync();
+    //   let NotificationStatus = existingStatus;
+    //   if (existingStatus !== "granted") {
+    //     const { status } = await Notifications.requestPermissionsAsync();
+    //     NotificationStatus = status;
+    //     allGrantedPermission = true;
+    //   }
+    //   if (NotificationStatus !== "granted") {
+    //     alert("푸시 알람에 대한 토큰 인증에 실패하였습니다.");
+    //     allGrantedPermission = false;
+    //     return;
+    //   }
 
-      const token = await Notifications.getExpoPushTokenAsync({
-        experienceId: "tongdoc_app",
-      });
-      console.log(token);
+    //   const token = await Notifications.getExpoPushTokenAsync({
+    //     experienceId: "tongdoc_app",
+    //   });
+    //   console.log(token);
 
-      if (Platform.OS === "android") {
-        Notifications.setNotificationChannelAsync("default", {
-          name: "default",
-          importance: Notifications.AndroidImportance.MAX,
-          vibrationPattern: [0, 250, 250, 250],
-          lightColor: "#FF231F7C",
-        });
-      }
-    } catch (err) {
-      console.error(err);
-    }
+    //   if (Platform.OS === "android") {
+    //     Notifications.setNotificationChannelAsync("default", {
+    //       name: "default",
+    //       importance: Notifications.AndroidImportance.MAX,
+    //       vibrationPattern: [0, 250, 250, 250],
+    //       lightColor: "#FF231F7C",
+    //     });
+    //   }
+    // } catch (err) {
+    //   console.error(err);
+    // }
     try {
       let { status } = await Location.requestForegroundPermissionsAsync();
       if (status === "granted") {
