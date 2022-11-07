@@ -5,6 +5,7 @@ import OnBoarding from "./components/onboarding/OnBoarding";
 import SignupPage from "./screens/SignupPage";
 import SigninPage from "./screens/SigninPage";
 import HomeScreen from "./screens/HomeScreen";
+
 import { createNativeStackNavigator, } from '@react-navigation/native-stack';
 import {enableScreens} from 'react-native-screens'
 import Splash from './components/Splash';
@@ -17,7 +18,7 @@ import CertificationResult from './components/certification/CertificationResult'
 import CertificationInProgress from './components/certification/CertificationInProgress';
 import { RecoilRoot } from 'recoil';
 import ChoiceSignMethod from './components/signup/ChoiceSignMethod';
-
+import TestKim from "./components/testmin/TestMin";
 
 enableScreens();
 const Stack = createNativeStackNavigator();
@@ -64,6 +65,7 @@ export default function App() {
 
   return (
 
+
     <RecoilRoot>
     <View style={{flex: 1}} onLayout={onLayoutRootView} >
       <NavigationContainer >
@@ -80,7 +82,10 @@ export default function App() {
           <Stack.Screen name="Signup/ChoiceSignMethod" component={ChoiceSignMethod} options={{title:''}} />
           <Stack.Screen name="Signup/CertificationInProgress" component={CertificationInProgress} options={{title:''}} />
           <Stack.Screen name="Signup/CertificationResult" component={CertificationResult} options={{title:''}} />
-          <Stack.Screen name="Signin" component={SigninPage} />          
+          <Stack.Screen name="Signin" component={SigninPage} />   
+          {/* 김민영 테스트용 시작 */}
+          <Stack.Screen name="TestKim" component={TestKim} />
+          {/* 김민영 테스트용 끝 */}
         </Stack.Navigator>
       </NavigationContainer>
       </View>
