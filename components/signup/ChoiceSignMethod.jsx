@@ -13,7 +13,7 @@ export default function ChoiceSignMethod() {
     navigation.navigate('Signup/Certification')
   }
   const moveSigninPageHandler = () => {
-    
+    navigation.navigate('Signin')
   }
   return (
     <View style={styles.container}>
