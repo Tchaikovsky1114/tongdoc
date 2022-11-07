@@ -1,3 +1,4 @@
+import { useNavigation } from "@react-navigation/native";
 import {
   Dimensions,
   KeyboardAvoidingView,
@@ -5,29 +6,46 @@ import {
   ScrollView,
   StyleSheet,
   Text,
-  TextInput,
   View,
 } from "react-native";
-import H3_26R from "../../style/H3_26R";
+import H4_24R from "../../style/H4_24R";
 import P_12R from "../../style/paragraph/P_12R";
 import Input from "../common/Input";
 
 const { width } = Dimensions.get("window");
 
 const Signin = () => {
+  const navigation = useNavigation();
+
+  const tempHandler = () => {
+    navigation.navigate("Signin/FindMail");
+  };
+  const tempHandler2 = () => {
+    navigation.navigate("Signin/FindPw");
+  };
+  const moveSignupPageHandler = () => {
+    navigation.navigate("Signup/Certification");
+  };
+
   return (
     <View style={styles.container}>
       <ScrollView style={styles.screen}>
         <KeyboardAvoidingView style={styles.screen} behavior="position">
-          <H3_26R style={styles.title}>{"로그인"}</H3_26R>
+          <H4_24R style={styles.title}>{"로그인"}</H4_24R>
           <View style={styles.inputBox}>
             <Input inputStyle={styles.inputMargin} placeholder="이메일" />
-            <Input inputStyle={styles.inputMargin} placeholder="비밀번호" />
+            <Input placeholder="비밀번호" />
           </View>
           <View style={styles.findBox}>
-            <P_12R style={styles.findTextColor}>이메일 찾기</P_12R>
-            <P_12R style={styles.findTextMiddle}>비밀번호 찾기</P_12R>
-            <P_12R style={styles.findTextColor}>회원가입</P_12R>
+            <Pressable onPress={tempHandler}>
+              <P_12R style={styles.findTextColor}>이메일 찾기</P_12R>
+            </Pressable>
+            <Pressable onPress={tempHandler2}>
+              <P_12R style={styles.findTextMiddle}>비밀번호 찾기</P_12R>
+            </Pressable>
+            <Pressable onPress={moveSignupPageHandler}>
+              <P_12R style={styles.findTextColor}>회원가입</P_12R>
+            </Pressable>
           </View>
         </KeyboardAvoidingView>
       </ScrollView>
