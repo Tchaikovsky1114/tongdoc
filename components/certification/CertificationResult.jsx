@@ -1,11 +1,12 @@
-import { StyleSheet, Text, View,Modal,Pressable } from 'react-native'
+import { StyleSheet, Dimensions, View,Modal,Pressable } from 'react-native'
 import React,{useEffect,useState} from 'react'
 import { useRecoilState } from 'recoil';
 import { signupState } from '../../store/signup';
-import P_14R from '../../style/paragraph/P_14R';
-import P_12R from '../../style/paragraph/P_12R';
-import { useNavigation } from '@react-navigation/native';
 
+import P_18R from '../../style/paragraph/P_18R';
+import P_16R from '../../style/paragraph/P_16R';
+
+const {width:FULL_WIDTH} = Dimensions.get('window')
 
 export default function CertificationResult({route,navigation}) {
   const {params} = route;
@@ -22,7 +23,7 @@ export default function CertificationResult({route,navigation}) {
     if(!user) return;
     setSignupForm(user)
   },[])
-
+  console.log(params);
   return (
     <View style={styles.centeredView}>
       <Modal
@@ -33,12 +34,12 @@ export default function CertificationResult({route,navigation}) {
       >
       <View style={styles.centeredView}>
         <View style={styles.modalView}>
-          <P_14R style={styles.modalText}>본인 인증이 완료되었습니다. {'\n'} 다음 페이지로 이동합니다.</P_14R>
+          <P_18R style={styles.modalText}>본인 인증이 완료되었습니다. {'\n'} 다음 페이지로 이동합니다.</P_18R>
           <Pressable
             style={[styles.button, styles.buttonClose]}
             onPress={moveEmailAndPasswordPageHandler}
           >
-            <P_12R style={styles.textStyle}>다음 단계로</P_12R>
+            <P_16R style={styles.textStyle}>확인</P_16R>
           </Pressable>
         </View>
       </View>
@@ -52,10 +53,12 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor:'rgba(51,51,51, .1)'
+    backgroundColor:'rgba(121,121,121, .8)',
+    
   },
   modalView: {
     margin: 20,
+    width:FULL_WIDTH - 48,
     backgroundColor: "#fff",
     borderRadius: 10,
     padding: 35,
@@ -70,9 +73,13 @@ const styles = StyleSheet.create({
     elevation: 10
   },
   button: {
+    width:128,
+    height:50,
     borderRadius: 8,
     padding: 10,
-    elevation: 2
+    elevation: 2,
+    justifyContent:'center',
+    alignItems:'center'
   },
   buttonOpen: {
     backgroundColor: "#F194FF",

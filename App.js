@@ -75,9 +75,10 @@ export default function App() {
           headerShadowVisible:false,
           headerBackImageSource: require('./assets/common/back_arrow.png')
           }} >
-          <Stack.Screen name="Splash" component={Splash} options={{headerShown:false}}  />
-          <Stack.Screen name="OnBoarding" component={OnBoarding} options={{headerShown:false}} /> 
-
+          <Stack.Group screenOptions={{headerShown:false}}>
+          <Stack.Screen name="Splash" component={Splash}  />
+          <Stack.Screen name="OnBoarding" component={OnBoarding} /> 
+          </Stack.Group>
           <Stack.Screen name="Home" component={HomeScreen} options={{title:''}} />
           <Stack.Screen name="Signup" component={SignupPage} options={{title:''}} />
           <Stack.Screen name="Signup/Certification" component={CertificationScreen} options={{title:''}} />
