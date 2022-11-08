@@ -17,12 +17,13 @@ const { width } = Dimensions.get("window");
 const Signin = () => {
   const navigation = useNavigation();
 
-  const tempHandler = () => {
-    navigation.navigate("Signin/FindMail");
+  const moveFindEmail = () => {
+    navigation.navigate("Signin/FindInfo", { id: "email" });
   };
-  const tempHandler2 = () => {
-    navigation.navigate("Signin/FindPw");
+  const moveFindPassword = () => {
+    navigation.navigate("Signin/FindInfo", { id: "password" });
   };
+
   const moveSignupPageHandler = () => {
     navigation.navigate("Signup/Certification");
   };
@@ -37,10 +38,10 @@ const Signin = () => {
             <Input placeholder="비밀번호" />
           </View>
           <View style={styles.findBox}>
-            <Pressable onPress={tempHandler}>
+            <Pressable onPress={moveFindEmail}>
               <P_12R style={styles.findTextColor}>이메일 찾기</P_12R>
             </Pressable>
-            <Pressable onPress={tempHandler2}>
+            <Pressable onPress={moveFindPassword}>
               <P_12R style={styles.findTextMiddle}>비밀번호 찾기</P_12R>
             </Pressable>
             <Pressable onPress={moveSignupPageHandler}>
