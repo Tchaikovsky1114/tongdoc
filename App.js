@@ -21,6 +21,7 @@ import CertificationScreen from "./screens/CertificationScreen";
 import CertificationResult from "./components/certification/CertificationResult";
 import CertificationInProgress from "./components/certification/CertificationInProgress";
 import ChoiceSignMethod from "./components/signup/ChoiceSignMethod";
+import FindInfoPage from "./screens/FindInfo";
 
 enableScreens();
 const Stack = createNativeStackNavigator();
@@ -42,7 +43,6 @@ export default function App() {
     }
   }, []);
 
-  
   useEffect(() => {
     async function prepare() {
       try {
@@ -66,33 +66,61 @@ export default function App() {
   if (!appIsReady) return <View></View>;
 
   return (
-
-
     <RecoilRoot>
-    <View style={{flex: 1}} onLayout={onLayoutRootView} >
-      <NavigationContainer >
-        <Stack.Navigator screenOptions={{
-          animation:"slide_from_right",
-          headerShadowVisible:false,
-          headerBackImageSource: require('./assets/common/back_arrow.png')
-          }} >
-          <Stack.Group screenOptions={{headerShown:false}}>
-          <Stack.Screen name="Splash" component={Splash}  />
-          <Stack.Screen name="OnBoarding" component={OnBoarding} /> 
-          </Stack.Group>
+      <View style={{ flex: 1 }} onLayout={onLayoutRootView}>
+        <NavigationContainer>
+          <Stack.Navigator
+            screenOptions={{
+              animation: "slide_from_right",
+              headerShadowVisible: false,
+              headerBackImageSource: require("./assets/common/back_arrow.png"),
+            }}
+          >
+            <Stack.Group screenOptions={{ headerShown: false }}>
+              <Stack.Screen name="Splash" component={Splash} />
+              <Stack.Screen name="OnBoarding" component={OnBoarding} />
+            </Stack.Group>
 
-          <Stack.Screen name="Home" component={HomeScreen} options={{title:''}} />
-          <Stack.Screen name="Signup" component={SignupPage} options={{title:''}} />
-          <Stack.Screen name="Signup/Certification" component={CertificationScreen} options={{title:''}} />
-          <Stack.Screen name="Signup/ChoiceSignMethod" component={ChoiceSignMethod} options={{title:''}} />
-          <Stack.Screen name="Signup/CertificationInProgress" component={CertificationInProgress} options={{title:''}} />
-          <Stack.Screen name="Signup/CertificationResult" component={CertificationResult} options={{title:''}} />
-          <Stack.Screen name="Signup/EmailAndPassword" component={EmailAndPassword} options={{title:''}} />
-          <Stack.Screen name="Signin" component={SigninPage} />   
-          
-        </Stack.Navigator>
-      </NavigationContainer>
+            <Stack.Screen
+              name="Home"
+              component={HomeScreen}
+              options={{ title: "" }}
+            />
+            <Stack.Screen
+              name="Signup"
+              component={SignupPage}
+              options={{ title: "" }}
+            />
+            <Stack.Screen
+              name="Signup/Certification"
+              component={CertificationScreen}
+              options={{ title: "" }}
+            />
+            <Stack.Screen
+              name="Signup/ChoiceSignMethod"
+              component={ChoiceSignMethod}
+              options={{ title: "" }}
+            />
+            <Stack.Screen
+              name="Signup/CertificationInProgress"
+              component={CertificationInProgress}
+              options={{ title: "" }}
+            />
+            <Stack.Screen
+              name="Signup/CertificationResult"
+              component={CertificationResult}
+              options={{ title: "" }}
+            />
+            <Stack.Screen
+              name="Signup/EmailAndPassword"
+              component={EmailAndPassword}
+              options={{ title: "" }}
+            />
+            <Stack.Screen name="Signin" component={SigninPage} />
+            <Stack.Screen name="Signin/FindInfo" component={FindInfoPage} />
+          </Stack.Navigator>
+        </NavigationContainer>
       </View>
-      </RecoilRoot>
+    </RecoilRoot>
   );
 }
