@@ -1,4 +1,4 @@
-import {TextInput, StyleSheet, Text, View,KeyboardAvoidingView,ScrollView } from 'react-native'
+import {TextInput, StyleSheet, Text, View,KeyboardAvoidingView,ScrollView,Keyboard } from 'react-native'
 import React,{useState,useRef,useEffect} from 'react'
 import H4_24R from '../../style/H4_24R'
 import P_14R from '../../style/paragraph/P_14R'
@@ -31,6 +31,19 @@ export default function EmailAndPassword() {
     }))
   }
 
+  useEffect(() => {
+    const forceDownKeyboard = signupForm;
+    delete forceDownKeyboard.recommendCode;
+    let flag = true;
+    for(const inputs in forceDownKeyboard){  
+      if(signupForm[inputs].length < 10){
+        flag = false
+      }
+    }
+    if(flag){
+      Keyboard.dismiss();
+    }
+  },[signupForm])
 
   return (
 

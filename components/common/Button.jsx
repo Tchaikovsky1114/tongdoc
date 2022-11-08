@@ -8,8 +8,8 @@ export default function Button({onPress,text,buttonStyle,textStyle}) {
   return (
     
     <View style={styles.buttonBox}>
-    <Pressable onPress={onPress}>
-      <View style={[styles.button,buttonStyle]}>
+    <Pressable onPress={onPress} style={({pressed}) => [styles.button,buttonStyle,{backgroundColor: pressed ? 'rgba(200,255,255,0.2)' : 'rgb(45, 99, 226)'}]}>
+      <View>
         <Text style={[styles.buttonText,textStyle]}>{text}</Text>
       </View>
     </Pressable>
@@ -22,9 +22,10 @@ const styles = StyleSheet.create({
     width
   },
   button:{
+    flex:1,
     justifyContent:'center',
     alignItems:'center',
-    height:58
+    height:58,
   },
   buttonText:{
     fontFamily:'Noto400',

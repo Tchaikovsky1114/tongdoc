@@ -17,7 +17,7 @@ const OnBoarding = ({navigation}) => {
     <View style={styles.container}>
       <OnboardingCarousel />
       <View style={styles.moveSignupButtonBox}>
-        <Pressable onPress={onMoveSignupScreenHandler}>
+        <Pressable onPress={onMoveSignupScreenHandler} style={({pressed}) => [styles.moveSignupButton,{backgroundColor: pressed ? 'rgba(200,255,255,0.2)' : 'rgb(45, 99, 226)'}]}>
           <View style={styles.moveSignupButton}>
             <Text style={styles.moveSignupButtonText}>시작하기</Text>
           </View>
@@ -39,11 +39,10 @@ const styles = StyleSheet.create({
     position:'absolute',
     bottom:0,
     left:0,
-    
+    backgroundColor:'#2D63E2',
   },
   moveSignupButton:{
     flex:1,
-    backgroundColor:'#2D63E2',
     justifyContent:'center',
     alignItems:'center',
     height:58
