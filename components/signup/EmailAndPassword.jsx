@@ -4,6 +4,8 @@ import H4_24R from '../../style/H4_24R'
 import P_14R from '../../style/paragraph/P_14R'
 import CheckBox from '../common/CheckBox'
 import Button from '../common/Button'
+import Pressable from 'react-native/Libraries/Components/Pressable/Pressable'
+import P_16R from '../../style/paragraph/P_16R'
 
 
 export default function EmailAndPassword() {
@@ -28,24 +30,38 @@ export default function EmailAndPassword() {
       </View>
       <View style={styles.bottom}>
         <View style={styles.checkBoxGroup}>
+          <View style={styles.checkBoxInner}>
         <CheckBox style={{marginRight:8}} type="full" onPress={toggleTotalCheckHandler} totalCheck={totalCheck} setTotalCheck={setTotalCheck} />
-        <P_14R>전체동의</P_14R>
+        <P_16R>전체동의</P_16R>
         </View>
-        <View style={styles.checkBoxGroup}>
-          <CheckBox style={{marginRight:8}} type="non-outline" totalCheck={totalCheck} setTotalCheck={setTotalCheck}/>
-          <P_14R>(필수) 서비스 이용약관</P_14R>
         </View>
-        <View style={styles.checkBoxGroup}>
+        <View style={[styles.checkBoxGroup]}>
+          <View style={styles.checkBoxInner}>
+            <CheckBox style={{marginRight:8}} type="non-outline" totalCheck={totalCheck} setTotalCheck={setTotalCheck}/>
+            <P_14R>(필수) 서비스 이용약관</P_14R>
+          </View>
+          <Pressable><P_14R style={{color:'#999999',textDecorationLine:'underline'}}>상세보기</P_14R></Pressable>
+        </View>
+        <View style={[styles.checkBoxGroup]}>
+        <View style={styles.checkBoxInner}>
           <CheckBox style={{marginRight:8}} type="non-outline" totalCheck={totalCheck} setTotalCheck={setTotalCheck}/>
           <P_14R>(필수) 개인정보 수집 및 이용동의</P_14R>
+          </View>
+          <Pressable><P_14R style={{color:'#999999',textDecorationLine:'underline'}}>상세보기</P_14R></Pressable>
         </View>
-        <View style={styles.checkBoxGroup}>
+        <View style={[styles.checkBoxGroup]}>
+        <View style={styles.checkBoxInner}>
           <CheckBox style={{marginRight:8}} type="non-outline" totalCheck={totalCheck} setTotalCheck={setTotalCheck}/>
           <P_14R>(선택) 제3자 정보제공동의</P_14R>
+          </View>
+          <Pressable><P_14R style={{color:'#999999',textDecorationLine:'underline'}}>상세보기</P_14R></Pressable>
         </View>
-        <View style={styles.checkBoxGroup}>
+        <View style={[styles.checkBoxGroup]}>
+        <View style={styles.checkBoxInner}>
           <CheckBox style={{marginRight:8}} type="non-outline" totalCheck={totalCheck} setTotalCheck={setTotalCheck}/>
           <P_14R>(선택) 마케팅정보 활용 및 수신동의</P_14R>
+          </View>
+          <Pressable><P_14R style={{color:'#999999',textDecorationLine:'underline'}}>상세보기</P_14R></Pressable>
         </View>
       </View>
       </View>
@@ -81,7 +97,12 @@ const styles = StyleSheet.create({
     flexDirection:'row',
     rowGap:8,
     marginBottom:8,
-    alignItems:'center'
+    alignItems:'center',
+    justifyContent:'space-between'
   },
-  
+  checkBoxInner:{
+    flexDirection:'row',
+    alignItems:'center',
+    
+  }
 })
