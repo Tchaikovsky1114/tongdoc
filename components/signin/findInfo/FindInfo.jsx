@@ -1,4 +1,5 @@
 import { useNavigation } from "@react-navigation/native";
+import { useState } from "react";
 import {
   Pressable,
   ScrollView,
@@ -11,31 +12,61 @@ import H4_24R from "../../../style/H4_24R";
 import P_14M from "../../../style/paragraph/P_14M";
 import Input from "../../common/Input";
 const { width } = Dimensions.get("window");
-const FindMail = () => {
-  const navigation = useNavigation();
-  const tempHandler = () => {
-    navigation.navigate("Signin/FindPw");
+const FindInfo = (props) => {
+  const { id } = props;
+  const [selectTap, setSelectTap] = useState(id);
+
+  const selectEmail = () => {
+    setSelectTap("email");
   };
+  const selectPassword = () => {
+    setSelectTap("password");
+  };
+
   return (
     <View style={styles.container}>
       <ScrollView>
         <H4_24R style={styles.title}>{`이메일ㆍ비밀번호 찾기`}</H4_24R>
-        <View style={styles.tapBox}>
-          <View style={styles.tapWrapperSelect}>
-            <Pressable>
-              <P_14M style={styles.tapTextSelect}>이메일 찾기</P_14M>
-            </Pressable>
+        {selectTap === "email" ? (
+          <View style={styles.tapBox}>
+            <View style={styles.tapWrapperSelect}>
+              <Pressable onPress={selectEmail}>
+                <P_14M style={styles.tapTextSelect}>이메일 찾기</P_14M>
+              </Pressable>
+            </View>
+            <View style={styles.tapWrapper}>
+              <Pressable onPress={selectPassword}>
+                <P_14M style={styles.tapText}>비밀번호 찾기</P_14M>
+              </Pressable>
+            </View>
           </View>
-          <View style={styles.tapWrapper}>
-            <Pressable onPress={tempHandler}>
-              <P_14M style={styles.tapText}>비밀번호 찾기</P_14M>
-            </Pressable>
+        ) : (
+          <View style={styles.tapBox}>
+            <View style={styles.tapWrapper}>
+              <Pressable onPress={selectEmail}>
+                <P_14M style={styles.tapText}>이메일 찾기</P_14M>
+              </Pressable>
+            </View>
+            <View style={styles.tapWrapperSelect}>
+              <Pressable onPress={selectPassword}>
+                <P_14M style={styles.tapTextSelect}>비밀번호 찾기</P_14M>
+              </Pressable>
+            </View>
           </View>
-        </View>
-        <View style={styles.inputBox}>
-          <Input inputStyle={styles.inputMargin} placeholder="이름" />
-          <Input placeholder="휴대폰 번호 ( - 없이 숫자만 입력해 주세요.)" />
-        </View>
+        )}
+
+        {selectTap === "email" ? (
+          <View style={styles.inputBox}>
+            <Input inputStyle={styles.inputMargin} placeholder="이름" />
+            <Input placeholder="휴대폰 번호 ( - 없이 숫자만 입력해 주세요.)" />
+          </View>
+        ) : (
+          <View style={styles.inputBox}>
+            <Input inputStyle={styles.inputMargin} placeholder="이메일" />
+            <Input inputStyle={styles.inputMargin} placeholder="이름" />
+            <Input placeholder="휴대폰 번호 ( - 없이 숫자만 입력해 주세요.)" />
+          </View>
+        )}
       </ScrollView>
       <View style={styles.loginBtnBox}>
         <Pressable>
@@ -48,7 +79,7 @@ const FindMail = () => {
   );
 };
 
-export default FindMail;
+export default FindInfo;
 
 const styles = StyleSheet.create({
   screen: {
