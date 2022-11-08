@@ -1,4 +1,5 @@
 import { useNavigation } from "@react-navigation/native";
+import { useState } from "react";
 import {
   Dimensions,
   KeyboardAvoidingView,
@@ -11,12 +12,14 @@ import {
 import H4_24R from "../../style/H4_24R";
 import P_12R from "../../style/paragraph/P_12R";
 import Input from "../common/Input";
+import SigninModal from "./SigninModal/SigninModal";
 
 const { width } = Dimensions.get("window");
 
 const Signin = () => {
   const navigation = useNavigation();
-
+  const [isDisable, setIsDisable] = useState(true);
+  const [isVisible, setIsVisible] = useState(false);
   const moveFindEmail = () => {
     navigation.navigate("Signin/FindInfo", { id: "email" });
   };
@@ -26,6 +29,10 @@ const Signin = () => {
 
   const moveSignupPageHandler = () => {
     navigation.navigate("Signup/Certification");
+  };
+
+  const closeModalHandler = () => {
+    setIsVisible((prev) => !prev);
   };
 
   return (
@@ -50,13 +57,20 @@ const Signin = () => {
           </View>
         </KeyboardAvoidingView>
       </ScrollView>
-      <View style={styles.loginBtnBox}>
-        <Pressable>
+      <View style={isDisable ? styles.loginBtnBoxDisabled : styles.loginBtnBox}>
+        <Pressable disabled={isDisable}>
           <View style={styles.loginBtn}>
             <Text style={styles.loginBtnText}>로그인하기</Text>
           </View>
         </Pressable>
       </View>
+      <SigninModal
+        isVisible={isVisible}
+        firstInfoText={"이메일 주소나 비밀번호를"}
+        secondInfoText={"확인 후 다시 입력해 주세요."}
+        pressBtn={closeModalHandler}
+        btnText={"확인"}
+      />
     </View>
   );
 };
@@ -78,7 +92,7 @@ const styles = StyleSheet.create({
   },
   inputBox: {
     flex: 1,
-    marginBottom: 65.5,
+    marginBottom: 64,
   },
 
   inputMargin: {
@@ -111,6 +125,14 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
   },
+  loginBtnBoxDisabled: {
+    flex: 1,
+    width,
+    position: "absolute",
+    bottom: 0,
+    left: 0,
+    opacity: 0.5,
+  },
   loginBtn: {
     flex: 1,
     backgroundColor: "#2D63E2",
@@ -118,6 +140,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     height: 58,
   },
+
   loginBtnText: {
     fontFamily: "Noto500",
     color: "#FFFFFF",
