@@ -22,8 +22,7 @@ const SignupInput = forwardRef(
     },
     ref
   ) => {
-    const [isError, setIsError] = useState(false);
-    const [startValidation, setStartValidation] = useState(false);
+  
 
 
   const [isError,setIsError] = useState(null)
@@ -31,9 +30,7 @@ const SignupInput = forwardRef(
   const [isFocus, setIsFocus] = useState(false)
 
 
-    const isValidEmail = (email) => {
-      return /\S+@\S+\.\S+/.test(email);
-    };
+    
     useEffect(() => {
       if (!ref) return;
       const timer = setTimeout(() => {
