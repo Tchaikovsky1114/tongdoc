@@ -1,8 +1,7 @@
 import React, { useState,useRef } from 'react';
 import { Dimensions, View,StyleSheet,Text,ScrollView,Image } from 'react-native';
 import CircleIndicator from './CircleIndicator';
-import H1_30M from '../../style/H1_30M';
-import P_18R from '../../style/paragraph/P_18R';
+import H3_26M from '../../style/H3_26M';
 import P_20R from '../../style/paragraph/P_20R';
 
 const {width} = Dimensions.get('window');
@@ -52,11 +51,11 @@ const OnboardingCarousel = () => {
         <View key={item.num} style={[styles.carouselItem]}>
           
           <View style={styles.titleBox}>
-          <H1_30M style={styles.title}>{item.title}</H1_30M>
+          <H3_26M style={styles.title}>{item.title}</H3_26M>
           </View>
           
           <View style={styles.descriptionBox}>
-          <P_18R style={styles.description}>{item.description}</P_18R>
+          <P_20R style={styles.description}>{item.description}</P_20R>
           </View>
 
           <View style={styles.imageBox}>

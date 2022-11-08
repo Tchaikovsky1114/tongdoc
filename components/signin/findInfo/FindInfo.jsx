@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import H4_24R from "../../../style/H4_24R";
 import P_14M from "../../../style/paragraph/P_14M";
-import Input from "../../common/Input";
+import SigninInput from "../../common/SigninInput";
 import SigninModal from "../SigninModal/SigninModal";
 const { width } = Dimensions.get("window");
 const FindInfo = (props) => {
@@ -62,14 +62,14 @@ const FindInfo = (props) => {
 
         {selectTap === "email" ? (
           <View style={styles.inputBox}>
-            <Input inputStyle={styles.inputMargin} placeholder="이름" />
-            <Input placeholder="휴대폰 번호 ( - 없이 숫자만 입력해 주세요.)" />
+            <SigninInput inputStyle={styles.inputMargin} placeholder="이름" />
+            <SigninInput placeholder="휴대폰 번호 ( - 없이 숫자만 입력해 주세요.)" />
           </View>
         ) : (
           <View style={styles.inputBox}>
-            <Input inputStyle={styles.inputMargin} placeholder="이메일" />
-            <Input inputStyle={styles.inputMargin} placeholder="이름" />
-            <Input placeholder="휴대폰 번호 ( - 없이 숫자만 입력해 주세요.)" />
+            <SigninInput inputStyle={styles.inputMargin} placeholder="이메일" />
+            <SigninInput inputStyle={styles.inputMargin} placeholder="이름" />
+            <SigninInput placeholder="휴대폰 번호 ( - 없이 숫자만 입력해 주세요.)" />
           </View>
         )}
       </ScrollView>

@@ -211,6 +211,6 @@ const styles = StyleSheet.create({
   buttonText: {
     fontFamily: "Noto500",
     color: "#fff",
-    fontSize: 18,
+    fontSize: 17,
   },
 });

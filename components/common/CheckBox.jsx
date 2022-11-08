@@ -21,6 +21,7 @@ export default function CheckBox({type,style,onPress,totalCheck,setTotalCheck}) 
   },[totalCheck])
   
 
+
   
   if(type === 'full')
   return ( 
