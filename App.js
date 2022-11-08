@@ -1,36 +1,37 @@
 import { useEffect, useState, useCallback } from "react";
 import { View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { enableScreens } from "react-native-screens";
+import { RecoilRoot } from "recoil";
+
+import "react-native-gesture-handler";
+
+import * as Font from "expo-font";
+import * as SplashScreen from "expo-splash-screen";
+import * as Notification from "expo-notifications";
+
+import Splash from "./components/Splash";
 import OnBoarding from "./components/onboarding/OnBoarding";
+import HomeScreen from "./screens/HomeScreen";
 import SignupPage from "./screens/SignupPage";
 import SigninPage from "./screens/SigninPage";
-import HomeScreen from "./screens/HomeScreen";
-
-import { createNativeStackNavigator, } from '@react-navigation/native-stack';
-import {enableScreens} from 'react-native-screens'
-import Splash from './components/Splash';
-import * as Font from 'expo-font';
-import * as SplashScreen from 'expo-splash-screen'
-import * as Notification from 'expo-notifications'
-import 'react-native-gesture-handler'
-import CertificationScreen from './screens/CertificationScreen';
-import CertificationResult from './components/certification/CertificationResult';
-import CertificationInProgress from './components/certification/CertificationInProgress';
-import { RecoilRoot } from 'recoil';
-import ChoiceSignMethod from './components/signup/ChoiceSignMethod';
-import TestKim from "./components/testmin/TestMin";
 import EmailAndPassword from "./components/signup/EmailAndPassword";
+import CertificationScreen from "./screens/CertificationScreen";
+import CertificationResult from "./components/certification/CertificationResult";
+import CertificationInProgress from "./components/certification/CertificationInProgress";
+import ChoiceSignMethod from "./components/signup/ChoiceSignMethod";
 
 enableScreens();
 const Stack = createNativeStackNavigator();
 
 Notification.setNotificationHandler({
   handleNotification: async () => ({
-    shouldShowAlert:true,
-    shouldPlaySound:false,
-    shouldSetBadge:false,
-  })
-})
+    shouldShowAlert: true,
+    shouldPlaySound: false,
+    shouldSetBadge: false,
+  }),
+});
 
 export default function App() {
   const [appIsReady, setAppIsReady] = useState(false);
@@ -79,6 +80,7 @@ export default function App() {
           <Stack.Screen name="Splash" component={Splash}  />
           <Stack.Screen name="OnBoarding" component={OnBoarding} /> 
           </Stack.Group>
+
           <Stack.Screen name="Home" component={HomeScreen} options={{title:''}} />
           <Stack.Screen name="Signup" component={SignupPage} options={{title:''}} />
           <Stack.Screen name="Signup/Certification" component={CertificationScreen} options={{title:''}} />
@@ -87,9 +89,7 @@ export default function App() {
           <Stack.Screen name="Signup/CertificationResult" component={CertificationResult} options={{title:''}} />
           <Stack.Screen name="Signup/EmailAndPassword" component={EmailAndPassword} options={{title:''}} />
           <Stack.Screen name="Signin" component={SigninPage} />   
-          {/* 김민영 테스트용 시작 */}
-          <Stack.Screen name="TestKim" component={TestKim} />
-          {/* 김민영 테스트용 끝 */}
+          
         </Stack.Navigator>
       </NavigationContainer>
       </View>

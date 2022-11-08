@@ -1,10 +1,17 @@
 import {TextInput, StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import React,{useState} from 'react'
 import H4_24R from '../../style/H4_24R'
 import P_14R from '../../style/paragraph/P_14R'
+import CheckBox from '../common/CheckBox'
+import Button from '../common/Button'
 
 
 export default function EmailAndPassword() {
+  const [totalCheck,setTotalCheck] = useState(false)
+
+  const toggleTotalCheckHandler = () => {
+    setTotalCheck(prev => !prev)
+  }
   return (
     <View style={styles.container}> 
     <View style={styles.inner}>
@@ -20,13 +27,29 @@ export default function EmailAndPassword() {
 
       </View>
       <View style={styles.bottom}>
-        <Text>전체동의</Text>
-        <Text>필수</Text>
-        <Text>필수</Text>
-        <Text>선택</Text>
-        <Text>선택</Text>
+        <View style={styles.checkBoxGroup}>
+        <CheckBox style={{marginRight:8}} type="full" onPress={toggleTotalCheckHandler} totalCheck={totalCheck} setTotalCheck={setTotalCheck} />
+        <P_14R>전체동의</P_14R>
+        </View>
+        <View style={styles.checkBoxGroup}>
+          <CheckBox style={{marginRight:8}} type="non-outline" totalCheck={totalCheck} setTotalCheck={setTotalCheck}/>
+          <P_14R>(필수) 서비스 이용약관</P_14R>
+        </View>
+        <View style={styles.checkBoxGroup}>
+          <CheckBox style={{marginRight:8}} type="non-outline" totalCheck={totalCheck} setTotalCheck={setTotalCheck}/>
+          <P_14R>(필수) 개인정보 수집 및 이용동의</P_14R>
+        </View>
+        <View style={styles.checkBoxGroup}>
+          <CheckBox style={{marginRight:8}} type="non-outline" totalCheck={totalCheck} setTotalCheck={setTotalCheck}/>
+          <P_14R>(선택) 제3자 정보제공동의</P_14R>
+        </View>
+        <View style={styles.checkBoxGroup}>
+          <CheckBox style={{marginRight:8}} type="non-outline" totalCheck={totalCheck} setTotalCheck={setTotalCheck}/>
+          <P_14R>(선택) 마케팅정보 활용 및 수신동의</P_14R>
+        </View>
       </View>
       </View>
+      <Button onPress={() => {console.log('clicked')}} text="확인" buttonStyle={{backgroundColor:'#2D63E2'}} textStyle={{color:'#fff'}} />
     </View>
   )
 }
@@ -53,5 +76,12 @@ const styles = StyleSheet.create({
   subTitle:{
     color:'#666666',
     marginTop:16
-  }
+  },
+  checkBoxGroup:{
+    flexDirection:'row',
+    rowGap:8,
+    marginBottom:8,
+    alignItems:'center'
+  },
+  
 })
