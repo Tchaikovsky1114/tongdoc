@@ -11,10 +11,13 @@ import {
 import H4_24R from "../../../style/H4_24R";
 import P_14M from "../../../style/paragraph/P_14M";
 import Input from "../../common/Input";
+import SigninModal from "../SigninModal/SigninModal";
 const { width } = Dimensions.get("window");
 const FindInfo = (props) => {
   const { id } = props;
   const [selectTap, setSelectTap] = useState(id);
+  const [isVisible, setIsVisible] = useState(false);
+  const [isDisable, setIsDisable] = useState(true);
 
   const selectEmail = () => {
     setSelectTap("email");
@@ -22,7 +25,9 @@ const FindInfo = (props) => {
   const selectPassword = () => {
     setSelectTap("password");
   };
-
+  const closeModalHandler = () => {
+    setIsVisible((prev) => !prev);
+  };
   return (
     <View style={styles.container}>
       <ScrollView>
@@ -68,13 +73,30 @@ const FindInfo = (props) => {
           </View>
         )}
       </ScrollView>
-      <View style={styles.loginBtnBox}>
-        <Pressable>
+      <View style={isDisable ? styles.loginBtnBoxDisabled : styles.loginBtnBox}>
+        <Pressable disabled={isDisable}>
           <View style={styles.loginBtn}>
             <Text style={styles.loginBtnText}>확인</Text>
           </View>
         </Pressable>
       </View>
+      {selectTap === "email" ? (
+        <SigninModal
+          isVisible={isVisible}
+          firstInfoText={"이메일 주소가"}
+          secondInfoText={"문자로 발송되었습니다."}
+          pressBtn={closeModalHandler}
+          btnText={"로그인하기"}
+        />
+      ) : (
+        <SigninModal
+          isVisible={isVisible}
+          firstInfoText={"임시 비밀번호가"}
+          secondInfoText={"문자로 발송되었습니다."}
+          pressBtn={closeModalHandler}
+          btnText={"로그인하기"}
+        />
+      )}
     </View>
   );
 };
@@ -135,6 +157,14 @@ const styles = StyleSheet.create({
     position: "absolute",
     bottom: 0,
     left: 0,
+  },
+  loginBtnBoxDisabled: {
+    flex: 1,
+    width,
+    position: "absolute",
+    bottom: 0,
+    left: 0,
+    opacity: 0.5,
   },
   loginBtn: {
     flex: 1,
