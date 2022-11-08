@@ -1,19 +1,15 @@
-import {
-  TextInput,
-  StyleSheet,
-  Text,
-  View,
-  KeyboardAvoidingView,
-  ScrollView,
-} from "react-native";
-import React, { useState, useRef, useEffect } from "react";
-import H4_24R from "../../style/H4_24R";
-import P_14R from "../../style/paragraph/P_14R";
-import CheckBox from "../common/CheckBox";
-import Button from "../common/Button";
-import Pressable from "react-native/Libraries/Components/Pressable/Pressable";
-import P_16R from "../../style/paragraph/P_16R";
-import SignupInput from "../common/SignupInput";
+
+import {TextInput, StyleSheet, Text, View,KeyboardAvoidingView,ScrollView,Keyboard } from 'react-native'
+import React,{useState,useRef,useEffect} from 'react'
+import H4_24R from '../../style/H4_24R'
+import P_14R from '../../style/paragraph/P_14R'
+import CheckBox from '../common/CheckBox'
+import Button from '../common/Button'
+import Pressable from 'react-native/Libraries/Components/Pressable/Pressable'
+import P_16R from '../../style/paragraph/P_16R'
+import SignupInput from '../common/SignupInput'
+
+
 
 export default function EmailAndPassword() {
   const [totalCheck, setTotalCheck] = useState(false);
@@ -29,15 +25,21 @@ export default function EmailAndPassword() {
     setTotalCheck((prev) => !prev);
   };
 
-  const changeSignupFormHandler = (e, name) => {
-    const {
-      nativeEvent: { text },
-    } = e;
-    setSignupForm((prev) => ({
-      ...prev,
-      [name]: text,
-    }));
-  };
+
+  useEffect(() => {
+    const forceDownKeyboard = signupForm;
+    delete forceDownKeyboard.recommendCode;
+    let flag = true;
+    for(const inputs in forceDownKeyboard){  
+      if(signupForm[inputs].length < 10){
+        flag = false
+      }
+    }
+    if(flag){
+      Keyboard.dismiss();
+    }
+  },[signupForm])
+
 
   return (
     <View style={styles.container}>

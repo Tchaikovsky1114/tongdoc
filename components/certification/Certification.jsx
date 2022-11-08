@@ -29,7 +29,7 @@ export default function Certification() {
       </View>
 
       <View style={styles.buttonBox}>
-        <Pressable onPress={getCertificationHandler}>
+        <Pressable onPress={getCertificationHandler} style={({pressed}) => [styles.button,{backgroundColor: pressed ? 'rgba(45, 99, 226,0.8)' : 'rgb(45, 99, 226)'}]}>
           <View style={styles.button}>
             <Text style={styles.buttonText}>인증하기</Text>
           </View>
@@ -78,7 +78,6 @@ const styles = StyleSheet.create({
   },
   button:{
     flex:1,
-    backgroundColor:'#2D63E2',
     justifyContent:'center',
     alignItems:'center',
     height:58

@@ -137,7 +137,7 @@ export default function Signup() {
         </View>
 
         <View style={styles.noticeBox}>
-          <P_14R style={{ color: "#666666" }}>
+          <P_14R style={{ color: "#999999" }}>
             각 선택 권한을 허용하지 않아도 앱 사용이 가능하지만 일부 서비스
             이용은 제한될 수 있습니다.
           </P_14R>
@@ -173,13 +173,13 @@ const styles = StyleSheet.create({
   },
   headingBox: {
     marginTop: 24,
-    flex: 0.1,
+    flex: 1,
   },
   choiceAuthorityBox: {
-    flex: 1,
-    justifyContent: "center",
+    flex: 6,
+    justifyContent: "flex-start",
     alignItems: "flex-start",
-    marginTop: -40,
+    
   },
   choiceAuthorityImage: {
     width: 307,
@@ -190,10 +190,11 @@ const styles = StyleSheet.create({
     marginBottom: 24,
   },
   noticeBox: {
-    flex: 1,
+    flex: 3,
     maxWidth: 366,
     alignItems: "center",
-    justifyContent: "flex-start",
+    justifyContent: "center",
+    marginBottom:16
   },
   buttonBox: {
     width,
