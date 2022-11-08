@@ -11,7 +11,7 @@ import {
 } from "react-native";
 import H4_24R from "../../style/H4_24R";
 import P_12R from "../../style/paragraph/P_12R";
-import Input from "../common/Input";
+import SigninInput from "../common/SigninInput";
 import SigninModal from "./SigninModal/SigninModal";
 
 const { width } = Dimensions.get("window");
@@ -41,8 +41,17 @@ const Signin = () => {
         <KeyboardAvoidingView style={styles.screen} behavior="position">
           <H4_24R style={styles.title}>{"로그인"}</H4_24R>
           <View style={styles.inputBox}>
-            <Input inputStyle={styles.inputMargin} placeholder="이메일" />
-            <Input placeholder="비밀번호" />
+            <SigninInput
+              type="email"
+              inputStyle={styles.inputMargin}
+              placeholder="이메일"
+              autoCapitalize="none"
+            />
+            <SigninInput
+              type="password"
+              placeholder="비밀번호"
+              autoCapitalize="none"
+            />
           </View>
           <View style={styles.findBox}>
             <Pressable onPress={moveFindEmail}>

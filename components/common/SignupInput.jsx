@@ -1,12 +1,46 @@
+
 import { StyleSheet, Text, TextInput } from 'react-native'
 import React,{useRef,useState,useEffect,forwardRef} from 'react'
 import { IgnorePattern } from 'react-native/Libraries/LogBox/LogBox'
 
-const SignupInput = forwardRef(({type,style,value,clearButtonMode,autoCapitalize,placeholder,keyboardType,onChange,errorText,clearTextOnFocus,secureTextEntry,maxLength},ref) => {
+
+const SignupInput = forwardRef(
+  (
+    {
+      type,
+      style,
+      value,
+      clearButtonMode,
+      autoCapitalize,
+      placeholder,
+      keyboardType,
+      onChange,
+      errorText,
+      clearTextOnFocus,
+      secureTextEntry,
+      maxLength,
+    },
+    ref
+  ) => {
+    const [isError, setIsError] = useState(false);
+    const [startValidation, setStartValidation] = useState(false);
+
 
   const [isError,setIsError] = useState(null)
   const [startValidation,setStartValidation] = useState(null)
   const [isFocus, setIsFocus] = useState(false)
+
+
+    const isValidEmail = (email) => {
+      return /\S+@\S+\.\S+/.test(email);
+    };
+    useEffect(() => {
+      if (!ref) return;
+      const timer = setTimeout(() => {
+        ref.current.focus();
+      }, 100);
+      return () => clearTimeout(timer);
+    }, []);
 
 
   const startValidationHandler = () => { 
@@ -51,15 +85,17 @@ const SignupInput = forwardRef(({type,style,value,clearButtonMode,autoCapitalize
     </>
   )
 })
+
 export default SignupInput;
 
 const styles = StyleSheet.create({
-  errorText:{
-    marginTop:-30,
-    fontFamily:'Noto400',
-    fontSize:12,
-    marginBottom:8
+  errorText: {
+    marginTop: -30,
+    fontFamily: "Noto400",
+    fontSize: 12,
+    marginBottom: 8,
   },
+
   input:{
     fontFamily:'Noto400',
     fontSize:14,
@@ -70,5 +106,6 @@ const styles = StyleSheet.create({
     marginBottom:24,
     color:'#ddd',
     includeFontPadding:false
+
   },
-})
+});
