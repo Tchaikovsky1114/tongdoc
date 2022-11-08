@@ -116,8 +116,16 @@ export default function App() {
               component={EmailAndPassword}
               options={{ title: "" }}
             />
-            <Stack.Screen name="Signin" component={SigninPage} />
-            <Stack.Screen name="Signin/FindInfo" component={FindInfoPage} />
+            <Stack.Screen
+              name="Signin"
+              component={SigninPage}
+              options={{ title: "", headerBackVisible: false }}
+            />
+            <Stack.Screen
+              name="Signin/FindInfo"
+              component={FindInfoPage}
+              options={{ title: "" }}
+            />
           </Stack.Navigator>
         </NavigationContainer>
       </View>
