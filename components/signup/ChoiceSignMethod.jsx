@@ -37,6 +37,11 @@ export default function ChoiceSignMethod() {
       </View>
 
       </View>
+      <View style={{width:200,height:200}}>
+      <Pressable onPress={() => navigation.navigate('Signup/CertificationResult')}>
+      <View style={{width:200,height:200}}><Text style={{color:'#000'}}>EmailAndPassword</Text></View>
+      </Pressable>
+      </View>
     </View>
   )
 }

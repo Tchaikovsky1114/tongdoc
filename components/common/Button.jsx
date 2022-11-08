@@ -22,13 +22,12 @@ const styles = StyleSheet.create({
     width
   },
   button:{
-    flex:1,
-    backgroundColor:'#2D63E2',
     justifyContent:'center',
     alignItems:'center',
-    height:50
+    height:58
   },
   buttonText:{
     fontFamily:'Noto400',
+    color:"#fff"
   },
 })

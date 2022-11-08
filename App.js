@@ -1,25 +1,27 @@
 import { useEffect, useState, useCallback } from "react";
 import { View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
-import OnBoarding from "./components/onboarding/OnBoarding";
-import SignupPage from "./screens/SignupPage";
-import SigninPage from "./screens/SigninPage";
-import HomeScreen from "./screens/HomeScreen";
-
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { enableScreens } from "react-native-screens";
-import Splash from "./components/Splash";
+import { RecoilRoot } from "recoil";
+
+import "react-native-gesture-handler";
+
 import * as Font from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import * as Notification from "expo-notifications";
-import "react-native-gesture-handler";
+
+import Splash from "./components/Splash";
+import OnBoarding from "./components/onboarding/OnBoarding";
+import HomeScreen from "./screens/HomeScreen";
+import SignupPage from "./screens/SignupPage";
+import SigninPage from "./screens/SigninPage";
+import EmailAndPassword from "./components/signup/EmailAndPassword";
 import CertificationScreen from "./screens/CertificationScreen";
 import CertificationResult from "./components/certification/CertificationResult";
 import CertificationInProgress from "./components/certification/CertificationInProgress";
-import { RecoilRoot } from "recoil";
 import ChoiceSignMethod from "./components/signup/ChoiceSignMethod";
-import FindMailPage from "./screens/FindMail";
-import FindPwPage from "./screens/FindPw";
+import FindInfoPage from "./screens/FindInfo";
 
 enableScreens();
 const Stack = createNativeStackNavigator();
@@ -71,18 +73,13 @@ export default function App() {
             screenOptions={{
               animation: "slide_from_right",
               headerShadowVisible: false,
+              headerBackImageSource: require("./assets/common/back_arrow.png"),
             }}
           >
-            <Stack.Screen
-              name="Splash"
-              component={Splash}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="OnBoarding"
-              component={OnBoarding}
-              options={{ headerShown: false }}
-            />
+            <Stack.Group screenOptions={{ headerShown: false }}>
+              <Stack.Screen name="Splash" component={Splash} />
+              <Stack.Screen name="OnBoarding" component={OnBoarding} />
+            </Stack.Group>
 
             <Stack.Screen
               name="Home"
@@ -115,20 +112,12 @@ export default function App() {
               options={{ title: "" }}
             />
             <Stack.Screen
-              name="Signin"
-              component={SigninPage}
+              name="Signup/EmailAndPassword"
+              component={EmailAndPassword}
               options={{ title: "" }}
             />
-            <Stack.Screen
-              name="Signin/FindMail"
-              component={FindMailPage}
-              options={{ title: "" }}
-            />
-            <Stack.Screen
-              name="Signin/FindPw"
-              component={FindPwPage}
-              options={{ title: "" }}
-            />
+            <Stack.Screen name="Signin" component={SigninPage} />
+            <Stack.Screen name="Signin/FindInfo" component={FindInfoPage} />
           </Stack.Navigator>
         </NavigationContainer>
       </View>

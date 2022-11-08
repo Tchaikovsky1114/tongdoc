@@ -1,3 +1,4 @@
+
 import {
   Dimensions,
   Pressable,
@@ -6,8 +7,10 @@ import {
   View,
   Image,
   Platform,
+  ActivityIndicator
 } from "react-native";
-import React from "react";
+
+import React,{useState} from "react";
 import H4_24R from "../../style/H4_24R";
 import P_14R from "../../style/paragraph/P_14R";
 import * as Contacts from "expo-contacts";
@@ -28,8 +31,11 @@ const { width } = Dimensions.get("window");
 
 export default function Signup() {
   const navigation = useNavigation();
+  const [isLoading,setIsLoading] = useState(false)
+
   const getAuthorityPressHandler = async () => {
     let allGrantedPermission = false;
+    setIsLoading(true)
     try {
       const { status } = await Contacts.requestPermissionsAsync();
       if (status === "granted") {
@@ -106,10 +112,13 @@ export default function Signup() {
     } catch (err) {
       console.error(err);
       allGrantedPermission = false;
-    } finally {
-      console.log("allGrantedPermission", allGrantedPermission);
-      navigation.navigate("Signup/ChoiceSignMethod");
-    }
+
+    }finally{
+      console.log('allGrantedPermission', allGrantedPermission);
+      navigation.navigate('Signup/ChoiceSignMethod')
+      setIsLoading(false)
+
+    } 
   };
 
   return (
@@ -136,11 +145,17 @@ export default function Signup() {
       </View>
 
       <View style={styles.buttonBox}>
-        <Pressable onPress={getAuthorityPressHandler}>
+        
+      {isLoading ?
+          <View style={[styles.button,{opacity:0.8}]}>
+          <ActivityIndicator size="large" color="#00ff00" />
+          </View>
+          : <Pressable onPress={getAuthorityPressHandler}>
           <View style={styles.button}>
             <Text style={styles.buttonText}>확인</Text>
-          </View>
-        </Pressable>
+          </View> 
+          </Pressable>
+          }
       </View>
     </View>
   );
