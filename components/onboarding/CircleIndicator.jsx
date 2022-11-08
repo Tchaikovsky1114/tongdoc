@@ -10,7 +10,6 @@ const CircleIndicator = ({ item, pressScrollXHandler }) => {
         <View
           style={[
             styles.circle,
-            item.num < 1 ? styles.nextCircle : styles.circle,
             item.num === 1 && styles.activeCircle,
           ]}
         ></View>
@@ -19,7 +18,6 @@ const CircleIndicator = ({ item, pressScrollXHandler }) => {
         <View
           style={[
             styles.circle,
-            item.num < 2 ? styles.nextCircle : styles.circle,
             item.num === 2 && styles.activeCircle,
           ]}
         ></View>
@@ -28,7 +26,6 @@ const CircleIndicator = ({ item, pressScrollXHandler }) => {
         <View
           style={[
             styles.circle,
-            item.num < 3 ? styles.nextCircle : styles.circle,
             item.num === 3 && styles.activeCircle,
           ]}
         ></View>
@@ -37,7 +34,6 @@ const CircleIndicator = ({ item, pressScrollXHandler }) => {
         <View
           style={[
             styles.circle,
-            item.num < 4 ? styles.nextCircle : styles.circle,
             item.num === 4 && styles.activeCircle,
           ]}
         ></View>

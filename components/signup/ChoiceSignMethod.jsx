@@ -24,7 +24,7 @@ export default function ChoiceSignMethod() {
       <View style={{marginTop:40}}>
 
       <Pressable onPress={moveSigninPageHandler} >
-      <View style={[styles.button,{backgroundColor:'#2d63e2',borderRadius:8,marginBottom:24}]}>
+      <View style={[styles.button,{backgroundColor:'#2d63e2',borderColor:'#2d63e2',borderRadius:8,marginBottom:24}]}>
         <View><Text style={[styles.buttonTitle,{color:'#fff'}]}>로그인</Text></View>
       </View>
       </Pressable>
@@ -63,7 +63,6 @@ const styles = StyleSheet.create({
     alignItems:'center',
     height:50,
     borderWidth:1,
-    borderColor:'#ccc'
   },
   buttonTitle:{
     textAlign:'center',

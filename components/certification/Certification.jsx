@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View,Image,Pressable,Dimensions } from 'react-native'
 import React from 'react'
-import H3_26R from '../../style/H3_26R'
+import H4_24R from '../../style/H4_24R'
 import P_14R from '../../style/paragraph/P_14R'
 
 import { useNavigation } from '@react-navigation/native';
@@ -20,7 +20,7 @@ export default function Certification() {
     <View style={styles.container}>
       <View style={styles.inner}>
         <View style={styles.titleBox}>
-        <H3_26R style={styles.title}>휴대폰 본인확인</H3_26R>
+        <H4_24R style={styles.title}>본인 인증을 진행해 주세요.</H4_24R>
         <P_14R style={styles.description}>정보보호를 위해 본인 명의의 휴대폰으로 진행해 주세요.</P_14R>
         </View>
         <View style={styles.imageBox}>
@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
   },
   description:{
     marginTop:16,
-    color:'#333333'
+    color:'#666666'
   },
   image:{
     width: 118.08,
@@ -86,6 +86,6 @@ const styles = StyleSheet.create({
   buttonText:{
     fontFamily:'Noto500',
     color:'#fff',
-    fontSize:18
+    fontSize:17
   },
 })

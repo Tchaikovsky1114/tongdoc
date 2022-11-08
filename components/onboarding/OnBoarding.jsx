@@ -51,6 +51,6 @@ const styles = StyleSheet.create({
   moveSignupButtonText:{
     fontFamily:'Noto500',
     color:'#fff',
-    fontSize:18
+    fontSize:17
   },
 })
