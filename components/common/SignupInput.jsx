@@ -44,6 +44,8 @@ const SignupInput = forwardRef(({type,style,value,clearButtonMode,autoCapitalize
     }
   },[value])
 
+
+
   return (
     <>
     <TextInput onFocus={endValidationHandler} placeholderTextColor={isFocus ? '#ddd' : '#666'} style={[styles.input,{borderColor:(isError && startValidation) ? 'red' : isFocus ? '#2D63E2' : '#ddd'}]} ref={ref ? ref : null} value={value} clearButtonMode={clearButtonMode ? clearButtonMode : 'never'} maxLength={maxLength ? maxLength : 30 } secureTextEntry={secureTextEntry ? secureTextEntry : false} clearTextOnFocus={clearTextOnFocus ? true : false} autoCapitalize={autoCapitalize} placeholder={placeholder} cursorColor={(isError && startValidation) ? 'red' : '#2D63E2'} keyboardType={keyboardType} onChange={onChange} onBlur={startValidationHandler}  />
@@ -68,7 +70,8 @@ const styles = StyleSheet.create({
     height:30,
     borderColor: '#999999',
     marginBottom:24,
-    color:'#ddd',
-    includeFontPadding:false
+    color:'#333',
+    includeFontPadding:false,
+    paddingBottom:8
   },
 })

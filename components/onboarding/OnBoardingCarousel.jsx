@@ -1,4 +1,4 @@
-import React, { useState,useRef } from 'react';
+import React, { useState,useRef, useEffect } from 'react';
 import { Dimensions, View,StyleSheet,Text,ScrollView,Image } from 'react-native';
 import CircleIndicator from './CircleIndicator';
 import H3_26M from '../../style/H3_26M';
@@ -38,34 +38,41 @@ const PAGES = [
 
 const OnboardingCarousel = () => {
   const carouselRef = useRef(null);
-
+  const [currentPageNumber,setCurrentPageNumber] = useState(1)
+  
   const pressScrollXHandler = (times) => {
     carouselRef.current.scrollTo({x: width * times})
+    setCurrentPageNumber(times + 1);
   }
 
+ const scrollHandler = (e) => {
+  const {nativeEvent:{contentOffset:{x}}} = e;
+  setCurrentPageNumber(Math.round(x / width) + 1);
+ }
+ 
+  
   return (
   <>
-    <ScrollView ref={carouselRef} pagingEnabled horizontal contentContainerStyle={styles.carousel} showHorizontalScrollIndicator={false} >
+    <ScrollView ref={carouselRef} pagingEnabled horizontal contentContainerStyle={styles.carousel} showHorizontalScrollIndicator={false} onScroll={scrollHandler} scrollEventThrottle={300} >
       
       {PAGES.map((item,index) => (
         <View key={item.num} style={[styles.carouselItem]}>
-          
           <View style={styles.titleBox}>
           <H3_26M style={styles.title}>{item.title}</H3_26M>
           </View>
-          
           <View style={styles.descriptionBox}>
           <P_20R style={styles.description}>{item.description}</P_20R>
           </View>
-
           <View style={styles.imageBox}>
           <Image style={styles.onBoardingImage} source={item.imageURL} />
-          <CircleIndicator item={item} pressScrollXHandler={pressScrollXHandler} />
           </View>
-          
         </View>
       ))}
+      
     </ScrollView>
+    <View style={styles.indicatorBox}>
+    <CircleIndicator currentPageNumber={currentPageNumber} pressScrollXHandler={pressScrollXHandler} />
+    </View>
     </>
   )
 };
@@ -107,5 +114,11 @@ const styles = StyleSheet.create({
   onBoardingImage:{
     width:188.67,
     height:240
+  },
+  indicatorBox:{
+    flex:0,
+    backgroundColor:'#fff',
+    justifyContent:'center',
+    alignItems:'center' 
   }
 })

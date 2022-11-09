@@ -12,6 +12,7 @@ import {
 
 import React,{useState} from "react";
 import H4_24R from "../../style/H4_24R";
+import P_12R from "../../style/paragraph/P_12R";
 import P_14R from "../../style/paragraph/P_14R";
 import * as Contacts from "expo-contacts";
 import * as Notifications from "expo-notifications";
@@ -125,7 +126,7 @@ export default function Signup() {
     <View style={styles.container}>
       <View style={styles.inner}>
         <View style={styles.headingBox}>
-          <H4_24R>앱 접근 권한을 허용해 주세요</H4_24R>
+          <H4_24R>앱 접근 권한을 허용해 주세요.</H4_24R>
         </View>
 
         <View style={styles.choiceAuthorityBox}>
