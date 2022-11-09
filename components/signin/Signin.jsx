@@ -1,5 +1,5 @@
 import { useNavigation } from "@react-navigation/native";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Dimensions,
   KeyboardAvoidingView,
@@ -11,15 +11,36 @@ import {
 } from "react-native";
 import H4_24R from "../../style/H4_24R";
 import P_12R from "../../style/paragraph/P_12R";
-import Input from "../common/Input";
+import SigninInput from "../common/SigninInput";
 import SigninModal from "./SigninModal/SigninModal";
 
 const { width } = Dimensions.get("window");
 
 const Signin = () => {
   const navigation = useNavigation();
-  const [isDisable, setIsDisable] = useState(true);
+  const [isDisable, setIsDisable] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
+  const [signinForm, setSigninForm] = useState({
+    email: "",
+    password: "",
+  });
+
+  const emailHandler = (inputWrite) => {
+    setSigninForm((prev) => ({
+      ...prev,
+      email: inputWrite,
+    }));
+  };
+  const passwordHandler = (inputPassword) => {
+    setSigninForm((prev) => ({
+      ...prev,
+      password: inputPassword,
+    }));
+  };
+  useEffect(() => {
+    setIsDisable((prev) => !prev);
+  }, [signinForm.email && signinForm.password]);
+
   const moveFindEmail = () => {
     navigation.navigate("Signin/FindInfo", { id: "email" });
   };
@@ -41,8 +62,19 @@ const Signin = () => {
         <KeyboardAvoidingView style={styles.screen} behavior="position">
           <H4_24R style={styles.title}>{"로그인"}</H4_24R>
           <View style={styles.inputBox}>
-            <Input inputStyle={styles.inputMargin} placeholder="이메일" />
-            <Input placeholder="비밀번호" />
+            <SigninInput
+              type="email"
+              inputStyle={styles.inputMargin}
+              placeholder="이메일"
+              autoCapitalize="none"
+              onChangeInput={emailHandler}
+            />
+            <SigninInput
+              type="password"
+              placeholder="비밀번호"
+              autoCapitalize="none"
+              onChangeInput={passwordHandler}
+            />
           </View>
           <View style={styles.findBox}>
             <Pressable onPress={moveFindEmail}>
