@@ -2,9 +2,10 @@ import { forwardRef, useState } from "react";
 import { StyleSheet, TextInput } from "react-native";
 
 const SigninInput = (
-  { type, inputStyle, placeholder, autoCapitalize },
+  { type, inputStyle, placeholder, autoCapitalize, onChangeInput },
   ref
 ) => {
+  // console.log(id, "1");
   const [isFocus, setIsFocus] = useState(false);
 
   const focusHandler = () => {
@@ -27,6 +28,7 @@ const SigninInput = (
       cursorColor={"#2D63E2"}
       onFocus={focusHandler}
       onBlur={blurHandler}
+      onChangeText={onChangeInput}
     />
   );
 };

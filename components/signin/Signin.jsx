@@ -1,5 +1,5 @@
 import { useNavigation } from "@react-navigation/native";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Dimensions,
   KeyboardAvoidingView,
@@ -18,8 +18,29 @@ const { width } = Dimensions.get("window");
 
 const Signin = () => {
   const navigation = useNavigation();
-  const [isDisable, setIsDisable] = useState(true);
+  const [isDisable, setIsDisable] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
+  const [signinForm, setSigninForm] = useState({
+    email: "",
+    password: "",
+  });
+
+  const emailHandler = (inputWrite) => {
+    setSigninForm((prev) => ({
+      ...prev,
+      email: inputWrite,
+    }));
+  };
+  const passwordHandler = (inputPassword) => {
+    setSigninForm((prev) => ({
+      ...prev,
+      password: inputPassword,
+    }));
+  };
+  useEffect(() => {
+    setIsDisable((prev) => !prev);
+  }, [signinForm.email && signinForm.password]);
+
   const moveFindEmail = () => {
     navigation.navigate("Signin/FindInfo", { id: "email" });
   };
@@ -46,11 +67,13 @@ const Signin = () => {
               inputStyle={styles.inputMargin}
               placeholder="이메일"
               autoCapitalize="none"
+              onChangeInput={emailHandler}
             />
             <SigninInput
               type="password"
               placeholder="비밀번호"
               autoCapitalize="none"
+              onChangeInput={passwordHandler}
             />
           </View>
           <View style={styles.findBox}>
