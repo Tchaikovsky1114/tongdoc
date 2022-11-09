@@ -9,6 +9,9 @@ import {
   Text,
   View,
 } from "react-native";
+import { useRecoilState } from "recoil";
+import apis from "../../api/api";
+import { signinSelector } from "../../store/signup";
 import H4_24R from "../../style/H4_24R";
 import P_12R from "../../style/paragraph/P_12R";
 import SigninInput from "../common/SigninInput";
@@ -25,6 +28,8 @@ const Signin = () => {
     password: "",
   });
 
+  const [test1, setTest1] = useRecoilState(signinSelector);
+
   const emailHandler = (inputWrite) => {
     setSigninForm((prev) => ({
       ...prev,
@@ -37,9 +42,9 @@ const Signin = () => {
       password: inputPassword,
     }));
   };
-  useEffect(() => {
-    setIsDisable((prev) => !prev);
-  }, [signinForm.email && signinForm.password]);
+  // useEffect(() => {
+  //   setIsDisable((prev) => !prev);
+  // }, [signinForm.email && signinForm.password]);
 
   const moveFindEmail = () => {
     navigation.navigate("Signin/FindInfo", { id: "email" });
@@ -55,6 +60,12 @@ const Signin = () => {
   const closeModalHandler = () => {
     setIsVisible((prev) => !prev);
   };
+
+  const test = () => {
+    apis.Signin(signinForm);
+  };
+
+  console.log(test1);
 
   return (
     <View style={styles.container}>
@@ -90,7 +101,7 @@ const Signin = () => {
         </KeyboardAvoidingView>
       </ScrollView>
       <View style={isDisable ? styles.loginBtnBoxDisabled : styles.loginBtnBox}>
-        <Pressable disabled={isDisable}>
+        <Pressable disabled={isDisable} onPress={test}>
           <View style={styles.loginBtn}>
             <Text style={styles.loginBtnText}>로그인하기</Text>
           </View>
