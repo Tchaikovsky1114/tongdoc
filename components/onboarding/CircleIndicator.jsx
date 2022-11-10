@@ -3,14 +3,14 @@ import { StyleSheet, View, Pressable,Dimensions } from 'react-native';
 
 
 
-const CircleIndicator = ({ item, pressScrollXHandler }) => {
+const CircleIndicator = ({ pressScrollXHandler,currentPageNumber }) => {
   return (
     <View style={styles.circleIndicator}>
       <Pressable onPress={() => pressScrollXHandler(0)}>
         <View
           style={[
             styles.circle,
-            item.num === 1 && styles.activeCircle,
+            currentPageNumber === 1 && styles.activeCircle,
           ]}
         ></View>
       </Pressable>
@@ -18,7 +18,7 @@ const CircleIndicator = ({ item, pressScrollXHandler }) => {
         <View
           style={[
             styles.circle,
-            item.num === 2 && styles.activeCircle,
+            currentPageNumber === 2 && styles.activeCircle,
           ]}
         ></View>
       </Pressable>
@@ -26,7 +26,7 @@ const CircleIndicator = ({ item, pressScrollXHandler }) => {
         <View
           style={[
             styles.circle,
-            item.num === 3 && styles.activeCircle,
+            currentPageNumber === 3 && styles.activeCircle,
           ]}
         ></View>
       </Pressable>
@@ -34,7 +34,7 @@ const CircleIndicator = ({ item, pressScrollXHandler }) => {
         <View
           style={[
             styles.circle,
-            item.num === 4 && styles.activeCircle,
+            currentPageNumber === 4 && styles.activeCircle,
           ]}
         ></View>
       </Pressable>
@@ -46,12 +46,11 @@ export default CircleIndicator;
 
 const styles = StyleSheet.create({
   circleIndicator: {
-    flex: 1,
+    position:'absolute',
+    bottom:160,
     flexDirection: 'row',
     alignItems:'center',
     justifyContent:'center',
-    marginTop: -144,
-    marginRight: 28
   },
   circle: {
     width: 14,

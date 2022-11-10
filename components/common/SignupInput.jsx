@@ -118,15 +118,17 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
 
-  input: {
-    fontFamily: "Noto400",
-    fontSize: 14,
-    borderBottom: 1,
-    borderBottomWidth: 1,
-    height: 30,
-    borderColor: "#999999",
-    marginBottom: 24,
-    color: "#ddd",
-    includeFontPadding: false,
+  input:{
+    fontFamily:'Noto400',
+    fontSize:14,
+    borderBottom:1,
+    borderBottomWidth:1,
+    height:30,
+    borderColor: '#999999',
+    marginBottom:24,
+    color:'#333',
+    includeFontPadding:false,
+    paddingBottom:8
+
   },
 });
