@@ -9,7 +9,6 @@ import Pressable from 'react-native/Libraries/Components/Pressable/Pressable'
 import P_16R from '../../style/paragraph/P_16R'
 import SignupInput from '../common/SignupInput'
 import Modal from '../common/TermsModal'
-import axios from 'axios'
 import { POLICY_MARKETING_URL, POLICY_OTHER_URL, POLICY_PRIVACY_URL, POLICY_SERVICE_URL } from './constants/Constants'
 const {width} = Dimensions.get('window');
 
@@ -19,6 +18,7 @@ export default function EmailAndPassword() {
   const emailRef = useRef(null);
   const [termsDetail,setTermsDetail] = useState('');
   const [totalFormCheck,setTotalFormCheck] = useState(true)
+  const [detectBackspaceKey,setDetectBackspaceKey] = useState(false)
   const [requiredTermsConsent,setRequiredTemrsConsent] = useState({
     service:false,
     privacy:false,
@@ -43,7 +43,6 @@ export default function EmailAndPassword() {
     }))
   },[])
 
-
   const showDetailTermsModalHandler = useCallback(async (termsURL) => {  
       setTermsDetail(termsURL);  
       setModalVisible((prev) => !prev);
@@ -52,22 +51,24 @@ export default function EmailAndPassword() {
     return /\S+@\S+\.\S+/.test(email);
   },[])
   const isValidPassword = useCallback((password) => {
-    return /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{10,20}$/.test(password)
+    return /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{10,20}$/.test(password);
   },[])
-
+  const detectBackspaceKeyHandler = (e) => {
+    const {nativeEvent:{key}} = e;
+    if(key === 'Backspace'){
+      setDetectBackspaceKey(true)
+    }else{
+      setDetectBackspaceKey(false)
+    }
+  }
   useEffect(() => {
+    if(detectBackspaceKey) return;
     const extractRequiredPropertyObj = signupForm;
-    
     delete extractRequiredPropertyObj.recommendCode;
-    
     setTotalFormCheck(true)
 
     for(const inputs in extractRequiredPropertyObj){  
-      if(inputs === 'email'){
-        if(!isValidEmail(signupForm[inputs])){
-          setTotalFormCheck(false)
-        }
-      }
+      
       if(inputs === 'password'){
         if(!isValidPassword(signupForm[inputs])){
           setTotalFormCheck(false)
@@ -79,16 +80,16 @@ export default function EmailAndPassword() {
         }
       }
     }
-    if(totalFormCheck && signupForm.password === signupForm.passwordConfirm){
+    if(totalFormCheck && signupForm.password === signupForm.passwordConfirm && isValidEmail(signupForm.email)){
       Keyboard.dismiss();
     }
-  },[signupForm])
+    console.log(totalFormCheck)
+    console.log(signupForm.password === signupForm.passwordConfirm)
+  },[signupForm,totalFormCheck])
   
   return (
     <View style={styles.container}>
       <Modal modalVisible={modalVisible} setModalVisible={setModalVisible} termsDetail={termsDetail}  />
-        
-      
       <View style={styles.inner}>
         <ScrollView scrollEnabled>
           <View style={styles.heading}>
@@ -108,6 +109,7 @@ export default function EmailAndPassword() {
               keyboardType="email-address"
               onChange={(e) => changeSignupFormHandler(e, "email")}
               errorText="이메일 주소를 다시 확인해 주세요."
+              onKeyPress={detectBackspaceKeyHandler}
             />
             <SignupInput
               type="password"
@@ -119,6 +121,7 @@ export default function EmailAndPassword() {
               maxLength={20}
               onChange={(e) => changeSignupFormHandler(e, "password")}
               errorText="* 10자리 이상 *영문 소문자,숫자,특수기호 2가지 조합"
+              onKeyPress={detectBackspaceKeyHandler}
             />
             <SignupInput
               type="passwordConfirm"
@@ -131,6 +134,7 @@ export default function EmailAndPassword() {
               maxLength={20}
               onChange={(e) => changeSignupFormHandler(e, "passwordConfirm")}
               errorText="입력하신 비밀번호와 다릅니다."
+              onKeyPress={detectBackspaceKeyHandler}
             />
             <SignupInput
               value={signupForm.recommendCode}

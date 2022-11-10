@@ -10,7 +10,6 @@ export default function CheckBox({type,style,onPress,totalTermsCheck,setTotalTer
     if(isRequired){
       setTotalTermsCheck(false);
       setIsSelected(prev => !prev)
-      
     }else{
       setTotalTermsCheck(false);
       setIsSelected(prev => !prev)
@@ -19,7 +18,6 @@ export default function CheckBox({type,style,onPress,totalTermsCheck,setTotalTer
 
   useEffect(() => {
     setIsSelected(totalTermsCheck);
-    
   },[totalTermsCheck])
   
   useEffect(() => {

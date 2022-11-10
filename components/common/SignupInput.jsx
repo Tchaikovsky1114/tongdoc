@@ -2,7 +2,7 @@ import { StyleSheet, Text, TextInput } from 'react-native'
 import React,{ useState,useEffect,forwardRef,useCallback } from 'react'
 
 
-const SignupInput = forwardRef(({type,style,signupForm,value,clearButtonMode,autoCapitalize,placeholder,keyboardType,onChange,errorText,clearTextOnFocus,secureTextEntry,maxLength},ref) => {
+const SignupInput = forwardRef(({type,style,signupForm,value,clearButtonMode,autoCapitalize,placeholder,keyboardType,onChange,errorText,clearTextOnFocus,secureTextEntry,maxLength,onKeyPress},ref) => {
 
   const [isError,setIsError] = useState(null)
   const [startValidation,setStartValidation] = useState(null)
@@ -17,6 +17,9 @@ const SignupInput = forwardRef(({type,style,signupForm,value,clearButtonMode,aut
     setStartValidation(false);
     setIsFocus(true);
     setIsError(false);
+    if(type === 'email'){
+
+    }
   },[])
   const isValidEmail = useCallback((email) => {
     return /\S+@\S+\.\S+/.test(email);
@@ -57,7 +60,7 @@ const SignupInput = forwardRef(({type,style,signupForm,value,clearButtonMode,aut
 
   return (
     <>
-    <TextInput ref={ref ? ref : null} onFocus={onFocus} placeholderTextColor={isFocus ? '#ddd' : '#666'} style={[styles.input,{borderColor:(isError && startValidation) ? 'red' : isFocus ? '#2D63E2' : '#ddd'}]} value={value} clearButtonMode={clearButtonMode ? clearButtonMode : 'never'} maxLength={maxLength ? maxLength : 30 } secureTextEntry={secureTextEntry ? secureTextEntry : false} clearTextOnFocus={clearTextOnFocus ? true : false} autoCapitalize={autoCapitalize} placeholder={placeholder} cursorColor={(isError && startValidation) ? 'red' : '#2D63E2'} keyboardType={keyboardType} onChange={onChange} onBlur={onBlur}  />
+    <TextInput ref={ref ? ref : null} selectTextOnFocus={true} onKeyPress={onKeyPress} onFocus={onFocus} placeholderTextColor={isFocus ? '#ddd' : '#666'} style={[styles.input,{borderColor:(isError && startValidation) ? 'red' : isFocus ? '#2D63E2' : '#ddd'}]} value={value} clearButtonMode={clearButtonMode ? clearButtonMode : 'never'} maxLength={maxLength ? maxLength : 30 } secureTextEntry={secureTextEntry ? secureTextEntry : false} clearTextOnFocus={clearTextOnFocus ? true : false} autoCapitalize={autoCapitalize} placeholder={placeholder} cursorColor={(isError && startValidation) ? 'red' : '#2D63E2'} keyboardType={keyboardType} onChange={onChange} onBlur={onBlur}  />
       {(isError && startValidation) && <Text style={[styles.errorText,{color:isError ? 'red' : '#2D63E2'}]}>{errorText}</Text>}
     </>
   )
