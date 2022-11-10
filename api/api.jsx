@@ -1,22 +1,22 @@
-import axios from "axios";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const instance = axios.create({
-  baseURL: "https://api.tongdoc.net/auth/api",
+  baseURL: 'https://api.tongdoc.net/auth/api',
   timeout: 5000,
 });
 
 instance.interceptors.request.use((config) => {
-  const token = AsyncStorage.getItem("access");
+  const token = AsyncStorage.getItem('access');
 
-  config.headers["Content-Type"] = "application/json; charset=utf-8";
-  config.headers["X-Requested-With"] = "XMLHttpRequest";
+  config.headers['Content-Type'] = 'application/json; charset=utf-8';
+  config.headers['X-Requested-With'] = 'XMLHttpRequest';
   if (token) {
-    config.headers["Authorization"] = `Bearer ${AsyncStorage.getItem(
-      "access"
+    config.headers['Authorization'] = `Bearer ${AsyncStorage.getItem(
+      'access'
     )}`;
   }
-  config.headers.Accept = "application/json";
+  config.headers.Accept = 'application/json';
   return config;
 });
 instance.interceptors.response.use(
@@ -32,9 +32,19 @@ instance.interceptors.response.use(
 );
 
 const apis = {
-  Signin: (user) => {
-    console.log(user, "1");
-    instance.post("/user/login_email", user);
+  Signin: async (user) => {
+    try {
+      const response = await instance.post('/user/login_email', user);
+      const token = response.data.DAT.res_token;
+      AsyncStorage.setItem('access', token.access_token);
+      AsyncStorage.setItem('refresh', token.refresh_token);
+      return response.data.MSG;
+    } catch (error) {
+      const errorResponse = await error.response.data;
+      if (errorResponse.DAT) {
+        throw errorResponse.DAT;
+      }
+    }
   },
 };
 
