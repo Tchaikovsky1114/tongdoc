@@ -24,7 +24,7 @@ const TermsModal = ({modalVisible,setModalVisible,termsDetail}) => {
               style={[styles.button, styles.buttonClose]}
               onPress={() => setModalVisible(!modalVisible)}
             >
-             <H6_18M>서비스 이용약관</H6_18M> 
+             <H6_18M style={{paddingHorizontal:12}}>서비스 이용약관</H6_18M> 
               <Image style={{width:32,height:32}} source={require('../../assets/common/close.png')} />
             </Pressable>
             </View>
@@ -60,12 +60,11 @@ const styles = StyleSheet.create({
     paddingLeft:24
   },
   button: {
+    paddingTop:30,
     position:'absolute',
-    top:10,
-    right:10,   
     flexDirection:'row',
     alignItems:'center',
-    width: width - 20,
+    width: width,
     justifyContent:'space-between',
     zIndex:10
   },
@@ -82,8 +81,6 @@ const styles = StyleSheet.create({
     width,
     marginTop:66,
     textAlign: "left",
-
-
   }
 });
 

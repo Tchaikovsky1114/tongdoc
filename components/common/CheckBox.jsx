@@ -2,31 +2,40 @@ import { StyleSheet, Image,View,Pressable } from 'react-native'
 import React,{useState,useEffect,useCallback} from 'react'
 
 
-export default function CheckBox({type,style,onPress,totalCheck,setTotalCheck}) {
+export default function CheckBox({type,style,onPress,totalTermsCheck,setTotalTermsCheck,setRequiredTemrsConsent,isRequired,name}) {
   const [isSelected,setIsSelected] = useState(false)
 
   const toggleCheckBoxHandler = () => {
-    if(totalCheck){
-      setTotalCheck(false);
-      setIsSelected(prev => !prev)
-      return;
-    }
-    setIsSelected(prev => !prev)
     
+    if(isRequired){
+      setTotalTermsCheck(false);
+      setIsSelected(prev => !prev)
+      
+    }else{
+      setTotalTermsCheck(false);
+      setIsSelected(prev => !prev)
     }
+  }
 
   useEffect(() => {
-    setIsSelected(totalCheck);
-    console.log(isSelected);
-  },[totalCheck])
+    setIsSelected(totalTermsCheck);
+    
+  },[totalTermsCheck])
   
-
+  useEffect(() => {
+    if(isRequired){
+      setRequiredTemrsConsent(prev => ({
+        ...prev,
+        [name]: isSelected
+      }))
+    }
+  },[isSelected])
 
   
   if(type === 'full')
   return ( 
     <View style={style}>
-      {totalCheck
+      {totalTermsCheck
       ? <View><Pressable onPress={onPress}><View><Image style={styles.image} source={require('../../assets/common/tongdoc_checked.png')} /></View></Pressable></View>
       : <View><Pressable onPress={onPress}><View><Image style={styles.image} source={require('../../assets/common/tongdoc_noncheck.png')} /></View></Pressable></View>
       }

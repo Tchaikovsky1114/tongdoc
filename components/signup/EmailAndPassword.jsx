@@ -1,6 +1,6 @@
 
 import {TextInput, StyleSheet, Text, View,KeyboardAvoidingView,ScrollView,Keyboard,Dimensions } from 'react-native'
-import React,{useState,useRef,useEffect} from 'react'
+import React,{useState,useRef,useEffect,useCallback} from 'react'
 import H4_24R from '../../style/H4_24R'
 import P_14R from '../../style/paragraph/P_14R'
 import CheckBox from '../common/CheckBox'
@@ -14,12 +14,15 @@ import { POLICY_MARKETING_URL, POLICY_OTHER_URL, POLICY_PRIVACY_URL, POLICY_SERV
 const {width} = Dimensions.get('window');
 
 export default function EmailAndPassword() {
-  const [totalCheck, setTotalCheck] = useState(false);
+  const [totalTermsCheck, setTotalTermsCheck] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const emailRef = useRef(null);
   const [termsDetail,setTermsDetail] = useState('');
-
-
+  const [totalFormCheck,setTotalFormCheck] = useState(true)
+  const [requiredTermsConsent,setRequiredTemrsConsent] = useState({
+    service:false,
+    privacy:false,
+  })
 
   const [signupForm, setSignupForm] = useState({
     email: "",
@@ -27,42 +30,60 @@ export default function EmailAndPassword() {
     passwordConfirm: "",
     recommendCode: "",
   });
-  const toggleTotalCheckHandler = () => {
 
-    setTotalCheck((prev) => !prev);
-    
-  };
+  const toggleTotalTermsCheckHandler = useCallback(() => {
+    setTotalTermsCheck((prev) => !prev);
+  },[])
 
-  const changeSignupFormHandler = (e,name) => {
+  const changeSignupFormHandler = useCallback((e,name) => {
     const {nativeEvent:{text}} = e;
     setSignupForm(prev => ({
       ...prev,
       [name]:text
     }))
-  }
+  },[])
 
 
-  const showDetailTermsModalHandler = async (termsURL) => {  
+  const showDetailTermsModalHandler = useCallback(async (termsURL) => {  
       setTermsDetail(termsURL);  
       setModalVisible((prev) => !prev);
-  }
+  },[])
+  const isValidEmail = useCallback((email) => {
+    return /\S+@\S+\.\S+/.test(email);
+  },[])
+  const isValidPassword = useCallback((password) => {
+    return /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{10,20}$/.test(password)
+  },[])
 
   useEffect(() => {
     const extractRequiredPropertyObj = signupForm;
+    
     delete extractRequiredPropertyObj.recommendCode;
-    let flag = true;
+    
+    setTotalFormCheck(true)
+
     for(const inputs in extractRequiredPropertyObj){  
-      if(signupForm[inputs].length < 10){
-        flag = false;
+      if(inputs === 'email'){
+        if(!isValidEmail(signupForm[inputs])){
+          setTotalFormCheck(false)
+        }
+      }
+      if(inputs === 'password'){
+        if(!isValidPassword(signupForm[inputs])){
+          setTotalFormCheck(false)
+        }
+      }
+      if(inputs === 'passwordConfirm'){
+        if(signupForm.password !== signupForm[inputs]){
+          setTotalFormCheck(false)
+        }
       }
     }
-    if(flag && signupForm.password === signupForm.passwordConfirm){
+    if(totalFormCheck && signupForm.password === signupForm.passwordConfirm){
       Keyboard.dismiss();
     }
   },[signupForm])
-
-
-
+  
   return (
     <View style={styles.container}>
       <Modal modalVisible={modalVisible} setModalVisible={setModalVisible} termsDetail={termsDetail}  />
@@ -126,9 +147,9 @@ export default function EmailAndPassword() {
               <CheckBox
                 style={{ marginRight: 8 }}
                 type="full"
-                onPress={toggleTotalCheckHandler}
-                totalCheck={totalCheck}
-                setTotalCheck={setTotalCheck}
+                onPress={toggleTotalTermsCheckHandler}
+                totalTermsCheck={totalTermsCheck}
+                setTotalTermsCheck={setTotalTermsCheck}
               />
               <P_16R>전체동의</P_16R>
             </View>
@@ -138,8 +159,11 @@ export default function EmailAndPassword() {
               <CheckBox
                 style={{ marginRight: 8 }}
                 type="non-outline"
-                totalCheck={totalCheck}
-                setTotalCheck={setTotalCheck}
+                totalTermsCheck={totalTermsCheck}
+                setTotalTermsCheck={setTotalTermsCheck}
+                isRequired
+                setRequiredTemrsConsent={setRequiredTemrsConsent}
+                name="service"
               />
               <P_14R>(필수) 서비스 이용약관</P_14R>
             </View>
@@ -156,8 +180,11 @@ export default function EmailAndPassword() {
               <CheckBox
                 style={{ marginRight: 8 }}
                 type="non-outline"
-                totalCheck={totalCheck}
-                setTotalCheck={setTotalCheck}
+                totalTermsCheck={totalTermsCheck}
+                setTotalTermsCheck={setTotalTermsCheck}
+                isRequired
+                setRequiredTemrsConsent={setRequiredTemrsConsent}
+                name="privacy"
               />
               <P_14R>(필수) 개인정보 수집 및 이용동의</P_14R>
             </View>
@@ -174,8 +201,8 @@ export default function EmailAndPassword() {
               <CheckBox
                 style={{ marginRight: 8 }}
                 type="non-outline"
-                totalCheck={totalCheck}
-                setTotalCheck={setTotalCheck}
+                totalTermsCheck={totalTermsCheck}
+                setTotalTermsCheck={setTotalTermsCheck}
               />
               <P_14R>(선택) 제3자 정보제공동의</P_14R>
             </View>
@@ -192,8 +219,8 @@ export default function EmailAndPassword() {
               <CheckBox
                 style={{ marginRight: 8 }}
                 type="non-outline"
-                totalCheck={totalCheck}
-                setTotalCheck={setTotalCheck}
+                totalTermsCheck={totalTermsCheck}
+                setTotalTermsCheck={setTotalTermsCheck}
               />
               <P_14R>(선택) 마케팅정보 활용 및 수신동의</P_14R>
             </View>
@@ -219,7 +246,7 @@ export default function EmailAndPassword() {
         text="확인"
         buttonStyle={{backgroundColor:'rgb(45, 99, 226)'}}
         textStyle={{ color: "#fff" }}
-        totalCheck={totalCheck}
+        totalTermsCheck={requiredTermsConsent.service && requiredTermsConsent.privacy && totalFormCheck}
       />
       </View>
     </View>

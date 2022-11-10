@@ -1,5 +1,5 @@
 import { StyleSheet, Text, TextInput } from 'react-native'
-import React,{ useState,useEffect,forwardRef } from 'react'
+import React,{ useState,useEffect,forwardRef,useCallback } from 'react'
 
 
 const SignupInput = forwardRef(({type,style,signupForm,value,clearButtonMode,autoCapitalize,placeholder,keyboardType,onChange,errorText,clearTextOnFocus,secureTextEntry,maxLength},ref) => {
@@ -8,23 +8,22 @@ const SignupInput = forwardRef(({type,style,signupForm,value,clearButtonMode,aut
   const [startValidation,setStartValidation] = useState(null)
   const [isFocus, setIsFocus] = useState(false)
 
-
-  const onBlur = () => { 
+  const onBlur = useCallback(() => { 
     setStartValidation(true);
     setIsFocus(false);
 
-  }
-  const onFocus = () => {
+  },[])
+  const onFocus = useCallback(() => {
     setStartValidation(false);
     setIsFocus(true);
     setIsError(false);
-  }
-  const isValidEmail = (email) => {
+  },[])
+  const isValidEmail = useCallback((email) => {
     return /\S+@\S+\.\S+/.test(email);
-  }
-  const isValidPassword = (password) => {
+  },[])
+  const isValidPassword = useCallback((password) => {
     return /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{10,20}$/.test(password)
-  }
+  },[])
   useEffect(() => {
     if(!ref) return;
     const timer = setTimeout(() => {ref.current.focus()},100)  
@@ -55,12 +54,6 @@ const SignupInput = forwardRef(({type,style,signupForm,value,clearButtonMode,aut
       }
     }
   },[value])
-
-
-  // error가 있으면 다른못넘어가게끔..(에러를 너무 많이 띄우지 않는)
-
-  
-
 
   return (
     <>
