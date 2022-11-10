@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
     height: 14,
     borderRadius: 7,
     backgroundColor: '#DDDDDD',
-    marginLeft: 24,
+    marginHorizontal: 14
   },
   activeCircle: {
     backgroundColor: '#2D63E2',

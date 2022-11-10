@@ -1,5 +1,5 @@
 
-import {TextInput, StyleSheet, Text, View,KeyboardAvoidingView,ScrollView,Keyboard } from 'react-native'
+import {TextInput, StyleSheet, Text, View,KeyboardAvoidingView,ScrollView,Keyboard,Dimensions } from 'react-native'
 import React,{useState,useRef,useEffect} from 'react'
 import H4_24R from '../../style/H4_24R'
 import P_14R from '../../style/paragraph/P_14R'
@@ -8,12 +8,18 @@ import Button from '../common/Button'
 import Pressable from 'react-native/Libraries/Components/Pressable/Pressable'
 import P_16R from '../../style/paragraph/P_16R'
 import SignupInput from '../common/SignupInput'
-
-
+import Modal from '../common/TermsModal'
+import axios from 'axios'
+import { POLICY_MARKETING_URL, POLICY_OTHER_URL, POLICY_PRIVACY_URL, POLICY_SERVICE_URL } from './constants/Constants'
+const {width} = Dimensions.get('window');
 
 export default function EmailAndPassword() {
   const [totalCheck, setTotalCheck] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
   const emailRef = useRef(null);
+  const [termsDetail,setTermsDetail] = useState('');
+
+
 
   const [signupForm, setSignupForm] = useState({
     email: "",
@@ -22,27 +28,46 @@ export default function EmailAndPassword() {
     recommendCode: "",
   });
   const toggleTotalCheckHandler = () => {
+
     setTotalCheck((prev) => !prev);
+    
   };
 
+  const changeSignupFormHandler = (e,name) => {
+    const {nativeEvent:{text}} = e;
+    setSignupForm(prev => ({
+      ...prev,
+      [name]:text
+    }))
+  }
+
+
+  const showDetailTermsModalHandler = async (termsURL) => {  
+      setTermsDetail(termsURL);  
+      setModalVisible((prev) => !prev);
+  }
 
   useEffect(() => {
-    const forceDownKeyboard = signupForm;
-    delete forceDownKeyboard.recommendCode;
+    const extractRequiredPropertyObj = signupForm;
+    delete extractRequiredPropertyObj.recommendCode;
     let flag = true;
-    for(const inputs in forceDownKeyboard){  
+    for(const inputs in extractRequiredPropertyObj){  
       if(signupForm[inputs].length < 10){
-        flag = false
+        flag = false;
       }
     }
-    if(flag){
+    if(flag && signupForm.password === signupForm.passwordConfirm){
       Keyboard.dismiss();
     }
   },[signupForm])
 
 
+
   return (
     <View style={styles.container}>
+      <Modal modalVisible={modalVisible} setModalVisible={setModalVisible} termsDetail={termsDetail}  />
+        
+      
       <View style={styles.inner}>
         <ScrollView scrollEnabled>
           <View style={styles.heading}>
@@ -75,15 +100,16 @@ export default function EmailAndPassword() {
               errorText="* 10자리 이상 *영문 소문자,숫자,특수기호 2가지 조합"
             />
             <SignupInput
-              type="password"
+              type="passwordConfirm"
               value={signupForm.passwordConfirm}
+              signupForm={signupForm}
               clearTextOnFocus
               placeholder="비밀번호 확인"
               autoCapitalize="none"
               secureTextEntry
               maxLength={20}
               onChange={(e) => changeSignupFormHandler(e, "passwordConfirm")}
-              errorText="비밀번호를 다시 확인해 주세요."
+              errorText="입력하신 비밀번호와 다릅니다."
             />
             <SignupInput
               value={signupForm.recommendCode}
@@ -93,6 +119,7 @@ export default function EmailAndPassword() {
             />
           </View>
         </ScrollView>
+
         <View style={styles.bottom}>
           <View style={styles.checkBoxGroup}>
             <View style={styles.checkBoxInner}>
@@ -116,7 +143,7 @@ export default function EmailAndPassword() {
               />
               <P_14R>(필수) 서비스 이용약관</P_14R>
             </View>
-            <Pressable>
+            <Pressable onPress={() => showDetailTermsModalHandler(POLICY_SERVICE_URL)} style={({pressed}) => [{opacity: pressed ? 0.5 : 1}]}>
               <P_14R
                 style={{ color: "#999999", textDecorationLine: "underline" }}
               >
@@ -134,7 +161,7 @@ export default function EmailAndPassword() {
               />
               <P_14R>(필수) 개인정보 수집 및 이용동의</P_14R>
             </View>
-            <Pressable>
+            <Pressable onPress={() => showDetailTermsModalHandler(POLICY_PRIVACY_URL)} style={({pressed}) => [{opacity: pressed ? 0.5 : 1}]}>
               <P_14R
                 style={{ color: "#999999", textDecorationLine: "underline" }}
               >
@@ -152,7 +179,7 @@ export default function EmailAndPassword() {
               />
               <P_14R>(선택) 제3자 정보제공동의</P_14R>
             </View>
-            <Pressable>
+            <Pressable onPress={() => showDetailTermsModalHandler(POLICY_OTHER_URL)} style={({pressed}) => [{opacity: pressed ? 0.5 : 1}]}>
               <P_14R
                 style={{ color: "#999999", textDecorationLine: "underline" }}
               >
@@ -170,7 +197,7 @@ export default function EmailAndPassword() {
               />
               <P_14R>(선택) 마케팅정보 활용 및 수신동의</P_14R>
             </View>
-            <Pressable>
+            <Pressable onPress={() => showDetailTermsModalHandler(POLICY_MARKETING_URL)} style={({pressed}) => [{opacity: pressed ? 0.5 : 1}]}>
               <P_14R
                 style={{ color: "#999999", textDecorationLine: "underline" }}
               >
@@ -178,16 +205,23 @@ export default function EmailAndPassword() {
               </P_14R>
             </Pressable>
           </View>
+
+          
+      
         </View>
+
       </View>
+      <View style={{position:'absolute',width,bottom:0}}>
       <Button
         onPress={() => {
           console.log("clicked");
         }}
         text="확인"
-        buttonStyle={{ backgroundColor: "#2D63E2" }}
+        buttonStyle={{backgroundColor:'rgb(45, 99, 226)'}}
         textStyle={{ color: "#fff" }}
+        totalCheck={totalCheck}
       />
+      </View>
     </View>
   );
 }

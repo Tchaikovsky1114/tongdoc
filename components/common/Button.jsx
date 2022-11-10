@@ -4,31 +4,28 @@ import React from 'react'
 
 const {width} = Dimensions.get('window');
 
-export default function Button({onPress,text,buttonStyle,textStyle}) {
+export default function Button({onPress,text,buttonStyle,textStyle,totalCheck}) {
   return (
     
-    <View style={styles.buttonBox}>
-    <Pressable onPress={onPress} style={({pressed}) => [styles.button,buttonStyle,{backgroundColor: pressed ? 'rgba(200,255,255,0.2)' : 'rgb(45, 99, 226)'}]}>
-      <View>
+    
+    <Pressable disabled={!totalCheck} onPress={onPress} style={({pressed}) => [styles.button,buttonStyle,{backgroundColor: pressed ? 'rgba(49,99,226,0.78)' : 'rgb(45, 99, 226)'},{backgroundColor: !totalCheck ? 'rgb(142, 172, 244)' : 'rgb(45, 99, 226)'}]}>
         <Text style={[styles.buttonText,textStyle]}>{text}</Text>
-      </View>
     </Pressable>
-  </View>
+  
   )
 }
 
 const styles = StyleSheet.create({
-  buttonBox: {
-    width
-  },
+  
   button:{
-    flex:1,
+    backgroundColor:'rgb(45, 99, 226)',
     justifyContent:'center',
     alignItems:'center',
     height:58,
   },
   buttonText:{
     fontFamily:'Noto400',
-    color:"#fff"
+    color:"#fff",
+    fontSize:17
   },
 })

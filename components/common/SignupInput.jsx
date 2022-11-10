@@ -1,123 +1,83 @@
-import { StyleSheet, Text, TextInput } from "react-native";
-import React, { useRef, useState, useEffect, forwardRef } from "react";
-import { IgnorePattern } from "react-native/Libraries/LogBox/LogBox";
+import { StyleSheet, Text, TextInput } from 'react-native'
+import React,{ useState,useEffect,forwardRef } from 'react'
 
-const SignupInput = forwardRef(
-  (
-    {
-      type,
-      style,
-      value,
-      clearButtonMode,
-      autoCapitalize,
-      placeholder,
-      keyboardType,
-      onChange,
-      errorText,
-      clearTextOnFocus,
-      secureTextEntry,
-      maxLength,
-    },
-    ref
-  ) => {
-  
 
-    const [isFocus, setIsFocus] = useState(false);
+const SignupInput = forwardRef(({type,style,signupForm,value,clearButtonMode,autoCapitalize,placeholder,keyboardType,onChange,errorText,clearTextOnFocus,secureTextEntry,maxLength},ref) => {
+
+  const [isError,setIsError] = useState(null)
+  const [startValidation,setStartValidation] = useState(null)
+  const [isFocus, setIsFocus] = useState(false)
+
+
+  const onBlur = () => { 
+    setStartValidation(true);
+    setIsFocus(false);
+
+  }
+  const onFocus = () => {
+    setStartValidation(false);
+    setIsFocus(true);
+    setIsError(false);
+  }
+  const isValidEmail = (email) => {
+    return /\S+@\S+\.\S+/.test(email);
+  }
+  const isValidPassword = (password) => {
+    return /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{10,20}$/.test(password)
+  }
+  useEffect(() => {
+    if(!ref) return;
+    const timer = setTimeout(() => {ref.current.focus()},100)  
+    return () => clearTimeout(timer)
+    },[])
 
     
-    useEffect(() => {
-      if (!ref) return;
-      const timer = setTimeout(() => {
-        ref.current.focus();
-      }, 100);
-      return () => clearTimeout(timer);
-    }, []);
-
-    const startValidationHandler = () => {
-      setStartValidation(true);
-      setIsFocus(false);
-    };
-    const endValidationHandler = () => {
-      setStartValidation(false);
-      setIsFocus(true);
-    };
-
-    useEffect(() => {
-      if (!ref) return;
-      const timer = setTimeout(() => {
-        ref.current.focus();
-      }, 100);
-      return () => clearTimeout(timer);
-    }, []);
-
-    useEffect(() => {
-      if (type === "email") {
-        if (!isValidEmail(value)) {
-          setIsError(true);
-        } else {
-          setIsError(false);
-        }
+  useEffect(() => {
+    if(type ==='email'){
+      if(!isValidEmail(value)){
+        setIsError(true)
+      }else{
+        setIsError(false)
       }
-      if (type === "password") {
-        if (value.trim().length < 10) {
-          setIsError(true);
-        } else {
-          setIsError(false);
-        }
+    }
+    if(type === 'password'){
+      if(!isValidPassword(value)){
+        setIsError(true)
+      }else{
+        setIsError(false)
       }
-    }, [value]);
+    }
+    if(type === 'passwordConfirm'){
+      if(value !== signupForm.password ){
+        setIsError(true)
+      }else{
+        setIsError(false)
+      }
+    }
+  },[value])
 
-    return (
-      <>
-        <TextInput
-          onFocus={endValidationHandler}
-          placeholderTextColor={isFocus ? "#ddd" : "#666"}
-          style={[
-            styles.input,
-            {
-              borderColor:
-                isError && startValidation
-                  ? "red"
-                  : isFocus
-                  ? "#2D63E2"
-                  : "#ddd",
-            },
-          ]}
-          ref={ref ? ref : null}
-          value={value}
-          clearButtonMode={clearButtonMode ? clearButtonMode : "never"}
-          maxLength={maxLength ? maxLength : 30}
-          secureTextEntry={secureTextEntry ? secureTextEntry : false}
-          clearTextOnFocus={clearTextOnFocus ? true : false}
-          autoCapitalize={autoCapitalize}
-          placeholder={placeholder}
-          cursorColor={isError && startValidation ? "red" : "#2D63E2"}
-          keyboardType={keyboardType}
-          onChange={onChange}
-          onBlur={startValidationHandler}
-        />
-        {isError && startValidation && (
-          <Text
-            style={[styles.errorText, { color: isError ? "red" : "#2D63E2" }]}
-          >
-            {errorText}
-          </Text>
-        )}
-      </>
-    );
-  }
-);
 
+  // error가 있으면 다른못넘어가게끔..(에러를 너무 많이 띄우지 않는)
+
+  
+
+
+  return (
+    <>
+    <TextInput ref={ref ? ref : null} onFocus={onFocus} placeholderTextColor={isFocus ? '#ddd' : '#666'} style={[styles.input,{borderColor:(isError && startValidation) ? 'red' : isFocus ? '#2D63E2' : '#ddd'}]} value={value} clearButtonMode={clearButtonMode ? clearButtonMode : 'never'} maxLength={maxLength ? maxLength : 30 } secureTextEntry={secureTextEntry ? secureTextEntry : false} clearTextOnFocus={clearTextOnFocus ? true : false} autoCapitalize={autoCapitalize} placeholder={placeholder} cursorColor={(isError && startValidation) ? 'red' : '#2D63E2'} keyboardType={keyboardType} onChange={onChange} onBlur={onBlur}  />
+      {(isError && startValidation) && <Text style={[styles.errorText,{color:isError ? 'red' : '#2D63E2'}]}>{errorText}</Text>}
+    </>
+  )
+})
 export default SignupInput;
 
 const styles = StyleSheet.create({
-  errorText: {
-    marginTop: -30,
-    fontFamily: "Noto400",
-    fontSize: 12,
-    marginBottom: 8,
+  errorText:{
+    marginTop:-30,
+    fontFamily:'Noto400',
+    fontSize:12,
+    marginBottom:8
   },
-
   input:{
     fontFamily:'Noto400',
     fontSize:14,
@@ -129,6 +89,5 @@ const styles = StyleSheet.create({
     color:'#333',
     includeFontPadding:false,
     paddingBottom:8
-
   },
-});
+})
