@@ -1,5 +1,5 @@
 import { useNavigation } from '@react-navigation/native';
-import { Suspense, useState } from 'react';
+import { Suspense, useEffect, useRef, useState } from 'react';
 import {
   Dimensions,
   KeyboardAvoidingView,
@@ -29,6 +29,8 @@ const Signin = () => {
     password: '',
   });
   const [signin, setSignin] = useRecoilState(signinState);
+  const emailRef = useRef(null);
+  const passwordRef = useRef(null);
   const emailHandler = (inputWrite) => {
     setSigninForm((prev) => ({
       ...prev,
@@ -41,9 +43,10 @@ const Signin = () => {
       password: inputPassword,
     }));
   };
-  // useEffect(() => {
-  //   setIsDisable((prev) => !prev);
-  // }, [signinForm.email && signinForm.password]);
+  useEffect(() => {
+    emailRef.current.focus();
+    setIsDisable((prev) => !prev);
+  }, [signinForm.email !== '' && signinForm.password !== '']);
 
   const moveFindEmail = () => {
     navigation.navigate('Signin/FindInfo', { id: 'email' });
@@ -60,26 +63,12 @@ const Signin = () => {
     setIsVisible((prev) => !prev);
   };
 
-  const test = async () => {
-    // let user = "";
-
-    // switch (signinLoadable.state) {
-    //   case "hasValue":
-    //     user = JSON.stringify(signinLoadable.contents);
-    //     break;
-    //   case "hasError":
-    //     user = signinLoadable.contents.message;
-    //     break;
-    //   case "loading":
-    //     user = "Loading...";
-    //     break;
-    //   default:
-    //     user = "Loading...";
-    // }
-    // apis.Signin(signinForm).then((res) => console.log(res, "res"));
+  const loginHandler = async () => {
     setSignin(signinForm);
     const response = await apis.Signin(signinForm);
-    console.log(response);
+    if (response !== 'OK') {
+      setIsVisible((prev) => !prev);
+    }
   };
 
   return (
@@ -90,13 +79,19 @@ const Signin = () => {
             <H4_24R style={styles.title}>{'로그인'}</H4_24R>
             <View style={styles.inputBox}>
               <SigninInput
+                ref={emailRef}
                 type="email"
                 inputStyle={styles.inputMargin}
                 placeholder="이메일"
                 autoCapitalize="none"
                 onChangeInput={emailHandler}
+                returnKey="next"
+                onSubmitEditing={() => {
+                  passwordRef.current.focus();
+                }}
               />
               <SigninInput
+                ref={passwordRef}
                 type="password"
                 placeholder="비밀번호"
                 autoCapitalize="none"
@@ -119,7 +114,7 @@ const Signin = () => {
         <View
           style={isDisable ? styles.loginBtnBoxDisabled : styles.loginBtnBox}
         >
-          <Pressable disabled={isDisable} onPress={test}>
+          <Pressable disabled={isDisable} onPress={loginHandler}>
             <View style={styles.loginBtn}>
               <Text style={styles.loginBtnText}>로그인하기</Text>
             </View>
