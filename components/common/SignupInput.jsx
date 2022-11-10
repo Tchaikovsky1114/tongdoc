@@ -17,12 +17,9 @@ const SignupInput = forwardRef(({type,style,signupForm,value,clearButtonMode,aut
     setStartValidation(false);
     setIsFocus(true);
     setIsError(false);
-    if(type === 'email'){
-
-    }
   },[])
   const isValidEmail = useCallback((email) => {
-    return /\S+@\S+\.\S+/.test(email);
+    return /^[a-zA-Z0-9][a-zA-Z0-9._]+[@][a-zA-Z][A-Za-z.]+[.]\w{3,}/.test(email);
   },[])
   const isValidPassword = useCallback((password) => {
     return /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{10,20}$/.test(password)

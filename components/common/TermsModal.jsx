@@ -34,7 +34,7 @@ const TermsModal = ({modalVisible,setModalVisible,termsDetail}) => {
             originWhitelist={['*']}
             onError={(err) => { console.log(err) }}
             style={{marginTop:60}}
-            onLoadEnd={console.log(termsDetail)}
+            onLoadEnd={() => {}}
           />    
       </Modal>
     

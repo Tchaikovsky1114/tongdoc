@@ -48,13 +48,15 @@ export default function EmailAndPassword() {
       setModalVisible((prev) => !prev);
   },[])
   const isValidEmail = useCallback((email) => {
-    return /\S+@\S+\.\S+/.test(email);
+    return /^[a-zA-Z0-9][a-zA-Z0-9._]+[@][a-zA-Z][A-Za-z.]+[.]\w{3,}/.test(email);
   },[])
   const isValidPassword = useCallback((password) => {
     return /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{10,20}$/.test(password);
   },[])
+
   const detectBackspaceKeyHandler = (e) => {
     const {nativeEvent:{key}} = e;
+    setTotalFormCheck(false);
     if(key === 'Backspace'){
       setDetectBackspaceKey(true)
     }else{
@@ -83,8 +85,7 @@ export default function EmailAndPassword() {
     if(totalFormCheck && signupForm.password === signupForm.passwordConfirm && isValidEmail(signupForm.email)){
       Keyboard.dismiss();
     }
-    console.log(totalFormCheck)
-    console.log(signupForm.password === signupForm.passwordConfirm)
+
   },[signupForm,totalFormCheck])
   
   return (
@@ -110,6 +111,7 @@ export default function EmailAndPassword() {
               onChange={(e) => changeSignupFormHandler(e, "email")}
               errorText="이메일 주소를 다시 확인해 주세요."
               onKeyPress={detectBackspaceKeyHandler}
+              
             />
             <SignupInput
               type="password"
