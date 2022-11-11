@@ -72,6 +72,10 @@ const Signin = () => {
     navigation.navigate('Signup/Certification');
   };
 
+  const test = () => {
+    navigation.navigate('Home');
+  };
+
   // 주석 : 모달 닫기
   const closeModalHandler = () => {
     setIsVisible((prev) => !prev);
@@ -124,6 +128,9 @@ const Signin = () => {
               </Pressable>
               <Pressable onPress={moveSignupPageHandler}>
                 <P_12R style={styles.findTextColor}>회원가입</P_12R>
+              </Pressable>
+              <Pressable onPress={test}>
+                <P_12R style={styles.findTextColor}>test</P_12R>
               </Pressable>
             </View>
           </KeyboardAvoidingView>
