@@ -11,7 +11,7 @@ const {width:FULL_WIDTH} = Dimensions.get('window')
 export default function CertificationResult({route,navigation}) {
   const {params} = route;
   const user = params ? JSON.parse(params.userInfo) : '';
-  const [signupForm,setSignupForm] = useRecoilState(signupState)
+  const [userInfo,setUserInfo] = useRecoilState(signupState)
   const [modalVisible,setModalVisible] = useState(true)
 
   const moveEmailAndPasswordPageHandler = () => {
@@ -21,7 +21,7 @@ export default function CertificationResult({route,navigation}) {
 
   useEffect(() => {
     if(!user) return;
-    setSignupForm(user)
+    setUserInfo(user)
   },[])
   console.log(params);
   return (

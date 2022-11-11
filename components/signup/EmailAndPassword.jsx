@@ -1,5 +1,5 @@
 
-import {TextInput, StyleSheet, Text, View,KeyboardAvoidingView,ScrollView,Keyboard,Dimensions } from 'react-native'
+import {TextInput, StyleSheet, Text, View,KeyboardAvoidingView,ScrollView,Keyboard,Dimensions,Alert } from 'react-native'
 import React,{useState,useRef,useEffect,useCallback} from 'react'
 import H4_24R from '../../style/H4_24R'
 import P_14R from '../../style/paragraph/P_14R'
@@ -10,26 +10,31 @@ import P_16R from '../../style/paragraph/P_16R'
 import SignupInput from '../common/SignupInput'
 import Modal from '../common/TermsModal'
 import { POLICY_MARKETING_URL, POLICY_OTHER_URL, POLICY_PRIVACY_URL, POLICY_SERVICE_URL } from './constants/Constants'
+import apis from '../../api/api'
+import { useRecoilValue } from 'recoil'
+import { signupState } from '../../store/signup'
+
 const {width} = Dimensions.get('window');
 
-export default function EmailAndPassword() {
+export default function EmailAndPassword({navigation}) {
   const [totalTermsCheck, setTotalTermsCheck] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const emailRef = useRef(null);
   const [termsDetail,setTermsDetail] = useState('');
+  const userInfo = useRecoilValue(signupState)
   const [totalFormCheck,setTotalFormCheck] = useState(true)
   const [detectBackspaceKey,setDetectBackspaceKey] = useState(false)
   const [requiredTermsConsent,setRequiredTemrsConsent] = useState({
     service:false,
     privacy:false,
   })
-
   const [signupForm, setSignupForm] = useState({
     email: "",
     password: "",
     passwordConfirm: "",
     recommendCode: "",
   });
+  
 
   const toggleTotalTermsCheckHandler = useCallback(() => {
     setTotalTermsCheck((prev) => !prev);
@@ -63,6 +68,23 @@ export default function EmailAndPassword() {
       setDetectBackspaceKey(false)
     }
   }
+
+  const submitSignupHandler = async () => {
+    
+    await apis.signup({
+    name:userInfo.name,
+    email: signupForm.email,
+    password: signupForm.password,
+    tongkind: signupForm.telecom,
+    hphone:signupForm.phone_number
+    }).catch(() => {
+      Alert.alert("회원가입 실패","알 수 없는 오류로 인해 회원가입에 실패하였습니다.")
+    }).then(() => {
+      navigation.navigate('Signup/Welcome');
+    })
+  }
+  
+
   useEffect(() => {
     if(detectBackspaceKey) return;
     const extractRequiredPropertyObj = signupForm;
@@ -239,16 +261,12 @@ export default function EmailAndPassword() {
             </Pressable>
           </View>
 
-          
-      
         </View>
 
       </View>
       <View style={{position:'absolute',width,bottom:0}}>
       <Button
-        onPress={() => {
-          console.log("clicked");
-        }}
+        onPress={submitSignupHandler}
         text="확인"
         buttonStyle={{backgroundColor:'rgb(45, 99, 226)'}}
         textStyle={{ color: "#fff" }}

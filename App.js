@@ -22,6 +22,10 @@ import CertificationResult from "./components/certification/CertificationResult"
 import CertificationInProgress from "./components/certification/CertificationInProgress";
 import ChoiceSignMethod from "./components/signup/ChoiceSignMethod";
 import FindInfoPage from "./screens/FindInfo";
+import Welcome from "./components/signup/Welcome";
+
+
+
 
 enableScreens();
 const Stack = createNativeStackNavigator();
@@ -116,6 +120,10 @@ export default function App() {
               component={EmailAndPassword}
               options={{ title: "" }}
             />
+            <Stack.Screen
+              name="Signup/Welcome"
+              component={Welcome}
+              options={{title:''}}/>
             <Stack.Screen
               name="Signin"
               component={SigninPage}
