@@ -33,17 +33,14 @@ instance.interceptors.response.use(
 
 const apis = {
   Signin: async (user) => {
-    try {
-      const response = await instance.post('/user/login_email', user);
+    const response = await instance.post('/user/login_email', user);
+    if (response) {
       const token = response.data.DAT.res_token;
       AsyncStorage.setItem('access', token.access_token);
       AsyncStorage.setItem('refresh', token.refresh_token);
       return response.data.MSG;
-    } catch (error) {
-      const errorResponse = await error.response.data;
-      if (errorResponse.DAT) {
-        throw errorResponse.DAT;
-      }
+    } else {
+      return response;
     }
   },
 };
