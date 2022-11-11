@@ -1,5 +1,5 @@
 import { useNavigation } from '@react-navigation/native';
-import { Suspense, useState } from 'react';
+import { Suspense, useEffect, useRef, useState } from 'react';
 import {
   Dimensions,
   KeyboardAvoidingView,
@@ -29,22 +29,38 @@ const Signin = () => {
     password: '',
   });
   const [signin, setSignin] = useRecoilState(signinState);
+  const emailRef = useRef(null);
+  const passwordRef = useRef(null);
+
+  // 주석 : 이메일 입력
   const emailHandler = (inputWrite) => {
     setSigninForm((prev) => ({
       ...prev,
       email: inputWrite,
     }));
   };
+  // 주석 : 비밀번호 입력
   const passwordHandler = (inputPassword) => {
     setSigninForm((prev) => ({
       ...prev,
       password: inputPassword,
     }));
   };
-  // useEffect(() => {
-  //   setIsDisable((prev) => !prev);
-  // }, [signinForm.email && signinForm.password]);
 
+  // 주석 : 하단 버튼 disabled <=> able 구현
+  useEffect(() => {
+    setIsDisable((prev) => !prev);
+  }, [signinForm.email !== '' && signinForm.password !== '']);
+
+  // 주석 : 초기 로그인 화면 진입시 email input에 키보드 올라오게 하기
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      emailRef.current.focus();
+    }, 100);
+    return () => clearTimeout(timer);
+  }, []);
+
+  // 주석 : 이동 함수
   const moveFindEmail = () => {
     navigation.navigate('Signin/FindInfo', { id: 'email' });
   };
@@ -56,30 +72,18 @@ const Signin = () => {
     navigation.navigate('Signup/Certification');
   };
 
+  // 주석 : 모달 닫기
   const closeModalHandler = () => {
     setIsVisible((prev) => !prev);
   };
 
-  const test = async () => {
-    // let user = "";
-
-    // switch (signinLoadable.state) {
-    //   case "hasValue":
-    //     user = JSON.stringify(signinLoadable.contents);
-    //     break;
-    //   case "hasError":
-    //     user = signinLoadable.contents.message;
-    //     break;
-    //   case "loading":
-    //     user = "Loading...";
-    //     break;
-    //   default:
-    //     user = "Loading...";
-    // }
-    // apis.Signin(signinForm).then((res) => console.log(res, "res"));
+  // 주석 : 로그인 버튼
+  const loginHandler = async () => {
     setSignin(signinForm);
     const response = await apis.Signin(signinForm);
-    console.log(response);
+    if (response !== 'OK') {
+      setIsVisible((prev) => !prev);
+    }
   };
 
   return (
@@ -90,16 +94,24 @@ const Signin = () => {
             <H4_24R style={styles.title}>{'로그인'}</H4_24R>
             <View style={styles.inputBox}>
               <SigninInput
+                ref={emailRef}
                 type="email"
                 inputStyle={styles.inputMargin}
                 placeholder="이메일"
                 autoCapitalize="none"
                 onChangeInput={emailHandler}
+                returnKey="next"
+                keyboardType="email-address"
+                onSubmitEditing={() => {
+                  passwordRef.current.focus();
+                }}
               />
               <SigninInput
+                ref={passwordRef}
                 type="password"
                 placeholder="비밀번호"
                 autoCapitalize="none"
+                secureTextEntry={true}
                 onChangeInput={passwordHandler}
               />
             </View>
@@ -119,7 +131,7 @@ const Signin = () => {
         <View
           style={isDisable ? styles.loginBtnBoxDisabled : styles.loginBtnBox}
         >
-          <Pressable disabled={isDisable} onPress={test}>
+          <Pressable disabled={isDisable} onPress={loginHandler}>
             <View style={styles.loginBtn}>
               <Text style={styles.loginBtnText}>로그인하기</Text>
             </View>
