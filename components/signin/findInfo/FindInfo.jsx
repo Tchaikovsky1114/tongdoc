@@ -1,5 +1,5 @@
 import { useNavigation } from '@react-navigation/native';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import {
   Pressable,
   ScrollView,
@@ -18,7 +18,9 @@ const FindInfo = (props) => {
   const [selectTap, setSelectTap] = useState(id);
   const [isVisible, setIsVisible] = useState(false);
   const [isDisable, setIsDisable] = useState(false);
-
+  const firstRef = useRef(null);
+  const secondRef = useRef(null);
+  const lastRef = useRef(null);
   const selectEmail = () => {
     setSelectTap('email');
   };
@@ -28,6 +30,15 @@ const FindInfo = (props) => {
   const closeModalHandler = () => {
     setIsVisible((prev) => !prev);
   };
+
+  // 주석 : 초기  화면 진입시 이름 input에 키보드 올라오게 하기
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      firstRef.current.focus();
+    }, 100);
+    return () => clearTimeout(timer);
+  }, [selectTap]);
+
   return (
     <View style={styles.container}>
       <ScrollView>
@@ -62,14 +73,47 @@ const FindInfo = (props) => {
 
         {selectTap === 'email' ? (
           <View style={styles.inputBox}>
-            <SigninInput inputStyle={styles.inputMargin} placeholder="이름" />
-            <SigninInput placeholder="휴대폰 번호 ( - 없이 숫자만 입력해 주세요.)" />
+            <SigninInput
+              ref={firstRef}
+              inputStyle={styles.inputMargin}
+              placeholder="이름"
+              returnKey="next"
+              onSubmitEditing={() => {
+                secondRef.current.focus();
+              }}
+            />
+            <SigninInput
+              ref={secondRef}
+              placeholder="휴대폰 번호 ( - 없이 숫자만 입력해 주세요.)"
+              keyboardType="decimal-pad"
+            />
           </View>
         ) : (
           <View style={styles.inputBox}>
-            <SigninInput inputStyle={styles.inputMargin} placeholder="이메일" />
-            <SigninInput inputStyle={styles.inputMargin} placeholder="이름" />
-            <SigninInput placeholder="휴대폰 번호 ( - 없이 숫자만 입력해 주세요.)" />
+            <SigninInput
+              ref={firstRef}
+              inputStyle={styles.inputMargin}
+              placeholder="이메일"
+              returnKey="next"
+              keyboardType="email-address"
+              onSubmitEditing={() => {
+                secondRef.current.focus();
+              }}
+            />
+            <SigninInput
+              ref={secondRef}
+              inputStyle={styles.inputMargin}
+              placeholder="이름"
+              returnKey="next"
+              onSubmitEditing={() => {
+                lastRef.current.focus();
+              }}
+            />
+            <SigninInput
+              ref={lastRef}
+              placeholder="휴대폰 번호 ( - 없이 숫자만 입력해 주세요.)"
+              keyboardType="decimal-pad"
+            />
           </View>
         )}
       </ScrollView>

@@ -31,23 +31,36 @@ const Signin = () => {
   const [signin, setSignin] = useRecoilState(signinState);
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
+
+  // 주석 : 이메일 입력
   const emailHandler = (inputWrite) => {
     setSigninForm((prev) => ({
       ...prev,
       email: inputWrite,
     }));
   };
+  // 주석 : 비밀번호 입력
   const passwordHandler = (inputPassword) => {
     setSigninForm((prev) => ({
       ...prev,
       password: inputPassword,
     }));
   };
+
+  // 주석 : 하단 버튼 disabled <=> able 구현
   useEffect(() => {
-    emailRef.current.focus();
     setIsDisable((prev) => !prev);
   }, [signinForm.email !== '' && signinForm.password !== '']);
 
+  // 주석 : 초기 로그인 화면 진입시 email input에 키보드 올라오게 하기
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      emailRef.current.focus();
+    }, 100);
+    return () => clearTimeout(timer);
+  }, []);
+
+  // 주석 : 이동 함수
   const moveFindEmail = () => {
     navigation.navigate('Signin/FindInfo', { id: 'email' });
   };
@@ -59,10 +72,12 @@ const Signin = () => {
     navigation.navigate('Signup/Certification');
   };
 
+  // 주석 : 모달 닫기
   const closeModalHandler = () => {
     setIsVisible((prev) => !prev);
   };
 
+  // 주석 : 로그인 버튼
   const loginHandler = async () => {
     setSignin(signinForm);
     const response = await apis.Signin(signinForm);
@@ -86,6 +101,7 @@ const Signin = () => {
                 autoCapitalize="none"
                 onChangeInput={emailHandler}
                 returnKey="next"
+                keyboardType="email-address"
                 onSubmitEditing={() => {
                   passwordRef.current.focus();
                 }}
@@ -95,6 +111,7 @@ const Signin = () => {
                 type="password"
                 placeholder="비밀번호"
                 autoCapitalize="none"
+                secureTextEntry={true}
                 onChangeInput={passwordHandler}
               />
             </View>

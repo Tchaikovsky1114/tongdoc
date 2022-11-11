@@ -10,10 +10,11 @@ const SigninInput = (
     onChangeInput,
     returnKey,
     onSubmitEditing,
+    keyboardType,
+    secureTextEntry,
   },
   ref
 ) => {
-  // console.log(id, "1");
   const [isFocus, setIsFocus] = useState(false);
 
   const focusHandler = () => {
@@ -25,7 +26,7 @@ const SigninInput = (
 
   return (
     <TextInput
-      ref={ref ? ref : null}
+      ref={ref}
       type={type}
       style={
         isFocus ? [styles.inputFocus, inputStyle] : [styles.input, inputStyle]
@@ -37,6 +38,8 @@ const SigninInput = (
       onChangeText={onChangeInput}
       returnKeyType={returnKey}
       onSubmitEditing={onSubmitEditing}
+      keyboardType={keyboardType}
+      secureTextEntry={secureTextEntry}
       onFocus={focusHandler}
       onBlur={blurHandler}
     />
