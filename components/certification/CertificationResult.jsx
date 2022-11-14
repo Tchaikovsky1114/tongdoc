@@ -18,10 +18,14 @@ export default function CertificationResult({route,navigation}) {
     navigation.navigate('Signup/EmailAndPassword');
     setModalVisible(prev => !prev);
   }
-
+  console.log(userInfo);
   useEffect(() => {
     if(!user) return;
-    setUserInfo(user)
+    setUserInfo(prev => ({
+      ...prev,
+      ...user
+    })
+  )
   },[])
   console.log(params);
   return (

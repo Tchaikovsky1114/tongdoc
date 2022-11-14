@@ -76,7 +76,8 @@ export default function EmailAndPassword({navigation}) {
     email: signupForm.email,
     password: signupForm.password,
     tongkind: signupForm.telecom,
-    hphone:signupForm.phone_number
+    hphone:signupForm.phone_number,
+    pushToken:signupForm.userPushToken
     }).catch(() => {
       Alert.alert("회원가입 실패","알 수 없는 오류로 인해 회원가입에 실패하였습니다.")
     }).then(() => {

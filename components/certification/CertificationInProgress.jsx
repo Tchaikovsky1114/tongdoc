@@ -13,7 +13,6 @@ export default function CertificationInProgress() {
     const {
       nativeEvent: { data },
     } = event;
-    console.log(data);
     navigation.navigate('Signup/CertificationResult', {
       screen: 'Signup/CertificationResult',
       userInfo: data,
@@ -21,13 +20,14 @@ export default function CertificationInProgress() {
   };
 
   const receiveCertificationFailedFromWebviewHandler = (err) => {
-    alert(err);
+    console.error(err.nativeEvent.description);
+    navigation.navigate('Signup');
   };
 
   return (
     <WebView
       source={{ uri: PASS_URL }}
-      originWhitelist={['*']}
+      originWhitelist={["https://*", "http://*", "file://*", "sms://*",'intent://*']}
       onMessage={receiveCertificationSuccessFromWebviewHandler}
       onError={receiveCertificationFailedFromWebviewHandler}
       style={{ flex: 1 }}
