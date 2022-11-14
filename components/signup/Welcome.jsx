@@ -47,6 +47,29 @@ export default function Welcome({navigation}) {
   useEffect(() => {
     schedulePushNotification()
   },[])
+
+  const testFCM = async () => {
+    await fetch('https://fcm.googleapis.com/fcm/send', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `key=<FCM-SERVER-KEY>`,
+      },
+      body: JSON.stringify({
+        to: '<NATIVE-DEVICE-PUSH-TOKEN>',
+        priority: 'normal',
+        data: {
+          experienceId: '@ermerskim/tongdoc_app',
+          scopeKey: '@ermerskim/tongdoc_app',
+          title: "📧 You've got mail",
+          message: 'Hello world! 🌐',
+        },
+      }),
+    });
+  }
+  useEffect(() => {
+   testFCM()
+  },[])
   
   return (
     <View style={styles.container}>
