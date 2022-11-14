@@ -23,6 +23,7 @@ import CertificationInProgress from "./components/certification/CertificationInP
 import ChoiceSignMethod from "./components/signup/ChoiceSignMethod";
 import FindInfoPage from "./screens/FindInfo";
 import Welcome from "./components/signup/Welcome";
+import DiagnosisScreen from "./screens/DiagnosisScreen";
 
 
 
@@ -89,6 +90,11 @@ export default function App() {
               name="Home"
               component={HomeScreen}
               options={{ title: "" }}
+            />
+            <Stack.Screen
+            name="Diagnosis"
+            component={DiagnosisScreen}
+            options={{ title: "", headerBackVisible: false,headerStyle:{backgroundColor:'#efefef'} }}
             />
             <Stack.Screen
               name="Signup"
