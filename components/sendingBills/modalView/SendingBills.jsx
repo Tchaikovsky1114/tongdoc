@@ -7,16 +7,24 @@ import {
   Text,
   View,
 } from 'react-native';
+import { useRecoilValue } from 'recoil';
+import { signinState } from '../../../store/signin';
 import P_14M from '../../../style/paragraph/P_14M';
 import ModalCarousel from '../modalCarousel/ModalCarousel';
 const { width } = Dimensions.get('window');
+
 const SendingBills = ({ PAGES_ONCE, PAGES_MONTH }) => {
   const [selectBill, setSelectBill] = useState(true);
+  const [isVisible, setIsVisible] = useState(true);
+  const signin = useRecoilValue(signinState);
   const selectBillHandler = () => {
     setSelectBill((prev) => !prev);
   };
+  const closeModalHandler = () => {
+    setIsVisible((prev) => !prev);
+  };
   return (
-    <Modal transparent={true}>
+    <Modal transparent={true} visible={isVisible}>
       <View style={styles.container}>
         <View style={styles.modalBox}>
           <View style={styles.titleBtnBox}>
@@ -46,12 +54,27 @@ const SendingBills = ({ PAGES_ONCE, PAGES_MONTH }) => {
           </View>
 
           <View style={styles.BottomBtnBox}>
-            <Pressable style={styles.BottomCloseBtn}>
+            <Pressable
+              style={styles.BottomCloseBtn}
+              onPress={closeModalHandler}
+            >
               <Text style={styles.CloseBtnText}>다음에 전송</Text>
             </Pressable>
-            <Pressable style={styles.BottomAppBtn}>
-              <Text style={styles.AppBtnText}>KT앱 실행</Text>
-            </Pressable>
+            {signin.tongkind === '1' && (
+              <Pressable style={styles.BottomAppBtn}>
+                <Text style={styles.AppBtnText}>SKT앱 실행</Text>
+              </Pressable>
+            )}
+            {signin.tongkind === '2' && (
+              <Pressable style={styles.BottomAppBtn}>
+                <Text style={styles.AppBtnText}>KT앱 실행</Text>
+              </Pressable>
+            )}
+            {signin.tongkind === '3' && (
+              <Pressable style={styles.BottomAppBtn}>
+                <Text style={styles.AppBtnText}>LG U+앱 실행</Text>
+              </Pressable>
+            )}
           </View>
         </View>
       </View>
