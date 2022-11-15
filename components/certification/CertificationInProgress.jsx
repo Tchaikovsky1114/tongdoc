@@ -2,8 +2,9 @@ import { StyleSheet, ActivityIndicator, View } from 'react-native';
 import React, { useState, useEffect } from 'react';
 import { WebView } from 'react-native-webview';
 import { useNavigation } from '@react-navigation/native';
+import { PASS_URL } from './constants/Constants';
 
-const PASS_URL = 'https://api.tongdoc.net/nice/do.html';
+
 
 export default function CertificationInProgress() {
   const navigation = useNavigation();
@@ -12,7 +13,6 @@ export default function CertificationInProgress() {
     const {
       nativeEvent: { data },
     } = event;
-    console.log(data);
     navigation.navigate('Signup/CertificationResult', {
       screen: 'Signup/CertificationResult',
       userInfo: data,
@@ -20,13 +20,14 @@ export default function CertificationInProgress() {
   };
 
   const receiveCertificationFailedFromWebviewHandler = (err) => {
-    alert(err);
+    console.error(err.nativeEvent.description);
+    navigation.navigate('Signup');
   };
 
   return (
     <WebView
       source={{ uri: PASS_URL }}
-      originWhitelist={['*']}
+      originWhitelist={["https://*", "http://*", "file://*", "sms://*",'intent://*']}
       onMessage={receiveCertificationSuccessFromWebviewHandler}
       onError={receiveCertificationFailedFromWebviewHandler}
       style={{ flex: 1 }}

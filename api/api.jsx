@@ -19,6 +19,7 @@ instance.interceptors.request.use((config) => {
   config.headers.Accept = 'application/json';
   return config;
 });
+
 instance.interceptors.response.use(
   (response) => {
     return Promise.resolve(response);
@@ -37,12 +38,33 @@ const apis = {
     if (response) {
       const token = response.data.DAT.res_token;
       AsyncStorage.setItem('access', token.access_token);
-      AsyncStorage.setItem('refresh', token.refresh_token);
+      
       return response.data.MSG;
     } else {
       return response;
     }
   },
+  // required : email,name,password
+  signup: async (user) => {
+    try {
+      const {data:{DAT:{res_token:token}}} = await instance.post('user/append_email',user,{});
+      AsyncStorage.setItem('access', token.access_token);
+    } catch (error) {
+      console.error(error);
+      return;
+    }
+    try {
+      const response = await instance.post('/user/login_email', user);
+      const token = response.data.DAT.res_token;
+      AsyncStorage.setItem('access', token.access_token);
+      return response.data.MSG;
+    } catch (error) {
+      const errorResponse = await error.response.data;
+      if (errorResponse.DAT) {
+        throw errorResponse.DAT;
+      }
+    }
+  }
 };
 
 export default apis;

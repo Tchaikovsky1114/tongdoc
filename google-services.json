@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "376959487633",
+    "project_id": "tongdoc-4757b",
+    "storage_bucket": "tongdoc-4757b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:376959487633:android:190cf229efa2ef0efb3930",
+        "android_client_info": {
+          "package_name": "com.dreamfreedom.tongdoc"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "376959487633-uf9hog67pslv0ev83h7o6qrb3eg04kj1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD9EHL35qsGQ_VuCUAXEB4pGIkUg9Bg3y8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "376959487633-uf9hog67pslv0ev83h7o6qrb3eg04kj1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,21 +1,45 @@
 import { StyleSheet, Text, View,Image,Pressable,Dimensions } from 'react-native'
-import React from 'react'
+import React,{useEffect} from 'react'
 import H4_24R from '../../style/H4_24R'
 import P_14R from '../../style/paragraph/P_14R'
 
 import { useNavigation } from '@react-navigation/native';
+import { useRecoilState } from 'recoil';
+import { signupState } from '../../store/signup';
 
 const {width} = Dimensions.get('window')
 
 export default function Certification() {
   const navigation = useNavigation();
-
+  const userInfo = useRecoilState(signupState);
 
   const getCertificationHandler = () => {
-
     navigation.navigate('Signup/CertificationInProgress')
   }
 
+  const testFCM = async () => {
+    console.log(userInfo.userPushToken);
+    await fetch('https://fcm.googleapis.com/fcm/send', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `key=AIzaSyD9EHL35qsGQ_VuCUAXEB4pGIkUg9Bg3y8`,
+      },
+      body: JSON.stringify({
+        to: userInfo.userPushToken,
+        priority: 'normal',
+        data: {
+          experienceId: '@ermerskim/tongdoc_app',
+          scopeKey: '@ermerskim/tongdoc_app',
+          title: "📧 You've got mail",
+          message: 'Hello world! 🌐',
+        },
+      }),
+    });
+  }
+  useEffect(() => {
+   testFCM()
+  },[])
   return (
     <View style={styles.container}>
       <View style={styles.inner}>
@@ -27,7 +51,6 @@ export default function Certification() {
           <Image style={styles.image} source={require('../../assets/signup/certification.png')} />
         </View>
       </View>
-
       <View style={styles.buttonBox}>
         <Pressable onPress={getCertificationHandler} style={({pressed}) => [styles.button,{backgroundColor: pressed ? 'rgba(45, 99, 226,0.8)' : 'rgb(45, 99, 226)'}]}>
           <View style={styles.button}>

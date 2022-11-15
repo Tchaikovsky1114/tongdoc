@@ -1,4 +1,3 @@
-
 import {
   Dimensions,
   Pressable,
@@ -7,34 +6,36 @@ import {
   View,
   Image,
   Platform,
-  ActivityIndicator
+  ActivityIndicator,
+  Alert
 } from "react-native";
 
 import React,{useState} from "react";
-import H4_24R from "../../style/H4_24R";
-import P_12R from "../../style/paragraph/P_12R";
-import P_14R from "../../style/paragraph/P_14R";
+import { useNavigation } from "@react-navigation/native";
+import { isDevice } from 'expo-device';
+import { openSettings } from 'expo-linking';
+
 import * as Contacts from "expo-contacts";
 import * as Notifications from "expo-notifications";
 import * as SMS from "expo-sms";
 import * as Location from "expo-location";
-import { useNavigation } from "@react-navigation/native";
 
-// Notifications.setNotificationHandler({
-//   handleNotification: async () => ({
-//     shouldShowAlert:true,
-//     shouldPlaySound:false,
-//     shouldSetBadge:false,
-//   })
-// });
+import H4_24R from "../../style/H4_24R";
+import P_14R from "../../style/paragraph/P_14R";
+import { useRecoilState } from "recoil";
+import { signupState } from "../../store/signup";
 
 const { width } = Dimensions.get("window");
 
 export default function Signup() {
   const navigation = useNavigation();
   const [isLoading,setIsLoading] = useState(false)
-
+  const [userInfo,setUserInfo] = useRecoilState(signupState)
   const getAuthorityPressHandler = async () => {
+    if(!isDevice){
+      Alert.alert('데스크탑에서 실행중이신가요?','스마트폰 외에는 접근 권한을 설정할 수 없습니다. 다음 페이지로 이동합니다.',{text:'OK',onPress:async () => {navigation.navigate('Signup/ChoiceSignMethod')} });
+      return;
+    }
     let allGrantedPermission = false;
     setIsLoading(true)
     try {
@@ -42,9 +43,7 @@ export default function Signup() {
       if (status === "granted") {
         const { data } = await Contacts.getContactsAsync({
           fields: [Contacts.Fields.Emails],
-        });
-        console.log("Contacts granted");
-
+        });        
         //  if(data.length > 0) {
         //    const contact = data[1];
         //    console.log(contact); 유저 기기의 연락처를 확인할 수 있음.
@@ -61,7 +60,7 @@ export default function Signup() {
     try {
       const isAvailable = await SMS.isAvailableAsync();
       if (isAvailable) {
-        console.log("SMS is available");
+        
         allGrantedPermission = true;
       } else {
         allGrantedPermission = false;
@@ -70,37 +69,6 @@ export default function Signup() {
       allGrantedPermission = false;
     }
 
-    // try {
-    //   const { status: existingStatus } =
-    //     await Notifications.getPermissionsAsync();
-    //   let NotificationStatus = existingStatus;
-    //   if (existingStatus !== "granted") {
-    //     const { status } = await Notifications.requestPermissionsAsync();
-    //     NotificationStatus = status;
-    //     allGrantedPermission = true;
-    //   }
-    //   if (NotificationStatus !== "granted") {
-    //     alert("푸시 알람에 대한 토큰 인증에 실패하였습니다.");
-    //     allGrantedPermission = false;
-    //     return;
-    //   }
-
-    //   const token = await Notifications.getExpoPushTokenAsync({
-    //     experienceId: "tongdoc_app",
-    //   });
-    //   console.log(token);
-
-    //   if (Platform.OS === "android") {
-    //     Notifications.setNotificationChannelAsync("default", {
-    //       name: "default",
-    //       importance: Notifications.AndroidImportance.MAX,
-    //       vibrationPattern: [0, 250, 250, 250],
-    //       lightColor: "#FF231F7C",
-    //     });
-    //   }
-    // } catch (err) {
-    //   console.error(err);
-    // }
     try {
       let { status } = await Location.requestForegroundPermissionsAsync();
       if (status === "granted") {
@@ -113,15 +81,65 @@ export default function Signup() {
     } catch (err) {
       console.error(err);
       allGrantedPermission = false;
+    }
+    
+    let token;
+    try {
+      const { status: existingStatus } =
+        await Notifications.getPermissionsAsync();
+      let NotificationStatus = existingStatus;
+      if (existingStatus !== "granted") {
+        const { status } = await Notifications.requestPermissionsAsync();
+        NotificationStatus = status;
+        allGrantedPermission = true;
+      }
+      if (NotificationStatus !== "granted") {
+        Alert.alert(
+          "권한 오류",
+          '푸시 알람 권한 획득에 실패하였습니다.',
+          [
+            {
+               text:'확인',
+            },
+            {
+              text:'Setting으로 이동하기',
+              onPress: async () => openSettings(),
+            }
+          ]
+        );
+        allGrantedPermission = false;
+        return;
+      }
 
+      token = {data} = await Notifications.getExpoPushTokenAsync({
+        experienceId: "tongdoc_app",
+      });
+      
+      console.log(token.data);
+      
+      setUserInfo(prev => ({
+        ...prev,
+        userPushToken: token.data
+      }))
+
+      if (Platform.OS === "android") {
+        Notifications.setNotificationChannelAsync("default", {
+          name: "default",
+          importance: Notifications.AndroidImportance.MAX,
+          vibrationPattern: [0, 250, 250, 250],
+          lightColor: "#FF231F7C",
+        });
+      }
+    } catch (err) {
+      console.error(err);
     }finally{
-      console.log('allGrantedPermission', allGrantedPermission);
       navigation.navigate('Signup/ChoiceSignMethod')
       setIsLoading(false)
-
+      
+      return token;
     } 
   };
-
+  
   return (
     <View style={styles.container}>
       <View style={styles.inner}>

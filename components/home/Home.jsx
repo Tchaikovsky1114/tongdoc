@@ -1,12 +1,13 @@
 import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
 import SendingBillsKT from '../sendingBills/KT/SendingBillsKT';
+import SendingBillsSKT from '../sendingBills/SKT/SendingBillsSKT';
 
 export default function Home() {
   return (
-    <View style={styles.container}>
+    <View>
       <Text>Main!!!</Text>
-      <SendingBillsKT />
+      <SendingBillsSKT />
     </View>
   );
 }

@@ -20,10 +20,7 @@
         {
           "icon": "./local/assets/notification-icon.png",
           "color": "#ffffff",
-          "sounds": [
-            "./local/assets/notification-sound.wav",
-            "./local/assets/notification-sound-other.wav"
-          ]
+          "sounds": []
         }
       ]
     ],
@@ -51,6 +48,8 @@
       }
     },
     "android": {
+      "package": "com.dreamfreedom.tongdoc",
+      "googleServicesFile": "./google-services.json",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
@@ -79,6 +78,6 @@
     "runtimeVersion": {
       "policy": "sdkVersion"
     }
-    
+  
   }
 }
