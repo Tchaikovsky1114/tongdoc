@@ -30,14 +30,13 @@ const styles = StyleSheet.create({
   circleIndicator: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
   },
   circle: {
     width: 14,
     height: 14,
     borderRadius: 7,
     backgroundColor: '#DDDDDD',
-    marginHorizontal: 14,
+    marginHorizontal: 12,
   },
   activeCircle: {
     backgroundColor: '#2D63E2',
