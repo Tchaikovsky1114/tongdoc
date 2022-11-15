@@ -1,5 +1,5 @@
 import { useNavigation } from '@react-navigation/native';
-import { Suspense, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import {
   Dimensions,
   KeyboardAvoidingView,
@@ -89,82 +89,86 @@ const Signin = () => {
 
   // 주석 : 로그인 버튼
   const loginHandler = async () => {
-    setSignin(signinForm);
     const response = await apis.Signin(signinForm);
-    if (response !== 'OK') {
+    if (!response) {
       setIsVisible((prev) => !prev);
+    } else {
+      setSignin({
+        email: response.DAT.res_user.email,
+        name: response.DAT.res_user.name,
+        tongkind: response.DAT.res_user.tongkind,
+      });
+      navigation.navigate('TestPage', {
+        tongkind: response.DAT.res_user.tongkind,
+      });
     }
   };
 
   return (
-    <Suspense fallback={<Text>로딩중</Text>}>
-      <View style={styles.container}>
-        <ScrollView style={styles.screen}>
-          <KeyboardAvoidingView style={styles.screen} behavior="position">
-            <H4_24R style={styles.title}>{'로그인'}</H4_24R>
-            <View style={styles.inputBox}>
-              <SigninInput
-                ref={emailRef}
-                type="email"
-                inputStyle={styles.inputMargin}
-                placeholder="이메일"
-                autoCapitalize="none"
-                onChangeInput={emailHandler}
-                returnKey="next"
-                keyboardType="email-address"
-                onSubmitEditing={() => {
-                  passwordRef.current.focus();
-                }}
-              />
-              <SigninInput
-                ref={passwordRef}
-                type="password"
-                placeholder="비밀번호"
-                autoCapitalize="none"
-                secureTextEntry={true}
-                onChangeInput={passwordHandler}
-              />
-            </View>
-            <View style={styles.findBox}>
-              <Pressable onPress={moveFindEmail}>
-                <P_12R style={styles.findTextColor}>이메일 찾기</P_12R>
-              </Pressable>
-              <Pressable onPress={moveFindPassword}>
-                <P_12R style={styles.findTextMiddle}>비밀번호 찾기</P_12R>
-              </Pressable>
-              <Pressable onPress={moveSignupPageHandler}>
-                <P_12R style={styles.findTextColor}>회원가입</P_12R>
-              </Pressable>
-              <Pressable onPress={testSKT}>
-                <P_12R style={styles.findTextColor}>testSKT</P_12R>
-              </Pressable>
-              <Pressable onPress={testKT}>
-                <P_12R style={styles.findTextColor}>testKT</P_12R>
-              </Pressable>
-              <Pressable onPress={testLG}>
-                <P_12R style={styles.findTextColor}>testLG</P_12R>
-              </Pressable>
-            </View>
-          </KeyboardAvoidingView>
-        </ScrollView>
-        <View
-          style={isDisable ? styles.loginBtnBoxDisabled : styles.loginBtnBox}
-        >
-          <Pressable disabled={isDisable} onPress={loginHandler}>
-            <View style={styles.loginBtn}>
-              <Text style={styles.loginBtnText}>로그인하기</Text>
-            </View>
-          </Pressable>
-        </View>
-        <SigninModal
-          isVisible={isVisible}
-          firstInfoText={'이메일 주소나 비밀번호를'}
-          secondInfoText={'확인 후 다시 입력해 주세요.'}
-          pressBtn={closeModalHandler}
-          btnText={'확인'}
-        />
+    <View style={styles.container}>
+      <ScrollView style={styles.screen}>
+        <KeyboardAvoidingView style={styles.screen} behavior="position">
+          <H4_24R style={styles.title}>{'로그인'}</H4_24R>
+          <View style={styles.inputBox}>
+            <SigninInput
+              ref={emailRef}
+              type="email"
+              inputStyle={styles.inputMargin}
+              placeholder="이메일"
+              autoCapitalize="none"
+              onChangeInput={emailHandler}
+              returnKey="next"
+              keyboardType="email-address"
+              onSubmitEditing={() => {
+                passwordRef.current.focus();
+              }}
+            />
+            <SigninInput
+              ref={passwordRef}
+              type="password"
+              placeholder="비밀번호"
+              autoCapitalize="none"
+              secureTextEntry={true}
+              onChangeInput={passwordHandler}
+            />
+          </View>
+          <View style={styles.findBox}>
+            <Pressable onPress={moveFindEmail}>
+              <P_12R style={styles.findTextColor}>이메일 찾기</P_12R>
+            </Pressable>
+            <Pressable onPress={moveFindPassword}>
+              <P_12R style={styles.findTextMiddle}>비밀번호 찾기</P_12R>
+            </Pressable>
+            <Pressable onPress={moveSignupPageHandler}>
+              <P_12R style={styles.findTextColor}>회원가입</P_12R>
+            </Pressable>
+            <Pressable onPress={testSKT}>
+              <P_12R style={styles.findTextColor}>testSKT</P_12R>
+            </Pressable>
+            <Pressable onPress={testKT}>
+              <P_12R style={styles.findTextColor}>testKT</P_12R>
+            </Pressable>
+            <Pressable onPress={testLG}>
+              <P_12R style={styles.findTextColor}>testLG</P_12R>
+            </Pressable>
+          </View>
+        </KeyboardAvoidingView>
+      </ScrollView>
+      <View style={isDisable ? styles.loginBtnBoxDisabled : styles.loginBtnBox}>
+        <Pressable disabled={isDisable} onPress={loginHandler}>
+          <View style={styles.loginBtn}>
+            <Text style={styles.loginBtnText}>로그인하기</Text>
+          </View>
+        </Pressable>
       </View>
-    </Suspense>
+      <SigninModal
+        isVisible={isVisible}
+        firstInfoText={'이메일 주소나 비밀번호를'}
+        secondInfoText={'확인 후 다시 입력해 주세요.'}
+        pressBtn={closeModalHandler}
+        btnText={'확인'}
+      />
+    </View>
   );
 };
 

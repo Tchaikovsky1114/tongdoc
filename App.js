@@ -27,6 +27,7 @@ import DiagnosisScreen from './screens/DiagnosisScreen';
 import TestSKTPage from './screens/TestSKT';
 import TestKTPage from './screens/TestKT';
 import TestLGPage from './screens/TestLG';
+import TestPage from './screens/Test';
 
 enableScreens();
 const Stack = createNativeStackNavigator();
@@ -153,6 +154,11 @@ export default function App() {
             <Stack.Screen
               name="TestLG"
               component={TestLGPage}
+              options={{ title: '', headerBackVisible: false }}
+            />
+            <Stack.Screen
+              name="TestPage"
+              component={TestPage}
               options={{ title: '', headerBackVisible: false }}
             />
             <Stack.Screen
