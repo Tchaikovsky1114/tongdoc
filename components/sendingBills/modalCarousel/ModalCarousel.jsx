@@ -143,7 +143,7 @@ const styles = StyleSheet.create({
     top: 0,
   },
   indicatorBox: {
-    flex: 0,
+    width: width - 80,
     backgroundColor: '#fff',
     justifyContent: 'center',
     alignItems: 'center',
