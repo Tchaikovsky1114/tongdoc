@@ -72,8 +72,14 @@ const Signin = () => {
     navigation.navigate('Signup/Certification');
   };
 
-  const test = () => {
-    navigation.navigate('Home');
+  const testSKT = () => {
+    navigation.navigate('TestSKT');
+  };
+  const testKT = () => {
+    navigation.navigate('TestKT');
+  };
+  const testLG = () => {
+    navigation.navigate('TestLG');
   };
 
   // 주석 : 모달 닫기
@@ -129,8 +135,14 @@ const Signin = () => {
               <Pressable onPress={moveSignupPageHandler}>
                 <P_12R style={styles.findTextColor}>회원가입</P_12R>
               </Pressable>
-              <Pressable onPress={test}>
-                <P_12R style={styles.findTextColor}>test</P_12R>
+              <Pressable onPress={testSKT}>
+                <P_12R style={styles.findTextColor}>testSKT</P_12R>
+              </Pressable>
+              <Pressable onPress={testKT}>
+                <P_12R style={styles.findTextColor}>testKT</P_12R>
+              </Pressable>
+              <Pressable onPress={testLG}>
+                <P_12R style={styles.findTextColor}>testLG</P_12R>
               </Pressable>
             </View>
           </KeyboardAvoidingView>
