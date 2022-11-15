@@ -11,6 +11,7 @@ import { useRecoilValue } from 'recoil';
 import { signinState } from '../../../store/signin';
 import P_14M from '../../../style/paragraph/P_14M';
 import ModalCarousel from '../modalCarousel/ModalCarousel';
+import * as Linking from 'expo-linking';
 const { width } = Dimensions.get('window');
 
 const SendingBills = ({ PAGES_ONCE, PAGES_MONTH }) => {
@@ -23,6 +24,11 @@ const SendingBills = ({ PAGES_ONCE, PAGES_MONTH }) => {
   const closeModalHandler = () => {
     setIsVisible((prev) => !prev);
   };
+
+  const goToTong = (url) => () => {
+    Linking.openURL(url);
+  };
+
   return (
     <Modal transparent={true} visible={isVisible}>
       <View style={styles.container}>
@@ -61,17 +67,32 @@ const SendingBills = ({ PAGES_ONCE, PAGES_MONTH }) => {
               <Text style={styles.CloseBtnText}>다음에 전송</Text>
             </Pressable>
             {signin.tongkind === '1' && (
-              <Pressable style={styles.BottomAppBtn}>
+              <Pressable
+                style={styles.BottomAppBtn}
+                onPress={goToTong(
+                  'https://play.google.com/store/apps/details?id=com.sktelecom.minit'
+                )}
+              >
                 <Text style={styles.AppBtnText}>SKT앱 실행</Text>
               </Pressable>
             )}
             {signin.tongkind === '2' && (
-              <Pressable style={styles.BottomAppBtn}>
+              <Pressable
+                style={styles.BottomAppBtn}
+                onPress={goToTong(
+                  'https://play.google.com/store/apps/details?id=com.ktshow.cs'
+                )}
+              >
                 <Text style={styles.AppBtnText}>KT앱 실행</Text>
               </Pressable>
             )}
             {signin.tongkind === '3' && (
-              <Pressable style={styles.BottomAppBtn}>
+              <Pressable
+                style={styles.BottomAppBtn}
+                onPress={goToTong(
+                  'https://play.google.com/store/apps/details?id=com.lguplus.mobile.cs'
+                )}
+              >
                 <Text style={styles.AppBtnText}>LG U+앱 실행</Text>
               </Pressable>
             )}
