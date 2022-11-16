@@ -1,0 +1,21 @@
+{
+    "emmet.includeLanguages": {
+       "javascript": "javascriptreact"
+   },
+  "editor.tabSize": 2,
+  "editor.gotoLocation.multipleTypeDefinitions": "goto",
+  "editor.gotoLocation.multipleDefinitions": "goto",
+  "editor.definitionLinkOpensInPeek": true,
+  "editor.hover.enabled": true,
+  "gitlens.hovers.enabled": true,
+  "gitlens.hovers.pullRequests.enabled": true,
+  "editor.quickSuggestions": {
+    "other": true,
+    "comments": true,
+    "strings": true
+  },
+  "editor.parameterHints.enabled": true,
+  "editor.suggest.snippetsPreventQuickSuggestions": true,
+  "html.suggest.html5": true,
+  "editor.snippetSuggestions": "inline",
+ }

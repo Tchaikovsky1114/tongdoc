@@ -1,15 +1,15 @@
-import { useEffect, useState, useCallback } from 'react';
-import { View } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { enableScreens } from 'react-native-screens';
-import { RecoilRoot } from 'recoil';
+import { useEffect, useState, useCallback } from "react";
+import { View,Pressable,Image,Text,Dimensions } from "react-native";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { enableScreens } from "react-native-screens";
+import { RecoilRoot } from "recoil";
 
-import 'react-native-gesture-handler';
+import "react-native-gesture-handler";
 
-import * as Font from 'expo-font';
-import * as SplashScreen from 'expo-splash-screen';
-import * as Notification from 'expo-notifications';
+import * as Font from "expo-font";
+import * as SplashScreen from "expo-splash-screen";
+import * as Notification from "expo-notifications";
 
 import Splash from './components/Splash';
 import OnBoarding from './components/onboarding/OnBoarding';
@@ -32,6 +32,7 @@ import TestPage from './screens/Test';
 enableScreens();
 const Stack = createNativeStackNavigator();
 
+
 Notification.setNotificationHandler({
   handleNotification: async () => ({
     shouldShowAlert: true,
@@ -39,6 +40,8 @@ Notification.setNotificationHandler({
     shouldSetBadge: false,
   }),
 });
+
+const {width} = Dimensions.get('window');
 
 export default function App() {
   const [appIsReady, setAppIsReady] = useState(false);
@@ -90,16 +93,25 @@ export default function App() {
             <Stack.Screen
               name="Home"
               component={HomeScreen}
-              options={{ title: '' }}
+              options={{ title: "" }}
+              
             />
             <Stack.Screen
-              name="Diagnosis"
-              component={DiagnosisScreen}
-              options={{
-                title: '',
-                headerBackVisible: false,
-                headerStyle: { backgroundColor: '#efefef' },
-              }}
+            name="Diagnosis"
+            component={DiagnosisScreen}
+            options={{
+              headerTitle: () => <View style={{textAlign:'center',width: width - 145,justifyContent:'center',marginHorizontal:'auto'}}>
+                <Text style={{fontSize:16,fontFamily:'Noto400',textAlign:'center'}}>통신비 진단 결과</Text></View>,
+              headerRight: () => (
+              <Pressable onPress={() => {}}>
+                <Image style={{width:24,height:24}} source={require('./assets/diagnosis/bell.png')}/>
+              </Pressable>
+              ),
+              headerTitleStyle: {},
+              headerStyle:{
+                textAlign:'center',
+              }
+            }}
             />
             <Stack.Screen
               name="Signup"
