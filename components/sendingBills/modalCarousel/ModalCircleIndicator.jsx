@@ -4,12 +4,12 @@ import { StyleSheet, View, Pressable } from 'react-native';
 const ModalCircleIndicator = ({
   pressScrollXHandler,
   currentPageNumber,
-  PAGES_ONCE,
+  PAGES,
 }) => {
   return (
     <View style={styles.circleIndicator}>
-      {PAGES_ONCE.map((_, idx) => (
-        <>
+      {PAGES.map((item, idx) => (
+        <View key={item.num}>
           <Pressable onPress={() => pressScrollXHandler(idx)}>
             <View
               style={[
@@ -18,7 +18,7 @@ const ModalCircleIndicator = ({
               ]}
             ></View>
           </Pressable>
-        </>
+        </View>
       ))}
     </View>
   );
@@ -30,14 +30,13 @@ const styles = StyleSheet.create({
   circleIndicator: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
   },
   circle: {
     width: 14,
     height: 14,
     borderRadius: 7,
     backgroundColor: '#DDDDDD',
-    marginHorizontal: 14,
+    marginHorizontal: 12,
   },
   activeCircle: {
     backgroundColor: '#2D63E2',

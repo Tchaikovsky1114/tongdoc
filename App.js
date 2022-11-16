@@ -11,26 +11,27 @@ import * as Font from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import * as Notification from "expo-notifications";
 
-import Splash from "./components/Splash";
-import OnBoarding from "./components/onboarding/OnBoarding";
-import HomeScreen from "./screens/HomeScreen";
-import SignupPage from "./screens/SignupPage";
-import SigninPage from "./screens/SigninPage";
-import EmailAndPassword from "./components/signup/EmailAndPassword";
-import CertificationScreen from "./screens/CertificationScreen";
-import CertificationResult from "./components/certification/CertificationResult";
-import CertificationInProgress from "./components/certification/CertificationInProgress";
-import ChoiceSignMethod from "./components/signup/ChoiceSignMethod";
-import FindInfoPage from "./screens/FindInfo";
-import Welcome from "./components/signup/Welcome";
-import DiagnosisScreen from './screens/DiagnosisScreen'
-
-
-const {width} = Dimensions.get('window')
-
+import Splash from './components/Splash';
+import OnBoarding from './components/onboarding/OnBoarding';
+import HomeScreen from './screens/HomeScreen';
+import SignupPage from './screens/SignupPage';
+import SigninPage from './screens/SigninPage';
+import EmailAndPassword from './components/signup/EmailAndPassword';
+import CertificationScreen from './screens/CertificationScreen';
+import CertificationResult from './components/certification/CertificationResult';
+import CertificationInProgress from './components/certification/CertificationInProgress';
+import ChoiceSignMethod from './components/signup/ChoiceSignMethod';
+import FindInfoPage from './screens/FindInfo';
+import Welcome from './components/signup/Welcome';
+import DiagnosisScreen from './screens/DiagnosisScreen';
+import TestSKTPage from './screens/TestSKT';
+import TestKTPage from './screens/TestKT';
+import TestLGPage from './screens/TestLG';
+import TestPage from './screens/Test';
 
 enableScreens();
 const Stack = createNativeStackNavigator();
+
 
 Notification.setNotificationHandler({
   handleNotification: async () => ({
@@ -39,6 +40,8 @@ Notification.setNotificationHandler({
     shouldSetBadge: false,
   }),
 });
+
+const {width} = Dimensions.get('window');
 
 export default function App() {
   const [appIsReady, setAppIsReady] = useState(false);
@@ -54,17 +57,17 @@ export default function App() {
       try {
         // Pre-load fonts, make any API calls you need to do here
         await Font.loadAsync({
-          Noto900: require("./assets/fonts/NotoSansKR-Black.otf"),
-          Noto700: require("./assets/fonts/NotoSansKR-Bold.otf"),
-          Noto500: require("./assets/fonts/NotoSansKR-Medium.otf"),
-          Noto400: require("./assets/fonts/NotoSansKR-Regular.otf"),
-          Noto300: require("./assets/fonts/NotoSansKR-Thin.otf"),
+          Noto900: require('./assets/fonts/NotoSansKR-Black.otf'),
+          Noto700: require('./assets/fonts/NotoSansKR-Bold.otf'),
+          Noto500: require('./assets/fonts/NotoSansKR-Medium.otf'),
+          Noto400: require('./assets/fonts/NotoSansKR-Regular.otf'),
+          Noto300: require('./assets/fonts/NotoSansKR-Thin.otf'),
         });
         setAppIsReady(true);
       } catch (e) {
         console.warn(e);
       }
-      console.log("fonts loaded");
+      console.log('fonts loaded');
     }
     prepare();
   }, []);
@@ -77,9 +80,9 @@ export default function App() {
         <NavigationContainer>
           <Stack.Navigator
             screenOptions={{
-              animation: "slide_from_right",
+              animation: 'slide_from_right',
               headerShadowVisible: false,
-              headerBackImageSource: require("./assets/common/back_arrow.png"),
+              headerBackImageSource: require('./assets/common/back_arrow.png'),
             }}
           >
             <Stack.Group screenOptions={{ headerShown: false }}>
@@ -104,10 +107,7 @@ export default function App() {
                 <Image style={{width:24,height:24}} source={require('./assets/diagnosis/bell.png')}/>
               </Pressable>
               ),
-              headerTitleStyle: {
-                
-                
-              },
+              headerTitleStyle: {},
               headerStyle:{
                 textAlign:'center',
               }
@@ -116,46 +116,67 @@ export default function App() {
             <Stack.Screen
               name="Signup"
               component={SignupPage}
-              options={{ title: "" }}
+              options={{ title: '' }}
             />
             <Stack.Screen
               name="Signup/Certification"
               component={CertificationScreen}
-              options={{ title: "" }}
+              options={{ title: '' }}
             />
             <Stack.Screen
               name="Signup/ChoiceSignMethod"
               component={ChoiceSignMethod}
-              options={{ title: "" }}
+              options={{ title: '' }}
             />
             <Stack.Screen
               name="Signup/CertificationInProgress"
               component={CertificationInProgress}
-              options={{ title: "" }}
+              options={{ title: '' }}
             />
             <Stack.Screen
               name="Signup/CertificationResult"
               component={CertificationResult}
-              options={{ title: "" }}
+              options={{ title: '' }}
             />
             <Stack.Screen
               name="Signup/EmailAndPassword"
               component={EmailAndPassword}
-              options={{ title: "" }}
+              options={{ title: '' }}
             />
             <Stack.Screen
               name="Signup/Welcome"
               component={Welcome}
-              options={{title:''}}/>
+              options={{ title: '' }}
+            />
             <Stack.Screen
               name="Signin"
               component={SigninPage}
-              options={{ title: "", headerBackVisible: false }}
+              options={{ title: '', headerBackVisible: false }}
+            />
+            <Stack.Screen
+              name="TestSKT"
+              component={TestSKTPage}
+              options={{ title: '', headerBackVisible: false }}
+            />
+            <Stack.Screen
+              name="TestKT"
+              component={TestKTPage}
+              options={{ title: '', headerBackVisible: false }}
+            />
+            <Stack.Screen
+              name="TestLG"
+              component={TestLGPage}
+              options={{ title: '', headerBackVisible: false }}
+            />
+            <Stack.Screen
+              name="TestPage"
+              component={TestPage}
+              options={{ title: '', headerBackVisible: false }}
             />
             <Stack.Screen
               name="Signin/FindInfo"
               component={FindInfoPage}
-              options={{ title: "" }}
+              options={{ title: '' }}
             />
           </Stack.Navigator>
         </NavigationContainer>

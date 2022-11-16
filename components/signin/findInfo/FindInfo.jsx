@@ -13,6 +13,7 @@ import P_14M from '../../../style/paragraph/P_14M';
 import SigninInput from '../../common/SigninInput';
 import SigninModal from '../SigninModal/SigninModal';
 const { width } = Dimensions.get('window');
+
 const FindInfo = (props) => {
   const { id } = props;
   const [selectTap, setSelectTap] = useState(id);

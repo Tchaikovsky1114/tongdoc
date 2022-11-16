@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Dimensions, Image, ScrollView, StyleSheet, View } from 'react-native';
 import P_14M from '../../../style/paragraph/P_14M';
 import P_16M from '../../../style/paragraph/P_16M';
@@ -6,7 +6,7 @@ import ModalCircleIndicator from './ModalCircleIndicator';
 
 const { width } = Dimensions.get('window');
 
-const ModalCarousel = ({ PAGES_ONCE }) => {
+const ModalCarousel = ({ PAGES, selectBill }) => {
   const [currentPageNumber, setCurrentPageNumber] = useState(1);
 
   const carouselRef = useRef(null);
@@ -22,9 +22,14 @@ const ModalCarousel = ({ PAGES_ONCE }) => {
         contentOffset: { x },
       },
     } = e;
-
     setCurrentPageNumber(Math.round(x / (width - 80)) + 1);
   };
+
+  useEffect(() => {
+    carouselRef.current.scrollTo({ x: 0 });
+    setCurrentPageNumber(1);
+  }, [selectBill]);
+
   return (
     <>
       <ScrollView
@@ -36,9 +41,9 @@ const ModalCarousel = ({ PAGES_ONCE }) => {
         onScroll={scrollHandler}
         scrollEventThrottle={300}
       >
-        {PAGES_ONCE.map((item, idx) => (
-          <>
-            {PAGES_ONCE.length === idx + 1 ? (
+        {PAGES.map((item, idx) => (
+          <View key={item.num}>
+            {PAGES.length === idx + 1 ? (
               <View style={styles.modalCarouselLastItem}>
                 <View style={styles.modalCarouselLastItemTop}>
                   <P_16M>{item.lastInfoTop.first}</P_16M>
@@ -64,7 +69,7 @@ const ModalCarousel = ({ PAGES_ONCE }) => {
                   </View>
                   <View style={styles.ImgBox}>
                     <Image
-                      resizeMode="contain"
+                      resizeMode="center"
                       style={styles.img}
                       source={item.imageUrl}
                     />
@@ -72,14 +77,14 @@ const ModalCarousel = ({ PAGES_ONCE }) => {
                 </>
               </View>
             )}
-          </>
+          </View>
         ))}
       </ScrollView>
       <View style={styles.indicatorBox}>
         <ModalCircleIndicator
           currentPageNumber={currentPageNumber}
           pressScrollXHandler={pressScrollXHandler}
-          PAGES_ONCE={PAGES_ONCE}
+          PAGES={PAGES}
         />
       </View>
     </>
@@ -129,18 +134,16 @@ const styles = StyleSheet.create({
     flex: 7,
     alignItems: 'center',
     justifyContent: 'center',
-    position: 'relative',
   },
   img: {
     position: 'absolute',
-
     width: '100%',
     height: '90%',
     flex: 1,
     top: 0,
   },
   indicatorBox: {
-    flex: 0,
+    width: width - 80,
     backgroundColor: '#fff',
     justifyContent: 'center',
     alignItems: 'center',

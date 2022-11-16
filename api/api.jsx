@@ -38,8 +38,8 @@ const apis = {
     if (response) {
       const token = response.data.DAT.res_token;
       AsyncStorage.setItem('access', token.access_token);
-      
-      return response.data.MSG;
+
+      return response.data;
     } else {
       return response;
     }
@@ -47,7 +47,11 @@ const apis = {
   // required : email,name,password
   signup: async (user) => {
     try {
-      const {data:{DAT:{res_token:token}}} = await instance.post('user/append_email',user,{});
+      const {
+        data: {
+          DAT: { res_token: token },
+        },
+      } = await instance.post('user/append_email', user, {});
       AsyncStorage.setItem('access', token.access_token);
     } catch (error) {
       console.error(error);
@@ -64,7 +68,7 @@ const apis = {
         throw errorResponse.DAT;
       }
     }
-  }
+  },
 };
 
 export default apis;
