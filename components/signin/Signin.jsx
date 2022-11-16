@@ -9,7 +9,7 @@ import {
   Text,
   View,
 } from 'react-native';
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import { useRecoilState } from 'recoil';
 import apis from '../../api/api';
 import { signinState } from '../../store/signin';
 
