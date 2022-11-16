@@ -1,15 +1,23 @@
-import { useEffect, useState, useCallback } from "react";
-import { View,Pressable,Image,Text,Dimensions } from "react-native";
-import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { enableScreens } from "react-native-screens";
-import { RecoilRoot } from "recoil";
+import { useEffect, useState, useCallback } from 'react';
+import {
+  View,
+  Pressable,
+  Image,
+  Text,
+  Dimensions,
+  BackHandler,
+} from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { enableScreens } from 'react-native-screens';
+import { RecoilRoot } from 'recoil';
 
-import "react-native-gesture-handler";
+import 'react-native-gesture-handler';
 
-import * as Font from "expo-font";
-import * as SplashScreen from "expo-splash-screen";
-import * as Notification from "expo-notifications";
+import * as Font from 'expo-font';
+import * as SplashScreen from 'expo-splash-screen';
+import * as Notification from 'expo-notifications';
 
 import Splash from './components/Splash';
 import OnBoarding from './components/onboarding/OnBoarding';
@@ -24,14 +32,13 @@ import ChoiceSignMethod from './components/signup/ChoiceSignMethod';
 import FindInfoPage from './screens/FindInfo';
 import Welcome from './components/signup/Welcome';
 import DiagnosisScreen from './screens/DiagnosisScreen';
-import TestSKTPage from './screens/TestSKT';
-import TestKTPage from './screens/TestKT';
-import TestLGPage from './screens/TestLG';
 import TestPage from './screens/Test';
+import PurchaseMobileScreen from './screens/PurchaseMobileScreen';
+import CustomServiceScreen from './screens/CustomServiceScreen';
+import MyPageScreen from './screens/MyPageScreen';
 
 enableScreens();
 const Stack = createNativeStackNavigator();
-
 
 Notification.setNotificationHandler({
   handleNotification: async () => ({
@@ -41,7 +48,131 @@ Notification.setNotificationHandler({
   }),
 });
 
-const {width} = Dimensions.get('window');
+const { width } = Dimensions.get('window');
+
+const handleBackButton = () => {
+  BackHandler.exitApp();
+  return true;
+};
+
+const Tab = createBottomTabNavigator();
+
+const BottomTabs = () => {
+  return (
+    <Tab.Navigator
+      initialRouteName="Main"
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ focused, size, color }) => {
+          let imageSource;
+
+          if (route.name === 'Main') {
+            imageSource = focused
+              ? require('./assets/bottom-tabs/activehome.png')
+              : require('./assets/bottom-tabs/home.png');
+          }
+          if (route.name === 'Diagnosis') {
+            imageSource = focused
+              ? require('./assets/bottom-tabs/activediagnosis.png')
+              : require('./assets/bottom-tabs/diagnosis.png');
+          }
+          if (route.name === 'CustomService') {
+            imageSource = require('./assets/bottom-tabs/cs.png');
+          }
+          if (route.name === 'PurchaseMobile') {
+            imageSource = require('./assets/bottom-tabs/purchasemobile.png');
+          }
+          if (route.name === 'MyPage') {
+            imageSource = require('./assets/bottom-tabs/mypage.png');
+          }
+          return (
+            <Image
+              source={imageSource}
+              resizeMode="contain"
+              style={{ width: 20 }}
+            />
+          );
+        },
+        // headerLeft:'',
+        // headerRight:'',
+        // headerTitle:'',
+      })}
+    >
+      <Tab.Screen
+        name="Main"
+        component={HomeScreen}
+        options={{ title: '홈', headerShown: false }}
+      />
+      <Tab.Screen
+        name="Diagnosis"
+        component={DiagnosisScreen}
+        listeners={{
+          focus: () =>
+            BackHandler.addEventListener('hardwareBackPress', handleBackButton),
+          blur: () =>
+            BackHandler.removeEventListener(
+              'hardwareBackPress',
+              handleBackButton
+            ),
+        }}
+        options={{
+          title: '통신비 진단',
+          headerStyle: {},
+          headerTitleAlign: 'center',
+          headerBackVisible: true,
+          headerRightContainerStyle: {
+            marginRight: 24,
+          },
+          headerLeftContainerStyle: {
+            marginLeft: 24,
+          },
+          headerLeft: () => (
+            <Pressable onPress={handleBackButton}>
+              <Image
+                style={{ width: 24, height: 24 }}
+                source={require('./assets/common/back_arrow.png')}
+              />
+            </Pressable>
+          ),
+          headerTitle: () => (
+            <Text
+              style={{
+                fontSize: 16,
+                fontFamily: 'Noto400',
+                textAlign: 'center',
+              }}
+            >
+              통신비 진단 결과
+            </Text>
+          ),
+          headerRight: () => (
+            <Pressable style={{}} onPress={() => {}}>
+              <Image
+                style={{ width: 24, height: 24 }}
+                source={require('./assets/diagnosis/bell.png')}
+              />
+            </Pressable>
+          ),
+        }}
+      />
+
+      <Tab.Screen
+        name="PurchaseMobile"
+        component={PurchaseMobileScreen}
+        options={{ title: '휴대폰 구매' }}
+      />
+      <Tab.Screen
+        name="CustomService"
+        component={CustomServiceScreen}
+        options={{ title: '고객센터' }}
+      />
+      <Tab.Screen
+        name="Mypage"
+        component={MyPageScreen}
+        options={{ title: '마이페이지' }}
+      />
+    </Tab.Navigator>
+  );
+};
 
 export default function App() {
   const [appIsReady, setAppIsReady] = useState(false);
@@ -92,26 +223,18 @@ export default function App() {
 
             <Stack.Screen
               name="Home"
-              component={HomeScreen}
-              options={{ title: "" }}
-              
+              component={BottomTabs}
+              options={{ headerShown: false, title: '' }}
             />
             <Stack.Screen
-            name="Diagnosis"
-            component={DiagnosisScreen}
-            options={{
-              headerTitle: () => <View style={{textAlign:'center',width: width - 145,justifyContent:'center',marginHorizontal:'auto'}}>
-                <Text style={{fontSize:16,fontFamily:'Noto400',textAlign:'center'}}>통신비 진단 결과</Text></View>,
-              headerRight: () => (
-              <Pressable onPress={() => {}}>
-                <Image style={{width:24,height:24}} source={require('./assets/diagnosis/bell.png')}/>
-              </Pressable>
-              ),
-              headerTitleStyle: {},
-              headerStyle:{
-                textAlign:'center',
-              }
-            }}
+              name="Diagnosis"
+              component={DiagnosisScreen}
+              options={{
+                headerTitleStyle: {},
+                headerStyle: {
+                  textAlign: 'center',
+                },
+              }}
             />
             <Stack.Screen
               name="Signup"
@@ -153,21 +276,7 @@ export default function App() {
               component={SigninPage}
               options={{ title: '', headerBackVisible: false }}
             />
-            <Stack.Screen
-              name="TestSKT"
-              component={TestSKTPage}
-              options={{ title: '', headerBackVisible: false }}
-            />
-            <Stack.Screen
-              name="TestKT"
-              component={TestKTPage}
-              options={{ title: '', headerBackVisible: false }}
-            />
-            <Stack.Screen
-              name="TestLG"
-              component={TestLGPage}
-              options={{ title: '', headerBackVisible: false }}
-            />
+
             <Stack.Screen
               name="TestPage"
               component={TestPage}
