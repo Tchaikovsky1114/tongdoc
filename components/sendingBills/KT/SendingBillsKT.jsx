@@ -72,8 +72,15 @@ const PAGES_MONTH = [
   },
 ];
 
-const SendingBillsKT = () => {
-  return <SendingBills PAGES_ONCE={PAGES_ONCE} PAGES_MONTH={PAGES_MONTH} />;
+const SendingBillsKT = ({ isVisible, modalHandler }) => {
+  return (
+    <SendingBills
+      isVisible={isVisible}
+      modalHandler={modalHandler}
+      PAGES_ONCE={PAGES_ONCE}
+      PAGES_MONTH={PAGES_MONTH}
+    />
+  );
 };
 
 export default SendingBillsKT;

@@ -14,15 +14,12 @@ import ModalCarousel from '../modalCarousel/ModalCarousel';
 import * as Linking from 'expo-linking';
 const { width } = Dimensions.get('window');
 
-const SendingBills = ({ PAGES_ONCE, PAGES_MONTH }) => {
+const SendingBills = ({ isVisible, modalHandler, PAGES_ONCE, PAGES_MONTH }) => {
   const [selectBill, setSelectBill] = useState(true);
-  const [isVisible, setIsVisible] = useState(true);
+
   const signin = useRecoilValue(signinState);
   const selectBillHandler = () => {
     setSelectBill((prev) => !prev);
-  };
-  const closeModalHandler = () => {
-    setIsVisible((prev) => !prev);
   };
 
   const goToTong = (url) => () => {
@@ -30,7 +27,7 @@ const SendingBills = ({ PAGES_ONCE, PAGES_MONTH }) => {
   };
 
   return (
-    <Modal transparent={true} visible={isVisible}>
+    <Modal transparent={true} visible={isVisible} animationType="slide">
       <View style={styles.container}>
         <View style={styles.modalBox}>
           <View style={styles.titleBtnBox}>
@@ -60,10 +57,7 @@ const SendingBills = ({ PAGES_ONCE, PAGES_MONTH }) => {
           </View>
 
           <View style={styles.BottomBtnBox}>
-            <Pressable
-              style={styles.BottomCloseBtn}
-              onPress={closeModalHandler}
-            >
+            <Pressable style={styles.BottomCloseBtn} onPress={modalHandler}>
               <Text style={styles.CloseBtnText}>다음에 전송</Text>
             </Pressable>
             {signin.tongkind === '1' && (
