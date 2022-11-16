@@ -32,6 +32,7 @@ import TestPage from './screens/Test';
 import PurchaseMobileScreen from "./screens/PurchaseMobileScreen";
 import CustomServiceScreen from "./screens/CustomServiceScreen";
 import MyPageScreen from "./screens/MyPageScreen";
+import PersonSvg from "./components/common/svg/PersonSvg";
 
 enableScreens();
 const Stack = createNativeStackNavigator();
@@ -69,55 +70,51 @@ const BottomTabs = () => {
           imageSource = focused ? require('./assets/bottom-tabs/activediagnosis.png') : require('./assets/bottom-tabs/diagnosis.png')
         }
         if(route.name === 'CustomService') {
-          imageSource = require('./assets/bottom-tabs/cs.png')
+          imageSource = focused ? require('./assets/bottom-tabs/activecs.png') : require('./assets/bottom-tabs/cs.png')
         }
         if(route.name === 'PurchaseMobile') {
-          imageSource = require('./assets/bottom-tabs/purchasemobile.png')
+          imageSource = focused ? require('./assets/bottom-tabs/activepurchasemobile.png') : require('./assets/bottom-tabs/purchasemobile.png')
         }
         if(route.name === 'MyPage') {
-          imageSource = require('./assets/bottom-tabs/mypage.png')
+          focused ? <PersonSvg focused /> : <PersonSvg />
         }
-        return (<Image source={imageSource} resizeMode="contain" style={{width:20}} />)
+        return route.name !== 'Mypage' ? <Image source={imageSource} resizeMode="contain" style={{width:24,height:22}} /> : <PersonSvg focused={focused} />;
       },
       // headerLeft:'',
       // headerRight:'',
       // headerTitle:'',
-      
+      headerShown:false,
+      tabBarLabelStyle:{
+        fontFamily:'Noto400',
+        fontSize:10,
+      },
+      tabBarStyle:{
+        justifyContent:'center',
+        alignItems:'center',
+        height:72
+      },
+      tabBarIconStyle:{
+        marginBottom:-20,
+      }
+
     })}
     >
       <Tab.Screen
         name="Main"
         component={HomeScreen}
-        options={{title:'홈',headerShown:false}}
+        options={{title:'홈'}}
        />
       <Tab.Screen
       name="Diagnosis"
       component={DiagnosisScreen}
       listeners={{ focus: () => BackHandler.addEventListener('hardwareBackPress',handleBackButton)
       ,blur: () => BackHandler.removeEventListener('hardwareBackPress',handleBackButton)
-}}
+        }}
       options={{
         title:'통신비 진단',
-        headerStyle:{},
-        headerTitleAlign:'center',
-        headerBackVisible:true,
-        headerRightContainerStyle:{
-          marginRight: 24
-        },
-        headerLeftContainerStyle:{
-          marginLeft: 24
-        },
-        headerLeft: () => <Pressable onPress={handleBackButton}><Image style={{width:24,height:24}} source={require('./assets/common/back_arrow.png')}/></Pressable>,
-        headerTitle: () =>
-        (
-          <Text style={{fontSize:16,fontFamily:'Noto400',textAlign:'center'}}>통신비 진단 결과</Text>
-        ),
-        headerRight: () => (
-        <Pressable style={{}} onPress={() => {}}>
-          <Image style={{width:24,height:24}} source={require('./assets/diagnosis/bell.png')}/>
-        </Pressable>
-        ),
-      }} />
+        headerShown:false
+      }}
+       />
 
       <Tab.Screen name="PurchaseMobile" component={PurchaseMobileScreen} options={{title:'휴대폰 구매'}} />
       <Tab.Screen name="CustomService" component={CustomServiceScreen} options={{title:'고객센터'}} />
@@ -176,16 +173,13 @@ export default function App() {
             <Stack.Screen
               name="Home"
               component={BottomTabs}
-              options={{headerShown: false,title:'' }}
+              options={{title:'',headerShown:false }}
             />
             <Stack.Screen
             name="Diagnosis"
             component={DiagnosisScreen}
             options={{
-              headerTitleStyle: {},
-              headerStyle:{
-                textAlign:'center',
-              }
+              title:'통신비 진단',
             }}
             />
             <Stack.Screen
