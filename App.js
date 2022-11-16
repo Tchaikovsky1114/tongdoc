@@ -1,5 +1,5 @@
 import { useEffect, useState, useCallback } from "react";
-import { View } from "react-native";
+import { View,Pressable,Image,Text,Dimensions } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { enableScreens } from "react-native-screens";
@@ -23,9 +23,10 @@ import CertificationInProgress from "./components/certification/CertificationInP
 import ChoiceSignMethod from "./components/signup/ChoiceSignMethod";
 import FindInfoPage from "./screens/FindInfo";
 import Welcome from "./components/signup/Welcome";
-import DiagnosisScreen from "./screens/DiagnosisScreen";
+import DiagnosisScreen from './screens/DiagnosisScreen'
 
 
+const {width} = Dimensions.get('window')
 
 
 enableScreens();
@@ -90,11 +91,27 @@ export default function App() {
               name="Home"
               component={HomeScreen}
               options={{ title: "" }}
+              
             />
             <Stack.Screen
             name="Diagnosis"
             component={DiagnosisScreen}
-            options={{ title: "", headerBackVisible: false,headerStyle:{backgroundColor:'#efefef'} }}
+            options={{
+              headerTitle: () => <View style={{textAlign:'center',width: width - 145,justifyContent:'center',marginHorizontal:'auto'}}>
+                <Text style={{fontSize:16,fontFamily:'Noto400',textAlign:'center'}}>통신비 진단 결과</Text></View>,
+              headerRight: () => (
+              <Pressable onPress={() => {}}>
+                <Image style={{width:24,height:24}} source={require('./assets/diagnosis/bell.png')}/>
+              </Pressable>
+              ),
+              headerTitleStyle: {
+                
+                
+              },
+              headerStyle:{
+                textAlign:'center',
+              }
+            }}
             />
             <Stack.Screen
               name="Signup"

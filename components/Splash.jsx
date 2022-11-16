@@ -1,4 +1,4 @@
-import { StyleSheet, Image, View,Modal } from 'react-native'
+import { StyleSheet, Image, View, Modal } from 'react-native'
 import React,{useEffect} from 'react'
 import { useNavigation } from '@react-navigation/native'
 
@@ -14,7 +14,7 @@ export default function Splash() {
   },[])
 
   return (
-    <View style={styles.greeting}>
+    <View style={styles.greeting} >
         <Image source={require('../assets/logo.png')} style={styles.splashImage} />
     </View>
   )
@@ -38,5 +38,4 @@ const styles = StyleSheet.create({
     justifyContent:'center',
     width:'100%',
   }  
-
 })
