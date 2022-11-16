@@ -33,9 +33,11 @@ import FindInfoPage from './screens/FindInfo';
 import Welcome from './components/signup/Welcome';
 import DiagnosisScreen from './screens/DiagnosisScreen';
 import TestPage from './screens/Test';
-import PurchaseMobileScreen from './screens/PurchaseMobileScreen';
-import CustomServiceScreen from './screens/CustomServiceScreen';
-import MyPageScreen from './screens/MyPageScreen';
+
+import PurchaseMobileScreen from "./screens/PurchaseMobileScreen";
+import CustomServiceScreen from "./screens/CustomServiceScreen";
+import MyPageScreen from "./screens/MyPageScreen";
+import PersonSvg from "./components/common/svg/PersonSvg";
 
 enableScreens();
 const Stack = createNativeStackNavigator();
@@ -60,100 +62,65 @@ const Tab = createBottomTabNavigator();
 const BottomTabs = () => {
   return (
     <Tab.Navigator
-      initialRouteName="Main"
-      screenOptions={({ route }) => ({
-        tabBarIcon: ({ focused, size, color }) => {
-          let imageSource;
 
-          if (route.name === 'Main') {
-            imageSource = focused
-              ? require('./assets/bottom-tabs/activehome.png')
-              : require('./assets/bottom-tabs/home.png');
-          }
-          if (route.name === 'Diagnosis') {
-            imageSource = focused
-              ? require('./assets/bottom-tabs/activediagnosis.png')
-              : require('./assets/bottom-tabs/diagnosis.png');
-          }
-          if (route.name === 'CustomService') {
-            imageSource = require('./assets/bottom-tabs/cs.png');
-          }
-          if (route.name === 'PurchaseMobile') {
-            imageSource = require('./assets/bottom-tabs/purchasemobile.png');
-          }
-          if (route.name === 'MyPage') {
-            imageSource = require('./assets/bottom-tabs/mypage.png');
-          }
-          return (
-            <Image
-              source={imageSource}
-              resizeMode="contain"
-              style={{ width: 20 }}
-            />
-          );
-        },
-        // headerLeft:'',
-        // headerRight:'',
-        // headerTitle:'',
-      })}
+    initialRouteName="Main"
+    screenOptions={({route}) => ({
+      tabBarIcon: ({focused,size,color}) => {
+        let imageSource;
+        
+        if(route.name === 'Main') {
+          imageSource = focused ? require('./assets/bottom-tabs/activehome.png') : require('./assets/bottom-tabs/home.png')
+        }
+        if(route.name === 'Diagnosis') {
+          imageSource = focused ? require('./assets/bottom-tabs/activediagnosis.png') : require('./assets/bottom-tabs/diagnosis.png')
+        }
+        if(route.name === 'CustomService') {
+          imageSource = focused ? require('./assets/bottom-tabs/activecs.png') : require('./assets/bottom-tabs/cs.png')
+        }
+        if(route.name === 'PurchaseMobile') {
+          imageSource = focused ? require('./assets/bottom-tabs/activepurchasemobile.png') : require('./assets/bottom-tabs/purchasemobile.png')
+        }
+        if(route.name === 'MyPage') {
+          focused ? <PersonSvg focused /> : <PersonSvg />
+        }
+        return route.name !== 'Mypage' ? <Image source={imageSource} resizeMode="contain" style={{width:24,height:22}} /> : <PersonSvg focused={focused} />;
+      },
+      // headerLeft:'',
+      // headerRight:'',
+      // headerTitle:'',
+      headerShown:false,
+      tabBarLabelStyle:{
+        fontFamily:'Noto400',
+        fontSize:10,
+      },
+      tabBarStyle:{
+        justifyContent:'center',
+        alignItems:'center',
+        height:72
+      },
+      tabBarIconStyle:{
+        marginBottom:-20,
+      }
+
+    })}
     >
       <Tab.Screen
         name="Main"
         component={HomeScreen}
-        options={{ title: '홈', headerShown: false }}
-      />
+
+        options={{title:'홈'}}
+       />
       <Tab.Screen
-        name="Diagnosis"
-        component={DiagnosisScreen}
-        listeners={{
-          focus: () =>
-            BackHandler.addEventListener('hardwareBackPress', handleBackButton),
-          blur: () =>
-            BackHandler.removeEventListener(
-              'hardwareBackPress',
-              handleBackButton
-            ),
+      name="Diagnosis"
+      component={DiagnosisScreen}
+      listeners={{ focus: () => BackHandler.addEventListener('hardwareBackPress',handleBackButton)
+      ,blur: () => BackHandler.removeEventListener('hardwareBackPress',handleBackButton)
         }}
-        options={{
-          title: '통신비 진단',
-          headerStyle: {},
-          headerTitleAlign: 'center',
-          headerBackVisible: true,
-          headerRightContainerStyle: {
-            marginRight: 24,
-          },
-          headerLeftContainerStyle: {
-            marginLeft: 24,
-          },
-          headerLeft: () => (
-            <Pressable onPress={handleBackButton}>
-              <Image
-                style={{ width: 24, height: 24 }}
-                source={require('./assets/common/back_arrow.png')}
-              />
-            </Pressable>
-          ),
-          headerTitle: () => (
-            <Text
-              style={{
-                fontSize: 16,
-                fontFamily: 'Noto400',
-                textAlign: 'center',
-              }}
-            >
-              통신비 진단 결과
-            </Text>
-          ),
-          headerRight: () => (
-            <Pressable style={{}} onPress={() => {}}>
-              <Image
-                style={{ width: 24, height: 24 }}
-                source={require('./assets/diagnosis/bell.png')}
-              />
-            </Pressable>
-          ),
-        }}
-      />
+      options={{
+        title:'통신비 진단',
+        headerShown:false
+      }}
+       />
 
       <Tab.Screen
         name="PurchaseMobile"
@@ -224,17 +191,15 @@ export default function App() {
             <Stack.Screen
               name="Home"
               component={BottomTabs}
-              options={{ headerShown: false, title: '' }}
+
+              options={{title:'',headerShown:false }}
             />
             <Stack.Screen
-              name="Diagnosis"
-              component={DiagnosisScreen}
-              options={{
-                headerTitleStyle: {},
-                headerStyle: {
-                  textAlign: 'center',
-                },
-              }}
+            name="Diagnosis"
+            component={DiagnosisScreen}
+            options={{
+              title:'통신비 진단',
+            }}
             />
             <Stack.Screen
               name="Signup"
