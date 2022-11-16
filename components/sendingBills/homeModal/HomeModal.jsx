@@ -6,6 +6,7 @@ import H6_18M from '../../../style/H6_18M';
 import P_14M from '../../../style/paragraph/P_14M';
 import P_16M from '../../../style/paragraph/P_16M';
 import P_12R from '../../../style/paragraph/P_12R';
+import * as Linking from 'expo-linking';
 import { useState } from 'react';
 const HomeModal = ({ tongkind }) => {
   const [isVisible, setIsVisible] = useState(false);
@@ -15,6 +16,9 @@ const HomeModal = ({ tongkind }) => {
   };
   const homeModalHandler = () => {
     setHomeModalVisible((prev) => !prev);
+  };
+  const callTong = (phone) => {
+    Linking.openURL(`tel:${phone}`);
   };
   return (
     <Modal visible={homeModalVisible} transparent={true} animationType="fade">
@@ -48,52 +52,70 @@ const HomeModal = ({ tongkind }) => {
               통신닥터에 요금 청구서 보내는 방법
             </P_14M>
             <View>
-              <View style={[styles.sendBillBtn, styles.sendBillBlueBtn]}>
-                {tongkind === '1' && (
-                  <Pressable>
+              {tongkind === '1' && (
+                <View style={[styles.sendBillBtn, styles.sendBillBlueBtn]}>
+                  <Pressable
+                    style={styles.btnPress}
+                    onPress={callTong.bind(this, '080-011-6000')}
+                  >
                     <Text style={styles.sendBillBlueBtnText}>
                       SKT상담사 전화 요청
                     </Text>
                   </Pressable>
-                )}
-                {tongkind === '2' && (
-                  <Pressable>
+                </View>
+              )}
+              {tongkind === '2' && (
+                <View style={[styles.sendBillBtn, styles.sendBillBlueBtn]}>
+                  <Pressable
+                    style={styles.btnPress}
+                    onPress={callTong.bind(this, '080-000-1618')}
+                  >
                     <Text style={styles.sendBillBlueBtnText}>
                       KT상담사 전화 요청
                     </Text>
                   </Pressable>
-                )}
-                {tongkind === '3' && (
-                  <Pressable>
+                </View>
+              )}
+              {tongkind === '3' && (
+                <View style={[styles.sendBillBtn, styles.sendBillBlueBtn]}>
+                  <Pressable
+                    style={styles.btnPress}
+                    onPress={callTong.bind(this, '114')}
+                  >
                     <Text style={styles.sendBillBlueBtnText}>
                       LG U+상담사 전화 요청
                     </Text>
                   </Pressable>
-                )}
-              </View>
-              <View style={[styles.sendBillBtn]}>
-                {tongkind === '1' && (
-                  <Pressable onPress={modalHandler}>
+                </View>
+              )}
+
+              {tongkind === '1' && (
+                <View style={[styles.sendBillBtn]}>
+                  <Pressable style={styles.btnPress} onPress={modalHandler}>
                     <Text style={styles.sendBillWhiteBtnText}>
                       SKT앱에서 전송
                     </Text>
                   </Pressable>
-                )}
-                {tongkind === '2' && (
-                  <Pressable onPress={modalHandler}>
+                </View>
+              )}
+              {tongkind === '2' && (
+                <View style={[styles.sendBillBtn]}>
+                  <Pressable style={styles.btnPress} onPress={modalHandler}>
                     <Text style={styles.sendBillWhiteBtnText}>
                       KT앱에서 전송
                     </Text>
                   </Pressable>
-                )}
-                {tongkind === '3' && (
-                  <Pressable onPress={modalHandler}>
+                </View>
+              )}
+              {tongkind === '3' && (
+                <View style={[styles.sendBillBtn]}>
+                  <Pressable style={styles.btnPress} onPress={modalHandler}>
                     <Text style={styles.sendBillWhiteBtnText}>
                       LG U+앱에서 전송
                     </Text>
                   </Pressable>
-                )}
-              </View>
+                </View>
+              )}
             </View>
           </View>
           <View>
@@ -188,7 +210,7 @@ const styles = StyleSheet.create({
   },
   copyBtnImg: {
     width: '100%',
-    height: '100%',
+    height: 20,
     padding: 0,
     margin: 0,
   },
@@ -200,6 +222,7 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   sendBillBtn: {
+    width: '100%',
     borderWidth: 1,
     borderRadius: 8,
     height: 50,
@@ -210,6 +233,9 @@ const styles = StyleSheet.create({
   sendBillBlueBtn: {
     backgroundColor: '#2D63E2',
     marginBottom: 8,
+  },
+  btnPress: {
+    width: '100%',
   },
   sendBillBlueBtnText: {
     fontFamily: 'Noto500',
