@@ -6,20 +6,34 @@ import H6_18M from '../../../style/H6_18M';
 import P_14M from '../../../style/paragraph/P_14M';
 import P_16M from '../../../style/paragraph/P_16M';
 import P_12R from '../../../style/paragraph/P_12R';
-import * as Linking from 'expo-linking';
+
 import { useState } from 'react';
-const HomeModal = ({ tongkind }) => {
-  const [isVisible, setIsVisible] = useState(false);
+import * as Clipboard from 'expo-clipboard';
+import CopySuccessModal from '../sendingBillsCommon/CopySuccessModal';
+import CallModal from '../sendingBillsCommon/CallModal';
+import SendingBtn from '../sendingBillsCommon/SendingBtn';
+const HomeModal = ({ tongkind, tempId }) => {
   const [homeModalVisible, setHomeModalVisible] = useState(true);
+  const [isVisible, setIsVisible] = useState(false);
+  const [copyModalVisible, setCopyModalVisible] = useState(false);
+  const [callModalVisible, setCallModalVisible] = useState(false);
   const modalHandler = () => {
     setIsVisible((prev) => !prev);
   };
   const homeModalHandler = () => {
     setHomeModalVisible((prev) => !prev);
   };
-  const callTong = (phone) => {
-    Linking.openURL(`tel:${phone}`);
+
+  const callModalHandler = () => {
+    setCallModalVisible((prev) => !prev);
   };
+
+  const copyToClipboard = async () => {
+    await Clipboard.setStringAsync(`${tempId}@tongdoc.co.kr`);
+    setCopyModalVisible(true);
+    setTimeout(setCopyModalVisible, 2000, 'false');
+  };
+
   return (
     <Modal visible={homeModalVisible} transparent={true} animationType="fade">
       <View style={styles.container}>
@@ -37,14 +51,15 @@ const HomeModal = ({ tongkind }) => {
           <View style={styles.mailBox}>
             <P_14M style={styles.mailBoxTitle}>통신닥터 메일 주소</P_14M>
             <View style={styles.mailCopy}>
-              <P_16M style={styles.mailAddress}>bill@tongdoc.co.kr</P_16M>
-              <View style={styles.copyBtnBox}>
+              <P_16M style={styles.mailAddress}>{tempId}@tongdoc.co.kr</P_16M>
+              <Pressable style={styles.copyBtnBox} onPress={copyToClipboard}>
                 <Image
-                  resizeMode="contain"
+                  resizeMode="center"
                   style={styles.copyBtnImg}
                   source={require('../../../assets/sendingBills/copyBtn.png')}
                 />
-              </View>
+              </Pressable>
+              <CopySuccessModal isVisible={copyModalVisible} />
             </View>
           </View>
           <View style={styles.sendBillMethodBox}>
@@ -53,69 +68,35 @@ const HomeModal = ({ tongkind }) => {
             </P_14M>
             <View>
               {tongkind === '1' && (
-                <View style={[styles.sendBillBtn, styles.sendBillBlueBtn]}>
-                  <Pressable
-                    style={styles.btnPress}
-                    onPress={callTong.bind(this, '080-011-6000')}
-                  >
-                    <Text style={styles.sendBillBlueBtnText}>
-                      SKT상담사 전화 요청
-                    </Text>
-                  </Pressable>
-                </View>
+                <SendingBtn blue={true} onPress={callModalHandler}>
+                  SKT상담사 전화 요청
+                </SendingBtn>
               )}
               {tongkind === '2' && (
-                <View style={[styles.sendBillBtn, styles.sendBillBlueBtn]}>
-                  <Pressable
-                    style={styles.btnPress}
-                    onPress={callTong.bind(this, '080-000-1618')}
-                  >
-                    <Text style={styles.sendBillBlueBtnText}>
-                      KT상담사 전화 요청
-                    </Text>
-                  </Pressable>
-                </View>
+                <SendingBtn blue={true} onPress={callModalHandler}>
+                  KT상담사 전화 요청
+                </SendingBtn>
               )}
               {tongkind === '3' && (
-                <View style={[styles.sendBillBtn, styles.sendBillBlueBtn]}>
-                  <Pressable
-                    style={styles.btnPress}
-                    onPress={callTong.bind(this, '114')}
-                  >
-                    <Text style={styles.sendBillBlueBtnText}>
-                      LG U+상담사 전화 요청
-                    </Text>
-                  </Pressable>
-                </View>
+                <SendingBtn blue={true} onPress={callModalHandler}>
+                  LG U+상담사 전화 요청
+                </SendingBtn>
               )}
 
               {tongkind === '1' && (
-                <View style={[styles.sendBillBtn]}>
-                  <Pressable style={styles.btnPress} onPress={modalHandler}>
-                    <Text style={styles.sendBillWhiteBtnText}>
-                      SKT앱에서 전송
-                    </Text>
-                  </Pressable>
-                </View>
+                <SendingBtn onPress={modalHandler}>SKT앱에서 전송</SendingBtn>
               )}
               {tongkind === '2' && (
-                <View style={[styles.sendBillBtn]}>
-                  <Pressable style={styles.btnPress} onPress={modalHandler}>
-                    <Text style={styles.sendBillWhiteBtnText}>
-                      KT앱에서 전송
-                    </Text>
-                  </Pressable>
-                </View>
+                <SendingBtn onPress={modalHandler}>KT앱에서 전송</SendingBtn>
               )}
               {tongkind === '3' && (
-                <View style={[styles.sendBillBtn]}>
-                  <Pressable style={styles.btnPress} onPress={modalHandler}>
-                    <Text style={styles.sendBillWhiteBtnText}>
-                      LG U+앱에서 전송
-                    </Text>
-                  </Pressable>
-                </View>
+                <SendingBtn onPress={modalHandler}>LG U+앱에서 전송</SendingBtn>
               )}
+              <CallModal
+                isVisible={callModalVisible}
+                tongkind={tongkind}
+                callModalHandler={callModalHandler}
+              />
             </View>
           </View>
           <View>
@@ -210,7 +191,7 @@ const styles = StyleSheet.create({
   },
   copyBtnImg: {
     width: '100%',
-    height: 20,
+    height: '100%',
     padding: 0,
     margin: 0,
   },
@@ -234,23 +215,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#2D63E2',
     marginBottom: 8,
   },
-  btnPress: {
-    width: '100%',
-  },
-  sendBillBlueBtnText: {
-    fontFamily: 'Noto500',
-    fontSize: 16,
-    textAlign: 'center',
-    includeFontPadding: false,
-    color: '#ffffff',
-  },
-  sendBillWhiteBtnText: {
-    fontFamily: 'Noto500',
-    fontSize: 16,
-    textAlign: 'center',
-    includeFontPadding: false,
-    color: '#2D63E2',
-  },
+
   personalInfoText: {
     color: '#999999',
   },

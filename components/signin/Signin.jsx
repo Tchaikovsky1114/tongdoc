@@ -89,8 +89,14 @@ const Signin = () => {
         name: response.DAT.res_user.name,
         tongkind: response.DAT.res_user.tongkind,
       });
+      // 임시 아이디 체크
+
+      const emailDigit = response.DAT.res_user.email.indexOf('@');
+      const tempID = response.DAT.res_user.email.slice(0, emailDigit);
+
       navigation.navigate('TestPage', {
         tongkind: response.DAT.res_user.tongkind,
+        tempID,
       });
     }
   };
