@@ -130,13 +130,15 @@ const BottomTabs = () => {
             justifyContent:'space-between',
             alignItems:'center',
             paddingTop:50,
-            paddingHorizontal:24,
-            backgroundColor:'#fff'
+            paddingHorizontal:32,
+            backgroundColor:'#fff',
+            marginBottom:-50
             }}>
             <Image style={{width:94,height:24}} source={require('./assets/common/logo.png')} />
             <Image style={{width:24,height:24}} source={require('./assets/common/bell.png')} />
           </View>
-        )
+        ),
+        headerShown:true
       }}
       />
       <Tab.Screen
@@ -160,6 +162,8 @@ const BottomTabs = () => {
               <View></View>
             </View>
           ),
+          headerShown:true,
+
         }}
       />
 
@@ -297,7 +301,7 @@ export default function App() {
             <Stack.Screen
               name="Diagnosis/internetRegistration"
               component={InternetRegistration}
-              options={{ title: '' }}
+              options={{ title: '', }}
             />
             <Stack.Screen
               name="Signin/FindInfo"

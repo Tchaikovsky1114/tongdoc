@@ -17,7 +17,27 @@ export default function Home() {
   const closeAddFamilyBannerHandler = () => {
     SetIsAddFamilyBannerShow(false)
   }
-
+  const [mainConfiguringData,setMainConfiguringData] = useState(
+    {
+      unread_notice:'',
+      doctor: {
+        total_charge:0,
+        total_save:0,
+        yearly_save:0,
+        family_count:0,
+        year:'',
+        month:'',
+        review:[],
+        news:[],
+      },
+      buy: {
+        buy_list:[],
+        review:[],
+        news:[]
+      }
+    }
+  );
+  
   const fetchGetMainConfiguringData = async () => {
     const token = await AsyncStorage.getItem('access');
     const { data } = await axios.get('https://api.tongdoc.co.kr/v1',{
@@ -27,21 +47,26 @@ export default function Home() {
         // 'X-CSRF-TOKEN': 'CJTzj9l5WROahObvRB98RHjc6pNI8rb9T2FEJ9LG'
       }
     })
+    setMainConfiguringData(data);
   }
   
+  useEffect(() => {
+    fetchGetMainConfiguringData();
+  }, [])
+
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.topInner}>
         {isAddFamilyBannerShow && <AddFamilyBanner onPress={closeAddFamilyBannerHandler} />}
         <Pressable onPress={() => {console.log('clicked!')}} style={({pressed}) => []}>
-        <Banner />
+        <Banner mainConfiguringData={mainConfiguringData} />
         </Pressable>
         <PhoneContractDateCalculatorBanner />
-        <TongdocNews />
+        <TongdocNews mainConfiguringData={mainConfiguringData} />
         
       </View>
       <View style={styles.bottomInner}>
-      <Reviews />
+        <Reviews mainConfiguringData={mainConfiguringData} />
       </View>
       {/* <SendingBillsSKT /> */}
     </ScrollView>
