@@ -38,6 +38,8 @@ import PurchaseMobileScreen from './screens/PurchaseMobileScreen';
 import CustomServiceScreen from './screens/CustomServiceScreen';
 import MyPageScreen from './screens/MyPageScreen';
 import PersonSvg from './components/common/svg/PersonSvg';
+import FamilyRegistrationScreen from './components/diagnosis/familyRegistraion/FamilyRegistration';
+import InternetRegistration from './components/diagnosis/internetRegistration/InternetRegistration';
 
 enableScreens();
 const Stack = createNativeStackNavigator();
@@ -100,6 +102,9 @@ const BottomTabs = () => {
             <PersonSvg focused={focused} />
           );
         },
+
+        headerShown: false,
+
         tabBarLabelStyle: {
           fontFamily: 'Noto400',
           fontSize: 10,
@@ -154,7 +159,7 @@ const BottomTabs = () => {
               <Text>통신비 진단 결과</Text>
               <View></View>
             </View>
-          )
+          ),
         }}
       />
 
@@ -225,18 +230,18 @@ export default function App() {
               <Stack.Screen name="OnBoarding" component={OnBoarding} />
             </Stack.Group>
 
-
-
             <Stack.Screen
               name="Home"
               component={BottomTabs}
-              options={{
-                title: '',
-              }}
+              options={{ title: '', headerShown: false }}
+
             />
             <Stack.Screen
               name="Diagnosis"
               component={DiagnosisScreen}
+              options={{
+                title: '통신비 진단',
+              }}
             />
             <Stack.Screen
               name="Signup"
@@ -283,6 +288,16 @@ export default function App() {
               name="TestPage"
               component={TestPage}
               options={{ title: '', headerBackVisible: false }}
+            />
+            <Stack.Screen
+              name="Diagnosis/familyRegistration"
+              component={FamilyRegistrationScreen}
+              options={{ title: '' }}
+            />
+            <Stack.Screen
+              name="Diagnosis/internetRegistration"
+              component={InternetRegistration}
+              options={{ title: '' }}
             />
             <Stack.Screen
               name="Signin/FindInfo"

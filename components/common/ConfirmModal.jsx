@@ -1,12 +1,12 @@
 import { Modal, Pressable, StyleSheet, Text, View } from 'react-native';
-import P_18R from '../../../style/paragraph/P_18R';
+import P_14R from '../../style/paragraph/P_14R';
+import P_18R from '../../style/paragraph/P_18R';
 
-const SigninModal = ({
+const ConfirmModal = ({
   isVisible,
   firstInfoText,
   secondInfoText,
   pressBtn,
-  btnText,
 }) => {
   return (
     <Modal visible={isVisible} animationType="slide" transparent={true}>
@@ -14,11 +14,13 @@ const SigninModal = ({
         <View style={styles.modalBox}>
           <View style={styles.modalTextBox}>
             <P_18R style={styles.modalText}>{firstInfoText}</P_18R>
-            <P_18R style={styles.modalText}>{secondInfoText}</P_18R>
+          </View>
+          <View style={styles.modalTextBox}>
+            <P_14R style={styles.modalTextBottom}>{secondInfoText}</P_14R>
           </View>
           <Pressable onPress={pressBtn}>
             <View style={styles.modalBtn}>
-              <Text style={styles.modalBtnText}>{btnText}</Text>
+              <Text style={styles.modalBtnText}>확인</Text>
             </View>
           </Pressable>
         </View>
@@ -27,7 +29,7 @@ const SigninModal = ({
   );
 };
 
-export default SigninModal;
+export default ConfirmModal;
 
 const styles = StyleSheet.create({
   container: {
@@ -45,7 +47,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#ffffff',
     borderRadius: 8,
-    fontSize: 200,
     padding: 24,
   },
   modalTextBox: {
@@ -54,6 +55,11 @@ const styles = StyleSheet.create({
   },
   modalText: {
     color: '#000000',
+    textAlign: 'center',
+  },
+  modalTextBottom: {
+    color: '#666666',
+    textAlign: 'center',
   },
   modalBtn: {
     backgroundColor: '#2D63E2',
