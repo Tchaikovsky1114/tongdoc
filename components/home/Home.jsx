@@ -1,67 +1,67 @@
-import { Dimensions,Image,SafeAreaView, StyleSheet, Text, View,useWindowDimensions, Pressable } from 'react-native';
-import React, { useEffect } from 'react';
+import { Dimensions,Image,SafeAreaView, StyleSheet, Text, View,useWindowDimensions, Pressable, ScrollView } from 'react-native';
+import React, { useEffect, useState } from 'react';
 import SendingBillsKT from '../sendingBills/KT/SendingBillsKT';
 import SendingBillsSKT from '../sendingBills/SKT/SendingBillsSKT';
 import Banner from './Banner';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
+import AddFamilyBanner from './AddFamilyBanner';
+import PhoneContractDateCalculatorBanner from './PhoneContractDateCalculatorBanner';
+import TongdocNews from './TongdocNews';
+import Reviews from './Reviews';
 
 const {width} = Dimensions.get('window');
 
 export default function Home() {
-  
-  // const test = async () => {
-  //   const fofo = await AsyncStorage.getItem('access');
-  //   try {
-  //     const data = await axios.get(`https://api.tongdoc.co.kr/v1/doctor?year=2022&month=10`,
-  //     {
-  //       headers:{
-  //         withCredentials: true,
-  //         'accept':'application/json',
-  //         'content-type':'application/json',
-  //         'X-CSRF-TOKEN': 'PnLhVTmJkr2OGrmRDGVk8baoHn9b1PaehLnNb4RY',
-  //         'access_token':fofo
-  //       }
-  //     }
-  //   )
-        
-  //     console.log(data);
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  //   console.log(fofo);
-  // }
-  // useEffect(() => {
-  //   test()
-  // },[])
+  const [isAddFamilyBannerShow,SetIsAddFamilyBannerShow] = useState(true);
+  const closeAddFamilyBannerHandler = () => {
+    SetIsAddFamilyBannerShow(false)
+  }
+
+  const fetchGetMainConfiguringData = async () => {
+    const token = await AsyncStorage.getItem('access');
+    const { data } = await axios.get('https://api.tongdoc.co.kr/v1',{
+      headers:{
+        'accept':'applycation/json',
+        'Authorization': `Bearer ${token}`,
+        // 'X-CSRF-TOKEN': 'CJTzj9l5WROahObvRB98RHjc6pNI8rb9T2FEJ9LG'
+      }
+    })
+  }
   
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.inner}>
-        <View style={styles.header}>
-          <Image style={{width:94,height:24}} source={require('../../assets/common/logo.png')} />
-          <Image style={{width:24,height:24}} source={require('../../assets/common/bell.png')} />
-        </View>
-        <View><Text>가족등록안했다면 보이는 메세지</Text></View>
-        <Pressable style={({pressed}) => []}>
+    <ScrollView contentContainerStyle={styles.container}>
+      <View style={styles.topInner}>
+        {isAddFamilyBannerShow && <AddFamilyBanner onPress={closeAddFamilyBannerHandler} />}
+        <Pressable onPress={() => {console.log('clicked!')}} style={({pressed}) => []}>
         <Banner />
         </Pressable>
-        <View><Text>UserReview</Text></View>
-        <View><Text>Articles</Text></View>
+        <PhoneContractDateCalculatorBanner />
+        <TongdocNews />
+        
+      </View>
+      <View style={styles.bottomInner}>
+      <Reviews />
       </View>
       {/* <SendingBillsSKT /> */}
-    </SafeAreaView>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     backgroundColor: '#fff',
+    paddingBottom:4,
   },
-  inner: {
+  topInner: {
     flex:1,
     marginTop:75,
+    paddingHorizontal:24
+  },
+  bottomInner:{
+    flex:1,
+    marginTop:32,
+    backgroundColor:'#f7f7f7',
     paddingHorizontal:24
   },
   header:{

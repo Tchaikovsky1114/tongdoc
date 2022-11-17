@@ -19,10 +19,10 @@ const apis = {
         device_token: "1",
         device_type: "android"
       }); 
-      // const token = data.access_token;
-      // AsyncStorage.setItem('access', token);
-    
-      console.log(data);    
+      if(data){
+        const token = await data.access_token;
+        await AsyncStorage.setItem('access', token);
+      }
     } catch (error) {
       console.error(error);
     }

@@ -34,10 +34,10 @@ import Welcome from './components/signup/Welcome';
 import DiagnosisScreen from './screens/DiagnosisScreen';
 import TestPage from './screens/Test';
 
-import PurchaseMobileScreen from "./screens/PurchaseMobileScreen";
-import CustomServiceScreen from "./screens/CustomServiceScreen";
-import MyPageScreen from "./screens/MyPageScreen";
-import PersonSvg from "./components/common/svg/PersonSvg";
+import PurchaseMobileScreen from './screens/PurchaseMobileScreen';
+import CustomServiceScreen from './screens/CustomServiceScreen';
+import MyPageScreen from './screens/MyPageScreen';
+import PersonSvg from './components/common/svg/PersonSvg';
 
 enableScreens();
 const Stack = createNativeStackNavigator();
@@ -62,65 +62,101 @@ const Tab = createBottomTabNavigator();
 const BottomTabs = () => {
   return (
     <Tab.Navigator
+      initialRouteName="Main"
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ focused, size, color }) => {
+          let imageSource;
 
-    initialRouteName="Main"
-    screenOptions={({route}) => ({
-      tabBarIcon: ({focused,size,color}) => {
-        let imageSource;
-        
-        if(route.name === 'Main') {
-          imageSource = focused ? require('./assets/bottom-tabs/activehome.png') : require('./assets/bottom-tabs/home.png')
-        }
-        if(route.name === 'Diagnosis') {
-          imageSource = focused ? require('./assets/bottom-tabs/activediagnosis.png') : require('./assets/bottom-tabs/diagnosis.png')
-        }
-        if(route.name === 'CustomService') {
-          imageSource = focused ? require('./assets/bottom-tabs/activecs.png') : require('./assets/bottom-tabs/cs.png')
-        }
-        if(route.name === 'PurchaseMobile') {
-          imageSource = focused ? require('./assets/bottom-tabs/activepurchasemobile.png') : require('./assets/bottom-tabs/purchasemobile.png')
-        }
-        if(route.name === 'MyPage') {
-          focused ? <PersonSvg focused /> : <PersonSvg />
-        }
-        return route.name !== 'Mypage' ? <Image source={imageSource} resizeMode="contain" style={{width:24,height:22}} /> : <PersonSvg focused={focused} />;
-      },
-      // headerLeft:'',
-      // headerRight:'',
-      // headerTitle:'',
-      headerShown:false,
-      tabBarLabelStyle:{
-        fontFamily:'Noto400',
-        fontSize:10,
-      },
-      tabBarStyle:{
-        justifyContent:'center',
-        alignItems:'center',
-        height:72
-      },
-      tabBarIconStyle:{
-        marginBottom:-20,
-      }
-
-    })}
+          if (route.name === 'Main') {
+            imageSource = focused
+              ? require('./assets/bottom-tabs/activehome.png')
+              : require('./assets/bottom-tabs/home.png');
+          }
+          if (route.name === 'Diagnosis') {
+            imageSource = focused
+              ? require('./assets/bottom-tabs/activediagnosis.png')
+              : require('./assets/bottom-tabs/diagnosis.png');
+          }
+          if (route.name === 'CustomService') {
+            imageSource = focused
+              ? require('./assets/bottom-tabs/activecs.png')
+              : require('./assets/bottom-tabs/cs.png');
+          }
+          if (route.name === 'PurchaseMobile') {
+            imageSource = focused
+              ? require('./assets/bottom-tabs/activepurchasemobile.png')
+              : require('./assets/bottom-tabs/purchasemobile.png');
+          }
+          if (route.name === 'MyPage') {
+            focused ? <PersonSvg focused /> : <PersonSvg />;
+          }
+          return route.name !== 'Mypage' ? (
+            <Image
+              source={imageSource}
+              resizeMode="contain"
+              style={{ width: 24, height: 22 }}
+            />
+          ) : (
+            <PersonSvg focused={focused} />
+          );
+        },
+        tabBarLabelStyle: {
+          fontFamily: 'Noto400',
+          fontSize: 10,
+        },
+        tabBarStyle: {
+          justifyContent: 'center',
+          alignItems: 'center',
+          height: 72,
+        },
+        tabBarIconStyle: {
+          marginBottom: -20,
+        },
+      })}
     >
       <Tab.Screen
         name="Main"
         component={HomeScreen}
-
-        options={{title:'홈'}}
-       />
-      <Tab.Screen
-      name="Diagnosis"
-      component={DiagnosisScreen}
-      listeners={{ focus: () => BackHandler.addEventListener('hardwareBackPress',handleBackButton)
-      ,blur: () => BackHandler.removeEventListener('hardwareBackPress',handleBackButton)
-        }}
-      options={{
-        title:'통신비 진단',
-        headerShown:false
+        options={{
+          title: '홈',
+        header: () => (
+          <View style={{
+            flexDirection:'row',
+            justifyContent:'space-between',
+            alignItems:'center',
+            paddingTop:50,
+            paddingHorizontal:24,
+            backgroundColor:'#fff'
+            }}>
+            <Image style={{width:94,height:24}} source={require('./assets/common/logo.png')} />
+            <Image style={{width:24,height:24}} source={require('./assets/common/bell.png')} />
+          </View>
+        )
       }}
-       />
+      />
+      <Tab.Screen
+        name="Diagnosis"
+        component={DiagnosisScreen}
+        listeners={{
+          focus: () =>
+            BackHandler.addEventListener('hardwareBackPress', handleBackButton),
+          blur: () =>
+            BackHandler.removeEventListener(
+              'hardwareBackPress',
+              handleBackButton
+            ),
+        }}
+        options={{
+          title: '통신비 진단',
+          header: () => (
+            <View>
+              <View></View>
+              <Text>통신비 진단 결과</Text>
+              <View></View>
+            </View>
+          )
+        }}
+      />
 
       <Tab.Screen
         name="PurchaseMobile"
@@ -181,6 +217,7 @@ export default function App() {
               animation: 'slide_from_right',
               headerShadowVisible: false,
               headerBackImageSource: require('./assets/common/back_arrow.png'),
+              headerShown:false
             }}
           >
             <Stack.Group screenOptions={{ headerShown: false }}>
@@ -188,48 +225,48 @@ export default function App() {
               <Stack.Screen name="OnBoarding" component={OnBoarding} />
             </Stack.Group>
 
+
+
             <Stack.Screen
               name="Home"
               component={BottomTabs}
-
-              options={{title:'',headerShown:false }}
+              options={{
+                title: '',
+              }}
             />
             <Stack.Screen
-            name="Diagnosis"
-            component={DiagnosisScreen}
-            options={{
-              title:'통신비 진단',
-            }}
+              name="Diagnosis"
+              component={DiagnosisScreen}
             />
             <Stack.Screen
               name="Signup"
               component={SignupPage}
-              options={{ title: '' }}
+              options={{ title: '',headerShown:true }}
             />
             <Stack.Screen
               name="Signup/Certification"
               component={CertificationScreen}
-              options={{ title: '' }}
+              options={{ title: '',headerShown:true }}
             />
             <Stack.Screen
               name="Signup/ChoiceSignMethod"
               component={ChoiceSignMethod}
-              options={{ title: '' }}
+              options={{ title: '',headerShown:true }}
             />
             <Stack.Screen
               name="Signup/CertificationInProgress"
               component={CertificationInProgress}
-              options={{ title: '' }}
+              options={{ title: '',headerShown:true }}
             />
             <Stack.Screen
               name="Signup/CertificationResult"
               component={CertificationResult}
-              options={{ title: '' }}
+              options={{ title: '',headerShown:true}}
             />
             <Stack.Screen
               name="Signup/EmailAndPassword"
               component={EmailAndPassword}
-              options={{ title: '' }}
+              options={{ title: '',headerShown:true}}
             />
             <Stack.Screen
               name="Signup/Welcome"
@@ -239,7 +276,7 @@ export default function App() {
             <Stack.Screen
               name="Signin"
               component={SigninPage}
-              options={{ title: '', headerBackVisible: false }}
+              options={{ title: '', headerBackVisible: false,headerShown:true }}
             />
 
             <Stack.Screen
