@@ -1,6 +1,7 @@
 import React,{useEffect} from 'react';
 import OnboardingCarousel from './OnBoardingCarousel';
 import {Text,View,StyleSheet,Dimensions,Pressable} from 'react-native';
+import axios from 'axios';
 
 
 const {width} = Dimensions.get('window')
@@ -11,6 +12,7 @@ const OnBoarding = ({navigation}) => {
     navigation.navigate('Signup');
   }
 
+    
   // onboarding에서 유저가 어플리케이션 실행 이력이 있는 경우(asyncStorage에 접속 이력) main page로 redirecting..
   return (
     

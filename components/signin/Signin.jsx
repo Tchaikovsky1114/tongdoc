@@ -80,6 +80,7 @@ const Signin = () => {
   // 주석 : 로그인 버튼
   const loginHandler = async () => {
     const response = await apis.Signin(signinForm);
+    console.log(response);
     if (!response) {
       setIsVisible((prev) => !prev);
     } else {
