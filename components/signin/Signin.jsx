@@ -15,6 +15,7 @@ import { signinState } from '../../store/signin';
 
 import H4_24R from '../../style/H4_24R';
 import P_12R from '../../style/paragraph/P_12R';
+import DimensionBtn from '../common/DimensionBtn';
 import SigninInput from '../common/SigninInput';
 import SigninModal from './SigninModal/SigninModal';
 
@@ -70,6 +71,12 @@ const Signin = () => {
 
   const moveSignupPageHandler = () => {
     navigation.navigate('Signup/Certification');
+  };
+  const test = () => {
+    navigation.navigate('Diagnosis/familyRegistration');
+  };
+  const test1 = () => {
+    navigation.navigate('Diagnosis/internetRegistration');
   };
 
   // 주석 : 모달 닫기
@@ -138,16 +145,19 @@ const Signin = () => {
             <Pressable onPress={moveSignupPageHandler}>
               <P_12R style={styles.findTextColor}>회원가입</P_12R>
             </Pressable>
+            <Pressable onPress={test}>
+              <P_12R style={styles.findTextColor}>가족등록</P_12R>
+            </Pressable>
+            <Pressable onPress={test1}>
+              <P_12R style={styles.findTextColor}>인터넷등록</P_12R>
+            </Pressable>
           </View>
         </KeyboardAvoidingView>
       </ScrollView>
-      <View style={isDisable ? styles.loginBtnBoxDisabled : styles.loginBtnBox}>
-        <Pressable disabled={isDisable} onPress={loginHandler}>
-          <View style={styles.loginBtn}>
-            <Text style={styles.loginBtnText}>로그인하기</Text>
-          </View>
-        </Pressable>
-      </View>
+
+      <DimensionBtn isDisable={isDisable} onPress={loginHandler}>
+        로그인하기
+      </DimensionBtn>
       <SigninModal
         isVisible={isVisible}
         firstInfoText={'이메일 주소나 비밀번호를'}
@@ -201,33 +211,5 @@ const styles = StyleSheet.create({
     marginRight: 16,
     paddingLeft: 16,
     paddingRight: 16,
-  },
-  loginBtnBox: {
-    flex: 1,
-    width,
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-  },
-  loginBtnBoxDisabled: {
-    flex: 1,
-    width,
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    opacity: 0.5,
-  },
-  loginBtn: {
-    flex: 1,
-    backgroundColor: '#2D63E2',
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: 58,
-  },
-
-  loginBtnText: {
-    fontFamily: 'Noto500',
-    color: '#FFFFFF',
-    fontSize: 17,
   },
 });
