@@ -17,7 +17,7 @@ const CallModal = ({ isVisible, tongkind, callModalHandler }) => {
             <Pressable onPress={callModalHandler}>
               <Image
                 style={styles.xBtn}
-                source={require('../../../assets/sendingBills/xBtn.png')}
+                source={require('../../../assets/xBtn.png')}
               />
             </Pressable>
           </View>
