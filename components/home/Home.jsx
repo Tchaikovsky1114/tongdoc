@@ -1,4 +1,4 @@
-import { Dimensions,Image,SafeAreaView, StyleSheet, Text, View,useWindowDimensions, Pressable, ScrollView } from 'react-native';
+import { Dimensions,Image,SafeAreaView, StyleSheet, Text, View,useWindowDimensions, Pressable, ScrollView, ActivityIndicator } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import SendingBillsKT from '../sendingBills/KT/SendingBillsKT';
 import SendingBillsSKT from '../sendingBills/SKT/SendingBillsSKT';
@@ -17,26 +17,8 @@ export default function Home() {
   const closeAddFamilyBannerHandler = () => {
     SetIsAddFamilyBannerShow(false)
   }
-  const [mainConfiguringData,setMainConfiguringData] = useState(
-    {
-      unread_notice:'',
-      doctor: {
-        total_charge:0,
-        total_save:0,
-        yearly_save:0,
-        family_count:0,
-        year:'',
-        month:'',
-        review:[],
-        news:[],
-      },
-      buy: {
-        buy_list:[],
-        review:[],
-        news:[]
-      }
-    }
-  );
+  const [mainConfiguringData,setMainConfiguringData] = useState();
+  const [diagnosisResultData,setDiagnosisResultData] = useState();
   
   const fetchGetMainConfiguringData = async () => {
     const token = await AsyncStorage.getItem('access');
@@ -49,17 +31,32 @@ export default function Home() {
     })
     setMainConfiguringData(data);
   }
+  const fetchGetDiagnosisData = async () => {
+    const token = await AsyncStorage.getItem('access');
+    const { data } = await axios.get('https://api.tongdoc.co.kr/v1/doctor',{
+      headers:{
+        'accept':'applycation/json',
+        'Authorization': `Bearer ${token}`,
+      }
+    })
+    setDiagnosisResultData(data);
+  }
   
   useEffect(() => {
     fetchGetMainConfiguringData();
+    fetchGetDiagnosisData();
   }, [])
+  console.log(diagnosisResultData);
+  console.log(mainConfiguringData);
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
+     { (mainConfiguringData && diagnosisResultData)
+     ?  <>
       <View style={styles.topInner}>
         {isAddFamilyBannerShow && <AddFamilyBanner onPress={closeAddFamilyBannerHandler} />}
         <Pressable onPress={() => {console.log('clicked!')}} style={({pressed}) => []}>
-        <Banner mainConfiguringData={mainConfiguringData} />
+        <Banner diagnosisResultData={diagnosisResultData} mainConfiguringData={mainConfiguringData} />
         </Pressable>
         <PhoneContractDateCalculatorBanner />
         <TongdocNews mainConfiguringData={mainConfiguringData} />
@@ -68,6 +65,9 @@ export default function Home() {
       <View style={styles.bottomInner}>
         <Reviews mainConfiguringData={mainConfiguringData} />
       </View>
+      </>
+      : <ActivityIndicator />
+      }
       {/* <SendingBillsSKT /> */}
     </ScrollView>
   );

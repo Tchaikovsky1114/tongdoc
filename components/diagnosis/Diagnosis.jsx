@@ -57,7 +57,7 @@ export default function Diagnosis() {
           </View>
 
           <View style={{marginTop:16,marginBottom:16,justifyContent:'center',alignItems:'center'}}>
-          <Image style={{width:63,height:63}} source={require('../../assets/diagnosis/goodstatus.png')} />
+          <Image style={{width:63,height:63}} source={require('../../assets/diagnosis/status1.png')} />
           </View>
           <P_14R style={{textAlign:'center',paddingVertical:4.5}} >1년간 총 <Text style={{fontSize:15,color:'#2d63e2'}}>636,440 원을 절약</Text>할 수 있어요!</P_14R>
           

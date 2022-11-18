@@ -285,28 +285,28 @@ export default function App() {
             <Stack.Screen
               name="Signin"
               component={SigninPage}
-              options={{ title: '', headerBackVisible: false,headerShown:true }}
+              options={{ title: '', headerBackVisible: true,headerShown:true }}
             />
 
             <Stack.Screen
               name="TestPage"
               component={TestPage}
-              options={{ title: '', headerBackVisible: false }}
+              options={{ title: '', headerBackVisible: false, headerShown:true }}
             />
             <Stack.Screen
               name="Diagnosis/familyRegistration"
               component={FamilyRegistrationScreen}
-              options={{ title: '' }}
+              options={{ title: '', headerShown:true }}
             />
             <Stack.Screen
               name="Diagnosis/internetRegistration"
               component={InternetRegistration}
-              options={{ title: '', }}
+              options={{ title: '', headerShown:true }}
             />
             <Stack.Screen
               name="Signin/FindInfo"
               component={FindInfoPage}
-              options={{ title: '' }}
+              options={{ title: '',headerShown:true }}
             />
           </Stack.Navigator>
         </NavigationContainer>
