@@ -5,12 +5,18 @@
   "build": {
     "development": {
       "developmentClient": true,
-      "distribution": "internal"
+      "distribution": "internal",
+      "extends":"production"
     },
     "preview": {
       "distribution": "internal"
     },
-    "production": {}
+    "production": {
+      "env": {
+        "CLIENT_ID": "2",
+        "CLIENT_SECRET": "9IbXBERjdJ8zOyBOcyPJ0gwWOHhBfKbN9cTEgLiN"
+      }
+    }
   },
   "submit": {
     "production": {}

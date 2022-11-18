@@ -40,6 +40,9 @@ import MyPageScreen from './screens/MyPageScreen';
 import PersonSvg from './components/common/svg/PersonSvg';
 import FamilyRegistrationScreen from './components/diagnosis/familyRegistraion/FamilyRegistration';
 import InternetRegistration from './components/diagnosis/internetRegistration/InternetRegistration';
+import DetailPhone from './components/diagnosis/detail/DetailPhone';
+import DetailInternet from './components/diagnosis/detail/DetailInternet';
+
 enableScreens();
 const Stack = createNativeStackNavigator();
 
@@ -101,10 +104,9 @@ const BottomTabs = () => {
             <PersonSvg focused={focused} />
           );
         },
-        // headerLeft:'',
-        // headerRight:'',
-        // headerTitle:'',
+
         headerShown: false,
+
         tabBarLabelStyle: {
           fontFamily: 'Noto400',
           fontSize: 10,
@@ -122,7 +124,30 @@ const BottomTabs = () => {
       <Tab.Screen
         name="Main"
         component={HomeScreen}
-        options={{ title: '홈' }}
+        options={{
+          title: '홈',
+          header: () => (
+            <View
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                paddingTop: 50,
+                paddingHorizontal: 24,
+                backgroundColor: '#fff',
+              }}
+            >
+              <Image
+                style={{ width: 94, height: 24 }}
+                source={require('./assets/common/logo.png')}
+              />
+              <Image
+                style={{ width: 24, height: 24 }}
+                source={require('./assets/common/bell.png')}
+              />
+            </View>
+          ),
+        }}
       />
       <Tab.Screen
         name="Diagnosis"
@@ -138,7 +163,13 @@ const BottomTabs = () => {
         }}
         options={{
           title: '통신비 진단',
-          headerShown: false,
+          header: () => (
+            <View>
+              <View></View>
+              <Text>통신비 진단 결과</Text>
+              <View></View>
+            </View>
+          ),
         }}
       />
 
@@ -201,6 +232,7 @@ export default function App() {
               animation: 'slide_from_right',
               headerShadowVisible: false,
               headerBackImageSource: require('./assets/common/back_arrow.png'),
+              headerShown: false,
             }}
           >
             <Stack.Group screenOptions={{ headerShown: false }}>
@@ -221,34 +253,54 @@ export default function App() {
               }}
             />
             <Stack.Screen
+              name="Diagnosis/familyRegistration"
+              component={FamilyRegistrationScreen}
+              options={{ title: '', headerShown: true }}
+            />
+            <Stack.Screen
+              name="Diagnosis/internetRegistration"
+              component={InternetRegistration}
+              options={{ title: '', headerShown: true }}
+            />
+            <Stack.Screen
+              name="Diagnosis/detailPhone"
+              component={DetailPhone}
+              options={{ title: '', headerShown: true }}
+            />
+            <Stack.Screen
+              name="Diagnosis/detailInternet"
+              component={DetailInternet}
+              options={{ title: '', headerShown: true }}
+            />
+            <Stack.Screen
               name="Signup"
               component={SignupPage}
-              options={{ title: '' }}
+              options={{ title: '', headerShown: true }}
             />
             <Stack.Screen
               name="Signup/Certification"
               component={CertificationScreen}
-              options={{ title: '' }}
+              options={{ title: '', headerShown: true }}
             />
             <Stack.Screen
               name="Signup/ChoiceSignMethod"
               component={ChoiceSignMethod}
-              options={{ title: '' }}
+              options={{ title: '', headerShown: true }}
             />
             <Stack.Screen
               name="Signup/CertificationInProgress"
               component={CertificationInProgress}
-              options={{ title: '' }}
+              options={{ title: '', headerShown: true }}
             />
             <Stack.Screen
               name="Signup/CertificationResult"
               component={CertificationResult}
-              options={{ title: '' }}
+              options={{ title: '', headerShown: true }}
             />
             <Stack.Screen
               name="Signup/EmailAndPassword"
               component={EmailAndPassword}
-              options={{ title: '' }}
+              options={{ title: '', headerShown: true }}
             />
             <Stack.Screen
               name="Signup/Welcome"
@@ -258,7 +310,11 @@ export default function App() {
             <Stack.Screen
               name="Signin"
               component={SigninPage}
-              options={{ title: '', headerBackVisible: false }}
+              options={{
+                title: '',
+                headerBackVisible: false,
+                headerShown: true,
+              }}
             />
 
             <Stack.Screen
@@ -266,20 +322,11 @@ export default function App() {
               component={TestPage}
               options={{ title: '', headerBackVisible: false }}
             />
-            <Stack.Screen
-              name="Diagnosis/familyRegistration"
-              component={FamilyRegistrationScreen}
-              options={{ title: '' }}
-            />
-            <Stack.Screen
-              name="Diagnosis/internetRegistration"
-              component={InternetRegistration}
-              options={{ title: '' }}
-            />
+
             <Stack.Screen
               name="Signin/FindInfo"
               component={FindInfoPage}
-              options={{ title: '' }}
+              options={{ title: '', headerShown: true }}
             />
           </Stack.Navigator>
         </NavigationContainer>

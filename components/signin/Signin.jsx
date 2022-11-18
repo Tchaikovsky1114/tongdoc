@@ -72,11 +72,12 @@ const Signin = () => {
   const moveSignupPageHandler = () => {
     navigation.navigate('Signup/Certification');
   };
-  const test = () => {
-    navigation.navigate('Diagnosis/familyRegistration');
-  };
+
   const test1 = () => {
-    navigation.navigate('Diagnosis/internetRegistration');
+    navigation.navigate('Diagnosis/detailInternet');
+  };
+  const test2 = () => {
+    navigation.navigate('Diagnosis/detailPhone');
   };
 
   // 주석 : 모달 닫기
@@ -87,6 +88,7 @@ const Signin = () => {
   // 주석 : 로그인 버튼
   const loginHandler = async () => {
     const response = await apis.Signin(signinForm);
+    console.log(response);
     if (!response) {
       setIsVisible((prev) => !prev);
     } else {
@@ -145,11 +147,12 @@ const Signin = () => {
             <Pressable onPress={moveSignupPageHandler}>
               <P_12R style={styles.findTextColor}>회원가입</P_12R>
             </Pressable>
-            <Pressable onPress={test}>
-              <P_12R style={styles.findTextColor}>가족등록</P_12R>
-            </Pressable>
+
             <Pressable onPress={test1}>
-              <P_12R style={styles.findTextColor}>인터넷등록</P_12R>
+              <P_12R style={styles.findTextColor}>디테일인터넷</P_12R>
+            </Pressable>
+            <Pressable onPress={test2}>
+              <P_12R style={styles.findTextColor}>디테일폰</P_12R>
             </Pressable>
           </View>
         </KeyboardAvoidingView>

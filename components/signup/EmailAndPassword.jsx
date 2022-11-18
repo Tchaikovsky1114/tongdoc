@@ -21,9 +21,9 @@ export default function EmailAndPassword({navigation}) {
   const [modalVisible, setModalVisible] = useState(false);
   const emailRef = useRef(null);
   const [termsDetail,setTermsDetail] = useState('');
-  const userInfo = useRecoilValue(signupState)
-  const [totalFormCheck,setTotalFormCheck] = useState(true)
-  const [detectBackspaceKey,setDetectBackspaceKey] = useState(false)
+  const userInfo = useRecoilValue(signupState);
+  const [totalFormCheck,setTotalFormCheck] = useState(true);
+  const [detectBackspaceKey,setDetectBackspaceKey] = useState(false);
   const [requiredTermsConsent,setRequiredTemrsConsent] = useState({
     service:false,
     privacy:false,
@@ -34,7 +34,6 @@ export default function EmailAndPassword({navigation}) {
     passwordConfirm: "",
     recommendCode: "",
   });
-  
 
   const toggleTotalTermsCheckHandler = useCallback(() => {
     setTotalTermsCheck((prev) => !prev);
@@ -68,22 +67,35 @@ export default function EmailAndPassword({navigation}) {
       setDetectBackspaceKey(false)
     }
   }
-
-  const submitSignupHandler = async () => {
-    
-    await apis.signup({
-    name:userInfo.name,
-    email: signupForm.email,
-    password: signupForm.password,
-    tongkind: signupForm.telecom,
-    hphone:signupForm.phone_number,
-    pushToken:signupForm.userPushToken
-    }).catch(() => {
-      Alert.alert("회원가입 실패","알 수 없는 오류로 인해 회원가입에 실패하였습니다.")
-    }).then(() => {
-      navigation.navigate('Signup/Welcome');
-    })
-  }
+  console.log(userInfo);
+  const submitSignupHandler = useCallback(async () => {
+    try {
+      const { data } = await axios.post('https://api.tongdoc.co.kr/v1/register',
+      {
+        user_email: signupForm.email,
+        password: signupForm.password,
+        password_confirmation: signupForm.password,
+        user_name: userInfo.name,
+        tongkind: signupForm.telecom,
+        hphone:signupForm.phone_number,
+        user_birth: userInfo.birth,
+        phone_number: userInfo.phone_number,
+        tcom: userInfo.telecom,
+        gender: userInfo.gender,
+        auth_type: 0,
+        device_token: "",
+        device_type: "",
+        dupinfo: userInfo.dupinfo,
+        recommender: signupForm.recommendCode,
+        third_party: "1",
+        marketing: "1",
+        pushToken:userInfo.userPushToken
+      })
+      console.log(data);    
+    } catch (error) {
+      console.error(error);
+    }
+  },[])
   
 
   useEffect(() => {
@@ -261,9 +273,7 @@ export default function EmailAndPassword({navigation}) {
               </P_14R>
             </Pressable>
           </View>
-
         </View>
-
       </View>
       <View style={{position:'absolute',width,bottom:0}}>
       <Button

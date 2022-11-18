@@ -4,7 +4,6 @@ import { Text,StyleSheet, View } from 'react-native';
 const Page = ({item,style}) => {
   return <View style={styles.pageItem} >
     <Text>{item.num}</Text>
-    
   </View>
 };
 

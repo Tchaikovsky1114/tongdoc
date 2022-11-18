@@ -44,7 +44,7 @@ const HomeModal = ({ tongkind, tempId }) => {
               <Image
                 resizeMode="contain"
                 style={styles.xbtnImg}
-                source={require('../../../assets/sendingBills/xBtn.png')}
+                source={require('../../../assets/xBtn.png')}
               />
             </Pressable>
           </View>
