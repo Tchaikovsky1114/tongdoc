@@ -28,7 +28,7 @@ const DetailSummary = ({
       <View style={styles.statusImgBox}>
         <Image
           style={styles.statusImg}
-          source={require('../../../assets/diagnosis/goodstatus.png')}
+          source={require('../../../assets/diagnosis/status1.png')}
         />
       </View>
       <View style={styles.summaryTextBox}>

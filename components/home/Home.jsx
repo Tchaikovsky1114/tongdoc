@@ -46,8 +46,7 @@ export default function Home() {
     fetchGetMainConfiguringData();
     fetchGetDiagnosisData();
   }, [])
-  console.log(diagnosisResultData);
-  console.log(mainConfiguringData);
+  
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
