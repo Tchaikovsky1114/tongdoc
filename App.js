@@ -42,6 +42,7 @@ import FamilyRegistrationScreen from './components/diagnosis/familyRegistraion/F
 import InternetRegistration from './components/diagnosis/internetRegistration/InternetRegistration';
 import DetailPhone from './components/diagnosis/detail/DetailPhone';
 import DetailInternet from './components/diagnosis/detail/DetailInternet';
+import BackButton from './components/common/BackButton';
 
 enableScreens();
 const Stack = createNativeStackNavigator();
@@ -56,10 +57,7 @@ Notification.setNotificationHandler({
 
 const { width } = Dimensions.get('window');
 
-const handleBackButton = () => {
-  BackHandler.exitApp();
-  return true;
-};
+
 
 const Tab = createBottomTabNavigator();
 
@@ -104,9 +102,7 @@ const BottomTabs = () => {
             <PersonSvg focused={focused} />
           );
         },
-
         headerShown: false,
-
         tabBarLabelStyle: {
           fontFamily: 'Noto400',
           fontSize: 10,
@@ -132,10 +128,10 @@ const BottomTabs = () => {
             flexDirection:'row',
             justifyContent:'space-between',
             alignItems:'center',
-            paddingTop:50,
-            paddingHorizontal:32,
+            paddingTop:40,
+            paddingHorizontal:16,
             backgroundColor:'#fff',
-            marginBottom:-50
+            marginBottom:-32
             }}>
             <Image style={{width:94,height:24}} source={require('./assets/common/logo.png')} />
             <Image style={{width:24,height:24}} source={require('./assets/common/bell.png')} />
@@ -148,26 +144,30 @@ const BottomTabs = () => {
       <Tab.Screen
         name="Diagnosis"
         component={DiagnosisScreen}
-        listeners={{
-          focus: () =>
-            BackHandler.addEventListener('hardwareBackPress', handleBackButton),
-          blur: () =>
-            BackHandler.removeEventListener(
-              'hardwareBackPress',
-              handleBackButton
-            ),
-        }}
         options={{
-          title: '통신비 진단',
-          header: () => (
-            <View>
-              <View></View>
-              <Text>통신비 진단 결과</Text>
-              <View></View>
-            </View>
-          ),
+          title: '통신비 진단 결과',
+          headerTitleAlign:'center',
           headerShown:true,
-
+          headerLeft: () => (
+            <BackButton />
+          ),
+          headerRight: () => (
+            <Image style={{width:24,height:24}} source={require('./assets/common/bell.png')} />
+          ),
+          headerTitleStyle:{
+            fontSize:16,
+            fontFamily:'Noto500',
+          },
+          headerLeftContainerStyle:{
+            paddingLeft:16
+          },
+          headerTitleContainerStyle:{
+            marginHorizontal: -16
+          },
+          headerRightContainerStyle:{
+            paddingRight:16
+          },
+          
         }}
       />
 
@@ -247,7 +247,7 @@ export default function App() {
               name="Diagnosis"
               component={DiagnosisScreen}
               options={{
-                title: '통신비 진단',
+                title: '통신비 진단', headerShown:true
               }}
             />
             <Stack.Screen
@@ -308,9 +308,7 @@ export default function App() {
             <Stack.Screen
               name="Signin"
               component={SigninPage}
-
               options={{ title: '', headerBackVisible: true,headerShown:true }}
-
             />
 
             <Stack.Screen
@@ -319,12 +317,10 @@ export default function App() {
               options={{ title: '', headerBackVisible: false, headerShown:true }}
             />
 
-
             <Stack.Screen
               name="Signin/FindInfo"
               component={FindInfoPage}
               options={{ title: '', headerShown: true }}
-
             />
           </Stack.Navigator>
         </NavigationContainer>
