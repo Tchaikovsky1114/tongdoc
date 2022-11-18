@@ -58,8 +58,13 @@ export default function Home() {
         <Pressable onPress={() => {console.log('clicked!')}} style={({pressed}) => []}>
         <Banner diagnosisResultData={diagnosisResultData} mainConfiguringData={mainConfiguringData} />
         </Pressable>
+
+        <Pressable onPress={() => {console.log('clicked!')}} style={({pressed}) => []}>
         <PhoneContractDateCalculatorBanner />
+        </Pressable>
+        <Pressable onPress={() => {console.log('clicked!')}} style={({pressed}) => []}>
         <TongdocNews mainConfiguringData={mainConfiguringData} />
+        </Pressable>
         
       </View>
       <View style={styles.bottomInner}>

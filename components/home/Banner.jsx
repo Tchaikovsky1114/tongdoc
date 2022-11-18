@@ -4,7 +4,7 @@ import P_18M from '../../style/paragraph/P_18M'
 import P_14M from '../../style/paragraph/P_14M'
 
 export default function Banner({mainConfiguringData,diagnosisResultData}) {
-  const { phone,month } = diagnosisResultData;
+  const { phone,month,total_save:totalSave } = diagnosisResultData;
 
   console.log(phone.status);
 
@@ -30,28 +30,28 @@ export default function Banner({mainConfiguringData,diagnosisResultData}) {
         <Image style={{width:52,height:52,marginRight:24}} source={require(`../../assets/diagnosis/status1.png`)} />
         <View>
           <P_14M>{phone[0].user_name}님의 11월 통신비 진단 결과,</P_14M>
-          <P_14M style={{color:'#2D63E2'}}>7,040원 절감 가능하네요!</P_14M>
+          <P_14M style={{color:'#2D63E2'}}>{totalSave}원 절감 가능하네요!</P_14M>
         </View>
         </>}
         {(phone && phone[0].state === 2) && <>
         <Image style={{width:52,height:52,marginRight:24}} source={require(`../../assets/diagnosis/status2.png`)} />
         <View>
           <P_14M>{phone[0].user_name}님의 11월 통신비 진단 결과,</P_14M>
-          <P_14M style={{color:'#2D63E2'}}>7,040원 절감 가능하네요!</P_14M>
+          <P_14M style={{color:'#2D63E2'}}>{totalSave}원 절감 가능하네요!</P_14M>
         </View>
         </>}
         {(phone && phone[0].state === 3) && <>
         <Image style={{width:52,height:52,marginRight:24}} source={require(`../../assets/diagnosis/status3.png`)} />
         <View>
           <P_14M>{phone[0].user_name}님의 11월 통신비 진단 결과,</P_14M>
-          <P_14M style={{color:'#2D63E2'}}>7,040원 절감 가능하네요!</P_14M>
+          <P_14M style={{color:'#2D63E2'}}>{totalSave}원 절감 가능하네요!</P_14M>
         </View>
         </>}
         {(phone && phone[0].state === 4) && <>
         <Image style={{width:52,height:52,marginRight:24}} source={require(`../../assets/diagnosis/status4.png`)} />
         <View>
           <P_14M>{phone[0].user_name}님의 11월 통신비 진단 결과,</P_14M>
-          <P_14M style={{color:'#2D63E2'}}>7,040원 절감 가능하네요!</P_14M>
+          <P_14M style={{color:'#2D63E2'}}>{totalSave}원 절감 가능하네요!</P_14M>
         </View>
         </>}
         {(phone && phone[0].state === 5) && <>
