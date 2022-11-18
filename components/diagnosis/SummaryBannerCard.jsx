@@ -7,11 +7,11 @@ import P_14R from '../../style/paragraph/P_14R'
 export default function SummaryBannerCard({diagnosisResultData}) {
   const {total_state:totalState,total_charge:totalCharge,total_save:totalSavings,family_count:familyCount,yearly_save:annualSavings} = diagnosisResultData
 
+  {/* status/state 0,1,2,3,4,5 - 분석 후 고객 통신비 상태를 나타냅니다. */}
   if(totalState === 0){
     return (
       <>
       <View style={styles.container}>
-        {/* status 0,1,2,3,4,5 - 분석 후 고객 통신비 상태를 나타낸다. */}
         <Image style={{width:63,height:63}} source={require('../../assets/diagnosis/status0.png')} />
       </View>
       <P_14R style={{textAlign:'center',paddingVertical:4.5}} >요금 청구서를 기다리고 있어요!</P_14R>
@@ -36,7 +36,6 @@ export default function SummaryBannerCard({diagnosisResultData}) {
     return (
       <>
       <View style={styles.container}>
-        {/* status 0,1,2,3,4,5 - 분석 후 고객 통신비 상태를 나타낸다. */}
         <Image style={{width:63,height:63}} source={require('../../assets/diagnosis/status1.png')} />
       </View>
       <P_14R style={{textAlign:'center',paddingVertical:4.5}} >1년간 총 <Text style={{fontSize:15,color:'#2d63e2'}}>{annualSavings} 원을 절약</Text>할 수 있어요!</P_14R>
@@ -61,7 +60,7 @@ export default function SummaryBannerCard({diagnosisResultData}) {
     return (
       <>
       <View style={styles.container}>
-        {/* status 0,1,2,3,4,5 - 분석 후 고객 통신비 상태를 나타낸다. */}
+        
         <Image style={{width:63,height:63}} source={require('../../assets/diagnosis/status2.png')} />
       </View>
       <P_14R style={{textAlign:'center',paddingVertical:4.5}} >1년간 총 <Text style={{fontSize:15,color:'#2d63e2'}}>{annualSavings} 원을 절약</Text>할 수 있어요!</P_14R>
@@ -86,7 +85,6 @@ export default function SummaryBannerCard({diagnosisResultData}) {
     return (
       <>
       <View style={styles.container}>
-        {/* status 0,1,2,3,4,5 - 분석 후 고객 통신비 상태를 나타낸다. */}
         <Image style={{width:63,height:63}} source={require('../../assets/diagnosis/status3.png')} />
       </View>
       <P_14R style={{textAlign:'center',paddingVertical:4.5}} >1년간 총 <Text style={{fontSize:15,color:'#2d63e2'}}>{annualSavings} 원을 절약</Text>할 수 있어요!</P_14R>
@@ -111,7 +109,6 @@ export default function SummaryBannerCard({diagnosisResultData}) {
     return (
       <>
       <View style={styles.container}>
-        {/* status 0,1,2,3,4,5 - 분석 후 고객 통신비 상태를 나타낸다. */}
         <Image style={{width:63,height:63}} source={require('../../assets/diagnosis/status4.png')} />
       </View>
       <P_14R style={{textAlign:'center',paddingVertical:4.5}} >1년간 총 <Text style={{fontSize:15,color:'#2d63e2'}}>{annualSavings} 원을 절약</Text>할 수 있어요!</P_14R>
@@ -136,7 +133,6 @@ export default function SummaryBannerCard({diagnosisResultData}) {
     return (
       <>
       <View style={styles.container}>
-        {/* status 0,1,2,3,4,5 - 분석 후 고객 통신비 상태를 나타낸다. */}
         <Image style={{width:63,height:63}} source={require('../../assets/diagnosis/status5.png')} />
       </View>
       <P_14R style={{textAlign:'center',paddingVertical:4.5}} >1년간 총 <Text style={{fontSize:15,color:'#2d63e2'}}>{annualSavings} 원을 절약</Text>할 수 있어요!</P_14R>

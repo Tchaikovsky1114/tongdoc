@@ -76,7 +76,6 @@ export default function Diagnosis() {
               </View>  
             </View>
           </Pressable>
-          
           <SummaryBannerCard diagnosisResultData={diagnosisResultData} />
           </View>
       </View>
@@ -85,13 +84,12 @@ export default function Diagnosis() {
       <View style={styles.body}>
         <View style={{flex:1}}>
           <P_16R style={{color:'#333333'}}>휴대폰 통신비</P_16R>
-          <FamilyCard name="오로라" phoneNumber="010-2274-3334" telecom="KT" savingMoney={44550} defaultMoney={50500} />
-          <FamilyCard name="오로가" phoneNumber="010-8715-2929" telecom="KT" savingMoney={4050} defaultMoney={39000} />
+          {diagnosisResultData.phone.map((item,index) => <FamilyCard item={item} index={index} key={item.id} />)}
           <RegisterCard text="가족을 등록해 주세요."/>
-          {/* <FlatList data={DUMMY_FAMILY_LIST} renderItem /> */}
+          
         </View>
         <P_16R style={{color:'#333333',marginTop:24,marginBottom:8}}>인터넷 요금</P_16R>
-        <FamilyCard name="오로라" phoneNumber="010-2274-3334" telecom="KT" savingMoney={44550} defaultMoney={50500} />
+        {diagnosisResultData.indernet?.map((item,index) => <FamilyCard item={item} index={index} key={item.id} />)}
         <RegisterCard text="인터넷 가입 정보를 등록해 주세요"/>
       </View>
       </>
