@@ -145,7 +145,7 @@ const BottomTabs = () => {
         name="Diagnosis"
         component={DiagnosisScreen}
         options={{
-          title: '통신비 진단 결과',
+          title: '통신비 진단',
           headerTitleAlign:'center',
           headerShown:true,
           headerLeft: () => (
@@ -246,9 +246,6 @@ export default function App() {
             <Stack.Screen
               name="Diagnosis"
               component={DiagnosisScreen}
-              options={{
-                title: '통신비 진단', headerShown:true
-              }}
             />
             <Stack.Screen
               name="Diagnosis/familyRegistration"

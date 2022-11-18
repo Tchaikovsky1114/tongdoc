@@ -9,10 +9,12 @@ import AddFamilyBanner from './AddFamilyBanner';
 import PhoneContractDateCalculatorBanner from './PhoneContractDateCalculatorBanner';
 import TongdocNews from './TongdocNews';
 import Reviews from './Reviews';
+import { useNavigation } from '@react-navigation/native';
 
 const {width} = Dimensions.get('window');
 
 export default function Home() {
+  const navigation = useNavigation()
   const [isAddFamilyBannerShow,SetIsAddFamilyBannerShow] = useState(true);
   const closeAddFamilyBannerHandler = () => {
     SetIsAddFamilyBannerShow(false)
@@ -54,14 +56,14 @@ export default function Home() {
      ?  <>
       <View style={styles.topInner}>
         {isAddFamilyBannerShow && <AddFamilyBanner onPress={closeAddFamilyBannerHandler} />}
-        <Pressable onPress={() => {console.log('clicked!')}} style={({pressed}) => []}>
+        <Pressable onPress={() => {}} style={({pressed}) => []}>
         <Banner diagnosisResultData={diagnosisResultData} mainConfiguringData={mainConfiguringData} />
         </Pressable>
 
-        <Pressable onPress={() => {console.log('clicked!')}} style={({pressed}) => []}>
+        <Pressable onPress={() => navigation.navigate('PurchaseMobile')} style={({pressed}) => []}>
         <PhoneContractDateCalculatorBanner />
         </Pressable>
-        <Pressable onPress={() => {console.log('clicked!')}} style={({pressed}) => []}>
+        <Pressable onPress={() => {}} style={({pressed}) => []}>
         <TongdocNews mainConfiguringData={mainConfiguringData} />
         </Pressable>
         
