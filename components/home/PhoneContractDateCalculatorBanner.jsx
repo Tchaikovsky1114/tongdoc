@@ -9,15 +9,15 @@ export default function PhoneContractDateCalculatorBanner() {
     
       <View style={styles.container}>
         <View style={styles.contractDdayBox}>
-          <P_18M style={{color:'#fff'}}>휴대폰 약정 D-365</P_18M>
+          <P_18M style={{color:'#fff'}}>휴대폰 구매</P_18M>
           <Image style={{width:23,height:23}} source={require('../../assets/common/whitenextarrow.png')} />
         </View>
         <View style={styles.imageBox}>
           <Image style={{width:30,height:40}} source={require('../../assets/home/calculator.png')} />
         </View>
         <View>
-          <P_14M style={{color:'#fff',textAlign:'center'}}>휴대폰 약정일이 365일 남았어요!</P_14M>
-          <P_14M style={{color:'#fff',textAlign:'center'}}>근거리 휴대폰 매장 견적서를 비교해볼까요?</P_14M>
+          <P_14M style={{color:'#fff',textAlign:'center'}}>같은 기종이라도 더 저렴하게 구입할 수 있어요.</P_14M>
+          <P_14M style={{color:'#fff',textAlign:'center'}}>주변 휴대폰 매장 견적서를 비교해볼까요?</P_14M>
         </View>
       </View>
   )

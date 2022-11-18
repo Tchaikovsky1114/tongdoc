@@ -8,9 +8,11 @@ const instance = axios.create({
 
 const apis = {
   Signin: async (user) => {
-
+    console.log(CLIENT_ID);
+    console.log(CLIENT_SECRET);
     try {
       const {data} = await instance.post('oauth/token', {  
+        
         grant_type: "password",
         client_id: CLIENT_ID,
         client_secret: CLIENT_SECRET,

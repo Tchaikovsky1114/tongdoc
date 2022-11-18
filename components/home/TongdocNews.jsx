@@ -3,7 +3,8 @@ import React from 'react'
 import P_18M from '../../style/paragraph/P_18M'
 import P_14M from '../../style/paragraph/P_14M'
 
-export default function TongdocNews() {
+export default function TongdocNews({mainConfiguringData}) {
+  const {doctor:{news}} = mainConfiguringData;
   return (
     <View style={styles.container}>
       <View style={styles.inner}>
@@ -13,8 +14,8 @@ export default function TongdocNews() {
         </View>
         <View style={{alignItems:'center',marginTop:18}}>
           <Image style={{width:40,height:40}} source={require('../../assets/home/notice.png')} />
-          <P_14M style={{color:'#fff',marginTop:8}}>"4인 가족 전화요금 8만원 절감"</P_14M>
-          <P_14M style={{color:'#fff'}}>"통신닥터, 정식 서비스 출시"</P_14M>
+          <P_14M style={{color:'#fff',marginTop:8}}>{news[0]?.contents}</P_14M>
+          
         </View>
       </View>
     </View>

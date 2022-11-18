@@ -126,28 +126,24 @@ const BottomTabs = () => {
         component={HomeScreen}
         options={{
           title: '홈',
-          header: () => (
-            <View
-              style={{
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                paddingTop: 50,
-                paddingHorizontal: 24,
-                backgroundColor: '#fff',
-              }}
-            >
-              <Image
-                style={{ width: 94, height: 24 }}
-                source={require('./assets/common/logo.png')}
-              />
-              <Image
-                style={{ width: 24, height: 24 }}
-                source={require('./assets/common/bell.png')}
-              />
-            </View>
-          ),
-        }}
+
+        header: () => (
+          <View style={{
+            flexDirection:'row',
+            justifyContent:'space-between',
+            alignItems:'center',
+            paddingTop:50,
+            paddingHorizontal:32,
+            backgroundColor:'#fff',
+            marginBottom:-50
+            }}>
+            <Image style={{width:94,height:24}} source={require('./assets/common/logo.png')} />
+            <Image style={{width:24,height:24}} source={require('./assets/common/bell.png')} />
+          </View>
+        ),
+        headerShown:true
+      }}
+
       />
       <Tab.Screen
         name="Diagnosis"
@@ -170,6 +166,8 @@ const BottomTabs = () => {
               <View></View>
             </View>
           ),
+          headerShown:true,
+
         }}
       />
 
@@ -310,23 +308,23 @@ export default function App() {
             <Stack.Screen
               name="Signin"
               component={SigninPage}
-              options={{
-                title: '',
-                headerBackVisible: false,
-                headerShown: true,
-              }}
+
+              options={{ title: '', headerBackVisible: true,headerShown:true }}
+
             />
 
             <Stack.Screen
               name="TestPage"
               component={TestPage}
-              options={{ title: '', headerBackVisible: false }}
+              options={{ title: '', headerBackVisible: false, headerShown:true }}
             />
+
 
             <Stack.Screen
               name="Signin/FindInfo"
               component={FindInfoPage}
               options={{ title: '', headerShown: true }}
+
             />
           </Stack.Navigator>
         </NavigationContainer>
