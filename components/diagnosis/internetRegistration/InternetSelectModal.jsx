@@ -26,7 +26,7 @@ const InternetSelectModal = ({ isVisible, modalHandler, onChange }) => {
             <Pressable onPress={modalHandler}>
               <Image
                 style={styles.modalCloseBtn}
-                source={require('../../../assets/sendingBills/xBtn.png')}
+                source={require('../../../assets/xBtn.png')}
               />
             </Pressable>
           </View>

@@ -40,6 +40,8 @@ import MyPageScreen from './screens/MyPageScreen';
 import PersonSvg from './components/common/svg/PersonSvg';
 import FamilyRegistrationScreen from './components/diagnosis/familyRegistraion/FamilyRegistration';
 import InternetRegistration from './components/diagnosis/internetRegistration/InternetRegistration';
+import DetailPhone from './components/diagnosis/detail/DetailPhone';
+import DetailInternet from './components/diagnosis/detail/DetailInternet';
 
 enableScreens();
 const Stack = createNativeStackNavigator();
@@ -124,6 +126,7 @@ const BottomTabs = () => {
         component={HomeScreen}
         options={{
           title: '홈',
+
         header: () => (
           <View style={{
             flexDirection:'row',
@@ -140,6 +143,7 @@ const BottomTabs = () => {
         ),
         headerShown:true
       }}
+
       />
       <Tab.Screen
         name="Diagnosis"
@@ -226,7 +230,7 @@ export default function App() {
               animation: 'slide_from_right',
               headerShadowVisible: false,
               headerBackImageSource: require('./assets/common/back_arrow.png'),
-              headerShown:false
+              headerShown: false,
             }}
           >
             <Stack.Group screenOptions={{ headerShown: false }}>
@@ -238,7 +242,6 @@ export default function App() {
               name="Home"
               component={BottomTabs}
               options={{ title: '', headerShown: false }}
-
             />
             <Stack.Screen
               name="Diagnosis"
@@ -248,34 +251,54 @@ export default function App() {
               }}
             />
             <Stack.Screen
+              name="Diagnosis/familyRegistration"
+              component={FamilyRegistrationScreen}
+              options={{ title: '', headerShown: true }}
+            />
+            <Stack.Screen
+              name="Diagnosis/internetRegistration"
+              component={InternetRegistration}
+              options={{ title: '', headerShown: true }}
+            />
+            <Stack.Screen
+              name="Diagnosis/detailPhone"
+              component={DetailPhone}
+              options={{ title: '', headerShown: true }}
+            />
+            <Stack.Screen
+              name="Diagnosis/detailInternet"
+              component={DetailInternet}
+              options={{ title: '', headerShown: true }}
+            />
+            <Stack.Screen
               name="Signup"
               component={SignupPage}
-              options={{ title: '',headerShown:true }}
+              options={{ title: '', headerShown: true }}
             />
             <Stack.Screen
               name="Signup/Certification"
               component={CertificationScreen}
-              options={{ title: '',headerShown:true }}
+              options={{ title: '', headerShown: true }}
             />
             <Stack.Screen
               name="Signup/ChoiceSignMethod"
               component={ChoiceSignMethod}
-              options={{ title: '',headerShown:true }}
+              options={{ title: '', headerShown: true }}
             />
             <Stack.Screen
               name="Signup/CertificationInProgress"
               component={CertificationInProgress}
-              options={{ title: '',headerShown:true }}
+              options={{ title: '', headerShown: true }}
             />
             <Stack.Screen
               name="Signup/CertificationResult"
               component={CertificationResult}
-              options={{ title: '',headerShown:true}}
+              options={{ title: '', headerShown: true }}
             />
             <Stack.Screen
               name="Signup/EmailAndPassword"
               component={EmailAndPassword}
-              options={{ title: '',headerShown:true}}
+              options={{ title: '', headerShown: true }}
             />
             <Stack.Screen
               name="Signup/Welcome"
@@ -285,7 +308,9 @@ export default function App() {
             <Stack.Screen
               name="Signin"
               component={SigninPage}
+
               options={{ title: '', headerBackVisible: true,headerShown:true }}
+
             />
 
             <Stack.Screen
@@ -293,20 +318,13 @@ export default function App() {
               component={TestPage}
               options={{ title: '', headerBackVisible: false, headerShown:true }}
             />
-            <Stack.Screen
-              name="Diagnosis/familyRegistration"
-              component={FamilyRegistrationScreen}
-              options={{ title: '', headerShown:true }}
-            />
-            <Stack.Screen
-              name="Diagnosis/internetRegistration"
-              component={InternetRegistration}
-              options={{ title: '', headerShown:true }}
-            />
+
+
             <Stack.Screen
               name="Signin/FindInfo"
               component={FindInfoPage}
-              options={{ title: '',headerShown:true }}
+              options={{ title: '', headerShown: true }}
+
             />
           </Stack.Navigator>
         </NavigationContainer>
