@@ -1,4 +1,4 @@
-import {Dimensions, StyleSheet, Text, View,Image,ScrollView, FlatList, ActivityIndicator, Pressable} from 'react-native';
+import {Dimensions, StyleSheet, Text, View,Image,ScrollView, FlatList, ActivityIndicator, Pressable, Modal} from 'react-native';
 import React, { useEffect,useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import P_16M from '../../style/paragraph/P_16M';
@@ -12,68 +12,92 @@ import SummaryBannerCard from './SummaryBannerCard';
 
 const {width} = Dimensions.get('window');
 
-const DUMMY_FAMILY_LIST = [
-  {
-    name:'오로라',
-    telecom:'KT',
-    phoneNumber:'010-2334-4455',
-    savingMoney: 44550,
-    defaultMoney: 54550,
-  },
-  {
-    name:'오로가',
-    telecom:'KT',
-    phoneNumber:'010-4876-1132',
-    savingMoney:3870,
-    defaultMoney: 19450,
-  },
-  {
-    name:'오로나',
-    telecom:'KT',
-    phoneNumber:'010-6661-1780',
-    savingMoney:900,
-    defaultMoney: 44000
-  },
-  {
-    name:'오로다',
-    telecom:'KT',
-    phoneNumber:'010-9917-5857',
-    savingMoney:10450,
-    defaultMoney: 38000
-  }
-]
+const date = new Date();
+
+const currentYear = date.getFullYear(); 
+const currentMonth = date.getMonth() + 1;
+
 
 export default function Diagnosis() {
+  
   const [diagnosisResultData,setDiagnosisResultData] = useState()
-  const fetchGetDiagnosisData = async () => {
-    const token = await AsyncStorage.getItem('access');
-    const { data } = await axios.get('https://api.tongdoc.co.kr/v1/doctor',{
-      headers:{
-        'accept':'applycation/json',
-        'Authorization': `Bearer ${token}`,
-      }
-    })
-    setDiagnosisResultData(data);
+  const [isSelectMonthModalVisible,setIsSelectMonthModalVisible] = useState(false);
+ 
+
+  const toggleModalHandler = () => {
+    setIsSelectMonthModalVisible(prev => !prev);
+  }
+  const fetchGetDiagnosisData = async (year = currentYear, month = currentMonth) => {
+  
+    try {
+      const token = await AsyncStorage.getItem('access');
+      const { data } = await axios.get(`https://api.tongdoc.co.kr/v1/doctor?year=${year}&month=${month}`,{
+        headers:{
+          'accept':'applycation/json',
+          'Authorization': `Bearer ${token}`,
+        }
+      })
+      setDiagnosisResultData(data);  
+     
+    } catch (error) {
+      console.error(error)
+    }
+    
   }
 
   useEffect(() => {
     fetchGetDiagnosisData()
   },[])
-  console.log(diagnosisResultData)
+  
   return (
     <ScrollView contentContainerStyle={styles.container}>
 
       {!diagnosisResultData
       ? <ActivityIndicator />
       : <>
+      <Modal
+      visible={isSelectMonthModalVisible}
+      transparent={true}
+      animationType="fade"
+      onRequestClose={toggleModalHandler}
+      >
+        <View style={styles.modalContainer}>
+          <View style={styles.modalInner}>
+            <View style={{flexDirection:'row',justifyContent:'space-between',alignItems:'center',width:'100%',marginBottom:16}}>
+              <P_16M>월 선택하기</P_16M>
+              <Pressable onPress={toggleModalHandler}>
+               <Image style={{width:24,height:24}} source={require('../../assets/common/close.png')} />
+              </Pressable>
+            </View>
+            <View style={{alignItems:'flex-start',width:'100%'}}>
+              {diagnosisResultData.dates.map((item) => (
+                <Pressable
+                key={item.text}
+                style={({pressed}) => [{marginVertical:4,paddingVertical:2,width:'100%'},{backgroundColor: pressed ? 'rgba(0,0,255,0.2)' : '#fff'}]}
+                onPress={() => {
+                          fetchGetDiagnosisData(item.year,item.month);
+                          toggleModalHandler();
+                        }
+                      }
+                >
+                  <P_14R>{item.text}</P_14R>
+                </Pressable>
+              ))}
+            </View>  
+          </View>
+        </View>
+        
+      </Modal>
       <View style={styles.header}>
         <View style={styles.headerInner}>
           <Pressable>
             <View style={styles.resultBox}>
+              <Pressable onPress={toggleModalHandler}>
               <View style={styles.month}>
                 <P_14R style={{marginRight:8,color:'#2d63e2'}}>{diagnosisResultData.year} 년 {diagnosisResultData.month} 월</P_14R>
                 <Image style={{width:23,height:22.5}} source={require('../../assets/common/bluearrowdown.png')} />
-              </View>  
+              </View>
+              </Pressable>  
             </View>
           </Pressable>
           <SummaryBannerCard diagnosisResultData={diagnosisResultData} />
@@ -89,7 +113,7 @@ export default function Diagnosis() {
           
         </View>
         <P_16R style={{color:'#333333',marginTop:24,marginBottom:8}}>인터넷 요금</P_16R>
-        {diagnosisResultData.indernet?.map((item,index) => <FamilyCard item={item} index={index} key={item.id} />)}
+        {diagnosisResultData.internet.map((item,index) => <FamilyCard item={item} index={index} key={item.id} />)}
         <RegisterCard text="인터넷 가입 정보를 등록해 주세요"/>
       </View>
       </>
@@ -143,6 +167,29 @@ const styles = StyleSheet.create({
     backgroundColor:'#fff',
     paddingHorizontal:24,
   },
+  modalContainer:{
+    flex:1,
+    justifyContent:'center',
+    alignItems:'center',
+    backgroundColor:'rgba(52,52,52,0.8)',
+    
+  },
+  modalInner:{
+    width:width - 48,
+    margin:20,
+    backgroundColor:'#fff',
+    borderRadius:8,
+    padding:24,
+    alignItems:'center',
+    shadowColor:'#000',
+    shadowOffset:{
+      width:0,
+      height:2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius:4,
+    elevation:5,
+  }
 })
 
 
