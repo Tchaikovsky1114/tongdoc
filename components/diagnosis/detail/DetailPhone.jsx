@@ -1,5 +1,5 @@
-import { Text, View } from 'react-native';
-import PhoneDetailModal from '../detailModal/PhoneDetailModal';
+import { Text, View } from "react-native";
+import PhoneDetailModal from "../detailModal/PhoneDetailModal";
 
 // 테스트용
 const DetailPhone = () => {
