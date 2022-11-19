@@ -1,6 +1,6 @@
-import { Image, Pressable, StyleSheet, View } from 'react-native';
-import H6_18M from '../../../style/H6_18M';
-import P_12R from '../../../style/paragraph/P_12R';
+import { Image, Pressable, StyleSheet, View } from "react-native";
+import H6_18M from "../../../style/H6_18M";
+import P_12R from "../../../style/paragraph/P_12R";
 
 const DetailTitle = ({ margin, title, tong, number, closeHandler }) => {
   return (
@@ -10,7 +10,7 @@ const DetailTitle = ({ margin, title, tong, number, closeHandler }) => {
         <Pressable onPress={closeHandler}>
           <Image
             style={styles.xBtn}
-            source={require('../../../assets/xBtn.png')}
+            source={require("../../../assets/xBtn.png")}
           />
         </Pressable>
       </View>
@@ -26,9 +26,9 @@ export default DetailTitle;
 
 const styles = StyleSheet.create({
   titleBox: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
     marginBottom: 8,
   },
   xBtn: {
@@ -36,13 +36,13 @@ const styles = StyleSheet.create({
     height: 13.18,
   },
   numberBox: {
-    flexDirection: 'row',
+    flexDirection: "row",
   },
   numberText: {
-    color: '#666666',
+    color: "#666666",
   },
   tongText: {
-    color: '#666666',
+    color: "#666666",
     marginRight: 10,
   },
 });
