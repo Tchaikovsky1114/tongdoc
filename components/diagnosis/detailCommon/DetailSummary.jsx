@@ -28,7 +28,9 @@ const DetailSummary = ({
       <View style={styles.statusImgBox}>
         <Image
           style={styles.statusImg}
+
           source={require("../../../assets/diagnosis/status1.png")}
+
         />
       </View>
       <View style={styles.summaryTextBox}>
@@ -109,7 +111,7 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     shadowColor: "#000",
     shadowOffset: {
-      width: 0,
+      width: 1,
       height: 2,
     },
     shadowOpacity: 0.1,

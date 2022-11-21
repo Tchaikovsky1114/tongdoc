@@ -14,8 +14,7 @@ import SigninInput from '../../common/SigninInput';
 import SigninModal from '../SigninModal/SigninModal';
 const { width } = Dimensions.get('window');
 
-const FindInfo = (props) => {
-  const { id } = props;
+const FindInfo = ({ id }) => {
   const [selectTap, setSelectTap] = useState(id);
   const [isVisible, setIsVisible] = useState(false);
   const [isDisable, setIsDisable] = useState(false);
