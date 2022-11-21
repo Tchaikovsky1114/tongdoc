@@ -71,7 +71,7 @@ const CallModal = ({ isVisible, tongkind, callModalHandler }) => {
             </View>
           </View>
           <View style={styles.btnBox}>
-            {tongkind === '1' && (
+            {tongkind === 'SKT' && (
               <SendingBtn
                 onPress={callTong.bind(this, '080-011-6000')}
                 blue={true}
@@ -79,7 +79,7 @@ const CallModal = ({ isVisible, tongkind, callModalHandler }) => {
                 SKT 고객센터 전화연결
               </SendingBtn>
             )}
-            {tongkind === '2' && (
+            {tongkind === 'KT' && (
               <SendingBtn
                 onPress={callTong.bind(this, '080-000-1618')}
                 blue={true}
@@ -87,7 +87,7 @@ const CallModal = ({ isVisible, tongkind, callModalHandler }) => {
                 KT 고객센터 전화연결
               </SendingBtn>
             )}
-            {tongkind === '3' && (
+            {tongkind === 'LGU+' && (
               <SendingBtn onPress={callTong.bind(this, '114')} blue={true}>
                 LG U+ 고객센터 전화연결
               </SendingBtn>
