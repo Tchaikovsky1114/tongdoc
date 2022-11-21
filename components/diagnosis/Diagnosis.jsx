@@ -86,7 +86,6 @@ export default function Diagnosis() {
             </View>  
           </View>
         </View>
-        
       </Modal>
       <View style={styles.header}>
         <View style={styles.headerInner}>
