@@ -7,7 +7,8 @@ import 'intl';
 import 'intl/locale-data/jsonp/en';
 import PhoneDetailModal from './detailModal/PhoneDetailModal';
 
-export default function FamilyCard({ item, index }) {
+export default function FamilyCard({ item, index, billType }) {
+  console.log(item, 'item2');
   const {
     id,
     user_name: name,
@@ -21,7 +22,7 @@ export default function FamilyCard({ item, index }) {
     save: savings,
   } = item;
   const [isVisible, setIsVisible] = useState(false);
-  const modalHandler = () => {
+  const modalHandler = async () => {
     setIsVisible((prev) => !prev);
   };
   return (
@@ -60,7 +61,12 @@ export default function FamilyCard({ item, index }) {
           </View>
         </View>
       </Pressable>
-      <PhoneDetailModal isVisible={isVisible} modalHandler={modalHandler} />
+      <PhoneDetailModal
+        isVisible={isVisible}
+        modalHandler={modalHandler}
+        item={item}
+        billType={billType}
+      />
     </>
   );
 }

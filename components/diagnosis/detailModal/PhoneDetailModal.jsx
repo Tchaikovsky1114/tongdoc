@@ -14,8 +14,49 @@ import DetailTitleMoney from '../detailCommon/DetailTitleMoney';
 import DetailPhoneChargeTitle from '../detailCommon/DetailPhoneChargeTitle';
 import DetailContents from '../detailCommon/DetailContents';
 import DetailBottomInfo from '../detailCommon/DetailBottomInfo';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 
-const PhoneDetailModal = ({ isVisible, modalHandler }) => {
+const PhoneDetailModal = ({ isVisible, modalHandler, item, billType }) => {
+  console.log(item, 'modal');
+  const {
+    id,
+    user_name: name,
+    phone_number: phoneNumber,
+    tcom: telecom,
+    state,
+    bill_id: billId,
+    check_y: checkYear,
+    check_m: checkMonth,
+    charge,
+    save: savings,
+  } = item;
+  const [detail, setDetail] = useState();
+  const fetchGetDiagnosisDetail = async () => {
+    try {
+      const token = await AsyncStorage.getItem('access');
+      const { data } = await axios.get(
+        `https://api.tongdoc.co.kr/v1/doctor/detail?user_id=${id}&bill_type=${billType}&year=${checkYear}&month=${checkMonth}`,
+        {
+          headers: {
+            accept: 'applycation/json',
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      setDetail(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchGetDiagnosisDetail();
+  }, []);
+
+  console.log(detail, 'detail');
+
   return (
     <Modal visible={isVisible} animationType="slide">
       <StatusBar style="dark" />
@@ -24,17 +65,21 @@ const PhoneDetailModal = ({ isVisible, modalHandler }) => {
           <View style={styles.container}>
             <DetailTitle
               margin={{ marginBottom: 24 }}
-              title={'오*라 님의 휴대폰 진단서'}
-              tong={'KT'}
-              number={'010-23**-*234'}
+              title={`${detail?.user.user_name} 님의 ${detail?.bill_type} 진단서`}
+              tong={`${detail?.user.tcom}`}
+              number={`${detail?.user.phone_number.replace(
+                /(\d{3})(\d{2})(\d{3})(\d{1})/,
+                '$1-$2**-*$4'
+              )}`}
               modalHandler={modalHandler}
             />
             <DetailSummary
               margin={{ marginBottom: 32 }}
               date={{
-                year: '2022',
-                month: '11',
+                year: `${detail?.year}`,
+                month: `${detail?.month}`,
               }}
+              status={`${detail?.state}`}
               phoneReduceYear={84480}
               phoneReduceMonth={7040}
             />
