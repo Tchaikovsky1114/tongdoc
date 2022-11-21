@@ -4,35 +4,36 @@ import {
   ScrollView,
   StyleSheet,
   View,
-} from "react-native";
-import { StatusBar } from "expo-status-bar";
-import P_14M from "../../../style/paragraph/P_14M";
-import DetailTitle from "../detailCommon/DetailTitle";
-import DetailSummary from "../detailCommon/DetailSummary";
-import DetailTotalCharge from "../detailCommon/DetailTotalCharge";
-import DetailTitleMoney from "../detailCommon/DetailTitleMoney";
-import DetailPhoneChargeTitle from "../detailCommon/DetailPhoneChargeTitle";
-import DetailContents from "../detailCommon/DetailContents";
-import DetailBottomInfo from "../detailCommon/DetailBottomInfo";
+} from 'react-native';
+import { StatusBar } from 'expo-status-bar';
+import P_14M from '../../../style/paragraph/P_14M';
+import DetailTitle from '../detailCommon/DetailTitle';
+import DetailSummary from '../detailCommon/DetailSummary';
+import DetailTotalCharge from '../detailCommon/DetailTotalCharge';
+import DetailTitleMoney from '../detailCommon/DetailTitleMoney';
+import DetailPhoneChargeTitle from '../detailCommon/DetailPhoneChargeTitle';
+import DetailContents from '../detailCommon/DetailContents';
+import DetailBottomInfo from '../detailCommon/DetailBottomInfo';
 
-const PhoneDetailModal = () => {
+const PhoneDetailModal = ({ isVisible, modalHandler }) => {
   return (
-    <Modal visible animationType="slide">
+    <Modal visible={isVisible} animationType="slide">
       <StatusBar style="dark" />
       <SafeAreaView style={{ flex: 1 }}>
         <ScrollView style={styles.screen}>
           <View style={styles.container}>
             <DetailTitle
               margin={{ marginBottom: 24 }}
-              title={"오*라 님의 휴대폰 진단서"}
-              tong={"KT"}
-              number={"010-23**-*234"}
+              title={'오*라 님의 휴대폰 진단서'}
+              tong={'KT'}
+              number={'010-23**-*234'}
+              modalHandler={modalHandler}
             />
             <DetailSummary
               margin={{ marginBottom: 32 }}
               date={{
-                year: "2022",
-                month: "11",
+                year: '2022',
+                month: '11',
               }}
               phoneReduceYear={84480}
               phoneReduceMonth={7040}
@@ -46,15 +47,15 @@ const PhoneDetailModal = () => {
             </View>
             <View style={styles.detailBox}>
               <DetailPhoneChargeTitle
-                title={"1-1. 사용요금제"}
-                status={"나쁨"}
+                title={'1-1. 사용요금제'}
+                status={'나쁨'}
               />
               <View>
-                <DetailContents title={"월정액"} price={29900} />
-                <DetailContents title={"추가 사용요금"} price={0} />
-                <DetailContents title={"기타요금"} price={7040} />
+                <DetailContents title={'월정액'} price={29900} />
+                <DetailContents title={'추가 사용요금'} price={0} />
+                <DetailContents title={'기타요금'} price={7040} />
                 <DetailContents
-                  title={"절감 가능액"}
+                  title={'절감 가능액'}
                   price={7040}
                   isLast={true}
                 />
@@ -62,29 +63,29 @@ const PhoneDetailModal = () => {
             </View>
             <View style={styles.detailBox}>
               <DetailPhoneChargeTitle
-                title={"1-2. 유료 부가 서비스"}
-                status={"좋음"}
+                title={'1-2. 유료 부가 서비스'}
+                status={'좋음'}
               />
               <View>
-                <DetailContents title={"부가 서비스 요금"} price={0} />
-                <DetailContents title={"절감 가능액"} price={0} isLast={true} />
+                <DetailContents title={'부가 서비스 요금'} price={0} />
+                <DetailContents title={'절감 가능액'} price={0} isLast={true} />
               </View>
             </View>
             <View style={styles.detailBox}>
-              <DetailPhoneChargeTitle title={"1-3. 할인요금"} status={"좋음"} />
+              <DetailPhoneChargeTitle title={'1-3. 할인요금'} status={'좋음'} />
               <View>
-                <DetailContents title={"선택 약정 할인"} price={21875} />
-                <DetailContents title={"결합할인"} price={0} />
-                <DetailContents title={"절감 가능액"} price={0} isLast={true} />
-                <DetailContents title={"기타 할인"} price={0} />
-                <DetailContents title={"10원 미만 할인"} price={-9} />
-                <DetailContents title={"절감 가능액"} price={0} isLast={true} />
+                <DetailContents title={'선택 약정 할인'} price={21875} />
+                <DetailContents title={'결합할인'} price={0} />
+                <DetailContents title={'절감 가능액'} price={0} isLast={true} />
+                <DetailContents title={'기타 할인'} price={0} />
+                <DetailContents title={'10원 미만 할인'} price={-9} />
+                <DetailContents title={'절감 가능액'} price={0} isLast={true} />
               </View>
             </View>
             <View style={styles.detailBox}>
               <DetailPhoneChargeTitle
-                title={"1-4. 부가세"}
-                vat={"부가세 포함"}
+                title={'1-4. 부가세'}
+                vat={'부가세 포함'}
                 vatPrice={4505}
               />
             </View>
@@ -116,16 +117,16 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
   },
   contentsBigTitle: {
-    flexDirection: "row",
-    justifyContent: "space-between",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     marginBottom: 17,
   },
   detailBox: {
     marginBottom: 30,
   },
   contentsBigTitleBottom: {
-    flexDirection: "row",
-    justifyContent: "space-between",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     marginBottom: 32,
   },
 });
