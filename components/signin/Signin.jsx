@@ -1,12 +1,11 @@
 import { useNavigation } from '@react-navigation/native';
 import { useEffect, useRef, useState } from 'react';
 import {
-  Dimensions,
   KeyboardAvoidingView,
+  Platform,
   Pressable,
   ScrollView,
   StyleSheet,
-  Text,
   View,
 } from 'react-native';
 import { useRecoilState } from 'recoil';
@@ -19,8 +18,6 @@ import DimensionBtn from '../common/DimensionBtn';
 import SigninInput from '../common/SigninInput';
 import SigninModal from './SigninModal/SigninModal';
 
-const { width } = Dimensions.get('window');
-
 const Signin = () => {
   const navigation = useNavigation();
   const [isDisable, setIsDisable] = useState(false);
@@ -28,6 +25,8 @@ const Signin = () => {
   const [signinForm, setSigninForm] = useState({
     email: '',
     password: '',
+    device_token: '2',
+    device_type: Platform.OS,
   });
   const [signin, setSignin] = useRecoilState(signinState);
   const emailRef = useRef(null);
@@ -88,23 +87,22 @@ const Signin = () => {
   // 주석 : 로그인 버튼
   const loginHandler = async () => {
     const response = await apis.Signin(signinForm);
-    console.log(response);
+    console.log(response, '2');
     if (!response) {
       setIsVisible((prev) => !prev);
     } else {
       setSignin({
-        email: response.DAT.res_user.email,
-        name: response.DAT.res_user.name,
-        tongkind: response.DAT.res_user.tongkind,
+        email: response.user_email,
+        name: response.user_name,
+        tongkind: response.tcom,
       });
       // 임시 아이디 체크
 
-      const emailDigit = response.DAT.res_user.email.indexOf('@');
-      const tempID = response.DAT.res_user.email.slice(0, emailDigit);
+      const inBoundEmail = response.inbound_email;
 
       navigation.navigate('TestPage', {
-        tongkind: response.DAT.res_user.tongkind,
-        tempID,
+        tongkind: response.tcom,
+        inBoundEmail,
       });
     }
   };
@@ -114,6 +112,7 @@ const Signin = () => {
       <ScrollView style={styles.screen}>
         <KeyboardAvoidingView style={styles.screen} behavior="position">
           <H4_24R style={styles.title}>{'로그인'}</H4_24R>
+
           <View style={styles.inputBox}>
             <SigninInput
               ref={emailRef}

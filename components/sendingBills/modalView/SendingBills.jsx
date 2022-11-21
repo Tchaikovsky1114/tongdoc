@@ -60,7 +60,7 @@ const SendingBills = ({ isVisible, modalHandler, PAGES_ONCE, PAGES_MONTH }) => {
             <Pressable style={styles.BottomCloseBtn} onPress={modalHandler}>
               <Text style={styles.CloseBtnText}>다음에 전송</Text>
             </Pressable>
-            {signin.tongkind === '1' && (
+            {signin.tongkind === 'SKT' && (
               <Pressable
                 style={styles.BottomAppBtn}
                 onPress={goToTong(
@@ -70,7 +70,7 @@ const SendingBills = ({ isVisible, modalHandler, PAGES_ONCE, PAGES_MONTH }) => {
                 <Text style={styles.AppBtnText}>SKT앱 실행</Text>
               </Pressable>
             )}
-            {signin.tongkind === '2' && (
+            {signin.tongkind === 'KT' && (
               <Pressable
                 style={styles.BottomAppBtn}
                 onPress={goToTong(
@@ -80,7 +80,7 @@ const SendingBills = ({ isVisible, modalHandler, PAGES_ONCE, PAGES_MONTH }) => {
                 <Text style={styles.AppBtnText}>KT앱 실행</Text>
               </Pressable>
             )}
-            {signin.tongkind === '3' && (
+            {signin.tongkind === 'LGU+' && (
               <Pressable
                 style={styles.BottomAppBtn}
                 onPress={goToTong(
