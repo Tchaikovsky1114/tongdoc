@@ -33,6 +33,7 @@ export default function ReviewCarousel() {
 
   const renderItem = ({item}) => (
     <View style={styles.item}>
+      <View style={styles.itemInner}>
       <View style={styles.reviewIndexBox}>
       <P_12M style={{textAlign:'left',color:'#2D63E2'}}>후기 {item.id}</P_12M>
       </View>
@@ -46,28 +47,35 @@ export default function ReviewCarousel() {
         <P_12M style={{textAlign:'right',color:'#2D63E2'}}>더보기</P_12M>
       </View>
     </View>
+    </View>
   )
   
   useEffect(() => {
 
   },[])
   return (
-    <FlatList data={reviews} renderItem={renderItem} keyExtractor={item => item.id} horizontal showsHorizontalScrollIndicator={false} />
+    <FlatList contentContainerStyle={styles.container} data={reviews} renderItem={renderItem} keyExtractor={item => item.id} horizontal showsHorizontalScrollIndicator={false} pagingEnabled />
   )
 }
 
 const styles = StyleSheet.create({
   container:{
-    marginTop:16,
+    marginTop:6,
+    alignItems:'center',
+    
   },
   item:{
-    width: width - 100,
+    paddingVertical:10,
+  },
+  itemInner:{
+    width: width - 64,
     backgroundColor:'#fff',
-    marginHorizontal:8,
     borderRadius:16,
     paddingHorizontal:16,
     paddingVertical:24,
-    alignItems:'center'
+    marginHorizontal:8,
+    alignItems:'center',
+    height:260,
   },
   reviewIndexBox:{
     width:'100%'

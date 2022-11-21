@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View,Image } from 'react-native'
 import React from 'react'
 import P_16M from '../../style/paragraph/P_16M'
 import P_12R from '../../style/paragraph/P_12R'
@@ -6,19 +6,20 @@ import P_14M from '../../style/paragraph/P_14M'
 import 'intl';
 import 'intl/locale-data/jsonp/en';
 
-export default function FamilyCard({name,phoneNumber,telecom,savingMoney,defaultMoney}) {
+export default function FamilyCard({item,index}) {
+  const {id,user_name:name,phone_number:phoneNumber,tcom:telecom,state,bill_id:billId,check_y:checkYear,check_m:checkMonth,charge,save:savings} = item
   return (
-    <View style={[styles.container,{borderColor: name === '오로라' ? '#2D63E2' : '#ddd',borderWidth: name === '오로라' ? 2 : 1}]}>
+    <View style={[styles.container,{borderColor: index === 0 ? '#2D63E2' : '#ddd',borderWidth: index === 0 ? 2 : 1}]}>
       <View>
-        <P_16M>{name} {name === '오로라' ? <Text>(나)</Text> : null}</P_16M>
+        <P_16M>{name} {index === 0 ? <Text>(나)</Text> : null}</P_16M>
         <View style={{flexDirection:'row'}}>
           <P_12R style={{color:'#666666',paddingRight:8}}>{telecom}</P_12R>
           <P_12R style={{color:'#666666'}}>{phoneNumber}</P_12R>
         </View>
       </View>
       <View style={{flexDirection:'row'}}>
-        <P_14M>{parseInt(savingMoney).toLocaleString()}원</P_14M>
-        <P_14M>({parseInt(defaultMoney - savingMoney).toLocaleString()})</P_14M>
+        <P_14M>{parseInt(savings).toLocaleString()}원</P_14M>
+        <P_14M style={{color:'#2d63e2'}}>( <Image style={{width:4.4,height:3.6}} source={require('../../assets/diagnosis/bluereversetriangle.png')}/> {parseInt(savings).toLocaleString()} )</P_14M>
       </View>
     </View>
   )

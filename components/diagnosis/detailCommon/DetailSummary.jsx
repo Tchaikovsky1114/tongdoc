@@ -1,9 +1,9 @@
-import { Image, StyleSheet, View } from 'react-native';
-import usePrice from '../../../hooks/usePrice';
-import P_12M from '../../../style/paragraph/P_12M';
-import P_12R from '../../../style/paragraph/P_12R';
-import P_14M from '../../../style/paragraph/P_14M';
-import P_22M from '../../../style/paragraph/P_22M';
+import { Image, StyleSheet, View } from "react-native";
+import usePrice from "../../../hooks/usePrice";
+import P_12M from "../../../style/paragraph/P_12M";
+import P_12R from "../../../style/paragraph/P_12R";
+import P_14M from "../../../style/paragraph/P_14M";
+import P_22M from "../../../style/paragraph/P_22M";
 
 const DetailSummary = ({
   margin,
@@ -22,13 +22,15 @@ const DetailSummary = ({
         </P_12M>
         <Image
           style={styles.downIcon}
-          source={require('../../../assets/common/bluearrowdown.png')}
+          source={require("../../../assets/common/bluearrowdown.png")}
         />
       </View>
       <View style={styles.statusImgBox}>
         <Image
           style={styles.statusImg}
-          source={require('../../../assets/diagnosis/status1.png')}
+
+          source={require("../../../assets/diagnosis/status1.png")}
+
         />
       </View>
       <View style={styles.summaryTextBox}>
@@ -60,7 +62,7 @@ const DetailSummary = ({
               <View style={[styles.flexRow, styles.summaryCharge]}>
                 <Image
                   style={styles.redTriangleImg}
-                  source={require('../../../assets/common/redreversetriangle.png')}
+                  source={require("../../../assets/common/redreversetriangle.png")}
                 />
                 <P_22M style={styles.billTextRed}>
                   {usePrice(phoneReduceYear)}
@@ -82,7 +84,7 @@ const DetailSummary = ({
             <View style={[styles.flexRow, styles.summaryCharge]}>
               <Image
                 style={styles.redTriangleImg}
-                source={require('../../../assets/common/redreversetriangle.png')}
+                source={require("../../../assets/common/redreversetriangle.png")}
               />
               <P_22M style={styles.billTextRed}>
                 {isInternet
@@ -105,9 +107,9 @@ const styles = StyleSheet.create({
   summaryBox: {
     paddingVertical: 16,
     paddingHorizontal: 8,
-    backgroundColor: '#ffffff',
+    backgroundColor: "#ffffff",
     borderRadius: 16,
-    shadowColor: '#000',
+    shadowColor: "#000",
     shadowOffset: {
       width: 1,
       height: 2,
@@ -117,21 +119,21 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   summaryYearBox: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'flex-end',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "flex-end",
     marginBottom: 8,
   },
   yearText: {
-    color: '#2D63E2',
+    color: "#2D63E2",
   },
   downIcon: {
     width: 23.18,
     height: 22.58,
   },
   statusImgBox: {
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     marginBottom: 8,
   },
   statusImg: {
@@ -139,41 +141,41 @@ const styles = StyleSheet.create({
     height: 63.16,
   },
   summaryTextBox: {
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     marginBottom: 16,
   },
   summaryBillBox: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F6F9FF',
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#F6F9FF",
     borderRadius: 16,
     paddingVertical: 18,
   },
 
   summaryBillLeftBox: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     borderRightWidth: 1,
-    borderRightColor: '#DDDDDD',
+    borderRightColor: "#DDDDDD",
   },
   summaryBillRightBox: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
 
   flexRow: {
-    flexDirection: 'row',
+    flexDirection: "row",
   },
   textBlue: {
-    color: '#2D63E2',
+    color: "#2D63E2",
   },
 
   summaryCharge: {
-    alignItems: 'center',
+    alignItems: "center",
   },
   redTriangleImg: {
     width: 12,
@@ -182,19 +184,19 @@ const styles = StyleSheet.create({
     bottom: 3,
   },
   billTextRed: {
-    color: '#FF3A3A',
+    color: "#FF3A3A",
     marginRight: 2,
   },
   billTextBlack: {
-    color: '#000000',
+    color: "#000000",
     marginRight: 2,
   },
   billUnitBox: {
-    justifyContent: 'flex-end',
-    alignItems: 'flex-end',
+    justifyContent: "flex-end",
+    alignItems: "flex-end",
   },
   billUnitText: {
-    color: '#666666',
+    color: "#666666",
     bottom: 2,
   },
 });
