@@ -11,7 +11,7 @@ instance.interceptors.request.use(async (config) => {
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
-  config.headers.Accept = 'application/json';
+  config.headers.accept = 'application/json';
   return config;
 });
 

@@ -2,6 +2,7 @@ import { Text, View } from 'react-native';
 import HomeModal from '../components/sendingBills/homeModal/HomeModal';
 
 const TestPage = ({ route }) => {
+  console.log(route);
   const tongkind = route.params.tongkind;
   const inBoundEmail = route.params.inBoundEmail;
   return (

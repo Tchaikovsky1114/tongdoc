@@ -100,9 +100,12 @@ const Signin = () => {
 
       const inBoundEmail = response.inbound_email;
 
-      navigation.navigate('TestPage', {
-        tongkind: response.tcom,
-        inBoundEmail,
+      navigation.navigate('Home', {
+        screen: 'Main',
+        params: {
+          tongkind: response.tcom,
+          inBoundEmail: inBoundEmail,
+        },
       });
     }
   };
