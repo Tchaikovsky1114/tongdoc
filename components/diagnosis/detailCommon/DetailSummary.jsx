@@ -1,4 +1,4 @@
-import { Image, StyleSheet, View } from 'react-native';
+import { Image, Pressable, StyleSheet, View } from 'react-native';
 import usePrice from '../../../hooks/usePrice';
 import P_12M from '../../../style/paragraph/P_12M';
 import P_12R from '../../../style/paragraph/P_12R';
@@ -7,40 +7,68 @@ import P_22M from '../../../style/paragraph/P_22M';
 
 const DetailSummary = ({
   margin,
-  date,
-  status,
-  phoneReduceYear,
-  phoneReduceMonth,
+  detail,
   isInternet,
   internetTotal,
   internetReduceMonth,
+  toggleSelectMonthModalHandler,
 }) => {
-  console.log(status);
-  // const statusImg = (
-  //   status === 0 && require('../../../assets/diagnosis/status0.png')
-  // )(status === 1 && require('../../../assets/diagnosis/status1.png'))(
-  //   status === 2 && require('../../../assets/diagnosis/status2.png')
-  // )(status === 3 && require('../../../assets/diagnosis/status3.png'))(
-  //   status === 4 && require('../../../assets/diagnosis/status4.png')
-  // )(status === 5 && require('../../../assets/diagnosis/status5.png'));
-
+  console.log(detail, 'detail');
   return (
     <View style={[styles.summaryBox, { ...margin }]}>
       <View style={styles.summaryYearBox}>
-        <P_12M style={styles.yearText}>
-          {date.year}년 {date.month}월
-        </P_12M>
+        <Pressable onPress={toggleSelectMonthModalHandler}>
+          <P_12M style={styles.yearText}>
+            {detail?.year}년 {detail?.month}월
+          </P_12M>
+        </Pressable>
         <Image
           style={styles.downIcon}
           source={require('../../../assets/common/bluearrowdown.png')}
         />
       </View>
       <View style={styles.statusImgBox}>
-        <Image style={styles.statusImg} />
+        {detail?.bill.state === 0 && (
+          <Image
+            style={styles.statusImg}
+            source={require('../../../assets/diagnosis/status0.png')}
+          />
+        )}
+        {detail?.bill.state === 1 && (
+          <Image
+            style={styles.statusImg}
+            source={require('../../../assets/diagnosis/status1.png')}
+          />
+        )}
+        {detail?.bill.state === 2 && (
+          <Image
+            style={styles.statusImg}
+            source={require('../../../assets/diagnosis/status2.png')}
+          />
+        )}
+        {detail?.bill.state === 3 && (
+          <Image
+            style={styles.statusImg}
+            source={require('../../../assets/diagnosis/status3.png')}
+          />
+        )}
+        {detail?.bill.state === 4 && (
+          <Image
+            style={styles.statusImg}
+            source={require('../../../assets/diagnosis/status4.png')}
+          />
+        )}
+        {detail?.bill.state === 5 && (
+          <Image
+            style={styles.statusImg}
+            source={require('../../../assets/diagnosis/status5.png')}
+          />
+        )}
       </View>
       <View style={styles.summaryTextBox}>
-        <P_14M>소액결제가 있습니다.</P_14M>
-        <P_14M>무선 또는 유무선 결합 할인을 추가로 받을 수 있습니다.</P_14M>
+        {detail?.doctor_comment.map((el, idx) => (
+          <P_14M key={idx}>{el}</P_14M>
+        ))}
       </View>
       <View style={styles.summaryBillBox}>
         <View style={styles.summaryBillLeftBox}>
@@ -70,7 +98,7 @@ const DetailSummary = ({
                   source={require('../../../assets/common/redreversetriangle.png')}
                 />
                 <P_22M style={styles.billTextRed}>
-                  {usePrice(phoneReduceYear)}
+                  {usePrice(detail?.yearly_save)}
                 </P_22M>
               </View>
             )}
@@ -94,7 +122,7 @@ const DetailSummary = ({
               <P_22M style={styles.billTextRed}>
                 {isInternet
                   ? usePrice(internetReduceMonth)
-                  : usePrice(phoneReduceMonth)}
+                  : usePrice(detail?.monthly_save)}
               </P_22M>
             </View>
             <View style={styles.billUnitBox}>

@@ -16,9 +16,11 @@ const ConfirmModal = ({
           <View style={styles.modalTextBox}>
             <P_18R style={styles.modalText}>{firstInfoText}</P_18R>
           </View>
-          <View style={styles.modalTextBox}>
-            <P_14R style={styles.modalTextBottom}>{secondInfoText}</P_14R>
-          </View>
+          {secondInfoText ? (
+            <View style={styles.modalTextBox}>
+              <P_14R style={styles.modalTextBottom}>{secondInfoText}</P_14R>
+            </View>
+          ) : null}
           <Pressable onPress={pressBtn}>
             <View style={styles.modalBtn}>
               <Text style={styles.modalBtnText}>{buttonText || '확인'}</Text>

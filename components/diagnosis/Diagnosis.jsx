@@ -68,7 +68,7 @@ export default function Diagnosis() {
   useEffect(() => {
     fetchGetDiagnosisData();
   }, []);
-
+  console.log(diagnosisResultData, 'diagnosisResultData');
   return (
     <ScrollView contentContainerStyle={styles.container}>
       {!diagnosisResultData ? (
