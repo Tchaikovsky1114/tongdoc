@@ -6,8 +6,17 @@ const DetailPhoneChargeTitle = ({ title, status, vat, vatPrice }) => {
   return (
     <View style={styles.titleBox}>
       <P_14R>{title}</P_14R>
-      <View style={styles.titleImgBox}>
-        {vat === '부가세 포함' ? null : (
+
+      {vatPrice ? (
+        <View style={styles.titleImgBox}>
+          {vat === '1' ? (
+            <P_14R style={styles.titleBlueText}>부가세 포함</P_14R>
+          ) : (
+            <DetailContentsMoney price={vatPrice} />
+          )}
+        </View>
+      ) : (
+        <View style={styles.titleImgBox}>
           <Image
             style={styles.titleImg}
             source={
@@ -16,10 +25,7 @@ const DetailPhoneChargeTitle = ({ title, status, vat, vatPrice }) => {
                 : require('../../../assets/diagnosis/detailGood.png')
             }
           />
-        )}
-        {vat ? (
-          <DetailContentsMoney price={vatPrice} />
-        ) : (
+
           <P_14R
             style={
               status === '나쁨' ? styles.titleRedText : styles.titleBlueText
@@ -27,12 +33,11 @@ const DetailPhoneChargeTitle = ({ title, status, vat, vatPrice }) => {
           >
             {status}
           </P_14R>
-        )}
-      </View>
+        </View>
+      )}
     </View>
   );
 };
-
 export default DetailPhoneChargeTitle;
 
 const styles = StyleSheet.create({
