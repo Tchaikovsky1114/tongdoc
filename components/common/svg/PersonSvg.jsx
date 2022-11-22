@@ -1,8 +1,7 @@
-import * as React from "react";
-import Svg, { Path } from "react-native-svg";
-const PersonSvg = ({focused}) => {
-  console.log(focused);
-  if(focused){
+import * as React from 'react';
+import Svg, { Path } from 'react-native-svg';
+const PersonSvg = ({ focused }) => {
+  if (focused) {
     return (
       <Svg
         width={25}
@@ -26,8 +25,8 @@ const PersonSvg = ({focused}) => {
           strokeLinejoin="round"
         />
       </Svg>
-    )
-  }else{
+    );
+  } else {
     return (
       <Svg
         width={25}
@@ -35,7 +34,6 @@ const PersonSvg = ({focused}) => {
         viewBox="0 0 25 22"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        
       >
         <Path
           d="M12.6006 10.4004C15.1965 10.4004 17.3008 8.29607 17.3008 5.70021C17.3008 3.10436 15.1965 1 12.6006 1C10.0047 1 7.90039 3.10436 7.90039 5.70021C7.90039 8.29607 10.0047 10.4004 12.6006 10.4004Z"
@@ -54,7 +52,5 @@ const PersonSvg = ({focused}) => {
       </Svg>
     );
   }
-
-
-}
+};
 export default PersonSvg;

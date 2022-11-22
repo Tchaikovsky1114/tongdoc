@@ -72,13 +72,6 @@ const Signin = () => {
     navigation.navigate('Signup/Certification');
   };
 
-  const test1 = () => {
-    navigation.navigate('Diagnosis/detailInternet');
-  };
-  const test2 = () => {
-    navigation.navigate('Diagnosis/detailPhone');
-  };
-
   // 주석 : 모달 닫기
   const closeModalHandler = () => {
     setIsVisible((prev) => !prev);
@@ -87,7 +80,6 @@ const Signin = () => {
   // 주석 : 로그인 버튼
   const loginHandler = async () => {
     const response = await apis.Signin(signinForm);
-    console.log(response, '2');
     if (!response) {
       setIsVisible((prev) => !prev);
     } else {
@@ -148,13 +140,6 @@ const Signin = () => {
             </Pressable>
             <Pressable onPress={moveSignupPageHandler}>
               <P_12R style={styles.findTextColor}>회원가입</P_12R>
-            </Pressable>
-
-            <Pressable onPress={test1}>
-              <P_12R style={styles.findTextColor}>디테일인터넷</P_12R>
-            </Pressable>
-            <Pressable onPress={test2}>
-              <P_12R style={styles.findTextColor}>디테일폰</P_12R>
             </Pressable>
           </View>
         </KeyboardAvoidingView>
