@@ -31,11 +31,7 @@
     "expo-updates": "~0.15.6",
     "intl": "^1.2.5",
     "react": "18.1.0",
-<<<<<<< HEAD
     "react-dom": "18.1.0",
-=======
-    "react-dom": "18.0.0",
->>>>>>> b3b32c58753e05666de05632d0385b73e59b5109
     "react-native": "0.70.5",
     "react-native-gesture-handler": "~2.8.0",
     "react-native-permissions": "^3.6.1",
