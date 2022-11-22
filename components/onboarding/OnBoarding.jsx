@@ -25,16 +25,6 @@ const OnBoarding = ({navigation}) => {
           </View>
         </Pressable>
       </View>
-      <View style={{marginBottom:90}}>
-        <Pressable onPress={() => navigation.navigate('Diagnosis')}>
-        <Text>진단서로 이동</Text>
-        </Pressable>
-      </View>
-      <View style={{marginBottom:90}}>
-        <Pressable onPress={() => navigation.navigate('Home')}>
-        <Text>홈으로 이동</Text>
-        </Pressable>
-      </View>
     </View>
   );
 };
