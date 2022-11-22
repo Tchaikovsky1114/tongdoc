@@ -142,7 +142,7 @@ export default function Diagnosis() {
                     <View style={styles.month}>
                       <P_14R style={{ marginRight: 8, color: '#2d63e2' }}>
                         {diagnosisResultData.year} 년{' '}
-                        {diagnosisResultData.month} 월
+                        {diagnosisResultData.month} 월월월월
                       </P_14R>
                       <Image
                         style={{ width: 23, height: 22.5 }}

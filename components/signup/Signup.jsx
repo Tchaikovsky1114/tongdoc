@@ -33,7 +33,13 @@ export default function Signup() {
   const [userInfo,setUserInfo] = useRecoilState(signupState)
   const getAuthorityPressHandler = async () => {
     if(!isDevice){
-      Alert.alert('데스크탑에서 실행중이신가요?','스마트폰 외에는 접근 권한을 설정할 수 없습니다. 다음 페이지로 이동합니다.',{text:'OK',onPress:async () => {navigation.navigate('Signup/ChoiceSignMethod')} });
+      Alert.alert('데스크탑에서 실행중이신가요?','스마트폰 외에는 접근 권한을 설정할 수 없습니다. 다음 페이지로 이동합니다.',
+      [
+        {text:'OK',onPress: () => {navigation.navigate('Signup/ChoiceSignMethod')} }
+      ],
+      {
+        cancelable:true
+      });
       return;
     }
     let allGrantedPermission = false;
@@ -107,6 +113,7 @@ export default function Signup() {
             }
           ]
         );
+        
         allGrantedPermission = false;
         return;
       }
@@ -132,12 +139,10 @@ export default function Signup() {
       }
     } catch (err) {
       console.error(err);
-    }finally{
+    }
       navigation.navigate('Signup/ChoiceSignMethod')
       setIsLoading(false)
-      
-      return token;
-    } 
+      return token; 
   };
   
   return (
