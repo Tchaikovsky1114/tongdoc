@@ -6,6 +6,7 @@ const ConfirmModal = ({
   isVisible,
   firstInfoText,
   secondInfoText,
+  buttonText,
   pressBtn,
 }) => {
   return (
@@ -20,7 +21,7 @@ const ConfirmModal = ({
           </View>
           <Pressable onPress={pressBtn}>
             <View style={styles.modalBtn}>
-              <Text style={styles.modalBtnText}>확인</Text>
+              <Text style={styles.modalBtnText}>{buttonText || '확인'}</Text>
             </View>
           </Pressable>
         </View>
