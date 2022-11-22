@@ -10,7 +10,7 @@ import {
   Pressable,
   Modal,
 } from 'react-native';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import P_16M from '../../style/paragraph/P_16M';
 import P_16R from '../../style/paragraph/P_16R';
@@ -20,6 +20,7 @@ import FamilyCard from './FamilyCard';
 import RegisterCard from './RegisterCard';
 import axios from 'axios';
 import SummaryBannerCard from './SummaryBannerCard';
+import ConfirmModal from '../common/ConfirmModal';
 
 const { width } = Dimensions.get('window');
 
@@ -32,10 +33,17 @@ export default function Diagnosis() {
   const [diagnosisResultData, setDiagnosisResultData] = useState();
   const [isSelectMonthModalVisible, setIsSelectMonthModalVisible] =
     useState(false);
+  const [isPrepareServiceModalVisible, setIsPrepareServiceModalVisible] =
+    useState(false);
 
-  const toggleModalHandler = () => {
+  const toggleSelectMonthModalHandler = useCallback(() => {
     setIsSelectMonthModalVisible((prev) => !prev);
-  };
+  }, []);
+
+  const togglePrepareServiceModalHandler = useCallback(() => {
+    setIsPrepareServiceModalVisible((prev) => !prev);
+  }, []);
+
   const fetchGetDiagnosisData = async (
     year = currentYear,
     month = currentMonth
@@ -60,6 +68,7 @@ export default function Diagnosis() {
   useEffect(() => {
     fetchGetDiagnosisData();
   }, []);
+
   return (
     <ScrollView contentContainerStyle={styles.container}>
       {!diagnosisResultData ? (
@@ -70,7 +79,7 @@ export default function Diagnosis() {
             visible={isSelectMonthModalVisible}
             transparent={true}
             animationType="fade"
-            onRequestClose={toggleModalHandler}
+            onRequestClose={toggleSelectMonthModalHandler}
           >
             <View style={styles.modalContainer}>
               <View style={styles.modalInner}>
@@ -84,7 +93,7 @@ export default function Diagnosis() {
                   }}
                 >
                   <P_16M>월 선택하기</P_16M>
-                  <Pressable onPress={toggleModalHandler}>
+                  <Pressable onPress={toggleSelectMonthModalHandler}>
                     <Image
                       style={{ width: 24, height: 24 }}
                       source={require('../../assets/common/close.png')}
@@ -109,7 +118,7 @@ export default function Diagnosis() {
                       ]}
                       onPress={() => {
                         fetchGetDiagnosisData(item.year, item.month);
-                        toggleModalHandler();
+                        toggleSelectMonthModalHandler();
                       }}
                     >
                       <P_14R>{item.text}</P_14R>
@@ -119,11 +128,17 @@ export default function Diagnosis() {
               </View>
             </View>
           </Modal>
+          <ConfirmModal
+            firstInfoText={`현재 서비스 준비중인 ${'\n'} 페이지 입니다.`}
+            buttonText="뒤로가기"
+            isVisible={isPrepareServiceModalVisible}
+            pressBtn={togglePrepareServiceModalHandler}
+          />
           <View style={styles.header}>
             <View style={styles.headerInner}>
               <Pressable>
                 <View style={styles.resultBox}>
-                  <Pressable onPress={toggleModalHandler}>
+                  <Pressable onPress={toggleSelectMonthModalHandler}>
                     <View style={styles.month}>
                       <P_14R style={{ marginRight: 8, color: '#2d63e2' }}>
                         {diagnosisResultData.year} 년{' '}
@@ -152,7 +167,10 @@ export default function Diagnosis() {
                   billType="phone"
                 />
               ))}
-              <RegisterCard text="가족을 등록해 주세요." />
+              <RegisterCard
+                onPress={togglePrepareServiceModalHandler}
+                text="가족을 등록해 주세요."
+              />
             </View>
             <P_16R style={{ color: '#333333', marginTop: 24, marginBottom: 8 }}>
               인터넷 요금
@@ -160,7 +178,10 @@ export default function Diagnosis() {
             {diagnosisResultData.internet.map((item, index) => (
               <FamilyCard item={item} index={index} key={item.id} />
             ))}
-            <RegisterCard text="인터넷 가입 정보를 등록해 주세요" />
+            <RegisterCard
+              onPress={togglePrepareServiceModalHandler}
+              text="인터넷 가입 정보를 등록해 주세요"
+            />
           </View>
         </>
       )}

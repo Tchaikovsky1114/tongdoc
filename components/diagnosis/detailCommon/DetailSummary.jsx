@@ -8,12 +8,22 @@ import P_22M from '../../../style/paragraph/P_22M';
 const DetailSummary = ({
   margin,
   date,
+  status,
   phoneReduceYear,
   phoneReduceMonth,
   isInternet,
   internetTotal,
   internetReduceMonth,
 }) => {
+  console.log(status);
+  // const statusImg = (
+  //   status === 0 && require('../../../assets/diagnosis/status0.png')
+  // )(status === 1 && require('../../../assets/diagnosis/status1.png'))(
+  //   status === 2 && require('../../../assets/diagnosis/status2.png')
+  // )(status === 3 && require('../../../assets/diagnosis/status3.png'))(
+  //   status === 4 && require('../../../assets/diagnosis/status4.png')
+  // )(status === 5 && require('../../../assets/diagnosis/status5.png'));
+
   return (
     <View style={[styles.summaryBox, { ...margin }]}>
       <View style={styles.summaryYearBox}>
@@ -26,10 +36,7 @@ const DetailSummary = ({
         />
       </View>
       <View style={styles.statusImgBox}>
-        <Image
-          style={styles.statusImg}
-          source={require('../../../assets/diagnosis/status1.png')}
-        />
+        <Image style={styles.statusImg} />
       </View>
       <View style={styles.summaryTextBox}>
         <P_14M>소액결제가 있습니다.</P_14M>
