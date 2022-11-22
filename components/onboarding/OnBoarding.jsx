@@ -24,6 +24,7 @@ const OnBoarding = ({navigation}) => {
             <Text style={styles.moveSignupButtonText}>시작하기</Text>
           </View>
         </Pressable>
+        
       </View>
     </View>
   );
