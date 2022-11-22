@@ -6,18 +6,26 @@
     "development": {
       "developmentClient": true,
       "distribution": "internal",
-      "extends":"production"
+      "extends":"production",
+      "env": {
+        "APP_ENV":"development",
+        "CLIENT_ID": "2",
+        "CLIENT_SECRET": "9IbXBERjdJ8zOyBOcyPJ0gwWOHhBfKbN9cTEgLiN"
+      }
     },
     "preview": {
       "distribution": "internal"
     },
     "production": {
       "env": {
+        "APP_ENV":"production",
         "CLIENT_ID": "2",
         "CLIENT_SECRET": "9IbXBERjdJ8zOyBOcyPJ0gwWOHhBfKbN9cTEgLiN"
-      }
+      },
+      "autoIncrement":true
     }
   },
+  
   "submit": {
     "production": {}
   }
