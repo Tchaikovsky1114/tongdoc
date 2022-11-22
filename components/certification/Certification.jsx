@@ -5,41 +5,40 @@ import {
   Image,
   Pressable,
   Dimensions,
-} from "react-native";
-import React, { useEffect } from "react";
-import H4_24R from "../../style/H4_24R";
-import P_14R from "../../style/paragraph/P_14R";
+} from 'react-native';
+import React, { useEffect } from 'react';
+import H4_24R from '../../style/H4_24R';
+import P_14R from '../../style/paragraph/P_14R';
 
-import { useNavigation } from "@react-navigation/native";
-import { useRecoilState } from "recoil";
-import { signupState } from "../../store/signup";
+import { useNavigation } from '@react-navigation/native';
+import { useRecoilState } from 'recoil';
+import { signupState } from '../../store/signup';
 
-const { width } = Dimensions.get("window");
+const { width } = Dimensions.get('window');
 
 export default function Certification() {
   const navigation = useNavigation();
   const userInfo = useRecoilState(signupState);
 
   const getCertificationHandler = () => {
-    navigation.navigate("Signup/CertificationInProgress");
+    navigation.navigate('Signup/CertificationInProgress');
   };
 
   const testFCM = async () => {
-    console.log(userInfo.userPushToken);
-    await fetch("https://fcm.googleapis.com/fcm/send", {
-      method: "POST",
+    await fetch('https://fcm.googleapis.com/fcm/send', {
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
         Authorization: `key=AIzaSyD9EHL35qsGQ_VuCUAXEB4pGIkUg9Bg3y8`,
       },
       body: JSON.stringify({
         to: userInfo.userPushToken,
-        priority: "normal",
+        priority: 'normal',
         data: {
-          experienceId: "@ermerskim/tongdoc_app",
-          scopeKey: "@ermerskim/tongdoc_app",
+          experienceId: '@ermerskim/tongdoc_app',
+          scopeKey: '@ermerskim/tongdoc_app',
           title: "📧 You've got mail",
-          message: "Hello world! 🌐",
+          message: 'Hello world! 🌐',
         },
       }),
     });
@@ -59,7 +58,7 @@ export default function Certification() {
         <View style={styles.imageBox}>
           <Image
             style={styles.image}
-            source={require("../../assets/signup/certification.png")}
+            source={require('../../assets/signup/certification.png')}
           />
         </View>
       </View>
@@ -70,8 +69,8 @@ export default function Certification() {
             styles.button,
             {
               backgroundColor: pressed
-                ? "rgba(45, 99, 226,0.8)"
-                : "rgb(45, 99, 226)",
+                ? 'rgba(45, 99, 226,0.8)'
+                : 'rgb(45, 99, 226)',
             },
           ]}
         >
@@ -87,7 +86,7 @@ export default function Certification() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: '#fff',
     paddingHorizontal: 24,
   },
   inner: {
@@ -98,15 +97,15 @@ const styles = StyleSheet.create({
   },
   imageBox: {
     flex: 2,
-    alignItems: "center",
-    justifyContent: "flex-start",
+    alignItems: 'center',
+    justifyContent: 'flex-start',
   },
   title: {
     marginTop: 24,
   },
   description: {
     marginTop: 16,
-    color: "#666666",
+    color: '#666666',
   },
   image: {
     width: 118.08,
@@ -115,19 +114,19 @@ const styles = StyleSheet.create({
   buttonBox: {
     width,
     flex: 1,
-    position: "absolute",
+    position: 'absolute',
     bottom: 0,
     left: 0,
   },
   button: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
     height: 58,
   },
   buttonText: {
-    fontFamily: "Noto500",
-    color: "#fff",
+    fontFamily: 'Noto500',
+    color: '#fff',
     fontSize: 17,
   },
 });

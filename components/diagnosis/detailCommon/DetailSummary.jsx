@@ -13,7 +13,6 @@ const DetailSummary = ({
   internetReduceMonth,
   toggleSelectMonthModalHandler,
 }) => {
-  console.log(detail, 'detail');
   return (
     <View style={[styles.summaryBox, { ...margin }]}>
       <View style={styles.summaryYearBox}>

@@ -6,7 +6,7 @@
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
-    
+
     "plugins": [
       [
         "expo-media-library",
@@ -32,9 +32,7 @@
       "fallbackToCacheTimeout": 0,
       "url": "https://u.expo.dev/a3143539-fa0c-4553-ac08-ecd426063869"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
       "infoPlist": {
@@ -55,10 +53,7 @@
       "intentFilters": [
         {
           "action": "VIEW",
-          "category": [
-            "DEFAULT",
-            "BROWSABLE"
-          ],
+          "category": ["DEFAULT", "BROWSABLE"],
           "data": {
             "scheme": "exampleformanagedexpo"
           }
@@ -75,11 +70,6 @@
     },
     "runtimeVersion": {
       "policy": "sdkVersion"
-    },
-    "extra": {
-      "eas": {
-        "projectId": "a3143539-fa0c-4553-ac08-ecd426063869"
-      }
     }
   }
 }

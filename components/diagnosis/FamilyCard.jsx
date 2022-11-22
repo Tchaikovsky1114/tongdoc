@@ -35,7 +35,6 @@ export default function FamilyCard({ item, index, billType }) {
     setConfirmModalIsVisible((prev) => !prev);
   };
 
-  console.log(item, state, 'item');
   return (
     <>
       <Pressable onPress={modalHandler}>
