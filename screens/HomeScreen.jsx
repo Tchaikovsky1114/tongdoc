@@ -6,7 +6,6 @@ export default function HomeScreen({ route }) {
   const tongkind = route.params.tongkind;
   const inBoundEmail = route.params.inBoundEmail;
 
-  console.log(route, 'lalabla');
   return (
     <>
       <Home />

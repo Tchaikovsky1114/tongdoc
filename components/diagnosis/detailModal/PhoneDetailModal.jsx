@@ -38,7 +38,6 @@ const PhoneDetailModal = ({ isVisible, modalHandler, item, billType }) => {
     charge,
     save: savings,
   } = item;
-  console.log(item, '이것 item');
   const [detail, setDetail] = useState();
   const [selectMonthIsVisible, setSelectMonthIsVisible] = useState(false);
   const [confirmModalIsVisible, setConfirmModalIsVisible] = useState(false);
@@ -57,7 +56,6 @@ const PhoneDetailModal = ({ isVisible, modalHandler, item, billType }) => {
     month = checkMonth
   ) => {
     try {
-      console.log('정상');
       const token = await AsyncStorage.getItem('access');
       const { data } = await axios.get(
         `https://api.tongdoc.co.kr/v1/doctor/detail?user_id=${id}&bill_type=${billType}&year=${year}&month=${month}`,
@@ -75,7 +73,6 @@ const PhoneDetailModal = ({ isVisible, modalHandler, item, billType }) => {
       console.log(error);
     }
   };
-  console.log(detail, '이것');
 
   const discountPrice = () => {
     if (detail?.bill.sale.plan_sale > 0 && detail?.bill.sale.join_sale > 0) {
