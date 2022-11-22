@@ -11,8 +11,6 @@
       [
         "expo-media-library",
         {
-          "photosPermission": "통신닥터에 카메라 접근을 허용해주세요.",
-          "savePhotosPermission": "통신닥터가 사진을 저장할 수 있게 허용해주세요.",
           "isAccessMediaLocationEnabled": true
         }
       ],
@@ -43,9 +41,7 @@
         "NSAppTransportSecurity": {
           "NSAllowsArbitraryLoads": true,
           "NSAllowsArbitraryLoadsInWebContent": true
-        },
-        "NSPhotoLibraryUsageDescription": "통신닥터에 카메라 접근을 허용해주세요.",
-        "NSPhotoLibraryAddUsageDescription": "통신닥터가 사진을 저장할 수 있게 허용해주세요."
+        }
       },
       "bundleIdentifier": "com.dreamfreedom.tongdoc"
     },
