@@ -6,6 +6,7 @@
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
+    
     "plugins": [
       [
         "expo-media-library",
@@ -18,7 +19,7 @@
       [
         "expo-notifications",
         {
-          "icon": "./local/assets/notification-icon.png",
+          "icon": "./assets/push.png",
           "color": "#ffffff",
           "sounds": []
         }
@@ -45,7 +46,8 @@
         },
         "NSPhotoLibraryUsageDescription": "통신닥터에 카메라 접근을 허용해주세요.",
         "NSPhotoLibraryAddUsageDescription": "통신닥터가 사진을 저장할 수 있게 허용해주세요."
-      }
+      },
+      "bundleIdentifier": "com.dreamfreedom.tongdoc"
     },
     "android": {
       "package": "com.dreamfreedom.tongdoc",
