@@ -6,9 +6,9 @@ import P_14M from '../../style/paragraph/P_14M';
 import 'intl';
 import 'intl/locale-data/jsonp/en';
 import PhoneDetailModal from './detailModal/PhoneDetailModal';
+import ConfirmModal from '../common/ConfirmModal';
 
 export default function FamilyCard({ item, index, billType }) {
-  console.log(item, 'item2');
   const {
     id,
     user_name: name,
@@ -22,9 +22,20 @@ export default function FamilyCard({ item, index, billType }) {
     save: savings,
   } = item;
   const [isVisible, setIsVisible] = useState(false);
+  const [confirmModalIsVisible, setConfirmModalIsVisible] = useState(false);
+
   const modalHandler = async () => {
-    setIsVisible((prev) => !prev);
+    if (state !== 1) {
+      setConfirmModalIsVisible((prev) => !prev);
+    } else {
+      setIsVisible((prev) => !prev);
+    }
   };
+  const toggleConfirmModalHandler = () => {
+    setConfirmModalIsVisible((prev) => !prev);
+  };
+
+  console.log(item, state, 'item');
   return (
     <>
       <Pressable onPress={modalHandler}>
@@ -66,6 +77,12 @@ export default function FamilyCard({ item, index, billType }) {
         modalHandler={modalHandler}
         item={item}
         billType={billType}
+      />
+      <ConfirmModal
+        firstInfoText={`현재 청구서 분석중입니다.`}
+        buttonText="닫기"
+        isVisible={confirmModalIsVisible}
+        pressBtn={toggleConfirmModalHandler}
       />
     </>
   );
