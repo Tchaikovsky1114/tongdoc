@@ -65,11 +65,15 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   modalBtn: {
+    alignItems: 'center',
+    justifyContent: 'center',
     backgroundColor: '#2D63E2',
     paddingHorizontal: 50,
+    paddingVertical: 10,
     borderRadius: 8,
   },
   modalBtnText: {
+    includeFontPadding: false,
     fontFamily: 'Noto500',
     color: '#FFFFFF',
     fontSize: 16,

@@ -130,14 +130,15 @@ const Signin = () => {
               autoCapitalize="none"
               secureTextEntry={true}
               onChangeInput={passwordHandler}
+              onSubmitEditing={loginHandler}
             />
           </View>
           <View style={styles.findBox}>
             <Pressable onPress={moveFindEmail}>
               <P_12R style={styles.findTextColor}>이메일 찾기</P_12R>
             </Pressable>
-            <Pressable onPress={moveFindPassword}>
-              <P_12R style={styles.findTextMiddle}>비밀번호 찾기</P_12R>
+            <Pressable style={styles.findTextMiddle} onPress={moveFindPassword}>
+              <P_12R style={styles.findTextColor}>비밀번호 찾기</P_12R>
             </Pressable>
             <Pressable onPress={moveSignupPageHandler}>
               <P_12R style={styles.findTextColor}>회원가입</P_12R>
@@ -193,7 +194,6 @@ const styles = StyleSheet.create({
     color: '#333333',
   },
   findTextMiddle: {
-    color: '#333333',
     borderLeftWidth: 1,
     borderLeftColor: '#DDDDDD',
     borderRightWidth: 1,

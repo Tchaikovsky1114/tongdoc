@@ -55,19 +55,32 @@ export default function FamilyCard({ item, index, billType }) {
               <P_12R style={{ color: '#666666', paddingRight: 8 }}>
                 {telecom}
               </P_12R>
-              <P_12R style={{ color: '#666666' }}>{phoneNumber}</P_12R>
+              <P_12R style={{ color: '#666666' }}>
+                {phoneNumber.replace(
+                  /(\d{3})(\d{2})(\d{3})(\d{1})/,
+                  '$1-$2**-*$4'
+                )}
+              </P_12R>
             </View>
           </View>
           <View style={{ flexDirection: 'row' }}>
             <P_14M>{parseInt(savings).toLocaleString()}원</P_14M>
-            <P_14M style={{ color: '#2d63e2' }}>
-              ({' '}
+            <View style={styles.saveMoneyBox}>
+              <P_14M style={{ color: '#2d63e2' }}>(</P_14M>
               <Image
-                style={{ width: 4.4, height: 3.6 }}
+                style={{
+                  width: 4.5,
+                  height: 3.6,
+                  marginRight: 4,
+                  marginLeft: 2,
+                  top: 1,
+                }}
                 source={require('../../assets/diagnosis/bluereversetriangle.png')}
-              />{' '}
-              {parseInt(savings).toLocaleString()} )
-            </P_14M>
+              />
+              <P_14M style={{ color: '#2d63e2' }}>
+                {parseInt(savings).toLocaleString()})
+              </P_14M>
+            </View>
           </View>
         </View>
       </Pressable>
@@ -97,5 +110,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     borderRadius: 16,
     height: 64,
+  },
+  saveMoneyBox: {
+    marginLeft: 4,
+    flexDirection: 'row',
+    alignItems: 'center',
   },
 });

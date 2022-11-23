@@ -231,10 +231,12 @@ const styles = StyleSheet.create({
   },
   yearText: {
     color: '#2D63E2',
+    marginRight: -2,
   },
   downIcon: {
     width: 23.18,
     height: 22.58,
+    top: 1,
   },
   statusImgBox: {
     alignItems: 'center',
