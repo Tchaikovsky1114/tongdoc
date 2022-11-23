@@ -139,12 +139,19 @@ export default function Diagnosis() {
                 <View style={styles.resultBox}>
                   <Pressable onPress={toggleSelectMonthModalHandler}>
                     <View style={styles.month}>
-                      <P_14R style={{ marginRight: 8, color: '#2d63e2' }}>
+                      <P_14R
+                        style={{
+                          color: '#2d63e2',
+                        }}
+                      >
                         {diagnosisResultData.year} 년{' '}
                         {diagnosisResultData.month} 월
                       </P_14R>
                       <Image
-                        style={{ width: 23, height: 22.5 }}
+                        style={{
+                          width: 23,
+                          height: 22.5,
+                        }}
                         source={require('../../assets/common/bluearrowdown.png')}
                       />
                     </View>
@@ -209,8 +216,7 @@ const styles = StyleSheet.create({
     height: 25,
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'flex-end',
-    paddingBottom: 5,
+    justifyContent: 'flex-start',
   },
   resultBox: {
     justifyContent: 'center',
