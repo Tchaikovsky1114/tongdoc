@@ -1,4 +1,5 @@
 import React from 'react';
+import { SafeAreaView } from 'react-native';
 import Home from '../components/home/Home';
 import HomeModal from '../components/sendingBills/homeModal/HomeModal';
 
@@ -8,8 +9,10 @@ export default function HomeScreen({ route }) {
 
   return (
     <>
-      <Home />
-      <HomeModal tongkind={tongkind} inBoundEmail={inBoundEmail} />
+      <SafeAreaView style={{ flex: 1 }}>
+        <Home />
+        <HomeModal tongkind={tongkind} inBoundEmail={inBoundEmail} />
+      </SafeAreaView>
     </>
   );
 }

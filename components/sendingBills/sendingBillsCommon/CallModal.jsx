@@ -14,7 +14,7 @@ const CallModal = ({ isVisible, tongkind, callModalHandler }) => {
       <View style={styles.container}>
         <View style={styles.modalBox}>
           <View style={styles.xBtnBox}>
-            <Pressable onPress={callModalHandler}>
+            <Pressable style={styles.xBtnPress} onPress={callModalHandler}>
               <Image
                 style={styles.xBtn}
                 source={require('../../../assets/xBtn.png')}
@@ -72,18 +72,12 @@ const CallModal = ({ isVisible, tongkind, callModalHandler }) => {
           </View>
           <View style={styles.btnBox}>
             {tongkind === 'SKT' && (
-              <SendingBtn
-                onPress={callTong.bind(this, '080-011-6000')}
-                blue={true}
-              >
+              <SendingBtn onPress={callTong.bind(this, '114')} blue={true}>
                 SKT 고객센터 전화연결
               </SendingBtn>
             )}
             {tongkind === 'KT' && (
-              <SendingBtn
-                onPress={callTong.bind(this, '080-000-1618')}
-                blue={true}
-              >
+              <SendingBtn onPress={callTong.bind(this, '114')} blue={true}>
                 KT 고객센터 전화연결
               </SendingBtn>
             )}
@@ -111,7 +105,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
   },
   modalBox: {
-    width: 312,
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
@@ -123,9 +116,16 @@ const styles = StyleSheet.create({
   },
   xBtnBox: {
     width: '100%',
+    flexDirection: 'row',
     alignItems: 'flex-end',
     justifyContent: 'flex-end',
     marginBottom: 8,
+  },
+  xBtnPress: {
+    width: 24,
+    height: 24,
+    alignItems: 'flex-end',
+    justifyContent: 'flex-end',
   },
   xBtn: {
     width: 16,
