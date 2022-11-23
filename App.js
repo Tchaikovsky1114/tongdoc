@@ -104,14 +104,21 @@ const BottomTabs = () => {
         tabBarLabelStyle: {
           fontFamily: 'Noto400',
           fontSize: 10,
+          padding: 0,
+          marginBottom: 0,
         },
         tabBarStyle: {
-          justifyContent: 'center',
           alignItems: 'center',
-          height: 72,
+          justifyContent: 'center',
+        },
+        tabBarItemStyle: {
+          alignItems: 'center',
+          justifyContent: 'center',
+          paddingTop: 10,
         },
         tabBarIconStyle: {
-          marginBottom: -20,
+          alignContent: 'center',
+          justifyContent: 'center',
         },
       })}
     >
@@ -130,7 +137,7 @@ const BottomTabs = () => {
                 paddingTop: 40,
                 paddingHorizontal: 16,
                 backgroundColor: '#fff',
-                marginBottom: -32,
+                // marginBottom: -32,
               }}
             >
               <Image
