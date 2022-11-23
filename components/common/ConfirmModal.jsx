@@ -10,7 +10,7 @@ const ConfirmModal = ({
   pressBtn,
 }) => {
   return (
-    <Modal visible={isVisible} animationType="slide" transparent={true}>
+    <Modal visible={isVisible} animationType="fade" transparent={true}>
       <View style={styles.container}>
         <View style={styles.modalBox}>
           <View style={styles.modalTextBox}>

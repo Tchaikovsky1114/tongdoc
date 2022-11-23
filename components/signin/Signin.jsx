@@ -28,7 +28,7 @@ const Signin = () => {
     device_token: '2',
     device_type: Platform.OS,
   });
-  const [signin, setSignin] = useRecoilState(signinState);
+  const [, setSignin] = useRecoilState(signinState);
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
 
@@ -79,26 +79,27 @@ const Signin = () => {
 
   // 주석 : 로그인 버튼
   const loginHandler = async () => {
-    const response = await apis.Signin(signinForm);
-    if (!response) {
-      setIsVisible((prev) => !prev);
-    } else {
-      setSignin({
-        email: response.user_email,
-        name: response.user_name,
-        tongkind: response.tcom,
-      });
-      // 임시 아이디 체크
-
-      const inBoundEmail = response.inbound_email;
-
-      navigation.navigate('Home', {
-        screen: 'Main',
-        params: {
+    try {
+      const response = await apis.Signin(signinForm);
+      if (!response) {
+        setIsVisible((prev) => !prev);
+      } else {
+        setSignin({
+          email: response.user_email,
+          name: response.user_name,
           tongkind: response.tcom,
-          inBoundEmail: inBoundEmail,
-        },
-      });
+        });
+        const inBoundEmail = response.inbound_email;
+        navigation.navigate('Home', {
+          screen: 'Main',
+          params: {
+            tongkind: response.tcom,
+            inBoundEmail: inBoundEmail,
+          },
+        });
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
 
