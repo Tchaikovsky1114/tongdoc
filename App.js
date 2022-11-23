@@ -1,13 +1,5 @@
 import { useEffect, useState, useCallback } from 'react';
-import {
-  View,
-  Pressable,
-  Image,
-  Text,
-  Dimensions,
-  BackHandler,
-  SafeAreaView,
-} from 'react-native';
+import { View, Image, Dimensions } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -105,7 +97,7 @@ const BottomTabs = () => {
           fontFamily: 'Noto400',
           fontSize: 10,
           padding: 0,
-          marginBottom: 0,
+          includeFontPadding: false,
         },
         tabBarStyle: {
           alignItems: 'center',
@@ -114,7 +106,6 @@ const BottomTabs = () => {
         tabBarItemStyle: {
           alignItems: 'center',
           justifyContent: 'center',
-          paddingTop: 10,
         },
         tabBarIconStyle: {
           alignContent: 'center',
@@ -137,7 +128,7 @@ const BottomTabs = () => {
                 paddingTop: 40,
                 paddingHorizontal: 16,
                 backgroundColor: '#fff',
-                // marginBottom: -32,
+                marginBottom: -32,
               }}
             >
               <Image
