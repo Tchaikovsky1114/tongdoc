@@ -37,6 +37,18 @@ export default function FamilyCard({ item, index, billType }) {
 
   return (
     <>
+      <PhoneDetailModal
+        isVisible={isVisible}
+        modalHandler={modalHandler}
+        item={item}
+        billType={billType}
+      />
+      <ConfirmModal
+        firstInfoText={`현재 청구서 분석중입니다.`}
+        buttonText="닫기"
+        isVisible={confirmModalIsVisible}
+        pressBtn={toggleConfirmModalHandler}
+      />
       <Pressable onPress={modalHandler}>
         <View
           style={[
@@ -84,18 +96,6 @@ export default function FamilyCard({ item, index, billType }) {
           </View>
         </View>
       </Pressable>
-      <PhoneDetailModal
-        isVisible={isVisible}
-        modalHandler={modalHandler}
-        item={item}
-        billType={billType}
-      />
-      <ConfirmModal
-        firstInfoText={`현재 청구서 분석중입니다.`}
-        buttonText="닫기"
-        isVisible={confirmModalIsVisible}
-        pressBtn={toggleConfirmModalHandler}
-      />
     </>
   );
 }
