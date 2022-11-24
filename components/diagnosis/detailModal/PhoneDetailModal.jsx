@@ -17,6 +17,7 @@ import DetailBottomInfo from '../detailCommon/DetailBottomInfo';
 import { useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
+
 const PhoneDetailModal = ({
   detail,
   isVisible,
@@ -26,6 +27,7 @@ const PhoneDetailModal = ({
   toggleConfirmModalHandler,
 }) => {
   const [selectMonthIsVisible, setSelectMonthIsVisible] = useState(false);
+
 
   const toggleSelectMonthModalHandler = () => {
     setSelectMonthIsVisible((prev) => !prev);

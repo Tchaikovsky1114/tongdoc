@@ -25,6 +25,7 @@ const HomeModal = ({ tongkind, inBoundEmail }) => {
   const [isVisible, setIsVisible] = useState(false);
   const [copyModalVisible, setCopyModalVisible] = useState(false);
   const [callModalVisible, setCallModalVisible] = useState(false);
+  
   const modalHandler = () => {
     setIsVisible((prev) => !prev);
   };

@@ -24,7 +24,6 @@ import {
   POLICY_PRIVACY_URL,
   POLICY_SERVICE_URL,
 } from './constants/Constants';
-import apis from '../../api/api';
 import { useRecoilValue } from 'recoil';
 import { signupState } from '../../store/signup';
 
@@ -105,13 +104,12 @@ export default function EmailAndPassword({ navigation }) {
           tcom: userInfo.telecom,
           gender: userInfo.gender,
           auth_type: 0,
-          device_token: '',
-          device_type: '',
+          device_token: userInfo.userPushToken,
+          device_type: 'android',
           dupinfo: userInfo.dupinfo,
           recommender: signupForm.recommendCode,
           third_party: '1',
           marketing: '1',
-          pushToken: userInfo.userPushToken,
         }
       );
     } catch (error) {

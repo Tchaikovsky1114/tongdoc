@@ -65,7 +65,9 @@ export default function FamilyCard({ item, index, billType }) {
   };
   return (
     <>
+
       <Pressable onPress={() => fetchGetDiagnosisDetail(check_y, check_m)}>
+
         <View
           style={[
             styles.container,
@@ -92,7 +94,7 @@ export default function FamilyCard({ item, index, billType }) {
             </View>
           </View>
           <View style={{ flexDirection: 'row' }}>
-            <P_14M>{parseInt(savings).toLocaleString()}원</P_14M>
+            <P_14M>{parseInt(charge).toLocaleString()}원</P_14M>
             <View style={styles.saveMoneyBox}>
               <P_14M style={{ color: '#2d63e2' }}>(</P_14M>
               <Image
@@ -112,6 +114,7 @@ export default function FamilyCard({ item, index, billType }) {
           </View>
         </View>
       </Pressable>
+
       <PhoneDetailModal
         detail={detail}
         isVisible={phoneDetailModalIsVisible}
@@ -126,6 +129,7 @@ export default function FamilyCard({ item, index, billType }) {
         isVisible={confirmModalIsVisible}
         pressBtn={toggleConfirmModalHandler}
       />
+
     </>
   );
 }
