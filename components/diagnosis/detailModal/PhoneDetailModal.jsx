@@ -14,7 +14,7 @@ import DetailTitleMoney from '../detailCommon/DetailTitleMoney';
 import DetailPhoneChargeTitle from '../detailCommon/DetailPhoneChargeTitle';
 import DetailContents from '../detailCommon/DetailContents';
 import DetailBottomInfo from '../detailCommon/DetailBottomInfo';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 
@@ -28,35 +28,8 @@ const PhoneDetailModal = ({
 }) => {
   const [selectMonthIsVisible, setSelectMonthIsVisible] = useState(false);
 
-
   const toggleSelectMonthModalHandler = () => {
     setSelectMonthIsVisible((prev) => !prev);
-  };
-
-
-
-
-  const fetchGetDiagnosisDetail = async (
-    year = checkYear,
-    month = checkMonth
-  ) => {
-    try {
-      const token = await AsyncStorage.getItem('access');
-      const { data } = await axios.get(
-        `https://api.tongdoc.co.kr/v1/doctor/detail?user_id=${id}&bill_type=${billType}&year=${year}&month=${month}`,
-        {
-          headers: {
-            accept: 'applycation/json',
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      setDetail(data);
-    } catch (error) {
-      modalHandler();
-      toggleConfirmModalHandler((prev) => !prev);
-      console.log(error);
-    }
   };
 
   const discountPrice = () => {
@@ -74,10 +47,27 @@ const PhoneDetailModal = ({
     }
   };
 
-
-  useEffect(() => {
-    fetchGetDiagnosisDetail();
-  }, []);
+  const fetchGetDiagnosisDetail = async (year, month) => {
+    try {
+      const token = await AsyncStorage.getItem('access');
+      const { data } = await axios.get(
+        `https://api.tongdoc.co.kr/v1/doctor/detail?user_id=${detail.user.user_id}&bill_type=${billType}&year=${year}&month=${month}`,
+        {
+          headers: {
+            accept: 'applycation/json',
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      setSelectMonthIsVisible(false);
+      changeData(data);
+    } catch (error) {
+      setSelectMonthIsVisible(false);
+      togglePhoneDetailModalHandler();
+      toggleConfirmModalHandler((prev) => !prev);
+      console.log(error);
+    }
+  };
 
   return (
     <>
