@@ -14,7 +14,7 @@ import DetailTitleMoney from '../detailCommon/DetailTitleMoney';
 import DetailPhoneChargeTitle from '../detailCommon/DetailPhoneChargeTitle';
 import DetailContents from '../detailCommon/DetailContents';
 import DetailBottomInfo from '../detailCommon/DetailBottomInfo';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 
@@ -33,9 +33,7 @@ const PhoneDetailModal = ({
     setSelectMonthIsVisible((prev) => !prev);
   };
 
-  const toggleConfirmModalHandler = () => {
-    setConfirmModalIsVisible((prev) => !prev);
-  };
+
 
 
   const fetchGetDiagnosisDetail = async (
@@ -75,11 +73,11 @@ const PhoneDetailModal = ({
       return detail?.bill.sale.join_sale;
     }
   };
+
+
   useEffect(() => {
     fetchGetDiagnosisDetail();
   }, []);
-
-
 
   return (
     <>

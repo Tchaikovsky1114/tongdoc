@@ -5,6 +5,7 @@ import {
   Pressable,
   ScrollView,
   ActivityIndicator,
+  Alert
 } from 'react-native';
 import React, { useCallback, useEffect, useState } from 'react';
 import Banner from './Banner';
@@ -27,6 +28,19 @@ export default function Home() {
   const closeAddFamilyBannerHandler = useCallback(() => {
     SetIsAddFamilyBannerShow(false);
   },[]);
+
+  const showPrepareServiceAlertHandler = () => {
+    return Alert.alert(
+      "현재 서비스 준비 중인 페이지입니다.",
+      '',
+      [
+        {
+          text:'홈으로 이동하기',
+          onPress: () => navigation.navigate('Main'),
+        }
+      ]
+    );
+  }
 
   const fetchGetMainConfiguringData = async () => {
     const token = await AsyncStorage.getItem('access');
@@ -73,12 +87,12 @@ export default function Home() {
             </Pressable>
 
             <Pressable
-              onPress={() => navigation.navigate('PurchaseMobile')}
+              onPress={showPrepareServiceAlertHandler}
               style={({ pressed }) => []}
             >
               <PhoneContractDateCalculatorBanner />
             </Pressable>
-            <Pressable onPress={() => {}} style={({ pressed }) => []}>
+            <Pressable onPress={showPrepareServiceAlertHandler} style={({ pressed }) => []}>
               <TongdocNews mainConfiguringData={mainConfiguringData} />
             </Pressable>
           </View>
