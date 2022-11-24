@@ -25,6 +25,7 @@ import P_16M from '../../../style/paragraph/P_16M';
 import P_14R from '../../../style/paragraph/P_14R';
 import ConfirmModal from '../../common/ConfirmModal';
 const { width } = Dimensions.get('window');
+
 const PhoneDetailModal = ({ isVisible, modalHandler, item, billType }) => {
   const {
     id,
@@ -41,6 +42,7 @@ const PhoneDetailModal = ({ isVisible, modalHandler, item, billType }) => {
   const [detail, setDetail] = useState();
   const [selectMonthIsVisible, setSelectMonthIsVisible] = useState(false);
   const [confirmModalIsVisible, setConfirmModalIsVisible] = useState(false);
+  
   const toggleSelectMonthModalHandler = () => {
     setSelectMonthIsVisible((prev) => !prev);
   };

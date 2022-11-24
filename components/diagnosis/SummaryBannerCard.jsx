@@ -366,5 +366,6 @@ const styles = StyleSheet.create({
   saveMonthChargeBox: {
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent:'center'
   },
 });

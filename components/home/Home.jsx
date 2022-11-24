@@ -49,7 +49,9 @@ export default function Home() {
     });
     setDiagnosisResultData(data);
   };
-
+  const goToPageHandler = (page) => {
+    navigation.navigate(page)
+  }
   useEffect(() => {
     fetchGetMainConfiguringData();
     fetchGetDiagnosisData();
@@ -63,7 +65,7 @@ export default function Home() {
             {isAddFamilyBannerShow && (
               <AddFamilyBanner onPress={closeAddFamilyBannerHandler} />
             )}
-            <Pressable onPress={() => {}} style={({ pressed }) => []}>
+            <Pressable onPress={() => goToPageHandler('Diagnosis')} style={({ pressed }) => []}>
               <Banner
                 diagnosisResultData={diagnosisResultData}
                 mainConfiguringData={mainConfiguringData}
