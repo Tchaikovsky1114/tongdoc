@@ -87,7 +87,7 @@ export default function SummaryBannerCard({ diagnosisResultData }) {
               통신비 ({familyCount}인)
             </P_12R>
             <P_16M style={{ textAlign: 'center' }}>
-              {totalCharge}{' '}
+              {usePrice(totalCharge)}{' '}
               <Text style={{ color: '#666666', fontSize: 12 }}>원</Text>
             </P_16M>
           </View>
@@ -356,15 +356,16 @@ const styles = StyleSheet.create({
   familyChargeBox: {
     borderRightWidth: 1,
     borderRightColor: '#ddd',
-    paddingHorizontal: 26.5,
     paddingVertical: 10,
+    width: '50%',
   },
   saveChargeBox: {
-    paddingHorizontal: 26.5,
     paddingVertical: 10,
+    width: '50%',
   },
   saveMonthChargeBox: {
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'center',
   },
 });

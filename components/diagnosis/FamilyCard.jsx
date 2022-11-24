@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, Image, Pressable } from 'react-native';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import P_16M from '../../style/paragraph/P_16M';
 import P_12R from '../../style/paragraph/P_12R';
 import P_14M from '../../style/paragraph/P_14M';
@@ -7,6 +7,8 @@ import 'intl';
 import 'intl/locale-data/jsonp/en';
 import PhoneDetailModal from './detailModal/PhoneDetailModal';
 import ConfirmModal from '../common/ConfirmModal';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from 'axios';
 
 export default function FamilyCard({ item, index, billType }) {
   const {
@@ -16,28 +18,54 @@ export default function FamilyCard({ item, index, billType }) {
     tcom: telecom,
     state,
     bill_id: billId,
-    check_y: checkYear,
-    check_m: checkMonth,
+    check_y,
+    check_m,
     charge,
     save: savings,
   } = item;
-  const [isVisible, setIsVisible] = useState(false);
+  const [phoneDetailModalIsVisible, setPhoneDetailModalIsVisible] =
+    useState(false);
   const [confirmModalIsVisible, setConfirmModalIsVisible] = useState(false);
+  const [detail, setDetail] = useState();
 
-  const modalHandler = async () => {
+  const fetchGetDiagnosisDetail = async (year, month) => {
     if (state !== 1) {
       setConfirmModalIsVisible((prev) => !prev);
+      return;
     } else {
-      setIsVisible((prev) => !prev);
+      setPhoneDetailModalIsVisible((prev) => !prev);
+      try {
+        const token = await AsyncStorage.getItem('access');
+        const { data } = await axios.get(
+          `https://api.tongdoc.co.kr/v1/doctor/detail?user_id=${id}&bill_type=${billType}&year=${year}&month=${month}`,
+          {
+            headers: {
+              accept: 'applycation/json',
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        setDetail(data);
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
+
+  const changeData = (data) => {
+    setDetail(data);
+  };
+
+  const togglePhoneDetailModalHandler = () => {
+    setPhoneDetailModalIsVisible((prev) => !prev);
+  };
+
   const toggleConfirmModalHandler = () => {
     setConfirmModalIsVisible((prev) => !prev);
   };
-
   return (
     <>
-      <Pressable onPress={modalHandler}>
+      <Pressable onPress={() => fetchGetDiagnosisDetail(check_y, check_m)}>
         <View
           style={[
             styles.container,
@@ -85,10 +113,12 @@ export default function FamilyCard({ item, index, billType }) {
         </View>
       </Pressable>
       <PhoneDetailModal
-        isVisible={isVisible}
-        modalHandler={modalHandler}
-        item={item}
-        billType={billType}
+        detail={detail}
+        isVisible={phoneDetailModalIsVisible}
+        togglePhoneDetailModalHandler={togglePhoneDetailModalHandler}
+        billType="phone"
+        changeData={changeData}
+        toggleConfirmModalHandler={toggleConfirmModalHandler}
       />
       <ConfirmModal
         firstInfoText={`현재 청구서 분석중입니다.`}

@@ -1,8 +1,5 @@
 import {
-  Dimensions,
-  Image,
   Modal,
-  Pressable,
   SafeAreaView,
   ScrollView,
   StyleSheet,
@@ -17,61 +14,21 @@ import DetailTitleMoney from '../detailCommon/DetailTitleMoney';
 import DetailPhoneChargeTitle from '../detailCommon/DetailPhoneChargeTitle';
 import DetailContents from '../detailCommon/DetailContents';
 import DetailBottomInfo from '../detailCommon/DetailBottomInfo';
+import { useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
-import { useEffect, useState } from 'react';
-import P_12M from '../../../style/paragraph/P_12M';
-import P_16M from '../../../style/paragraph/P_16M';
-import P_14R from '../../../style/paragraph/P_14R';
-import ConfirmModal from '../../common/ConfirmModal';
-const { width } = Dimensions.get('window');
-const PhoneDetailModal = ({ isVisible, modalHandler, item, billType }) => {
-  const {
-    id,
-    user_name: name,
-    phone_number: phoneNumber,
-    tcom: telecom,
-    state,
-    bill_id: billId,
-    check_y: checkYear,
-    check_m: checkMonth,
-    charge,
-    save: savings,
-  } = item;
-  const [detail, setDetail] = useState();
+const PhoneDetailModal = ({
+  detail,
+  isVisible,
+  togglePhoneDetailModalHandler,
+  billType,
+  changeData,
+  toggleConfirmModalHandler,
+}) => {
   const [selectMonthIsVisible, setSelectMonthIsVisible] = useState(false);
-  const [confirmModalIsVisible, setConfirmModalIsVisible] = useState(false);
+
   const toggleSelectMonthModalHandler = () => {
     setSelectMonthIsVisible((prev) => !prev);
-  };
-  const toggleConfirmModalHandler = () => {
-    setConfirmModalIsVisible((prev) => !prev);
-  };
-  useEffect(() => {
-    fetchGetDiagnosisDetail();
-  }, []);
-
-  const fetchGetDiagnosisDetail = async (
-    year = checkYear,
-    month = checkMonth
-  ) => {
-    try {
-      const token = await AsyncStorage.getItem('access');
-      const { data } = await axios.get(
-        `https://api.tongdoc.co.kr/v1/doctor/detail?user_id=${id}&bill_type=${billType}&year=${year}&month=${month}`,
-        {
-          headers: {
-            accept: 'applycation/json',
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      setDetail(data);
-    } catch (error) {
-      modalHandler();
-      toggleConfirmModalHandler((prev) => !prev);
-      console.log(error);
-    }
   };
 
   const discountPrice = () => {
@@ -86,6 +43,28 @@ const PhoneDetailModal = ({ isVisible, modalHandler, item, billType }) => {
     }
     if (detail?.bill.sale.plan_sale < 0 && detail?.bill.sale.join_sale > 0) {
       return detail?.bill.sale.join_sale;
+    }
+  };
+
+  const fetchGetDiagnosisDetail = async (year, month) => {
+    try {
+      const token = await AsyncStorage.getItem('access');
+      const { data } = await axios.get(
+        `https://api.tongdoc.co.kr/v1/doctor/detail?user_id=${detail.user.user_id}&bill_type=${billType}&year=${year}&month=${month}`,
+        {
+          headers: {
+            accept: 'applycation/json',
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      setSelectMonthIsVisible(false);
+      changeData(data);
+    } catch (error) {
+      setSelectMonthIsVisible(false);
+      togglePhoneDetailModalHandler();
+      toggleConfirmModalHandler((prev) => !prev);
+      console.log(error);
     }
   };
 
@@ -104,14 +83,14 @@ const PhoneDetailModal = ({ isVisible, modalHandler, item, billType }) => {
                   /(\d{3})(\d{2})(\d{3})(\d{1})/,
                   '$1-$2**-*$4'
                 )}`}
-                modalHandler={modalHandler}
+                modalHandler={togglePhoneDetailModalHandler}
               />
               <DetailSummary
                 margin={{ marginBottom: 32 }}
                 detail={detail}
-                changePhoneCharge={fetchGetDiagnosisDetail}
-                selectMonthIsVisible={selectMonthIsVisible}
-                toggleSelectMonthModalHandler={toggleSelectMonthModalHandler}
+                fetchGetDiagnosisDetail={fetchGetDiagnosisDetail}
+                isVisible={selectMonthIsVisible}
+                modalHandler={toggleSelectMonthModalHandler}
               />
             </View>
             <DetailTotalCharge price={`${detail?.charge}`} />
@@ -213,13 +192,6 @@ const PhoneDetailModal = ({ isVisible, modalHandler, item, billType }) => {
           </ScrollView>
         </SafeAreaView>
       </Modal>
-
-      <ConfirmModal
-        firstInfoText={`현재 청구서 분석중입니다.`}
-        buttonText="닫기"
-        isVisible={confirmModalIsVisible}
-        pressBtn={toggleConfirmModalHandler}
-      />
     </>
   );
 };
