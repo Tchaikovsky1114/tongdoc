@@ -24,7 +24,6 @@ import {
   POLICY_PRIVACY_URL,
   POLICY_SERVICE_URL,
 } from './constants/Constants';
-import apis from '../../api/api';
 import { useRecoilValue } from 'recoil';
 import { signupState } from '../../store/signup';
 

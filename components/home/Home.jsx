@@ -1,16 +1,12 @@
 import {
   Dimensions,
-  Image,
-  SafeAreaView,
   StyleSheet,
-  Text,
   View,
-  useWindowDimensions,
   Pressable,
   ScrollView,
   ActivityIndicator,
 } from 'react-native';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import Banner from './Banner';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
@@ -20,16 +16,17 @@ import TongdocNews from './TongdocNews';
 import Reviews from './Reviews';
 import { useNavigation } from '@react-navigation/native';
 
-const { width } = Dimensions.get('window');
 
 export default function Home() {
   const navigation = useNavigation();
   const [isAddFamilyBannerShow, SetIsAddFamilyBannerShow] = useState(true);
-  const closeAddFamilyBannerHandler = () => {
-    SetIsAddFamilyBannerShow(false);
-  };
   const [mainConfiguringData, setMainConfiguringData] = useState();
   const [diagnosisResultData, setDiagnosisResultData] = useState();
+
+
+  const closeAddFamilyBannerHandler = useCallback(() => {
+    SetIsAddFamilyBannerShow(false);
+  },[]);
 
   const fetchGetMainConfiguringData = async () => {
     const token = await AsyncStorage.getItem('access');

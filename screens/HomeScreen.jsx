@@ -11,7 +11,7 @@ export default function HomeScreen({ route }) {
     <>
       <SafeAreaView style={{ flex: 1 }}>
         <Home />
-        <HomeModal tongkind={tongkind} inBoundEmail={inBoundEmail} />
+        {(tongkind && inBoundEmail) && <HomeModal tongkind={tongkind} inBoundEmail={inBoundEmail} />}
       </SafeAreaView>
     </>
   );

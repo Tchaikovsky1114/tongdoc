@@ -158,9 +158,10 @@ const BottomTabs = () => {
               source={require('./assets/common/bell.png')}
             />
           ),
+          headerTitle:'통신비 진단 결과',
           headerTitleStyle: {
             fontSize: 16,
-            // fontFamily: "Noto500",
+            fontFamily: "Noto500",
           },
           headerLeftContainerStyle: {
             paddingLeft: 16,
