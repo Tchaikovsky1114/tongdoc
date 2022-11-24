@@ -32,7 +32,6 @@ import MyPageScreen from './screens/MyPageScreen';
 import PersonSvg from './components/common/svg/PersonSvg';
 import FamilyRegistrationScreen from './components/diagnosis/familyRegistraion/FamilyRegistration';
 import InternetRegistration from './components/diagnosis/internetRegistration/InternetRegistration';
-import DetailPhone from './components/diagnosis/detail/DetailPhone';
 import DetailInternet from './components/diagnosis/detail/DetailInternet';
 import BackButton from './components/common/BackButton';
 
@@ -158,10 +157,10 @@ const BottomTabs = () => {
               source={require('./assets/common/bell.png')}
             />
           ),
-          headerTitle:'통신비 진단 결과',
+          headerTitle: '통신비 진단 결과',
           headerTitleStyle: {
             fontSize: 16,
-            fontFamily: "Noto500",
+            fontFamily: 'Noto500',
           },
           headerLeftContainerStyle: {
             paddingLeft: 16,
@@ -258,11 +257,7 @@ export default function App() {
               component={InternetRegistration}
               options={{ title: '', headerShown: true }}
             />
-            <Stack.Screen
-              name="Diagnosis/detailPhone"
-              component={DetailPhone}
-              options={{ title: '', headerShown: true }}
-            />
+
             <Stack.Screen
               name="Diagnosis/detailInternet"
               component={DetailInternet}
