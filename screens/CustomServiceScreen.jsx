@@ -4,6 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 
 export default function CustomServiceScreen() {
   const navigation = useNavigation();
+  
   useEffect(() => {
     Alert.alert(
       "현재 서비스 준비 중인 페이지입니다.",

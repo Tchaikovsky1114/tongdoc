@@ -2,10 +2,11 @@ import { Alert, StyleSheet, View } from 'react-native'
 import React, { useEffect } from 'react'
 import { useNavigation } from '@react-navigation/native'
 
-export default function PurchaseMobileScreen() {
+export default function PurchaseMobileScreen({route}) {
   const navigation = useNavigation();
-  useEffect(() => {
-    Alert.alert(
+
+  const showPrepareServiceAlertHandler = () => {
+    return Alert.alert(
       "현재 서비스 준비 중인 페이지입니다.",
       '',
       [
@@ -15,8 +16,11 @@ export default function PurchaseMobileScreen() {
         }
       ]
     );
+  }
+  useEffect(() => {
     
-  },[])
+    showPrepareServiceAlertHandler()
+  },[route])
   return (
     <View style={styles.container}>
       
