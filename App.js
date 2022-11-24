@@ -1,13 +1,5 @@
 import { useEffect, useState, useCallback } from 'react';
-import {
-  View,
-  Pressable,
-  Image,
-  Text,
-  Dimensions,
-  BackHandler,
-  SafeAreaView,
-} from 'react-native';
+import { View, Image, Dimensions } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -104,14 +96,20 @@ const BottomTabs = () => {
         tabBarLabelStyle: {
           fontFamily: 'Noto400',
           fontSize: 10,
+          padding: 0,
+          includeFontPadding: false,
         },
         tabBarStyle: {
-          justifyContent: 'center',
           alignItems: 'center',
-          height: 72,
+          justifyContent: 'center',
+        },
+        tabBarItemStyle: {
+          alignItems: 'center',
+          justifyContent: 'center',
         },
         tabBarIconStyle: {
-          marginBottom: -20,
+          alignContent: 'center',
+          justifyContent: 'center',
         },
       })}
     >

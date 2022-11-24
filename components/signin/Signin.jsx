@@ -28,7 +28,7 @@ const Signin = () => {
     device_token: '2',
     device_type: Platform.OS,
   });
-  const [signin, setSignin] = useRecoilState(signinState);
+  const [, setSignin] = useRecoilState(signinState);
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
 
@@ -79,26 +79,27 @@ const Signin = () => {
 
   // 주석 : 로그인 버튼
   const loginHandler = async () => {
-    const response = await apis.Signin(signinForm);
-    if (!response) {
-      setIsVisible((prev) => !prev);
-    } else {
-      setSignin({
-        email: response.user_email,
-        name: response.user_name,
-        tongkind: response.tcom,
-      });
-      // 임시 아이디 체크
-
-      const inBoundEmail = response.inbound_email;
-
-      navigation.navigate('Home', {
-        screen: 'Main',
-        params: {
+    try {
+      const response = await apis.Signin(signinForm);
+      if (!response) {
+        setIsVisible((prev) => !prev);
+      } else {
+        setSignin({
+          email: response.user_email,
+          name: response.user_name,
           tongkind: response.tcom,
-          inBoundEmail: inBoundEmail,
-        },
-      });
+        });
+        const inBoundEmail = response.inbound_email;
+        navigation.navigate('Home', {
+          screen: 'Main',
+          params: {
+            tongkind: response.tcom,
+            inBoundEmail: inBoundEmail,
+          },
+        });
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -129,14 +130,15 @@ const Signin = () => {
               autoCapitalize="none"
               secureTextEntry={true}
               onChangeInput={passwordHandler}
+              onSubmitEditing={loginHandler}
             />
           </View>
           <View style={styles.findBox}>
             <Pressable onPress={moveFindEmail}>
               <P_12R style={styles.findTextColor}>이메일 찾기</P_12R>
             </Pressable>
-            <Pressable onPress={moveFindPassword}>
-              <P_12R style={styles.findTextMiddle}>비밀번호 찾기</P_12R>
+            <Pressable style={styles.findTextMiddle} onPress={moveFindPassword}>
+              <P_12R style={styles.findTextColor}>비밀번호 찾기</P_12R>
             </Pressable>
             <Pressable onPress={moveSignupPageHandler}>
               <P_12R style={styles.findTextColor}>회원가입</P_12R>
@@ -192,7 +194,6 @@ const styles = StyleSheet.create({
     color: '#333333',
   },
   findTextMiddle: {
-    color: '#333333',
     borderLeftWidth: 1,
     borderLeftColor: '#DDDDDD',
     borderRightWidth: 1,

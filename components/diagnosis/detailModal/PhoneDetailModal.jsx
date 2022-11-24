@@ -110,6 +110,7 @@ const PhoneDetailModal = ({ isVisible, modalHandler, item, billType }) => {
                 margin={{ marginBottom: 32 }}
                 detail={detail}
                 changePhoneCharge={fetchGetDiagnosisDetail}
+                selectMonthIsVisible={selectMonthIsVisible}
                 toggleSelectMonthModalHandler={toggleSelectMonthModalHandler}
               />
             </View>
@@ -212,63 +213,7 @@ const PhoneDetailModal = ({ isVisible, modalHandler, item, billType }) => {
           </ScrollView>
         </SafeAreaView>
       </Modal>
-      <Modal
-        visible={selectMonthIsVisible}
-        transparent={true}
-        animationType="fade"
-      >
-        <StatusBar style="dark" />
-        <SafeAreaView style={{ flex: 1 }}>
-          <View style={styles.modalContainer}>
-            <View style={styles.modalInner}>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                  width: '100%',
-                  marginBottom: 16,
-                }}
-              >
-                <P_16M>월 선택하기</P_16M>
-                <Pressable onPress={toggleSelectMonthModalHandler}>
-                  <Image
-                    style={{ width: 24, height: 24 }}
-                    source={require('../../../assets/common/close.png')}
-                  />
-                </Pressable>
-              </View>
-              <ScrollView style={styles.modalInnerScroll}>
-                <View style={{ alignItems: 'flex-start', width: '100%' }}>
-                  {detail?.dates.map((item) => (
-                    <Pressable
-                      key={item.text}
-                      style={({ pressed }) => [
-                        {
-                          marginVertical: 4,
-                          paddingVertical: 2,
-                          width: '100%',
-                        },
-                        {
-                          backgroundColor: pressed
-                            ? 'rgba(0,0,255,0.2)'
-                            : '#fff',
-                        },
-                      ]}
-                      onPress={() => {
-                        fetchGetDiagnosisDetail(item.year, item.month);
-                        toggleSelectMonthModalHandler();
-                      }}
-                    >
-                      <P_14R>{item.text}</P_14R>
-                    </Pressable>
-                  ))}
-                </View>
-              </ScrollView>
-            </View>
-          </View>
-        </SafeAreaView>
-      </Modal>
+
       <ConfirmModal
         firstInfoText={`현재 청구서 분석중입니다.`}
         buttonText="닫기"
@@ -305,30 +250,5 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginBottom: 32,
-  },
-  modalContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'rgba(52,52,52,0.8)',
-  },
-  modalInner: {
-    width: width - 48,
-    margin: 20,
-    backgroundColor: '#fff',
-    borderRadius: 8,
-    padding: 24,
-    alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5,
-  },
-  modalInnerScroll: {
-    width: '100%',
   },
 });

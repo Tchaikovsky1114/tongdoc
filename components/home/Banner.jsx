@@ -38,7 +38,7 @@ export default function Banner({ mainConfiguringData, diagnosisResultData }) {
               <View>
                 <P_14M>{phone[0].user_name}님의 11월 통신비 진단 결과,</P_14M>
                 <P_14M style={{ color: '#2D63E2' }}>
-                  {totalSave}원 절감 가능하네요!
+                  {parseInt(totalSave).toLocaleString()}원 절감 가능하네요!
                 </P_14M>
               </View>
             </>
@@ -52,7 +52,7 @@ export default function Banner({ mainConfiguringData, diagnosisResultData }) {
               <View>
                 <P_14M>{phone[0].user_name}님의 11월 통신비 진단 결과,</P_14M>
                 <P_14M style={{ color: '#2D63E2' }}>
-                  {totalSave}원 절감 가능하네요!
+                  {parseInt(totalSave).toLocaleString()}원 절감 가능하네요!
                 </P_14M>
               </View>
             </>
@@ -66,7 +66,7 @@ export default function Banner({ mainConfiguringData, diagnosisResultData }) {
               <View>
                 <P_14M>{phone[0].user_name}님의 11월 통신비 진단 결과,</P_14M>
                 <P_14M style={{ color: '#2D63E2' }}>
-                  {totalSave}원 절감 가능하네요!
+                  {parseInt(totalSave).toLocaleString()}원 절감 가능하네요!
                 </P_14M>
               </View>
             </>
@@ -80,7 +80,7 @@ export default function Banner({ mainConfiguringData, diagnosisResultData }) {
               <View>
                 <P_14M>{phone[0].user_name}님의 11월 통신비 진단 결과,</P_14M>
                 <P_14M style={{ color: '#2D63E2' }}>
-                  {totalSave}원 절감 가능하네요!
+                  {parseInt(totalSave).toLocaleString()}원 절감 가능하네요!
                 </P_14M>
               </View>
             </>

@@ -10,7 +10,7 @@ const ConfirmModal = ({
   pressBtn,
 }) => {
   return (
-    <Modal visible={isVisible} animationType="slide" transparent={true}>
+    <Modal visible={isVisible} animationType="fade" transparent={true}>
       <View style={styles.container}>
         <View style={styles.modalBox}>
           <View style={styles.modalTextBox}>
@@ -65,11 +65,15 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   modalBtn: {
+    alignItems: 'center',
+    justifyContent: 'center',
     backgroundColor: '#2D63E2',
     paddingHorizontal: 50,
+    paddingVertical: 10,
     borderRadius: 8,
   },
   modalBtnText: {
+    includeFontPadding: false,
     fontFamily: 'Noto500',
     color: '#FFFFFF',
     fontSize: 16,
