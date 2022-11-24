@@ -49,9 +49,7 @@ const PhoneDetailModal = ({ isVisible, modalHandler, item, billType }) => {
   const toggleConfirmModalHandler = () => {
     setConfirmModalIsVisible((prev) => !prev);
   };
-  useEffect(() => {
-    fetchGetDiagnosisDetail();
-  }, []);
+
 
   const fetchGetDiagnosisDetail = async (
     year = checkYear,
@@ -90,7 +88,9 @@ const PhoneDetailModal = ({ isVisible, modalHandler, item, billType }) => {
       return detail?.bill.sale.join_sale;
     }
   };
-
+  useEffect(() => {
+    fetchGetDiagnosisDetail();
+  }, []);
   return (
     <>
       <Modal visible={isVisible} animationType="slide">
