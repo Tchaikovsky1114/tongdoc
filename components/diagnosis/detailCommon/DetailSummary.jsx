@@ -20,9 +20,9 @@ const { width } = Dimensions.get('window');
 const DetailSummary = ({
   margin,
   detail,
-  changePhoneCharge,
-  selectMonthIsVisible,
-  toggleSelectMonthModalHandler,
+  isVisible,
+  fetchGetDiagnosisDetail,
+  modalHandler,
   isInternet,
   internetTotal,
   internetReduceMonth,
@@ -31,7 +31,7 @@ const DetailSummary = ({
     <>
       <View style={[styles.summaryBox, { ...margin }]}>
         <View style={styles.summaryYearBox}>
-          <Pressable onPress={toggleSelectMonthModalHandler}>
+          <Pressable onPress={modalHandler}>
             <P_12M style={styles.yearText}>
               {detail?.year}년 {detail?.month}월
             </P_12M>
@@ -146,11 +146,7 @@ const DetailSummary = ({
           </View>
         </View>
       </View>
-      <Modal
-        visible={selectMonthIsVisible}
-        transparent={true}
-        animationType="fade"
-      >
+      <Modal visible={isVisible} transparent={true} animationType="fade">
         <StatusBar style="dark" />
         <SafeAreaView style={{ flex: 1 }}>
           <View style={styles.modalContainer}>
@@ -165,7 +161,7 @@ const DetailSummary = ({
                 }}
               >
                 <P_16M>월 선택하기</P_16M>
-                <Pressable onPress={toggleSelectMonthModalHandler}>
+                <Pressable onPress={modalHandler}>
                   <Image
                     style={{ width: 24, height: 24 }}
                     source={require('../../../assets/common/close.png')}
@@ -190,8 +186,7 @@ const DetailSummary = ({
                         },
                       ]}
                       onPress={() => {
-                        changePhoneCharge(item.year, item.month);
-                        toggleSelectMonthModalHandler();
+                        fetchGetDiagnosisDetail(item.year, item.month);
                       }}
                     >
                       <P_14R>{item.text}</P_14R>
