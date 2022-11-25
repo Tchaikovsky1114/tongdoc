@@ -1,5 +1,5 @@
 import { useEffect, useState, useCallback } from 'react';
-import { View, Image, Dimensions } from 'react-native';
+import { View, Image, Dimensions,Alert } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -178,16 +178,61 @@ const BottomTabs = () => {
         name="PurchaseMobile"
         component={PurchaseMobileScreen}
         options={{ title: '휴대폰 구매' }}
+        listeners={{
+          tabPress: (e) => {
+            e.preventDefault()
+             Alert.alert(
+      "현재 서비스 준비 중인 페이지입니다.",
+      '',
+      [
+        {
+          text:'홈으로 이동하기',
+      
+        }
+      ]
+    );
+          }
+        }}
       />
       <Tab.Screen
         name="CustomService"
         component={CustomServiceScreen}
         options={{ title: '고객센터' }}
+        listeners={{
+          tabPress: (e) => {
+            e.preventDefault()
+             Alert.alert(
+      "현재 서비스 준비 중인 페이지입니다.",
+      '',
+      [
+        {
+          text:'홈으로 이동하기',
+      
+        }
+      ]
+    );
+          }
+        }}
       />
       <Tab.Screen
         name="Mypage"
         component={MyPageScreen}
         options={{ title: '마이페이지' }}
+        listeners={{
+          tabPress: (e) => {
+            e.preventDefault()
+             Alert.alert(
+      "현재 서비스 준비 중인 페이지입니다.",
+      '',
+      [
+        {
+          text:'홈으로 이동하기',
+      
+        }
+      ]
+    );
+          }
+        }}
       />
     </Tab.Navigator>
   );
