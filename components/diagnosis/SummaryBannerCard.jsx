@@ -17,7 +17,6 @@ export default function SummaryBannerCard({ diagnosisResultData }) {
   {
     /* status/state 0,1,2,3,4,5 - 분석 후 고객 통신비 상태를 나타냅니다. */
   }
-  console.log(diagnosisResultData);
   if (totalState === 0) {
     return (
       <>
@@ -367,7 +366,6 @@ const styles = StyleSheet.create({
   saveMonthChargeBox: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent:'center'
-
+    justifyContent: 'center',
   },
 });
