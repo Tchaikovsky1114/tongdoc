@@ -182,15 +182,14 @@ const BottomTabs = () => {
           tabPress: (e) => {
             e.preventDefault()
              Alert.alert(
-      "현재 서비스 준비 중인 페이지입니다.",
-      '',
-      [
-        {
-          text:'홈으로 이동하기',
-      
-        }
-      ]
-    );
+            "현재 서비스 준비 중인 페이지입니다.",
+            '',
+            [
+              {
+                text:'확인',
+              }
+            ]
+          );
           }
         }}
       />
@@ -202,15 +201,14 @@ const BottomTabs = () => {
           tabPress: (e) => {
             e.preventDefault()
              Alert.alert(
-      "현재 서비스 준비 중인 페이지입니다.",
-      '',
-      [
-        {
-          text:'홈으로 이동하기',
-      
-        }
-      ]
-    );
+            "현재 서비스 준비 중인 페이지입니다.",
+            '',
+            [
+              {
+                text:'확인',
+              }
+            ]
+          );
           }
         }}
       />
@@ -222,15 +220,14 @@ const BottomTabs = () => {
           tabPress: (e) => {
             e.preventDefault()
              Alert.alert(
-      "현재 서비스 준비 중인 페이지입니다.",
-      '',
-      [
-        {
-          text:'홈으로 이동하기',
-      
-        }
-      ]
-    );
+            "현재 서비스 준비 중인 페이지입니다.",
+            '',
+            [
+              {
+                text:'확인',
+              }
+            ]
+          );
           }
         }}
       />
