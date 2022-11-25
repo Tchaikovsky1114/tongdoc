@@ -65,9 +65,7 @@ export default function FamilyCard({ item, index, billType }) {
   };
   return (
     <>
-
       <Pressable onPress={() => fetchGetDiagnosisDetail(check_y, check_m)}>
-
         <View
           style={[
             styles.container,
@@ -82,9 +80,11 @@ export default function FamilyCard({ item, index, billType }) {
               {name} {index === 0 ? <Text>(나)</Text> : null}
             </P_16M>
             <View style={{ flexDirection: 'row' }}>
-              <P_12R style={{ color: '#666666', paddingRight: 8 }}>
-                {telecom}
-              </P_12R>
+              {telecom ? (
+                <P_12R style={{ color: '#666666', paddingRight: 8 }}>
+                  {telecom}
+                </P_12R>
+              ) : null}
               <P_12R style={{ color: '#666666' }}>
                 {phoneNumber.replace(
                   /(\d{3})(\d{2})(\d{3})(\d{1})/,
@@ -129,7 +129,6 @@ export default function FamilyCard({ item, index, billType }) {
         isVisible={confirmModalIsVisible}
         pressBtn={toggleConfirmModalHandler}
       />
-
     </>
   );
 }

@@ -22,6 +22,7 @@ const Signin = () => {
   const navigation = useNavigation();
   const [isDisable, setIsDisable] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [signinForm, setSigninForm] = useState({
     email: '',
     password: '',
@@ -79,6 +80,7 @@ const Signin = () => {
 
   // 주석 : 로그인 버튼
   const loginHandler = async () => {
+    setIsLoading(true);
     try {
       const response = await apis.Signin(signinForm);
       if (!response) {
@@ -90,6 +92,7 @@ const Signin = () => {
           tongkind: response.tcom,
         });
         const inBoundEmail = response.inbound_email;
+        setIsLoading(false);
         navigation.navigate('Home', {
           screen: 'Main',
           params: {
@@ -147,7 +150,11 @@ const Signin = () => {
         </KeyboardAvoidingView>
       </ScrollView>
 
-      <DimensionBtn isDisable={isDisable} onPress={loginHandler}>
+      <DimensionBtn
+        isDisable={isDisable}
+        onPress={loginHandler}
+        isLoading={isLoading}
+      >
         로그인하기
       </DimensionBtn>
       <SigninModal

@@ -60,7 +60,6 @@ export default function Diagnosis() {
         }
       );
       setDiagnosisResultData(data);
-      console.log(data, '1');
     } catch (error) {
       console.error(error);
     }
