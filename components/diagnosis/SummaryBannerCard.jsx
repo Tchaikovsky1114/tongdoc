@@ -144,22 +144,7 @@ export default function SummaryBannerCard({ diagnosisResultData }) {
           </View>
           <View style={styles.saveChargeBox}>
             <P_12R style={{ textAlign: 'center' }}>절감 가능액 (월)</P_12R>
-            {/* <P_16M
-              style={{
-                color: '#FF3A3A',
-                textAlign: 'center',
-                alignItems: 'center',
-                justifyContent: 'flex-start',
-              }}
-            >
-              <Image
-                style={{ width: 10, height: 10 }}
-                source={require('../../assets/common/redreversetriangle.png')}
-              />
-              <View style={{ width: 4 }} />
-              {usePrice(totalSavings)}{' '}
-              <Text style={{ color: '#666666', fontSize: 12 }}>원</Text>
-            </P_16M> */}
+
             <View style={styles.saveMonthChargeBox}>
               <Image
                 style={{ width: 10, height: 10, marginRight: 4 }}
