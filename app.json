@@ -2,7 +2,7 @@
   "expo": {
     "name": "tongdoc_app",
     "slug": "tongdoc_app",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -41,10 +41,10 @@
           "NSAllowsArbitraryLoadsInWebContent": true
         }
       },
-      "bundleIdentifier": "com.dreamfreedom.tongdoc"
+      "bundleIdentifier": "kr.co.tongdoc"
     },
     "android": {
-      "package": "com.dreamfreedom.tongdoc",
+      "package": "kr.co.tongdoc",
       "googleServicesFile": "./google-services.json",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
