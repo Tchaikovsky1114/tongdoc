@@ -1,13 +1,11 @@
 import {
-  TextInput,
   StyleSheet,
-  Text,
   View,
-  KeyboardAvoidingView,
+  Alert,
   ScrollView,
   Keyboard,
   Dimensions,
-  Alert,
+  
 } from 'react-native';
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import H4_24R from '../../style/H4_24R';
@@ -115,6 +113,15 @@ export default function EmailAndPassword({ navigation }) {
       navigation.navigate('Main')
     } catch (error) {
       console.error(error);
+      Alert.alert(
+        "오류가 발생했습니다.",
+        '',
+        [
+          {
+            text:'확인',
+          }
+        ]
+      );
     }
     
   }, []);
