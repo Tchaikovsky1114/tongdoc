@@ -6,10 +6,24 @@
     "development": {
       "developmentClient": true,
       "distribution": "internal",
-      "extends": "production"
+      "extends":"production"
+
     },
     "preview": {
-      "distribution": "internal"
+      "channel":"staging",
+      "distribution": "internal",
+      "android": {
+        "buildType": "apk"
+      }
+
+    },
+    "preview2": {
+      "android": {
+        "gradleCommand": ":app:assembleRelease"
+      }
+    },
+    "preview3": {
+      "developmentClient":true
     },
     "production": {
       "env": {
