@@ -6,9 +6,12 @@
     "development": {
       "developmentClient": true,
       "distribution": "internal",
-      "extends":"production"
+      "extends": "production"
     },
     "preview": {
+      "ios": {
+        "simulator": true
+      },
       "distribution": "internal"
     },
     "production": {
