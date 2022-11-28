@@ -5,7 +5,8 @@ import {
   Pressable,
   ScrollView,
   ActivityIndicator,
-  Alert
+  Alert,
+  Text
 } from 'react-native';
 import React, { useCallback, useEffect, useState } from 'react';
 import Banner from './Banner';
