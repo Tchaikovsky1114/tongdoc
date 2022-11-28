@@ -6,16 +6,17 @@
     "development": {
       "developmentClient": true,
       "distribution": "internal",
-      "extends":"production"
-
+      "extends": "production"
     },
     "preview": {
-      "channel":"staging",
+      "channel": "staging",
       "distribution": "internal",
       "android": {
         "buildType": "apk"
+      },
+      "ios": {
+        "simulator": true
       }
-
     },
     "preview2": {
       "android": {
@@ -23,7 +24,7 @@
       }
     },
     "preview3": {
-      "developmentClient":true
+      "developmentClient": true
     },
     "production": {
       "env": {
@@ -33,6 +34,12 @@
     }
   },
   "submit": {
-    "production": {}
+    "production": {
+      "ios": {
+        "appleId": "drts0826@gmail.com",
+        "ascAppId": "1589063322",
+        "appleTeamId": "99Y3HQDDP8"
+      }
+    }
   }
 }
