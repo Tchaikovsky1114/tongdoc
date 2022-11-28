@@ -9,9 +9,6 @@
       "extends": "production"
     },
     "preview": {
-      "ios": {
-        "simulator": true
-      },
       "distribution": "internal"
     },
     "production": {

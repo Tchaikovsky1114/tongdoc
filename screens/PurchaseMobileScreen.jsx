@@ -1,26 +1,9 @@
-import { Alert, StyleSheet, View } from 'react-native'
-import React, { useEffect } from 'react'
-import { useNavigation } from '@react-navigation/native'
+import { StyleSheet, View } from 'react-native'
+import React from 'react'
+
 
 export default function PurchaseMobileScreen({route}) {
-  const navigation = useNavigation();
 
-  const showPrepareServiceAlertHandler = () => {
-    return Alert.alert(
-      "현재 서비스 준비 중인 페이지입니다.",
-      '',
-      [
-        {
-          text:'홈으로 이동하기',
-          onPress: () => navigation.navigate('Main'),
-        }
-      ]
-    );
-  }
-  useEffect(() => {
-    
-    showPrepareServiceAlertHandler()
-  },[route])
   return (
     <View style={styles.container}>
       

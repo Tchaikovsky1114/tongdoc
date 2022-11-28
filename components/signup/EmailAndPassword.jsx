@@ -1,13 +1,11 @@
 import {
-  TextInput,
   StyleSheet,
-  Text,
   View,
-  KeyboardAvoidingView,
+  Alert,
   ScrollView,
   Keyboard,
   Dimensions,
-  Alert,
+  
 } from 'react-native';
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import H4_24R from '../../style/H4_24R';
@@ -26,7 +24,7 @@ import {
 } from './constants/Constants';
 import { useRecoilValue } from 'recoil';
 import { signupState } from '../../store/signup';
-
+import axios from 'axios';
 const { width } = Dimensions.get('window');
 
 export default function EmailAndPassword({ navigation }) {
@@ -90,7 +88,7 @@ export default function EmailAndPassword({ navigation }) {
   };
   const submitSignupHandler = useCallback(async () => {
     try {
-      const { data } = await axios.post(
+      await axios.post(
         'https://api.tongdoc.co.kr/v1/register',
         {
           user_email: signupForm.email,
@@ -112,9 +110,20 @@ export default function EmailAndPassword({ navigation }) {
           marketing: '1',
         }
       );
+      navigation.navigate('Main')
     } catch (error) {
       console.error(error);
+      Alert.alert(
+        "오류가 발생했습니다.",
+        '',
+        [
+          {
+            text:'확인',
+          }
+        ]
+      );
     }
+    
   }, []);
 
   useEffect(() => {
