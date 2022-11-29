@@ -1,33 +1,34 @@
 {
   "project_info": {
-    "project_number": "376959487633",
-    "project_id": "tongdoc-4757b",
-    "storage_bucket": "tongdoc-4757b.appspot.com"
+    "project_number": "631097673712",
+    "firebase_url": "https://tongdoc-9a7a9.firebaseio.com",
+    "project_id": "tongdoc-9a7a9",
+    "storage_bucket": "tongdoc-9a7a9.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:376959487633:android:190cf229efa2ef0efb3930",
+        "mobilesdk_app_id": "1:631097673712:android:6e71f1c06dbf5fa3567f35",
         "android_client_info": {
           "package_name": "kr.co.tongdoc"
         }
       },
       "oauth_client": [
         {
-          "client_id": "376959487633-uf9hog67pslv0ev83h7o6qrb3eg04kj1.apps.googleusercontent.com",
+          "client_id": "631097673712-5u9b0d74bbfv3krke3rq6kf4ftfu9q6s.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyD9EHL35qsGQ_VuCUAXEB4pGIkUg9Bg3y8"
+          "current_key": "AIzaSyD8VQEdXQpVctHxbq0BV4X2cq7uCnVYrqM"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "376959487633-uf9hog67pslv0ev83h7o6qrb3eg04kj1.apps.googleusercontent.com",
+              "client_id": "631097673712-5u9b0d74bbfv3krke3rq6kf4ftfu9q6s.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

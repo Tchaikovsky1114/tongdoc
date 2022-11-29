@@ -28,6 +28,7 @@ import axios from 'axios';
 const { width } = Dimensions.get('window');
 
 export default function EmailAndPassword({ navigation }) {
+  
   const [totalTermsCheck, setTotalTermsCheck] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const emailRef = useRef(null);
@@ -45,7 +46,7 @@ export default function EmailAndPassword({ navigation }) {
     passwordConfirm: '',
     recommendCode: '',
   });
-
+  
   const toggleTotalTermsCheckHandler = useCallback(() => {
     setTotalTermsCheck((prev) => !prev);
   }, []);
@@ -110,7 +111,17 @@ export default function EmailAndPassword({ navigation }) {
           marketing: '1',
         }
       );
-      navigation.navigate('Main')
+      Alert.alert(
+        "회원가입이 완료되었습니다",
+        '로그인 페이지로 이동합니다',
+        [
+          {
+            text:'확인',
+            onPress: () => navigation.navigate('Signin')
+          }
+        ]
+      );
+      
     } catch (error) {
       console.error(error);
       Alert.alert(
