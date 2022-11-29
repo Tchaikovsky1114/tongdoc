@@ -5,7 +5,7 @@ import {
   Pressable,
   ScrollView,
   ActivityIndicator,
-  Alert
+  Alert,
 } from 'react-native';
 import React, { useCallback, useEffect, useState } from 'react';
 import Banner from './Banner';
@@ -17,30 +17,24 @@ import TongdocNews from './TongdocNews';
 import Reviews from './Reviews';
 import { useNavigation } from '@react-navigation/native';
 
-
 export default function Home() {
   const navigation = useNavigation();
   const [isAddFamilyBannerShow, SetIsAddFamilyBannerShow] = useState(true);
   const [mainConfiguringData, setMainConfiguringData] = useState();
   const [diagnosisResultData, setDiagnosisResultData] = useState();
 
-
   const closeAddFamilyBannerHandler = useCallback(() => {
     SetIsAddFamilyBannerShow(false);
-  },[]);
+  }, []);
 
   const showPrepareServiceAlertHandler = () => {
-    return Alert.alert(
-      "현재 서비스 준비 중인 페이지입니다.",
-      '',
-      [
-        {
-          text:'홈으로 이동하기',
-          onPress: () => navigation.navigate('Main'),
-        }
-      ]
-    );
-  }
+    return Alert.alert('현재 서비스 준비 중인 페이지입니다.', '', [
+      {
+        text: '홈으로 이동하기',
+        onPress: () => navigation.navigate('Main'),
+      },
+    ]);
+  };
 
   const fetchGetMainConfiguringData = async () => {
     const token = await AsyncStorage.getItem('access');
@@ -64,8 +58,8 @@ export default function Home() {
     setDiagnosisResultData(data);
   };
   const goToPageHandler = (page) => {
-    navigation.navigate(page)
-  }
+    navigation.navigate(page);
+  };
   useEffect(() => {
     fetchGetMainConfiguringData();
     fetchGetDiagnosisData();
@@ -79,7 +73,10 @@ export default function Home() {
             {isAddFamilyBannerShow && (
               <AddFamilyBanner onPress={closeAddFamilyBannerHandler} />
             )}
-            <Pressable onPress={() => goToPageHandler('Diagnosis')} style={({ pressed }) => []}>
+            <Pressable
+              onPress={() => goToPageHandler('Diagnosis')}
+              style={({ pressed }) => []}
+            >
               <Banner
                 diagnosisResultData={diagnosisResultData}
                 mainConfiguringData={mainConfiguringData}
@@ -92,7 +89,10 @@ export default function Home() {
             >
               <PhoneContractDateCalculatorBanner />
             </Pressable>
-            <Pressable onPress={showPrepareServiceAlertHandler} style={({ pressed }) => []}>
+            <Pressable
+              onPress={showPrepareServiceAlertHandler}
+              style={({ pressed }) => []}
+            >
               <TongdocNews mainConfiguringData={mainConfiguringData} />
             </Pressable>
           </View>
@@ -103,25 +103,23 @@ export default function Home() {
       ) : (
         <ActivityIndicator />
       )}
-      {/* <SendingBillsSKT /> */}
     </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#fff',
+    backgroundColor: '#f7f7f7',
     paddingBottom: 4,
   },
   topInner: {
     flex: 1,
-    marginTop: 75,
     paddingHorizontal: 24,
+    paddingVertical: 30,
+    backgroundColor: '#fff',
   },
   bottomInner: {
     flex: 1,
-    marginTop: 32,
-    backgroundColor: '#f7f7f7',
     paddingHorizontal: 24,
   },
   header: {

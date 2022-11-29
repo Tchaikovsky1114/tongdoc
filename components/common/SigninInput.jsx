@@ -31,10 +31,10 @@ const SigninInput = (
       style={
         isFocus ? [styles.inputFocus, inputStyle] : [styles.input, inputStyle]
       }
+      cursorColor={'#2D63E2'}
       placeholder={placeholder}
       placeholderTextColor={isFocus ? '#dddddd' : '#333333'}
       autoCapitalize={autoCapitalize}
-      cursorColor={'#2D63E2'}
       onChangeText={onChangeInput}
       returnKeyType={returnKey}
       onSubmitEditing={onSubmitEditing}

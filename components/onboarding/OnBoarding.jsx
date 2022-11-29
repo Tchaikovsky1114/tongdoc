@@ -26,7 +26,7 @@ const OnBoarding = ({ navigation }) => {
         backgroundColor={'transparent'}
         translucent={true}
       />
-      <SafeAreaView style={{ flex: 1 }}>
+      <SafeAreaView style={{ flex: 1, backgroundColor: '#fff' }}>
         <OnboardingCarousel />
         <View style={styles.moveSignupButtonBox}>
           <Pressable

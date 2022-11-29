@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
     padding: 2,
     shadowColor: '#ccc',
-    shadowOpacity: 0.1,
+    shadowOpacity: 0.3,
     shadowOffset: {
       width: 1,
       height: 1,

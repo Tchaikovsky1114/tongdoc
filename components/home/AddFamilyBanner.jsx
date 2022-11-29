@@ -21,7 +21,7 @@ export default function AddFamilyBanner({ onPress }) {
 
 const styles = StyleSheet.create({
   container: {
-    position: 'relative',
+    // position: 'relative',
     borderRadius: 16,
     borderColor: '',
     backgroundColor: '#F6F9FF',
@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
     height: 66,
     justifyContent: 'center',
     marginBottom: 16,
-    marginTop: -31,
+    // marginTop: -31,
   },
   closeBox: {
     position: 'absolute',

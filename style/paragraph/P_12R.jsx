@@ -12,6 +12,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Noto400',
     letterSpacing: -0.5,
     lineHeight: 17,
+    includeFontPadding: false,
     fontSize: 12,
   },
 });

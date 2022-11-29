@@ -1,5 +1,5 @@
-import { useNavigation } from "@react-navigation/native";
-import { useEffect, useRef, useState } from "react";
+import { useNavigation } from '@react-navigation/native';
+import { useEffect, useRef, useState } from 'react';
 import {
   KeyboardAvoidingView,
   Platform,
@@ -7,16 +7,16 @@ import {
   ScrollView,
   StyleSheet,
   View,
-} from "react-native";
-import { useRecoilState } from "recoil";
-import apis from "../../api/api";
-import { signinState } from "../../store/signin";
+} from 'react-native';
+import { useRecoilState } from 'recoil';
+import apis from '../../api/api';
+import { signinState } from '../../store/signin';
 
-import H4_24R from "../../style/H4_24R";
-import P_12R from "../../style/paragraph/P_12R";
-import DimensionBtn from "../common/DimensionBtn";
-import SigninInput from "../common/SigninInput";
-import SigninModal from "./SigninModal/SigninModal";
+import H4_24R from '../../style/H4_24R';
+import P_12R from '../../style/paragraph/P_12R';
+import DimensionBtn from '../common/DimensionBtn';
+import SigninInput from '../common/SigninInput';
+import SigninModal from './SigninModal/SigninModal';
 
 const Signin = () => {
   const navigation = useNavigation();
@@ -24,9 +24,9 @@ const Signin = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [signinForm, setSigninForm] = useState({
-    email: "",
-    password: "",
-    device_token: "2",
+    email: '',
+    password: '',
+    device_token: '2',
     device_type: Platform.OS,
   });
   const [, setSignin] = useRecoilState(signinState);
@@ -51,7 +51,7 @@ const Signin = () => {
   // 주석 : 하단 버튼 disabled <=> able 구현
   useEffect(() => {
     setIsDisable((prev) => !prev);
-  }, [signinForm.email !== "" && signinForm.password !== ""]);
+  }, [signinForm.email !== '' && signinForm.password !== '']);
 
   // 주석 : 초기 로그인 화면 진입시 email input에 키보드 올라오게 하기
   useEffect(() => {
@@ -63,14 +63,14 @@ const Signin = () => {
 
   // 주석 : 이동 함수
   const moveFindEmail = () => {
-    navigation.navigate("Signin/FindInfo", { id: "email" });
+    navigation.navigate('Signin/FindInfo', { id: 'email' });
   };
   const moveFindPassword = () => {
-    navigation.navigate("Signin/FindInfo", { id: "password" });
+    navigation.navigate('Signin/FindInfo', { id: 'password' });
   };
 
   const moveSignupPageHandler = () => {
-    navigation.navigate("Signup/Certification");
+    navigation.navigate('Signup/Certification');
   };
 
   // 주석 : 모달 닫기
@@ -94,8 +94,8 @@ const Signin = () => {
         });
         const inBoundEmail = response.inbound_email;
 
-        navigation.navigate("Home", {
-          screen: "Main",
+        navigation.navigate('Home', {
+          screen: 'Main',
           params: {
             tongkind: response.tcom,
             inBoundEmail: inBoundEmail,
@@ -111,14 +111,14 @@ const Signin = () => {
     <View style={styles.container}>
       <ScrollView style={styles.screen}>
         <KeyboardAvoidingView style={styles.screen} behavior="position">
-          <H4_24R style={styles.title}>{"로그인"}</H4_24R>
+          <H4_24R style={styles.title}>{'로그인'}</H4_24R>
 
           <View style={styles.inputBox}>
             <SigninInput
               ref={emailRef}
               type="email"
               inputStyle={styles.inputMargin}
-              placeholder="이메일"
+              placeholder=" 이메일"
               autoCapitalize="none"
               onChangeInput={emailHandler}
               returnKey="next"
@@ -130,7 +130,7 @@ const Signin = () => {
             <SigninInput
               ref={passwordRef}
               type="password"
-              placeholder="비밀번호"
+              placeholder=" 비밀번호"
               autoCapitalize="none"
               secureTextEntry={true}
               onChangeInput={passwordHandler}
@@ -160,10 +160,10 @@ const Signin = () => {
       </DimensionBtn>
       <SigninModal
         isVisible={isVisible}
-        firstInfoText={"이메일 주소나 비밀번호를"}
-        secondInfoText={"확인 후 다시 입력해 주세요."}
+        firstInfoText={'이메일 주소나 비밀번호를'}
+        secondInfoText={'확인 후 다시 입력해 주세요.'}
         pressBtn={closeModalHandler}
-        btnText={"확인"}
+        btnText={'확인'}
       />
     </View>
   );
@@ -177,7 +177,7 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    backgroundColor: "#ffffff",
+    backgroundColor: '#ffffff',
     padding: 24,
   },
   title: {
@@ -194,18 +194,18 @@ const styles = StyleSheet.create({
   },
   findBox: {
     flex: 1,
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   findTextColor: {
-    color: "#333333",
+    color: '#333333',
   },
   findTextMiddle: {
     borderLeftWidth: 1,
-    borderLeftColor: "#DDDDDD",
+    borderLeftColor: '#DDDDDD',
     borderRightWidth: 1,
-    borderRightColor: "#DDDDDD",
+    borderRightColor: '#DDDDDD',
     marginLeft: 16,
     marginRight: 16,
     paddingLeft: 16,
