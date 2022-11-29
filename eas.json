@@ -40,6 +40,7 @@
         "track":"internal"
       },
       "ios": {
+        "bundleIdentifier": "co.kr.tongdoc",
         "appleId": "drts0826@gmail.com",
         "ascAppId": "1589063322",
         "appleTeamId": "99Y3HQDDP8"
