@@ -35,6 +35,10 @@
   },
   "submit": {
     "production": {
+      "android": {
+        "serviceAccountKeyPath":"./pc-api-6612058537315475822-937-6e6cd9f559db.json",
+        "track":"internal"
+      },
       "ios": {
         "appleId": "drts0826@gmail.com",
         "ascAppId": "1589063322",

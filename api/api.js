@@ -29,7 +29,9 @@ const apis = {
       });
       if (data) {
         const token = await data.access_token;
+        const refreshToken = await data.refresh_token;
         await AsyncStorage.setItem('access', token);
+        await AsyncStorage.setItem('refresh',refreshToken)
         const userInfo = await instance.get('v1/user');
         return userInfo.data;
       }
