@@ -6,9 +6,6 @@ import P_20R from '../../style/paragraph/P_20R';
 
 const {width} = Dimensions.get('window');
 
-
-
-
 const PAGES = [
   {
     num:1,
@@ -74,7 +71,7 @@ const OnboardingCarousel = () => {
     <View style={styles.indicatorBox}>
     <CircleIndicator currentPageNumber={currentPageNumber} pressScrollXHandler={pressScrollXHandler} />
     </View>
-    
+
     </>
   )
 };

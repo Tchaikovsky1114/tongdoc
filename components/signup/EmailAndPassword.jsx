@@ -5,6 +5,7 @@ import {
   ScrollView,
   Keyboard,
   Dimensions,
+  Platform,
   
 } from 'react-native';
 import React, { useState, useRef, useEffect, useCallback } from 'react';
@@ -51,29 +52,26 @@ export default function EmailAndPassword({ navigation }) {
     setTotalTermsCheck((prev) => !prev);
   }, []);
 
-  const changeSignupFormHandler = useCallback((e, name) => {
-    const {
-      nativeEvent: { text },
-    } = e;
+  const changeSignupFormHandler = (e, name) => {
+    const {nativeEvent: { text }} = e;
+
     setSignupForm((prev) => ({
       ...prev,
       [name]: text,
     }));
-  }, []);
+  };
 
   const showDetailTermsModalHandler = useCallback(async (termsURL) => {
     setTermsDetail(termsURL);
     setModalVisible((prev) => !prev);
   }, []);
+
   const isValidEmail = useCallback((email) => {
-    return /^[a-zA-Z0-9][a-zA-Z0-9._]+[@][a-zA-Z][A-Za-z.]+[.]\w{3,}/.test(
-      email
-    );
+    return /^[a-zA-Z0-9][a-zA-Z0-9._]+[@][a-zA-Z][A-Za-z.]+[.]\w{3,}/.test(email);
   }, []);
+
   const isValidPassword = useCallback((password) => {
-    return /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{10,20}$/.test(
-      password
-    );
+    return /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{10,20}$/.test(password);
   }, []);
 
   const detectBackspaceKeyHandler = (e) => {
@@ -87,55 +85,60 @@ export default function EmailAndPassword({ navigation }) {
       setDetectBackspaceKey(false);
     }
   };
-  const submitSignupHandler = useCallback(async () => {
-    try {
-      await axios.post(
-        'https://api.tongdoc.co.kr/v1/register',
-        {
-          user_email: signupForm.email,
-          password: signupForm.password,
-          password_confirmation: signupForm.password,
-          user_name: userInfo.name,
-          tongkind: signupForm.telecom,
-          hphone: signupForm.phone_number,
-          user_birth: userInfo.birth,
-          phone_number: userInfo.phone_number,
-          tcom: userInfo.telecom,
-          gender: userInfo.gender,
-          auth_type: 0,
-          device_token: userInfo.userPushToken,
-          device_type: 'android',
-          dupinfo: userInfo.dupinfo,
-          recommender: signupForm.recommendCode,
-          third_party: '1',
-          marketing: '1',
-        }
-      );
-      Alert.alert(
-        "회원가입이 완료되었습니다",
-        '로그인 페이지로 이동합니다',
-        [
-          {
-            text:'확인',
-            onPress: () => navigation.navigate('Signin')
-          }
-        ]
-      );
+  const submitSignupHandler = async () => {
+    // try {
+      console.log(signupForm);
+      const obj = {
+        user_email: signupForm.email,
+        password: signupForm.password,
+        password_confirmation: signupForm.passwordConfirm,
+        user_name: userInfo.name,
+        tongkind: userInfo.telecom,
+        hphone: userInfo.phone_number,
+        user_birth: userInfo.birth,
+        phone_number: userInfo.phone_number,
+        tcom: userInfo.telecom,
+        gender: userInfo.gender,
+        auth_type: 0,
+        device_token: userInfo.userPushToken || '',
+        device_type: Platform.OS,
+        dupinfo: userInfo.dupinfo,
+        recommender: signupForm.recommendCode,
+        third_party: 1,
+        marketing: 1,
+      }
+      console.log(obj)
+    //   await axios.post(
+    //     'https://api.tongdoc.co.kr/v1/register',
+    //     obj,{}
+    //   );
+    //   Alert.alert(
+    //     "회원가입이 완료되었습니다",
+    //     '로그인 페이지로 이동합니다',
+    //     [
+    //       {
+    //         text:'확인',
+    //         onPress: () => navigation.navigate('Signin')
+    //       }
+    //     ]
+    //   );
       
-    } catch (error) {
-      console.error(error);
-      Alert.alert(
-        "오류가 발생했습니다.",
-        '',
-        [
-          {
-            text:'확인',
-          }
-        ]
-      );
-    }
+    // } catch (error) {
+      
+    //   console.error(error.message);
+      
+    //   Alert.alert(
+    //     error.message,
+    //     '',
+    //     [
+    //       {
+    //         text:'확인',
+    //       }
+    //     ]
+    //   );
+    // }
     
-  }, []);
+  };
 
   useEffect(() => {
     if (detectBackspaceKey) return;

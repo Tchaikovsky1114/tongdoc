@@ -20,8 +20,11 @@ export default function CertificationInProgress() {
   };
 
   const receiveCertificationFailedFromWebviewHandler = (err) => {
+    navigation.navigate('Signup/ChoiceSignMethod',{
+        screen: 'Signup/CertificationResult',
+    });
     console.error(err.nativeEvent.description);
-    navigation.navigate('Signup');
+   
   };
 
   return (
