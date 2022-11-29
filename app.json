@@ -41,7 +41,10 @@
         "NSAppTransportSecurity": {
           "NSAllowsArbitraryLoads": true,
           "NSAllowsArbitraryLoadsInWebContent": true
-        }
+        },
+        "NSContactsUsageDescription": "연락처 권한이 필요합니다.",
+        "NSMessage": "SMS 수신 동의가 필요합니다.",
+        "NSLocationWhenInUseUsageDescription": "위치 동의가 필요합니다."
       }
     },
     "android": {
