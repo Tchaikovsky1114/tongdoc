@@ -1,5 +1,5 @@
 import { useEffect, useState, useCallback } from 'react';
-import { View, Image, Dimensions,Alert } from 'react-native';
+import { View, Image, Dimensions, Alert } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -97,14 +97,20 @@ const BottomTabs = () => {
           fontSize: 10,
           padding: 0,
           includeFontPadding: false,
+          textAlignVertical: 'top',
         },
         tabBarStyle: {
           alignItems: 'center',
           justifyContent: 'center',
+          height: 70,
         },
+
         tabBarItemStyle: {
           alignItems: 'center',
           justifyContent: 'center',
+          paddingTop: 5,
+          paddingBottom: 15,
+          height: 70,
         },
         tabBarIconStyle: {
           alignContent: 'center',
@@ -127,7 +133,6 @@ const BottomTabs = () => {
                 paddingTop: 40,
                 paddingHorizontal: 16,
                 backgroundColor: '#fff',
-                marginBottom: -32,
               }}
             >
               <Image
@@ -180,17 +185,13 @@ const BottomTabs = () => {
         options={{ title: '휴대폰 구매' }}
         listeners={{
           tabPress: (e) => {
-            e.preventDefault()
-             Alert.alert(
-            "현재 서비스 준비 중인 페이지입니다.",
-            '',
-            [
+            e.preventDefault();
+            Alert.alert('현재 서비스 준비 중인 페이지입니다.', '', [
               {
-                text:'확인',
-              }
-            ]
-          );
-          }
+                text: '확인',
+              },
+            ]);
+          },
         }}
       />
       <Tab.Screen
@@ -199,17 +200,13 @@ const BottomTabs = () => {
         options={{ title: '고객센터' }}
         listeners={{
           tabPress: (e) => {
-            e.preventDefault()
-             Alert.alert(
-            "현재 서비스 준비 중인 페이지입니다.",
-            '',
-            [
+            e.preventDefault();
+            Alert.alert('현재 서비스 준비 중인 페이지입니다.', '', [
               {
-                text:'확인',
-              }
-            ]
-          );
-          }
+                text: '확인',
+              },
+            ]);
+          },
         }}
       />
       <Tab.Screen
@@ -218,17 +215,13 @@ const BottomTabs = () => {
         options={{ title: '마이페이지' }}
         listeners={{
           tabPress: (e) => {
-            e.preventDefault()
-             Alert.alert(
-            "현재 서비스 준비 중인 페이지입니다.",
-            '',
-            [
+            e.preventDefault();
+            Alert.alert('현재 서비스 준비 중인 페이지입니다.', '', [
               {
-                text:'확인',
-              }
-            ]
-          );
-          }
+                text: '확인',
+              },
+            ]);
+          },
         }}
       />
     </Tab.Navigator>
@@ -299,7 +292,7 @@ export default function App() {
               component={InternetRegistration}
               options={{ title: '', headerShown: true }}
             />
-
+            {/* 밑에는 나중에 지울 예정 */}
             <Stack.Screen
               name="Diagnosis/detailInternet"
               component={DetailInternet}
@@ -308,7 +301,11 @@ export default function App() {
             <Stack.Screen
               name="Signup"
               component={SignupPage}
-              options={{ title: '', headerShown: true }}
+              options={{
+                title: '',
+                headerShown: true,
+                headerBackTitleVisible: false,
+              }}
             />
             <Stack.Screen
               name="Signup/Certification"

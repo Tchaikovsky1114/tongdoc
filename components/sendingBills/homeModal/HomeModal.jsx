@@ -1,11 +1,4 @@
-import {
-  Image,
-  Modal,
-  Pressable,
-  SafeAreaView,
-  StyleSheet,
-  View,
-} from 'react-native';
+import { Image, Modal, Pressable, StyleSheet, View } from 'react-native';
 import SendingBillsKT from '../KT/SendingBillsKT';
 import SendingBillsLG from '../LG/SendingBillsLG';
 import SendingBillsSKT from '../SKT/SendingBillsSKT';
@@ -25,7 +18,7 @@ const HomeModal = ({ tongkind, inBoundEmail }) => {
   const [isVisible, setIsVisible] = useState(false);
   const [copyModalVisible, setCopyModalVisible] = useState(false);
   const [callModalVisible, setCallModalVisible] = useState(false);
-  
+
   const modalHandler = () => {
     setIsVisible((prev) => !prev);
   };
@@ -46,90 +39,86 @@ const HomeModal = ({ tongkind, inBoundEmail }) => {
   return (
     <Modal visible={homeModalVisible} transparent={true} animationType="fade">
       <StatusBar style="dark" />
-      <SafeAreaView style={{ flex: 1 }}>
-        <View style={styles.container}>
-          <View style={styles.modalBox}>
-            <View style={styles.titleBox}>
-              <H6_18M>통신닥터 메일로 요금 청구서 보내기</H6_18M>
-              <Pressable style={styles.xbtnBox} onPress={homeModalHandler}>
+      <View style={styles.container}>
+        <View style={styles.modalBox}>
+          <View style={styles.titleBox}>
+            <H6_18M>통신닥터 메일로 요금 청구서 보내기</H6_18M>
+            <Pressable style={styles.xbtnBox} onPress={homeModalHandler}>
+              <Image
+                resizeMode="contain"
+                style={styles.xbtnImg}
+                source={require('../../../assets/xBtn.png')}
+              />
+            </Pressable>
+          </View>
+          <View style={styles.mailBox}>
+            <P_14M style={styles.mailBoxTitle}>통신닥터 메일 주소</P_14M>
+            <View style={styles.mailCopy}>
+              <P_16M style={styles.mailAddress}>{inBoundEmail}</P_16M>
+              <Pressable style={styles.copyBtnBox} onPress={copyToClipboard}>
                 <Image
-                  resizeMode="contain"
-                  style={styles.xbtnImg}
-                  source={require('../../../assets/xBtn.png')}
+                  resizeMode="center"
+                  style={styles.copyBtnImg}
+                  source={require('../../../assets/sendingBills/copyBtn.png')}
                 />
               </Pressable>
-            </View>
-            <View style={styles.mailBox}>
-              <P_14M style={styles.mailBoxTitle}>통신닥터 메일 주소</P_14M>
-              <View style={styles.mailCopy}>
-                <P_16M style={styles.mailAddress}>{inBoundEmail}</P_16M>
-                <Pressable style={styles.copyBtnBox} onPress={copyToClipboard}>
-                  <Image
-                    resizeMode="center"
-                    style={styles.copyBtnImg}
-                    source={require('../../../assets/sendingBills/copyBtn.png')}
-                  />
-                </Pressable>
-                <CopySuccessModal isVisible={copyModalVisible} />
-              </View>
-            </View>
-            <View style={styles.sendBillMethodBox}>
-              <P_14M style={styles.sendBillMethodTitle}>
-                통신닥터에 요금 청구서 보내는 방법
-              </P_14M>
-              <View>
-                {tongkind === 'SKT' && (
-                  <SendingBtn blue={true} onPress={callModalHandler}>
-                    SKT상담사 전화 요청
-                  </SendingBtn>
-                )}
-                {tongkind === 'KT' && (
-                  <SendingBtn blue={true} onPress={callModalHandler}>
-                    KT상담사 전화 요청
-                  </SendingBtn>
-                )}
-                {tongkind === 'LGU+' && (
-                  <SendingBtn blue={true} onPress={callModalHandler}>
-                    LG U+상담사 전화 요청
-                  </SendingBtn>
-                )}
-
-                {tongkind === 'SKT' && (
-                  <SendingBtn onPress={modalHandler}>SKT앱에서 전송</SendingBtn>
-                )}
-                {tongkind === 'KT' && (
-                  <SendingBtn onPress={modalHandler}>KT앱에서 전송</SendingBtn>
-                )}
-                {tongkind === 'LGU+' && (
-                  <SendingBtn onPress={modalHandler}>
-                    LG U+앱에서 전송
-                  </SendingBtn>
-                )}
-                <CallModal
-                  isVisible={callModalVisible}
-                  tongkind={tongkind}
-                  callModalHandler={callModalHandler}
-                />
-              </View>
-            </View>
-            <View>
-              <P_12R style={styles.personalInfoText}>
-                고객님의 정보는 개인정보보호법에 따라 안전하게 관리되며,
-                빅데이터 분석에 필요한 단순 요금 청구 정보만을 활용합니다.
-              </P_12R>
+              <CopySuccessModal isVisible={copyModalVisible} />
             </View>
           </View>
+          <View style={styles.sendBillMethodBox}>
+            <P_14M style={styles.sendBillMethodTitle}>
+              통신닥터에 요금 청구서 보내는 방법
+            </P_14M>
+            <View>
+              {tongkind === 'SKT' && (
+                <SendingBtn blue={true} onPress={callModalHandler}>
+                  SKT상담사 전화 요청
+                </SendingBtn>
+              )}
+              {tongkind === 'KT' && (
+                <SendingBtn blue={true} onPress={callModalHandler}>
+                  KT상담사 전화 요청
+                </SendingBtn>
+              )}
+              {tongkind === 'LGU+' && (
+                <SendingBtn blue={true} onPress={callModalHandler}>
+                  LG U+상담사 전화 요청
+                </SendingBtn>
+              )}
+
+              {tongkind === 'SKT' && (
+                <SendingBtn onPress={modalHandler}>SKT앱에서 전송</SendingBtn>
+              )}
+              {tongkind === 'KT' && (
+                <SendingBtn onPress={modalHandler}>KT앱에서 전송</SendingBtn>
+              )}
+              {tongkind === 'LGU+' && (
+                <SendingBtn onPress={modalHandler}>LG U+앱에서 전송</SendingBtn>
+              )}
+              <CallModal
+                isVisible={callModalVisible}
+                tongkind={tongkind}
+                callModalHandler={callModalHandler}
+              />
+            </View>
+          </View>
+          <View>
+            <P_12R style={styles.personalInfoText}>
+              고객님의 정보는 개인정보보호법에 따라 안전하게 관리되며, 빅데이터
+              분석에 필요한 단순 요금 청구 정보만을 활용합니다.
+            </P_12R>
+          </View>
         </View>
-        {tongkind === 'SKT' && (
-          <SendingBillsSKT isVisible={isVisible} modalHandler={modalHandler} />
-        )}
-        {tongkind === 'KT' && (
-          <SendingBillsKT isVisible={isVisible} modalHandler={modalHandler} />
-        )}
-        {tongkind === 'LGU+' && (
-          <SendingBillsLG isVisible={isVisible} modalHandler={modalHandler} />
-        )}
-      </SafeAreaView>
+      </View>
+      {tongkind === 'SKT' && (
+        <SendingBillsSKT isVisible={isVisible} modalHandler={modalHandler} />
+      )}
+      {tongkind === 'KT' && (
+        <SendingBillsKT isVisible={isVisible} modalHandler={modalHandler} />
+      )}
+      {tongkind === 'LGU+' && (
+        <SendingBillsLG isVisible={isVisible} modalHandler={modalHandler} />
+      )}
     </Modal>
   );
 };

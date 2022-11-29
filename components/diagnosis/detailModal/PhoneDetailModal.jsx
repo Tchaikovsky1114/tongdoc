@@ -71,7 +71,7 @@ const PhoneDetailModal = ({
 
   return (
     <>
-      <Modal visible={isVisible} animationType="slide">
+      <Modal visible={isVisible} animationType="fade">
         <StatusBar style="dark" />
         <SafeAreaView style={{ flex: 1 }}>
           <ScrollView style={styles.screen}>

@@ -81,7 +81,9 @@ const DetailSummary = ({
         </View>
         <View style={styles.summaryTextBox}>
           {detail?.doctor_comment.map((el, idx) => (
-            <P_14M key={idx}>{el}</P_14M>
+            <P_14M style={{ textAlign: 'center' }} key={idx}>
+              {el}
+            </P_14M>
           ))}
         </View>
         <View style={styles.summaryBillBox}>
