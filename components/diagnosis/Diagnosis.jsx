@@ -200,7 +200,7 @@ const styles = StyleSheet.create({
   },
   headerInner: {
     flex: 1,
-    maxHeight: 300,
+    // maxHeight: 300,
     marginTop: 8,
     backgroundColor: '#fff',
     shadowOpacity: 0.25,
@@ -208,7 +208,7 @@ const styles = StyleSheet.create({
     shadowRadius: 16,
     marginHorizontal: 24,
     borderRadius: 16,
-    padding: 24,
+    padding: 16,
     elevation: 10,
   },
   month: {
