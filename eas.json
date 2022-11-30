@@ -24,10 +24,8 @@
         "gradleCommand": ":app:assembleRelease"
       }
     },
-    "preview3": {
-      "developmentClient": true
-    },
     "production": {
+      "channel": "production",
       "env": {
         "CLIENT_ID": "2",
         "CLIENT_SECRET": "9IbXBERjdJ8zOyBOcyPJ0gwWOHhBfKbN9cTEgLiN"
@@ -36,7 +34,6 @@
   },
   "submit": {
     "production": {
-      "autoIncrement":true,
       "android": {
         "serviceAccountKeyPath":"./pc-api-6612058537315475822-937-6e6cd9f559db.json",
         "track":"internal"

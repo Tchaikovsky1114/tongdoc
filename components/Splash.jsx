@@ -52,11 +52,9 @@ export default function Splash() {
     }
   }
   }
-  const test = async () => {
-    await AsyncStorage.clear()
-  }
+  
   useEffect(() => {
-    test();
+    
     checkExistUserHandler();
   }, []);
 
