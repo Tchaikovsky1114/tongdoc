@@ -64,6 +64,10 @@ export default function Signup() {
       allGrantedPermission = false;
     }
 
+    /** SMS PERMISSION 
+     * https://docs.expo.dev/versions/latest/sdk/sms/
+     * 권한 승인 후 SMS.sendSMSAsync(address, message, options)로 SMS 발송 가능
+     */
     try {
       const isAvailable = await SMS.isAvailableAsync();
       if (isAvailable) {

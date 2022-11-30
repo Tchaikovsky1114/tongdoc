@@ -67,6 +67,7 @@ export default function Diagnosis() {
   useEffect(() => {
     fetchGetDiagnosisData();
   }, []);
+
   return (
     <ScrollView contentContainerStyle={styles.container}>
       {!diagnosisResultData ? (
@@ -82,13 +83,7 @@ export default function Diagnosis() {
             <View style={styles.modalContainer}>
               <View style={styles.modalInner}>
                 <View
-                  style={{
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                    width: '100%',
-                    marginBottom: 16,
-                  }}
+                  style={styles.choiceMonthBox}
                 >
                   <P_16M>월 선택하기</P_16M>
                   <Pressable onPress={toggleSelectMonthModalHandler}>
@@ -102,18 +97,7 @@ export default function Diagnosis() {
                   {diagnosisResultData.dates.map((item) => (
                     <Pressable
                       key={item.text}
-                      style={({ pressed }) => [
-                        {
-                          marginVertical: 4,
-                          paddingVertical: 2,
-                          width: '100%',
-                        },
-                        {
-                          backgroundColor: pressed
-                            ? 'rgba(0,0,255,0.2)'
-                            : '#fff',
-                        },
-                      ]}
+                      style={({ pressed }) => [styles.monthBox,{backgroundColor: pressed ? 'rgba(0,0,255,0.2)': '#fff'}]}
                       onPress={() => {
                         fetchGetDiagnosisData(item.year, item.month);
                         toggleSelectMonthModalHandler();
@@ -138,19 +122,12 @@ export default function Diagnosis() {
                 <View style={styles.resultBox}>
                   <Pressable onPress={toggleSelectMonthModalHandler}>
                     <View style={styles.month}>
-                      <P_14R
-                        style={{
-                          color: '#2d63e2',
-                        }}
-                      >
+                      <P_14R style={{color: '#2d63e2'}}>
                         {diagnosisResultData.year} 년{' '}
                         {diagnosisResultData.month} 월
                       </P_14R>
                       <Image
-                        style={{
-                          width: 23,
-                          height: 22.5,
-                        }}
+                        style={{width: 23,height: 22.5}}
                         source={require('../../assets/common/bluearrowdown.png')}
                       />
                     </View>
@@ -177,7 +154,7 @@ export default function Diagnosis() {
                 text="가족을 등록해 주세요."
               />
             </View>
-            <P_16R style={{ color: '#333333', marginTop: 24, marginBottom: 8 }}>
+            <P_16R style={styles.internetPrice}>
               인터넷 요금
             </P_16R>
             {diagnosisResultData.internet.map((item, index) => (
@@ -259,4 +236,17 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 5,
   },
+  choiceMonthBox:{
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    width: '100%',
+    marginBottom: 16,
+  },
+  monthBox: {
+    marginVertical: 4,
+    paddingVertical: 2,
+    width: '100%',
+  },
+  internetPrice:{ color: '#333333', marginTop: 24, marginBottom: 8 }
 });

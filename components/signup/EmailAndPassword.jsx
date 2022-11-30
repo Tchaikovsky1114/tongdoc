@@ -85,8 +85,9 @@ export default function EmailAndPassword({ navigation }) {
       setDetectBackspaceKey(false);
     }
   };
+
   const submitSignupHandler = async () => {
-    // try {
+    try {
       console.log(signupForm);
       const obj = {
         user_email: signupForm.email,
@@ -107,36 +108,36 @@ export default function EmailAndPassword({ navigation }) {
         third_party: 1,
         marketing: 1,
       }
-      console.log(obj)
-    //   await axios.post(
-    //     'https://api.tongdoc.co.kr/v1/register',
-    //     obj,{}
-    //   );
-    //   Alert.alert(
-    //     "회원가입이 완료되었습니다",
-    //     '로그인 페이지로 이동합니다',
-    //     [
-    //       {
-    //         text:'확인',
-    //         onPress: () => navigation.navigate('Signin')
-    //       }
-    //     ]
-    //   );
+  
+      await axios.post(
+        'https://api.tongdoc.co.kr/v1/register',
+        obj,{}
+      );
+      Alert.alert(
+        "회원가입이 완료되었습니다",
+        '로그인 페이지로 이동합니다',
+        [
+          {
+            text:'확인',
+            onPress: () => navigation.navigate('Signin')
+          }
+        ]
+      );
       
-    // } catch (error) {
+    } catch (error) {
       
-    //   console.error(error.message);
+      console.error(error.message);
       
-    //   Alert.alert(
-    //     error.message,
-    //     '',
-    //     [
-    //       {
-    //         text:'확인',
-    //       }
-    //     ]
-    //   );
-    // }
+      Alert.alert(
+        error.message,
+        '',
+        [
+          {
+            text:'확인',
+          }
+        ]
+      );
+    }
     
   };
 
@@ -337,7 +338,7 @@ export default function EmailAndPassword({ navigation }) {
       <View style={{ position: 'absolute', width, bottom: 0 }}>
         <Button
           onPress={submitSignupHandler}
-          text="확인"
+          text="다음"
           buttonStyle={{ backgroundColor: 'rgb(45, 99, 226)' }}
           textStyle={{ color: '#fff' }}
           totalTermsCheck={
