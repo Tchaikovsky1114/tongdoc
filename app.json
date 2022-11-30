@@ -6,6 +6,7 @@
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
+    
     "plugins": [
       [
         "expo-media-library",
@@ -28,15 +29,10 @@
       "backgroundColor": "#ffffff"
     },
     "updates": {
-      "runtimeVersion": "1.4.1",
-      "channel-name": "production",
-      "platform": "android",
       "fallbackToCacheTimeout": 0,
       "url": "https://u.expo.dev/a3143539-fa0c-4553-ac08-ecd426063869"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "bundleIdentifier": "co.kr.tongdoc",
       "supportsTablet": true,
@@ -48,14 +44,11 @@
         },
         "NSContactsUsageDescription": "연락처 권한이 필요합니다.",
         "NSMessage": "SMS 수신 동의가 필요합니다.",
-        "NSLocationWhenInUseUsageDescription": "위치 동의가 필요합니다.",
-        "NSPhotoLibraryUsageDescription": "Allow $(PRODUCT_NAME) to access your photos",
-        "NSPhotoLibraryAddUsageDescription": "Allow $(PRODUCT_NAME) to save photos"
+        "NSLocationWhenInUseUsageDescription": "위치 동의가 필요합니다."
       }
     },
     "android": {
       "package": "kr.co.tongdoc",
-      "versionCode": 3,
       "googleServicesFile": "./google-services.json",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
@@ -64,10 +57,7 @@
       "intentFilters": [
         {
           "action": "VIEW",
-          "category": [
-            "DEFAULT",
-            "BROWSABLE"
-          ],
+          "category": ["DEFAULT", "BROWSABLE"],
           "data": {
             "scheme": "exampleformanagedexpo"
           }
@@ -82,13 +72,13 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
+    "runtimeVersion": {
+      "policy": "sdkVersion"
+    },
     "extra": {
       "eas": {
         "projectId": "a3143539-fa0c-4553-ac08-ecd426063869"
       }
-    },
-    "runtimeVersion": {
-      "policy": "sdkVersion"
     }
   }
 }
