@@ -28,7 +28,7 @@ const reviews = [
     id: 4,
     title: '가족 모두의 통신비를 한눈에 보고 관리할 수 있어서 좋네요.',
     description:
-      '저희 가족은 딸을 포함해서 3명인데, 그 동안 신경쓰지 않았던 결합할인을 받으려고 부모님까지 묶었더니 월 2만원 이상 더 절감이 되더군요. 통닥에서 가족 모두의 통신비 현황을 매달 한눈에 볼수 있.',
+      '저희 가족은 딸을 포함해서 3명인데, 그 동안 신경쓰지 않았던 결합할인을 받으려고 부모님까지 묶었더니 월 2만원 이상 더 절감이 되더군요. 통닥에서 가족 모두의 통신비 현황을 매달 한눈에 볼수 있었습니다.',
   },
 ];
 
@@ -70,7 +70,6 @@ export default function ReviewCarousel() {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 6,
     alignItems: 'center',
   },
   item: {
@@ -83,7 +82,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingVertical: 24,
     marginHorizontal: 8,
-    alignItems: 'center',
     minHeight: 260,
   },
   reviewIndexBox: {

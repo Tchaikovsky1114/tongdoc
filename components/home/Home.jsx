@@ -97,7 +97,7 @@ export default function Home() {
             </Pressable>
           </View>
           <View style={styles.bottomInner}>
-            <Reviews mainConfiguringData={mainConfiguringData} />
+            <Reviews mainConfiguringData={mainConfiguringData.doctor.review} />
           </View>
         </>
       ) : (
