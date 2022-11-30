@@ -49,15 +49,11 @@ export default function SummaryBannerCard({ diagnosisResultData }) {
             <P_14M>절감 가능액 (월)</P_14M>
             <View style={styles.saveMonthChargeBox}>
               <Image
-                style={{ width: 10, height: 10, marginRight: 4, bottom: 2 }}
+                style={styles.redReverseTriangle}
                 source={require('../../assets/common/redreversetriangle.png')}
               />
               <P_22M
-                style={{
-                  color: '#FF3A3A',
-                  alignItems: 'center',
-                  justifyContent: 'flex-start',
-                }}
+                style={styles.savingMoneyTitle}
               >
                 {usePrice(totalSavings)}{' '}
               </P_22M>
@@ -110,26 +106,15 @@ export default function SummaryBannerCard({ diagnosisResultData }) {
             <P_14M>절감 가능액 (월)</P_14M>
             <View style={styles.saveMonthChargeBox}>
               <Image
-                style={{ width: 10, height: 10, marginRight: 4, bottom: 2 }}
+                style={styles.redReverseTriangle}
                 source={require('../../assets/common/redreversetriangle.png')}
               />
               <P_22M
-                style={{
-                  color: '#FF3A3A',
-                  alignItems: 'center',
-                  justifyContent: 'flex-start',
-                }}
+                style={styles.savingMoneyTitle}
               >
                 {usePrice(totalSavings)}{' '}
               </P_22M>
-              <P_12R
-                style={{
-                  color: '#666666',
-                  top: 2,
-                }}
-              >
-                원
-              </P_12R>
+              <P_12R style={{color: '#666666',top: 2}}>원</P_12R>
             </View>
           </View>
         </View>
@@ -171,15 +156,11 @@ export default function SummaryBannerCard({ diagnosisResultData }) {
             <P_14M>절감 가능액 (월)</P_14M>
             <View style={styles.saveMonthChargeBox}>
               <Image
-                style={{ width: 10, height: 10, marginRight: 4, bottom: 2 }}
+                style={styles.redReverseTriangle}
                 source={require('../../assets/common/redreversetriangle.png')}
               />
               <P_22M
-                style={{
-                  color: '#FF3A3A',
-                  alignItems: 'center',
-                  justifyContent: 'flex-start',
-                }}
+                style={styles.savingMoneyTitle}
               >
                 {usePrice(totalSavings)}{' '}
               </P_22M>
@@ -232,15 +213,11 @@ export default function SummaryBannerCard({ diagnosisResultData }) {
             <P_14M>절감 가능액 (월)</P_14M>
             <View style={styles.saveMonthChargeBox}>
               <Image
-                style={{ width: 10, height: 10, marginRight: 4, bottom: 2 }}
+                style={styles.redReverseTriangle}
                 source={require('../../assets/common/redreversetriangle.png')}
               />
               <P_22M
-                style={{
-                  color: '#FF3A3A',
-                  alignItems: 'center',
-                  justifyContent: 'flex-start',
-                }}
+                style={styles.savingMoneyTitle}
               >
                 {usePrice(totalSavings)}{' '}
               </P_22M>
@@ -293,15 +270,11 @@ export default function SummaryBannerCard({ diagnosisResultData }) {
             <P_14M>절감 가능액 (월)</P_14M>
             <View style={styles.saveMonthChargeBox}>
               <Image
-                style={{ width: 10, height: 10, marginRight: 4, bottom: 2 }}
+                style={styles.redReverseTriangle}
                 source={require('../../assets/common/redreversetriangle.png')}
               />
               <P_22M
-                style={{
-                  color: '#FF3A3A',
-                  alignItems: 'center',
-                  justifyContent: 'flex-start',
-                }}
+                style={styles.savingMoneyTitle}
               >
                 {usePrice(totalSavings)}{' '}
               </P_22M>
@@ -354,15 +327,11 @@ export default function SummaryBannerCard({ diagnosisResultData }) {
             <P_14M>절감 가능액 (월)</P_14M>
             <View style={styles.saveMonthChargeBox}>
               <Image
-                style={{ width: 10, height: 10, marginRight: 4, bottom: 2 }}
+                style={styles.redReverseTriangle}
                 source={require('../../assets/common/redreversetriangle.png')}
               />
               <P_22M
-                style={{
-                  color: '#FF3A3A',
-                  alignItems: 'center',
-                  justifyContent: 'flex-start',
-                }}
+                style={styles.savingMoneyTitle}
               >
                 {usePrice(totalSavings)}{' '}
               </P_22M>
@@ -416,4 +385,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  redReverseTriangle:{
+    width: 10,
+    height: 10,
+    marginRight: 4,
+    bottom: 2
+  },
+  savingMoneyTitle:{
+    color: '#FF3A3A',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+  }
 });

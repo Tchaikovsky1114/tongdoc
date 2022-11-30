@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, Image, Pressable } from 'react-native';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState,useCallback } from 'react';
 import P_16M from '../../style/paragraph/P_16M';
 import P_12R from '../../style/paragraph/P_12R';
 import P_14M from '../../style/paragraph/P_14M';
@@ -11,18 +11,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 
 export default function FamilyCard({ item, index, billType }) {
-  const {
-    id,
-    user_name: name,
-    phone_number: phoneNumber,
-    tcom: telecom,
-    state,
-    bill_id: billId,
-    check_y,
-    check_m,
-    charge,
-    save: savings,
-  } = item;
+  const {id,user_name: name,phone_number: phoneNumber,tcom: telecom,state,check_y,check_m,charge,save: savings,} = item;
   const [phoneDetailModalIsVisible, setPhoneDetailModalIsVisible] =
     useState(false);
   const [confirmModalIsVisible, setConfirmModalIsVisible] = useState(false);
@@ -39,7 +28,8 @@ export default function FamilyCard({ item, index, billType }) {
         const { data } = await axios.get(
           `https://api.tongdoc.co.kr/v1/doctor/detail?user_id=${id}&bill_type=${billType}&year=${year}&month=${month}`,
           {
-            headers: {
+            headers:
+            {
               accept: 'applycation/json',
               Authorization: `Bearer ${token}`,
             },
@@ -56,13 +46,14 @@ export default function FamilyCard({ item, index, billType }) {
     setDetail(data);
   };
 
-  const togglePhoneDetailModalHandler = () => {
+  const togglePhoneDetailModalHandler = useCallback(() => {
     setPhoneDetailModalIsVisible((prev) => !prev);
-  };
+  },[]);
 
-  const toggleConfirmModalHandler = () => {
+  const toggleConfirmModalHandler = useCallback(() => {
     setConfirmModalIsVisible((prev) => !prev);
-  };
+  },[]);
+  
   return (
     <>
       <Pressable onPress={() => fetchGetDiagnosisDetail(check_y, check_m)}>
@@ -80,16 +71,13 @@ export default function FamilyCard({ item, index, billType }) {
               {name} {index === 0 ? <Text>(나)</Text> : null}
             </P_16M>
             <View style={{ flexDirection: 'row' }}>
-              {telecom ? (
-                <P_12R style={{ color: '#666666', paddingRight: 8 }}>
-                  {telecom}
-                </P_12R>
-              ) : null}
+              {
+                telecom
+                ? <P_12R style={{ color: '#666666', paddingRight: 8 }}>{telecom}</P_12R>
+                : null
+              }
               <P_12R style={{ color: '#666666' }}>
-                {phoneNumber.replace(
-                  /(\d{3})(\d{2})(\d{3})(\d{1})/,
-                  '$1-$2**-*$4'
-                )}
+                {phoneNumber.replace(/(\d{3})(\d{2})(\d{3})(\d{1})/,'$1-$2**-*$4')}
               </P_12R>
             </View>
           </View>
@@ -98,13 +86,7 @@ export default function FamilyCard({ item, index, billType }) {
             <View style={styles.saveMoneyBox}>
               <P_14M style={{ color: '#2d63e2' }}>(</P_14M>
               <Image
-                style={{
-                  width: 4.5,
-                  height: 3.6,
-                  marginRight: 4,
-                  marginLeft: 2,
-                  top: 1,
-                }}
+                style={styles.reverseTriangleImage}
                 source={require('../../assets/diagnosis/bluereversetriangle.png')}
               />
               <P_14M style={{ color: '#2d63e2' }}>
@@ -149,4 +131,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
+  reverseTriangleImage:{
+    width: 6,
+    height: 10,
+    marginRight: 4,
+    marginLeft: 2,
+    top: 1,
+  }
 });
