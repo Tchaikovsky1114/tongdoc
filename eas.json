@@ -1,6 +1,7 @@
 {
   "cli": {
-    "version": ">= 2.6.0"
+    "version": ">= 2.6.0",
+    "appVersionSource": "remote"
   },
   "build": {
     "development": {
@@ -35,6 +36,7 @@
   },
   "submit": {
     "production": {
+      "autoIncrement":true,
       "android": {
         "serviceAccountKeyPath":"./pc-api-6612058537315475822-937-6e6cd9f559db.json",
         "track":"internal"

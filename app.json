@@ -6,7 +6,7 @@
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
-
+    
     "plugins": [
       [
         "expo-media-library",
@@ -49,6 +49,7 @@
     },
     "android": {
       "package": "kr.co.tongdoc",
+      "versionCode":2,
       "googleServicesFile": "./google-services.json",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
