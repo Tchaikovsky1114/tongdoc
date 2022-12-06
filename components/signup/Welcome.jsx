@@ -1,5 +1,5 @@
-import { StyleSheet, Pressable, View,Image,Text,Dimensions } from 'react-native'
-import React,{useEffect,useRef,useState} from 'react'
+import { StyleSheet, View,Image,Dimensions } from 'react-native'
+import React,{useCallback, useEffect,useRef,useState} from 'react'
 import { useRecoilValue } from 'recoil'
 import {signupState} from '../../store/signup'
 import H4_24R from '../../style/H4_24R'
@@ -28,6 +28,13 @@ export default function Welcome({navigation}) {
   const notificationListener = useRef();
   const responseListener = useRef();
 
+
+  
+  const moveToHomeScreenHandler = useCallback(() => {
+    navigation.navigate('Home')
+  },[])
+
+
   async function schedulePushNotification() {
     
     await Notifications.scheduleNotificationAsync({
@@ -38,10 +45,6 @@ export default function Welcome({navigation}) {
       },
       trigger: { seconds: 2 },
     });
-  }
-
-  const moveToHomeScreenHandler = () => {
-    navigation.navigate('Home')
   }
 
   useEffect(() => {

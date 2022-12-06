@@ -1,3 +1,4 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
 import { useEffect, useRef, useState } from 'react';
 import {
@@ -26,7 +27,7 @@ const Signin = () => {
   const [signinForm, setSigninForm] = useState({
     email: '',
     password: '',
-    device_token: '2',
+    device_token: '',
     device_type: Platform.OS,
   });
   const [, setSignin] = useRecoilState(signinState);
@@ -93,11 +94,9 @@ const Signin = () => {
           tongkind: response.tcom,
         });
         const inBoundEmail = response.inbound_email;
-
         
         navigation.navigate("Home", {
           screen: "Main",
-
           params: {
             tongkind: response.tcom,
             inBoundEmail: inBoundEmail,
@@ -109,6 +108,23 @@ const Signin = () => {
     }
   };
 
+
+  const getPushToken = async () => {
+    const pushToken = await AsyncStorage.getItem('pushToken');
+    if(!pushToken) return;
+    
+    setSigninForm((prev) => ({
+      ...prev,
+      device_token:JSON.parse(pushToken) 
+    }))
+  };
+
+  useEffect(() => {  
+    getPushToken()
+  }, [])
+
+  
+  console.log(signinForm);
   return (
     <View style={styles.container}>
       <ScrollView style={styles.screen}>

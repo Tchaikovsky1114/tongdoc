@@ -10,7 +10,7 @@ export default function Banner({ mainConfiguringData, diagnosisResultData }) {
     <View style={styles.container}>
       <View style={styles.inner}>
         <View style={styles.diagnosisResultTitleBox}>
-          <P_18M>{month}월 통신비 진단 결과 </P_18M>
+          <P_18M>{month}월 우리집 통신비 진단 결과 </P_18M>
           <Image
             style={{ width: 23, height: 24 }}
             source={require('../../assets/common/graynextarrow.png')}

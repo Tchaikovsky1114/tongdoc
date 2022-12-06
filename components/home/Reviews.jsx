@@ -1,10 +1,7 @@
 import { StyleSheet, Image, View, Dimensions } from 'react-native';
 import React from 'react';
 import P_18M from '../../style/paragraph/P_18M';
-import { FlatList } from 'react-native-gesture-handler';
 import ReviewCarousel from './ReviewCarousel';
-
-const { width } = Dimensions.get('window');
 
 export default function Reviews() {
   return (

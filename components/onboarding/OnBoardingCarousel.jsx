@@ -97,13 +97,13 @@ const styles = StyleSheet.create({
   },
   titleBox:{
     marginTop:128,
-    flex:1,
+    width:'100%',
     justifyContent:'center',
+    marginBottom:16,
   },
   descriptionBox: {
     flex:2,
     justifyContent:'flex-start',
-    marginTop:-8
   },
   imageBox:{
     flex:7,
