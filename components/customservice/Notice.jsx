@@ -17,7 +17,6 @@ export default function Notice() {
         headers:{
           Authorization: `Bearer ${token}`
         }
-        
       });
       setNotice(data)  
     } catch (error) {
@@ -28,6 +27,7 @@ export default function Notice() {
   useEffect(()=>{
     getNotice()
   },[])
+  
   return (
     <SafeAreaView style={styles.container}>
       <H2_28M style={styles.title}>공지사항</H2_28M>
