@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback } from 'react';
 import OnboardingCarousel from './OnBoardingCarousel';
 import {
   Text,
@@ -9,18 +9,13 @@ import {
   StatusBar,
   SafeAreaView,
 } from 'react-native';
-
-
 const { width } = Dimensions.get('window');
-
 
 const OnBoarding = ({ navigation }) => {
   
   const onMoveSignupScreenHandler = useCallback(() => {
     navigation.navigate('Signup');
   },[]);
-
-
 
   return (
     <View style={styles.container}>

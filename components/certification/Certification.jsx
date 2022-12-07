@@ -18,34 +18,12 @@ const { width } = Dimensions.get('window');
 
 export default function Certification() {
   const navigation = useNavigation();
-  const userInfo = useRecoilState(signupState);
+
 
   const getCertificationHandler = () => {
     navigation.navigate('Signup/CertificationInProgress');
   };
 
-  const testFCM = async () => {
-    await fetch('https://fcm.googleapis.com/fcm/send', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `key=AIzaSyD9EHL35qsGQ_VuCUAXEB4pGIkUg9Bg3y8`,
-      },
-      body: JSON.stringify({
-        to: userInfo.userPushToken,
-        priority: 'normal',
-        data: {
-          experienceId: '@ermerskim/tongdoc_app',
-          scopeKey: '@ermerskim/tongdoc_app',
-          title: "📧 You've got mail",
-          message: 'Hello world! 🌐',
-        },
-      }),
-    });
-  };
-  useEffect(() => {
-    testFCM();
-  }, []);
   return (
     <View style={styles.container}>
       <View style={styles.inner}>

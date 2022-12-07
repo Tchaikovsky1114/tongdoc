@@ -24,6 +24,7 @@ import H4_24R from '../../style/H4_24R';
 import P_14R from '../../style/paragraph/P_14R';
 import { useRecoilState } from 'recoil';
 import { signupState } from '../../store/signup';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const { width } = Dimensions.get('window');
 
@@ -31,8 +32,9 @@ export default function Signup() {
   const navigation = useNavigation();
   const [isLoading, setIsLoading] = useState(false);
   const [userInfo, setUserInfo] = useRecoilState(signupState);
-  const getAuthorityPressHandler = async () => {
 
+
+  const getAuthorityPressHandler = async () => {
     if(!isDevice){
       Alert.alert('데스크탑에서 실행중이신가요?','스마트폰 외에는 접근 권한을 설정할 수 없습니다. 다음 페이지로 이동합니다.',
       [
@@ -118,19 +120,19 @@ export default function Signup() {
             }
           ]
         );
-        
         allGrantedPermission = false;
         return;
       }
-
-      token = { data } = await Notifications.getExpoPushTokenAsync({
-        experienceId: 'tongdoc_app',
+      
+      const { data:pushToken } = await Notifications.getExpoPushTokenAsync({
+        experienceId: '@ermerskim/tongdoc_app',
       });
-
+      token = pushToken
       setUserInfo((prev) => ({
         ...prev,
-        userPushToken: token.data,
+        userPushToken: pushToken,
       }));
+      await AsyncStorage.setItem('pushToken',JSON.stringify(pushToken));
 
       if (Platform.OS === 'android') {
         Notifications.setNotificationChannelAsync('default', {
@@ -191,7 +193,6 @@ export default function Signup() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-
     backgroundColor: '#fff',
   },
   inner: {

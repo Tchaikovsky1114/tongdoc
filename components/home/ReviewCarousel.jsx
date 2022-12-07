@@ -76,6 +76,7 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
   },
   itemInner: {
+    position:'relative',
     width: width - 64,
     backgroundColor: '#fff',
     borderRadius: 16,
@@ -83,6 +84,7 @@ const styles = StyleSheet.create({
     paddingVertical: 24,
     marginHorizontal: 8,
     minHeight: 260,
+    maxHeight: 300,
   },
   reviewIndexBox: {
     width: '100%',
@@ -96,8 +98,10 @@ const styles = StyleSheet.create({
     color: '#2D63E2'
   },
   viewMoreBox:{
+    position:'absolute',
     width: '100%',
-    marginTop:32
+    bottom:16,
+    right:16,
   },
   viewMore:{ textAlign: 'right', color: '#2D63E2' }
 });

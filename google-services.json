@@ -1,3 +1,4 @@
+
 {
   "project_info": {
     "project_number": "631097673712",
@@ -15,6 +16,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "631097673712-kp373cgd64rloi7q1pvrgd9ln84d6da2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "kr.co.tongdoc",
+            "certificate_hash": "23034c2349aad53641f7e1ec8337218ad8111fda"
+          }
+        },
+        {
           "client_id": "631097673712-5u9b0d74bbfv3krke3rq6kf4ftfu9q6s.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -30,6 +39,13 @@
             {
               "client_id": "631097673712-5u9b0d74bbfv3krke3rq6kf4ftfu9q6s.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "631097673712-4mlptc536bitfhhdfb4hek67oe48t4t8.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "kr.co.tongdoc"
+              }
             }
           ]
         }

@@ -6,7 +6,6 @@ import {
   Keyboard,
   Dimensions,
   Platform,
-  
 } from 'react-native';
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import H4_24R from '../../style/H4_24R';
@@ -26,6 +25,7 @@ import {
 import { useRecoilValue } from 'recoil';
 import { signupState } from '../../store/signup';
 import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 const { width } = Dimensions.get('window');
 
 export default function EmailAndPassword({ navigation }) {
@@ -54,7 +54,6 @@ export default function EmailAndPassword({ navigation }) {
 
   const changeSignupFormHandler = (e, name) => {
     const {nativeEvent: { text }} = e;
-
     setSignupForm((prev) => ({
       ...prev,
       [name]: text,
@@ -88,7 +87,6 @@ export default function EmailAndPassword({ navigation }) {
 
   const submitSignupHandler = async () => {
     try {
-      console.log(signupForm);
       const obj = {
         user_email: signupForm.email,
         password: signupForm.password,
@@ -101,14 +99,13 @@ export default function EmailAndPassword({ navigation }) {
         tcom: userInfo.telecom,
         gender: userInfo.gender,
         auth_type: 0,
-        device_token: userInfo.userPushToken || '',
+        device_token: userInfo.userPushToken,
         device_type: Platform.OS,
         dupinfo: userInfo.dupinfo,
         recommender: signupForm.recommendCode,
         third_party: 1,
         marketing: 1,
       }
-  
       await axios.post(
         'https://api.tongdoc.co.kr/v1/register',
         obj,{}
@@ -125,9 +122,7 @@ export default function EmailAndPassword({ navigation }) {
       );
       
     } catch (error) {
-      
       console.error(error.message);
-      
       Alert.alert(
         error.message,
         '',
@@ -138,16 +133,16 @@ export default function EmailAndPassword({ navigation }) {
         ]
       );
     }
-    
   };
 
   useEffect(() => {
     if (detectBackspaceKey) return;
     const extractRequiredPropertyObj = signupForm;
-    delete extractRequiredPropertyObj.recommendCode;
+    // delete extractRequiredPropertyObj.recommendCode;
     setTotalFormCheck(true);
 
     for (const inputs in extractRequiredPropertyObj) {
+      if(inputs !== 'recommendCode'){
       if (inputs === 'password') {
         if (!isValidPassword(signupForm[inputs])) {
           setTotalFormCheck(false);
@@ -159,6 +154,7 @@ export default function EmailAndPassword({ navigation }) {
         }
       }
     }
+    }
     if (
       totalFormCheck &&
       signupForm.password === signupForm.passwordConfirm &&
@@ -166,7 +162,7 @@ export default function EmailAndPassword({ navigation }) {
     ) {
       Keyboard.dismiss();
     }
-  }, [signupForm, totalFormCheck]);
+  }, [signupForm.email,signupForm.password,signupForm.passwordConfirm, totalFormCheck]);
 
   return (
     <View style={styles.container}>
@@ -174,6 +170,7 @@ export default function EmailAndPassword({ navigation }) {
         modalVisible={modalVisible}
         setModalVisible={setModalVisible}
         termsDetail={termsDetail}
+        
       />
       <View style={styles.inner}>
         <ScrollView scrollEnabled>
@@ -222,7 +219,9 @@ export default function EmailAndPassword({ navigation }) {
               onKeyPress={detectBackspaceKeyHandler}
             />
             <SignupInput
+              type="recommendCode"
               value={signupForm.recommendCode}
+              signupForm={signupForm}
               placeholder="(선택) 추천인 코드"
               onChange={(e) => changeSignupFormHandler(e, 'recommendCode')}
               errorText="해당 추천인 코드가 존재하지 않습니다."

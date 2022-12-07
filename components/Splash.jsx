@@ -1,9 +1,10 @@
 import { StyleSheet, Image, View } from 'react-native';
-import React, { useEffect } from 'react';
+import React, { useLayoutEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import {CLIENT_ID,CLIENT_SECRET} from 'react-native-dotenv';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import P_20R from '../style/paragraph/P_20R';
 
 
 
@@ -16,7 +17,7 @@ export default function Splash() {
   const checkExistUserHandler = async () => {
     const refreshToken = await AsyncStorage.getItem('refresh');
     if(!refreshToken) {
-      setTimeout(() => navigation.navigate('OnBoarding'), 2000);
+     navigation.navigate('OnBoarding');
     }else{
     try {
       const { data } = await axios.post('https://api.tongdoc.co.kr/oauth/token',{
@@ -53,8 +54,13 @@ export default function Splash() {
   }
   }
   
-  useEffect(() => {
-    
+  /** 테스트 시 사용하세요. */
+  // const removeAsyncStorage = async () => {
+  //   await AsyncStorage.clear()
+  // }
+
+  useLayoutEffect(() => {
+    // removeAsyncStorage(); 
     checkExistUserHandler();
   }, []);
 
@@ -64,12 +70,16 @@ export default function Splash() {
         source={require('../assets/logo.png')}
         style={styles.splashImage}
       />
+      <View style={{position:'absolute',bottom:20,justifyContent:'center'}}>
+      <P_20R style={{color:'#fff'}}>새로워진 통신닥터! version 1.4.1</P_20R>
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   greeting: {
+    position:'relative',
     flex: 1,
     backgroundColor: '#2D63E2',
     alignItems: 'center',

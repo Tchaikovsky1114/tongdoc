@@ -1,13 +1,16 @@
 {
   "cli": {
-    "version": ">= 2.6.0",
-    "appVersionSource": "remote"
+    "version": ">= 2.6.0"
   },
   "build": {
     "development": {
+      "channel": "development",
       "developmentClient": true,
       "distribution": "internal",
-      "extends": "production"
+      "extends": "production",
+      "android": {
+        "buildType": "apk"
+      }
     },
     "preview": {
       "channel": "staging",
@@ -47,4 +50,3 @@
     }
   }
 }
-
