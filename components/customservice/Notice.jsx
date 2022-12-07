@@ -27,7 +27,7 @@ export default function Notice() {
   useEffect(()=>{
     getNotice()
   },[])
-  
+
   return (
     <SafeAreaView style={styles.container}>
       <H2_28M style={styles.title}>공지사항</H2_28M>
@@ -50,7 +50,8 @@ export default function Notice() {
 const styles = StyleSheet.create({
   container:{
     flex:1,
-    paddingHorizontal:24
+    paddingHorizontal:24,
+    backgroundColor:'#fff'
   },
   title:{
     marginVertical:40

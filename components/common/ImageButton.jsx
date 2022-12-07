@@ -1,7 +1,8 @@
 import { StyleSheet, Text, View,Pressable,Image } from 'react-native'
 import React from 'react'
+import P_14R from '../../style/paragraph/P_14R'
 
-export default function ImageButton({onPress,buttonStyle,imageURL,imageStyle,pressedColor}) {
+export default function ImageButton({onPress,buttonStyle,imageURL,imageStyle,pressedColor,buttonText,textStyle}) {
   return (
     <Pressable
     onPress={onPress}
@@ -15,6 +16,7 @@ export default function ImageButton({onPress,buttonStyle,imageURL,imageStyle,pre
       },
     ]}
   >
+    {buttonText && <P_14R style={textStyle}>{buttonText}</P_14R>}
     <Image style={imageStyle} source={imageURL} />
   </Pressable>
   )
@@ -22,6 +24,7 @@ export default function ImageButton({onPress,buttonStyle,imageURL,imageStyle,pre
 
 const styles = StyleSheet.create({
   button: {
-    
+    flexDirection:'row',
+    justifyContent:'space-between'
   },
 })
