@@ -1,5 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
-import { useEffect, useRef, useState } from 'react';
+import axios from 'axios';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
   Pressable,
   ScrollView,
@@ -16,21 +17,60 @@ const { width } = Dimensions.get('window');
 
 const FindInfo = ({ id }) => {
   const [selectTap, setSelectTap] = useState(id);
-  const [isVisible, setIsVisible] = useState(false);
-  const [isDisable, setIsDisable] = useState(false);
+  const [isEmailVisible, setIsEmailVisible] = useState(false);
+  const [isPWVisible, setIsPWVisible] = useState(false);
+  const [isEmailDisable, setIsEmailDisable] = useState(false);
+  const [isPWDisable, setIsPWDisable] = useState(false);
+  const [emailFind, setEmailFind] = useState({
+    email: '',
+    phone: '',
+  });
+  const [passwordFind, setPasswordFind] = useState({
+    email: '',
+    name: '',
+    phone: '',
+  });
   const firstRef = useRef(null);
   const secondRef = useRef(null);
   const lastRef = useRef(null);
   const selectEmail = () => {
+    setPasswordFind({
+      email: '',
+      name: '',
+      phone: '',
+    });
     setSelectTap('email');
   };
-  const selectPassword = () => {
+  const selectPassword = useCallback(() => {
+    setEmailFind({
+      email: '',
+      phone: '',
+    });
     setSelectTap('password');
-  };
+  }, [selectTap]);
   const closeModalHandler = () => {
-    setIsVisible((prev) => !prev);
+    if (selectTap === 'email') {
+      setIsEmailVisible((prev) => !prev);
+    } else {
+      setIsPWVisible((prev) => !prev);
+    }
   };
 
+  const changeEmailHandler = useCallback(
+    (e, key) => {
+      setEmailFind((prev) => ({
+        ...prev,
+        [key]: e,
+      }));
+    },
+    [emailFind]
+  );
+  const changePWHandler = (e, key) => {
+    setPasswordFind((prev) => ({
+      ...prev,
+      [key]: e,
+    }));
+  };
   // 주석 : 초기  화면 진입시 이름 input에 키보드 올라오게 하기
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -39,6 +79,36 @@ const FindInfo = ({ id }) => {
     return () => clearTimeout(timer);
   }, [selectTap]);
 
+  // 주석 : 이메일 찾기, 비밀번호 찾기 버튼 활성화 비활성화
+
+  useEffect(() => {
+    setIsEmailDisable((prev) => !prev);
+  }, [emailFind.email !== '' && emailFind.phone !== '']);
+
+  useEffect(() => {
+    setIsPWDisable((prev) => !prev);
+  }, [
+    passwordFind.email !== '' &&
+      passwordFind.name !== '' &&
+      passwordFind.phone !== '',
+  ]);
+
+  // 주석 : 이메일 찾기 함수
+  const [foundEmail, setFoundEmail] = useState('');
+  const findEmailHandler = useCallback(async () => {
+    try {
+      await axios
+        .get(
+          `https://api.tongdoc.co.kr/v1/user/email/find?user_name=${emailFind.email}&phone_number=${emailFind.phone}`
+        )
+        .then((res) => setFoundEmail(res.data));
+      setIsEmailVisible((prev) => !prev);
+      console.log(emailFind, '2');
+    } catch (error) {
+      console.log(error);
+    }
+  }, [emailFind]);
+  console.log(emailFind, '1');
   return (
     <View style={styles.container}>
       <ScrollView>
@@ -76,15 +146,17 @@ const FindInfo = ({ id }) => {
             <SigninInput
               ref={firstRef}
               inputStyle={styles.inputMargin}
-              placeholder="이름"
+              placeholder=" 이름"
               returnKey="next"
+              onChangeInput={(e) => changeEmailHandler(e, 'email')}
               onSubmitEditing={() => {
                 secondRef.current.focus();
               }}
             />
             <SigninInput
               ref={secondRef}
-              placeholder="휴대폰 번호 ( - 없이 숫자만 입력해 주세요.)"
+              placeholder=" 휴대폰 번호 ( - 없이 숫자만 입력해 주세요.)"
+              onChangeInput={(e) => changeEmailHandler(e, 'phone')}
               keyboardType="decimal-pad"
             />
           </View>
@@ -93,9 +165,10 @@ const FindInfo = ({ id }) => {
             <SigninInput
               ref={firstRef}
               inputStyle={styles.inputMargin}
-              placeholder="이메일"
+              placeholder=" 이메일"
               returnKey="next"
               keyboardType="email-address"
+              onChangeInput={(e) => changePWHandler(e, 'email')}
               onSubmitEditing={() => {
                 secondRef.current.focus();
               }}
@@ -103,42 +176,60 @@ const FindInfo = ({ id }) => {
             <SigninInput
               ref={secondRef}
               inputStyle={styles.inputMargin}
-              placeholder="이름"
+              placeholder=" 이름"
               returnKey="next"
+              onChangeInput={(e) => changePWHandler(e, 'name')}
               onSubmitEditing={() => {
                 lastRef.current.focus();
               }}
             />
             <SigninInput
               ref={lastRef}
-              placeholder="휴대폰 번호 ( - 없이 숫자만 입력해 주세요.)"
+              onChangeInput={(e) => changePWHandler(e, 'phone')}
+              placeholder=" 휴대폰 번호 ( - 없이 숫자만 입력해 주세요.)"
               keyboardType="decimal-pad"
             />
           </View>
         )}
       </ScrollView>
-      <View style={isDisable ? styles.loginBtnBoxDisabled : styles.loginBtnBox}>
-        <Pressable disabled={isDisable}>
-          <View style={styles.loginBtn}>
-            <Text style={styles.loginBtnText}>확인</Text>
-          </View>
-        </Pressable>
-      </View>
+      {selectTap === 'email' ? (
+        <View
+          style={
+            isEmailDisable ? styles.loginBtnBoxDisabled : styles.loginBtnBox
+          }
+        >
+          <Pressable disabled={isEmailDisable} onPress={findEmailHandler}>
+            <View style={styles.loginBtn}>
+              <Text style={styles.loginBtnText}>확인</Text>
+            </View>
+          </Pressable>
+        </View>
+      ) : (
+        <View
+          style={isPWDisable ? styles.loginBtnBoxDisabled : styles.loginBtnBox}
+        >
+          <Pressable disabled={isPWDisable}>
+            <View style={styles.loginBtn}>
+              <Text style={styles.loginBtnText}>확인</Text>
+            </View>
+          </Pressable>
+        </View>
+      )}
       {selectTap === 'email' ? (
         <SigninModal
-          isVisible={isVisible}
-          firstInfoText={'이메일 주소가'}
-          secondInfoText={'문자로 발송되었습니다.'}
+          isVisible={isEmailVisible}
+          firstInfoText={`${foundEmail.user_name}님의 이메일은`}
+          secondInfoText={`${foundEmail.user_email}입니다.`}
           pressBtn={closeModalHandler}
-          btnText={'로그인하기'}
+          btnText={'닫기'}
         />
       ) : (
         <SigninModal
-          isVisible={isVisible}
+          isVisible={isPWVisible}
           firstInfoText={'임시 비밀번호가'}
           secondInfoText={'문자로 발송되었습니다.'}
           pressBtn={closeModalHandler}
-          btnText={'로그인하기'}
+          btnText={'닫기'}
         />
       )}
     </View>
