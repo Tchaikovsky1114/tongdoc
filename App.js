@@ -36,10 +36,11 @@ import FamilyRegistrationScreen from './components/diagnosis/familyRegistraion/F
 import InternetRegistration from './components/diagnosis/internetRegistration/InternetRegistration';
 import DetailInternet from './components/diagnosis/detail/DetailInternet';
 import BackButton from './components/common/BackButton';
-import Notice from './components/customservice/Notice';
+import Notice from './components/customservice/notice/Notice';
 import Inquiry from './components/customservice/Inquiry';
 import InfomationUse from './components/customservice/InfomationUse';
 import AboutUs from './components/customservice/AboutUs';
+import NoticeDetail from './components/customservice/notice/NoticeDetail';
 
 enableScreens();
 const Stack = createNativeStackNavigator();
@@ -208,21 +209,24 @@ const BottomTabs = () => {
       <Tab.Screen
         name="CustomService"
         component={CustomServiceScreen}
+        
         options={{
           title:'고객센터',
-          headerTitle:'',
+          headerTitle:'고객센터',
           headerTitleAlign: 'center',
           headerShown: true,
-          headerRight: () => (
-            <Image
-              style={{ width: 24, height: 24 }}
-              source={require('./assets/common/bell.png')}
-            />
+          headerTitleStyle:{
+            fontFamily:'Noto500',
+            color:'#333',
+            textAlign:'left',
+            marginLeft:-16,
+          },
+          headerLeft: () => (
+            <BackButton/>
           ),
-         
-          headerRightContainerStyle: {
-            paddingRight: 16,
-            marginTop:48,
+          
+          headerLeftContainerStyle: {
+            paddingLeft: 16,
           },
         }}
       />
@@ -377,6 +381,15 @@ export default function App() {
               title:'',
             }}
             />
+            <Stack.Screen
+            name="Notice/Details"
+            component={NoticeDetail}
+            options={{
+              headerShown:true,
+              title:'',
+            }}
+            />
+            
             <Stack.Screen
             name="CustomService/Inquiry"
             component={Inquiry}

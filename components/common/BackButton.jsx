@@ -6,7 +6,7 @@ export default function BackButton() {
   const navigation = useNavigation();
   return (
     <Pressable onPress={() => navigation.goBack()}>
-      <Image style={{width:24,height:24}} source={require('../../assets/common/back_arrow.png')} />
+      <Image style={{width:28,height:28}} source={require('../../assets/common/back_arrow.png')} />
     </Pressable>
   )
 }
