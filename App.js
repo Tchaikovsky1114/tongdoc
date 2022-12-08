@@ -42,6 +42,7 @@ import InfomationUse from './components/customservice/InfomationUse';
 import AboutUs from './components/customservice/AboutUs';
 import NoticeDetail from './components/customservice/notice/NoticeDetail';
 import InquiryDetail from './components/customservice/inquiry/InquiryDetail';
+import MyPageCertification from './components/myPage/page/MyPageCertification';
 
 enableScreens();
 const Stack = createNativeStackNavigator();
@@ -176,6 +177,10 @@ const BottomTabs = () => {
             </View>
           ),
           headerTitle: '통신비 진단 결과',
+          headerStyle: {
+            shadowColor: 'transparent',
+            elevation: 0,
+          },
           headerTitleStyle: {
             fontSize: 16,
             fontFamily: 'Noto500',
@@ -215,6 +220,10 @@ const BottomTabs = () => {
           headerTitle: '고객센터',
           headerTitleAlign: 'center',
           headerShown: true,
+          headerStyle: {
+            shadowColor: 'transparent',
+            elevation: 0,
+          },
           headerTitleStyle: {
             fontSize: 16,
             fontFamily: 'Noto500',
@@ -253,6 +262,10 @@ const BottomTabs = () => {
             </View>
           ),
           headerTitle: '마이페이지',
+          headerStyle: {
+            shadowColor: 'transparent',
+            elevation: 0,
+          },
           headerTitleStyle: {
             fontSize: 16,
             fontFamily: 'Noto500',
@@ -386,7 +399,7 @@ export default function App() {
               component={SigninPage}
               options={{
                 title: '',
-                headerBackVisible: true,
+                headerBackVisible: false,
                 headerShown: true,
               }}
             />
@@ -436,6 +449,21 @@ export default function App() {
               options={{
                 headerShown: true,
                 title: '',
+              }}
+            />
+            <Stack.Screen
+              name="MyPage/Certification"
+              component={MyPageCertification}
+              options={{
+                headerShown: true,
+                title: '',
+                headerBackVisible: false,
+                headerBackTitleVisible: false,
+                headerLeft: () => <BackButton />,
+                headerStyle: {
+                  shadowColor: 'transparent',
+                  elevation: 0,
+                },
               }}
             />
           </Stack.Navigator>
