@@ -10,7 +10,7 @@ import P_12R from '../../style/paragraph/P_12R';
 import P_14M from '../../style/paragraph/P_14M';
 import HandlerBtn from './myPageCommon/HandlerBtn';
 import MyPageTab from './myPageCommon/MyPageTab';
-import Constants from 'expo-constants';
+// import Constants from 'expo-constants';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import DoubleCheckModal from './myPageCommon/DoubleCheckModal';
 import { useState } from 'react';
@@ -20,7 +20,7 @@ import { useNavigation } from '@react-navigation/native';
 const MyPage = () => {
   const [isVisible, setIsVisible] = useState(false);
   const userInfo = useRecoilValue(loggedUserState);
-  const version = Constants.manifest2.extra.expoClient.version;
+  // const version = Constants.manifest2.extra.expoClient.version;
   const navigation = useNavigation();
   const logoOut = async () => {
     const keys = ['refresh', 'access'];
@@ -79,7 +79,7 @@ const MyPage = () => {
           <MyPageTab image={true}>이용약관</MyPageTab>
           <MyPageTab image={true}>알림설정</MyPageTab>
           <MyPageTab image={true}>비밀번호 변경</MyPageTab>
-          <MyPageTab version={version}>앱정보</MyPageTab>
+          {/* <MyPageTab version={version}>앱정보</MyPageTab> */}
           <MyPageTab button={true}>탈퇴하기</MyPageTab>
         </KeyboardAvoidingView>
       </ScrollView>
