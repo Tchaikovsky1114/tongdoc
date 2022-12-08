@@ -43,6 +43,7 @@ import AboutUs from './components/customservice/AboutUs';
 import NoticeDetail from './components/customservice/notice/NoticeDetail';
 import InquiryDetail from './components/customservice/inquiry/InquiryDetail';
 import MyPageCertification from './components/myPage/page/MyPageCertification';
+import MyPageNotification from './components/myPage/page/MyPageNotification';
 
 enableScreens();
 const Stack = createNativeStackNavigator();
@@ -454,6 +455,21 @@ export default function App() {
             <Stack.Screen
               name="MyPage/Certification"
               component={MyPageCertification}
+              options={{
+                headerShown: true,
+                title: '',
+                headerBackVisible: false,
+                headerBackTitleVisible: false,
+                headerLeft: () => <BackButton />,
+                headerStyle: {
+                  shadowColor: 'transparent',
+                  elevation: 0,
+                },
+              }}
+            />
+            <Stack.Screen
+              name="MyPage/Notification"
+              component={MyPageNotification}
               options={{
                 headerShown: true,
                 title: '',
