@@ -1,12 +1,16 @@
-import { StyleSheet, View } from 'react-native';
+import { SafeAreaView, StyleSheet, View } from 'react-native';
 import React from 'react';
 import MyPage from '../components/myPage/MyPage';
+import { StatusBar } from 'expo-status-bar';
 
 export default function MyPageScreen() {
   return (
-    <View style={styles.container}>
-      <MyPage />
-    </View>
+    <SafeAreaView style={{ flex: 1 }}>
+      <StatusBar style="dark" />
+      <View style={styles.container}>
+        <MyPage />
+      </View>
+    </SafeAreaView>
   );
 }
 
