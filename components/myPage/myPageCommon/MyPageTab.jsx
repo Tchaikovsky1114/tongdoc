@@ -3,7 +3,7 @@ import P_12R from '../../../style/paragraph/P_12R';
 import P_14R from '../../../style/paragraph/P_14R';
 import HandlerBtn from './HandlerBtn';
 
-const MyPageTab = ({ children, version, image, button }) => {
+const MyPageTab = ({ children, version, image, quit }) => {
   return (
     <Pressable>
       <View style={styles.container}>
@@ -15,7 +15,7 @@ const MyPageTab = ({ children, version, image, button }) => {
             source={require('../../../assets/common/nextarrow.png')}
           />
         )}
-        {button && <HandlerBtn>탈퇴하기</HandlerBtn>}
+        {quit && <HandlerBtn>탈퇴하기</HandlerBtn>}
       </View>
     </Pressable>
   );

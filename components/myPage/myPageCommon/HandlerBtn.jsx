@@ -17,7 +17,6 @@ const styles = StyleSheet.create({
     fontFamily: 'Noto500',
     fontSize: 12,
     includeFontPadding: false,
-    fontWeight: 500,
     textAlign: 'center',
   },
   border: {
