@@ -163,12 +163,12 @@ const BottomTabs = () => {
           headerShown: true,
 
           headerLeft: () => (
-            <View style={{ marginTop: 36 }}>
+            <View>
               <BackButton />
             </View>
           ),
           headerRight: () => (
-            <View style={{ marginTop: 36 }}>
+            <View>
               <Image
                 style={{ width: 24, height: 24 }}
                 source={require('./assets/common/bell.png')}
@@ -179,14 +179,13 @@ const BottomTabs = () => {
           headerTitleStyle: {
             fontSize: 16,
             fontFamily: 'Noto500',
+            color: '#333',
+            includeFontPadding: false,
           },
           headerLeftContainerStyle: {
             paddingLeft: 16,
           },
-          headerTitleContainerStyle: {
-            marginHorizontal: -16,
-            marginTop: 24,
-          },
+
           headerRightContainerStyle: {
             paddingRight: 16,
           },
@@ -217,15 +216,18 @@ const BottomTabs = () => {
           headerTitleAlign: 'center',
           headerShown: true,
           headerTitleStyle: {
+            fontSize: 16,
             fontFamily: 'Noto500',
             color: '#333',
-            textAlign: 'left',
-            marginLeft: -16,
+            includeFontPadding: false,
           },
           headerLeft: () => <BackButton />,
 
           headerLeftContainerStyle: {
             paddingLeft: 16,
+          },
+          headerRightContainerStyle: {
+            paddingRight: 16,
           },
         }}
       />
@@ -234,23 +236,36 @@ const BottomTabs = () => {
         component={MyPageScreen}
         options={{
           title: '마이페이지',
-          headerTitle: '마이페이지',
           headerTitleAlign: 'center',
           headerShown: true,
-          headerTitleStyle: {
-            fontFamily: 'Noto500',
-            color: '#333',
-            fontSize: 16,
-          },
-          headerBackVisible: true,
+
+          headerLeft: () => (
+            <View>
+              <BackButton />
+            </View>
+          ),
           headerRight: () => (
-            <View style={{ paddingRight: 16 }}>
+            <View>
               <Image
                 style={{ width: 24, height: 24 }}
                 source={require('./assets/common/bell.png')}
               />
             </View>
           ),
+          headerTitle: '마이페이지',
+          headerTitleStyle: {
+            fontSize: 16,
+            fontFamily: 'Noto500',
+            color: '#333',
+            includeFontPadding: false,
+          },
+          headerLeftContainerStyle: {
+            paddingLeft: 16,
+          },
+
+          headerRightContainerStyle: {
+            paddingRight: 16,
+          },
         }}
       />
     </Tab.Navigator>
@@ -407,14 +422,14 @@ export default function App() {
               }}
             />
             <Stack.Screen
-            name="Inquiry/Details"
-            component={InquiryDetail}
-            options={{
-              headerShown:true,
-              title:'',
-            }}
+              name="Inquiry/Details"
+              component={InquiryDetail}
+              options={{
+                headerShown: true,
+                title: '',
+              }}
             />
-            
+
             <Stack.Screen
               name="CustomService/AboutUs"
               component={AboutUs}
