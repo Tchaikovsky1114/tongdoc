@@ -27,7 +27,7 @@ const Signin = () => {
   const [signinForm, setSigninForm] = useState({
     email: '',
     password: '',
-    device_token: '',
+    device_token: '2',
     device_type: Platform.OS,
   });
   const [, setSignin] = useRecoilState(signinState);
@@ -94,9 +94,9 @@ const Signin = () => {
           tongkind: response.tcom,
         });
         const inBoundEmail = response.inbound_email;
-        
-        navigation.navigate("Home", {
-          screen: "Main",
+
+        navigation.navigate('Home', {
+          screen: 'Main',
           params: {
             tongkind: response.tcom,
             inBoundEmail: inBoundEmail,
@@ -108,22 +108,20 @@ const Signin = () => {
     }
   };
 
-
   const getPushToken = async () => {
     const pushToken = await AsyncStorage.getItem('pushToken');
-    if(!pushToken) return;
-    
+    if (!pushToken) return;
+
     setSigninForm((prev) => ({
       ...prev,
-      device_token:JSON.parse(pushToken) 
-    }))
+      device_token: JSON.parse(pushToken),
+    }));
   };
 
-  useEffect(() => {  
-    getPushToken()
-  }, [])
+  useEffect(() => {
+    getPushToken();
+  }, []);
 
-  
   console.log(signinForm);
   return (
     <View style={styles.container}>
