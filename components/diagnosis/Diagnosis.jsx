@@ -1,11 +1,9 @@
 import {
   Dimensions,
   StyleSheet,
-  Text,
   View,
   Image,
   ScrollView,
-  FlatList,
   ActivityIndicator,
   Pressable,
   Modal,
@@ -14,13 +12,13 @@ import React, { useCallback, useEffect, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import P_16M from '../../style/paragraph/P_16M';
 import P_16R from '../../style/paragraph/P_16R';
-import P_12R from '../../style/paragraph/P_12R';
+
 import P_14R from '../../style/paragraph/P_14R';
 import FamilyCard from './FamilyCard';
 import RegisterCard from './RegisterCard';
 import axios from 'axios';
 import SummaryBannerCard from './SummaryBannerCard';
-import ConfirmModal from '../common/ConfirmModal';
+
 
 const { width } = Dimensions.get('window');
 
@@ -40,9 +38,6 @@ export default function Diagnosis() {
     setIsSelectMonthModalVisible((prev) => !prev);
   }, []);
 
-  const togglePrepareServiceModalHandler = useCallback(() => {
-    setIsPrepareServiceModalVisible((prev) => !prev);
-  }, []);
 
   const fetchGetDiagnosisData = async (
     year = currentYear,
@@ -110,12 +105,7 @@ export default function Diagnosis() {
               </View>
             </View>
           </Modal>
-          <ConfirmModal
-            firstInfoText={`현재 서비스 준비중인 ${'\n'} 페이지 입니다.`}
-            buttonText="뒤로가기"
-            isVisible={isPrepareServiceModalVisible}
-            pressBtn={togglePrepareServiceModalHandler}
-          />
+         
           <View style={styles.header}>
             <View style={styles.headerInner}>
               <Pressable>
@@ -137,10 +127,10 @@ export default function Diagnosis() {
               <SummaryBannerCard diagnosisResultData={diagnosisResultData} />
             </View>
           </View>
-
           <View style={styles.body}>
             <View style={{ flex: 1 }}>
               <P_16R style={{ color: '#333333' }}>휴대폰 통신비</P_16R>
+
               {diagnosisResultData.phone.map((item, index) => (
                 <FamilyCard
                   item={item}
@@ -150,18 +140,19 @@ export default function Diagnosis() {
                 />
               ))}
               <RegisterCard
-                onPress={togglePrepareServiceModalHandler}
+                onPress={() => {}}
                 text="가족을 등록해 주세요."
               />
             </View>
             <P_16R style={styles.internetPrice}>
               인터넷 요금
             </P_16R>
+
             {diagnosisResultData.internet.map((item, index) => (
               <FamilyCard item={item} index={index} key={item.id} />
             ))}
             <RegisterCard
-              onPress={togglePrepareServiceModalHandler}
+              onPress={() => {}}
               text="인터넷 가입 정보를 등록해 주세요"
             />
           </View>

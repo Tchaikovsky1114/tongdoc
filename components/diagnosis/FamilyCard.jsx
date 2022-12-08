@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, Image, Pressable } from 'react-native';
-import React, { useEffect, useState,useCallback } from 'react';
+import React, { useState,useCallback } from 'react';
 import P_16M from '../../style/paragraph/P_16M';
 import P_12R from '../../style/paragraph/P_12R';
 import P_14M from '../../style/paragraph/P_14M';
@@ -12,8 +12,7 @@ import axios from 'axios';
 
 export default function FamilyCard({ item, index, billType }) {
   const {id,user_name: name,phone_number: phoneNumber,tcom: telecom,state,check_y,check_m,charge,save: savings,} = item;
-  const [phoneDetailModalIsVisible, setPhoneDetailModalIsVisible] =
-    useState(false);
+  const [phoneDetailModalIsVisible, setPhoneDetailModalIsVisible] = useState(false);
   const [confirmModalIsVisible, setConfirmModalIsVisible] = useState(false);
   const [detail, setDetail] = useState();
 
@@ -41,7 +40,6 @@ export default function FamilyCard({ item, index, billType }) {
       }
     }
   };
-
   const changeData = (data) => {
     setDetail(data);
   };
@@ -53,6 +51,22 @@ export default function FamilyCard({ item, index, billType }) {
   const toggleConfirmModalHandler = useCallback(() => {
     setConfirmModalIsVisible((prev) => !prev);
   },[]);
+
+  const deleteFamilyHandler = async (familyId) => {
+    console.log(familyId);
+    const token = await AsyncStorage.getItem('access');
+    try {
+      const { data } = await axios.delete(`https://api.tongdoc.co.kr/v1/family/${familyId}?family_type=phone`,{
+        headers:{
+          Authorization:`Bearer ${token}`
+        }
+      })  
+      console.log(data);
+    } catch (error) {
+      console.error(error)
+    }
+    
+  }
   
   return (
     <>
@@ -93,6 +107,7 @@ export default function FamilyCard({ item, index, billType }) {
                 {parseInt(savings).toLocaleString()})
               </P_14M>
             </View>
+            {index !== 0 && <Pressable onPress={() => deleteFamilyHandler(item.family_id)}><Image style={{width:24, height:24,marginLeft:8}} source={require('../../assets/common/remove.png')} /></Pressable>}
           </View>
         </View>
       </Pressable>
