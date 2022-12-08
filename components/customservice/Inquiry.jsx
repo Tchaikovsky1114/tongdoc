@@ -8,7 +8,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import InquiryItem from './inquiry/InquiryItem'
 import InquiryModal from './inquiry/InquiryModal'
 
-export default function Inquiry() {
+export default function Inquiry({route}) {
   const [inquiries,setInquiries] = useState()
   const [isInquiryModalVisible,setIsInquiryModalVisible] = useState(false);
   const getInquiryList = async () => {
@@ -32,7 +32,7 @@ export default function Inquiry() {
   useLayoutEffect(() => {
     getInquiryList();
   },[])
- 
+  
   return (
     <>
     {
