@@ -41,6 +41,7 @@ import Inquiry from './components/customservice/Inquiry';
 import InfomationUse from './components/customservice/InfomationUse';
 import AboutUs from './components/customservice/AboutUs';
 import NoticeDetail from './components/customservice/notice/NoticeDetail';
+import InquiryDetail from './components/customservice/inquiry/InquiryDetail';
 
 enableScreens();
 const Stack = createNativeStackNavigator();
@@ -393,6 +394,14 @@ export default function App() {
             <Stack.Screen
             name="CustomService/Inquiry"
             component={Inquiry}
+            options={{
+              headerShown:true,
+              title:'',
+            }}
+            />
+            <Stack.Screen
+            name="Inquiry/Details"
+            component={InquiryDetail}
             options={{
               headerShown:true,
               title:'',
