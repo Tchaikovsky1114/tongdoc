@@ -1,11 +1,18 @@
+import { useNavigation } from '@react-navigation/native';
 import { Image, Pressable, StyleSheet, View } from 'react-native';
 import P_12R from '../../../style/paragraph/P_12R';
 import P_14R from '../../../style/paragraph/P_14R';
 import HandlerBtn from './HandlerBtn';
 
-const MyPageTab = ({ children, version, image, button }) => {
+const MyPageTab = ({ url, children, version, image, quit }) => {
+  const navigation = useNavigation();
+
+  const FunctionHandler = () => {
+    url ? navigation.navigate(url) : null;
+  };
+
   return (
-    <Pressable>
+    <Pressable onPress={FunctionHandler}>
       <View style={styles.container}>
         <P_14R style={styles.text}>{children}</P_14R>
         {version && <P_12R style={styles.version}>Ver {version}</P_12R>}
@@ -15,7 +22,7 @@ const MyPageTab = ({ children, version, image, button }) => {
             source={require('../../../assets/common/nextarrow.png')}
           />
         )}
-        {button && <HandlerBtn>탈퇴하기</HandlerBtn>}
+        {quit && <HandlerBtn>탈퇴하기</HandlerBtn>}
       </View>
     </Pressable>
   );

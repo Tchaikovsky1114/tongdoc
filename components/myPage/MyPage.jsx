@@ -76,11 +76,15 @@ const MyPage = () => {
       </View>
       <ScrollView>
         <KeyboardAvoidingView>
-          <MyPageTab image={true}>이용약관</MyPageTab>
-          <MyPageTab image={true}>알림설정</MyPageTab>
+          <MyPageTab url={'MyPage/Certification'} image={true}>
+            이용약관
+          </MyPageTab>
+          <MyPageTab url={'Signup/EmailAndPassword'} image={true}>
+            알림설정
+          </MyPageTab>
           <MyPageTab image={true}>비밀번호 변경</MyPageTab>
           <MyPageTab version={version}>앱정보</MyPageTab>
-          <MyPageTab button={true}>탈퇴하기</MyPageTab>
+          <MyPageTab quit={true}>탈퇴하기</MyPageTab>
         </KeyboardAvoidingView>
       </ScrollView>
       <DoubleCheckModal
