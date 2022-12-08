@@ -6,6 +6,8 @@ import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
 import P_14R from '../../../style/paragraph/P_14R';
+import P_12R from '../../../style/paragraph/P_12R';
+import P_18R from '../../../style/paragraph/P_18R';
 
 
 const { width } = Dimensions.get('window');
@@ -13,6 +15,7 @@ const { width } = Dimensions.get('window');
 export default function InquiryModal({isInquiryModalVisible,showInquiryModalHandler}) {
   const navigation = useNavigation()
   const [isTitleBorderHighlight,setIsTitleBorderHighlight] = useState(false)
+  const [isAlertModalVisible,setIsAlertModalVisible] = useState(false)
   const [inquiryValues,setInquiryValues] = useState({
     subject:'',
     contents:''
@@ -34,44 +37,52 @@ export default function InquiryModal({isInquiryModalVisible,showInquiryModalHand
       }))
   }
   const postInquiryHandler = async () => {
-
-    Alert.alert(
-      '작성하신 내용으로 문의할까요?',
-      '답변은 최대 1~3일이 소요될 수 있어요.',
-      [
-        {
-          text:'네',
-          onPress: async () => {
-            const token = await AsyncStorage.getItem('access');
-            const {subject,contents} = inquiryValues;
-              try {
-                await axios.post('https://api.tongdoc.co.kr/v1/info/question',{
-                  subject,
-                  contents
-                },{
-                  headers:{
-                    Authorization:`Bearer ${token}`
-                  }
-                })
-                showInquiryModalHandler()
-                navigation.navigate('CustomService')
-              } catch (error) {
-                console.error(error);
-              }
+      const token = await AsyncStorage.getItem('access');
+      const {subject,contents} = inquiryValues;
+        try {
+          await axios.post('https://api.tongdoc.co.kr/v1/info/question',{
+            subject,
+            contents
+          },{
+            headers:{
+              Authorization:`Bearer ${token}`
             }
-          },
-          {
-            text:'아니요',
-            onPress: () => null
-          }
-      ],
-      {
-        cancelable:true
+          })
+          showInquiryModalHandler()
+          navigation.navigate('CustomService')
+        } catch (error) {
+          console.error(error);
+        }
       }
-    )    
-  }
-
+    
+  
+  
   return (
+    <>
+    {
+    isAlertModalVisible
+    && <Modal
+    animationType='fade'
+    transparent={true}
+    visible
+    onRequestClose={() => setIsAlertModalVisible(prev => !prev)}
+    >
+      <View style={{backgroundColor:'rgba(0,0,0,0.2)',flex:1,justifyContent:'center',alignItems:'center'}}>
+        <View style={{width:280,height:220,backgroundColor:'#fff',borderRadius:16,justifyContent:'flex-start',alignItems:'center',padding:16}}>
+          <View style={{marginTop:24}}>
+            <P_18R style={{color:'#333',marginBottom:8,textAlign:'center'}}>작성하신 내용으로 문의할까요?</P_18R>
+            <P_12R style={{color:'#666',textAlign:'center'}}>최대 1~3일 소요될 수 있어요.</P_12R>
+          </View>
+          <View style={{flexDirection:'row',justifyContent:'center',width:'100%',marginTop:32,}}>
+            <Pressable onPress={() => setIsAlertModalVisible((prev) => !prev)} style={({pressed}) => [{flex:1,marginTop:16,padding:8,borderRadius:8,backgroundColor: pressed ? '#F6F9FF' : '#fff'}]}><P_18R style={{textAlign:'center',color:'#2D63E2'}}>취소</P_18R></Pressable>
+            <Pressable onPress={postInquiryHandler} style={({pressed}) => [{flex:1,marginTop:16,backgroundColor: pressed ? '#2d75d0' : '#2D63E2',padding:8,borderRadius:8}]}><P_18R style={{textAlign:'center',color:'#fff'}}>확인</P_18R></Pressable>
+          </View>
+        </View>
+      </View>
+      
+    </Modal>
+    }
+    
     <Modal
     animationType='slide'
     transparent={true}
@@ -111,7 +122,7 @@ export default function InquiryModal({isInquiryModalVisible,showInquiryModalHand
       </View>
       <View style={styles.footer}>
         <P_14R style={{color:inquiryValues.contents.length < 295 ? '#2D63E2' : 'red',marginBottom:24,textAlign:'right',paddingRight:24}}>{inquiryValues.contents.length} / 300</P_14R>
-      <Pressable onPress={postInquiryHandler} style={({pressed}) => [styles.submitButton,{backgroundColor: pressed ? 'rgba(49,99,226,0.78)' :'#2D63E2'}]}>
+      <Pressable onPress={() => setIsAlertModalVisible(prev => !prev)} style={({pressed}) => [styles.submitButton,{backgroundColor: pressed ? 'rgba(49,99,226,0.78)' :'#2D63E2'}]}>
         <P_16R style={{color:'#fff',textAlign:'center'}}>문의하기</P_16R>
       </Pressable>
       </View>
@@ -119,6 +130,7 @@ export default function InquiryModal({isInquiryModalVisible,showInquiryModalHand
     </View>
     </ScrollView>
   </Modal>
+  </>
   )
 }
 
