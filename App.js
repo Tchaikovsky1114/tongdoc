@@ -160,10 +160,14 @@ const BottomTabs = () => {
           title: '통신비 진단',
           headerTitleAlign: 'center',
           headerShown: true,
-          
-          headerLeft: () => <View style={{marginTop:36}}><BackButton /></View>,
+
+          headerLeft: () => (
+            <View style={{ marginTop: 36 }}>
+              <BackButton />
+            </View>
+          ),
           headerRight: () => (
-            <View style={{marginTop:36}}>
+            <View style={{ marginTop: 36 }}>
               <Image
                 style={{ width: 24, height: 24 }}
                 source={require('./assets/common/bell.png')}
@@ -174,20 +178,17 @@ const BottomTabs = () => {
           headerTitleStyle: {
             fontSize: 16,
             fontFamily: 'Noto500',
-            
           },
           headerLeftContainerStyle: {
             paddingLeft: 16,
-            
           },
           headerTitleContainerStyle: {
             marginHorizontal: -16,
-            marginTop:24
+            marginTop: 24,
           },
           headerRightContainerStyle: {
             paddingRight: 16,
           },
-          
         }}
       />
 
@@ -209,22 +210,19 @@ const BottomTabs = () => {
       <Tab.Screen
         name="CustomService"
         component={CustomServiceScreen}
-        
         options={{
-          title:'고객센터',
-          headerTitle:'고객센터',
+          title: '고객센터',
+          headerTitle: '고객센터',
           headerTitleAlign: 'center',
           headerShown: true,
-          headerTitleStyle:{
-            fontFamily:'Noto500',
-            color:'#333',
-            textAlign:'left',
-            marginLeft:-16,
+          headerTitleStyle: {
+            fontFamily: 'Noto500',
+            color: '#333',
+            textAlign: 'left',
+            marginLeft: -16,
           },
-          headerLeft: () => (
-            <BackButton/>
-          ),
-          
+          headerLeft: () => <BackButton />,
+
           headerLeftContainerStyle: {
             paddingLeft: 16,
           },
@@ -233,16 +231,25 @@ const BottomTabs = () => {
       <Tab.Screen
         name="Mypage"
         component={MyPageScreen}
-        options={{ title: '마이페이지' }}
-        listeners={{
-          tabPress: (e) => {
-            e.preventDefault();
-            Alert.alert('현재 서비스 준비 중인 페이지입니다.', '', [
-              {
-                text: '확인',
-              },
-            ]);
+        options={{
+          title: '마이페이지',
+          headerTitle: '마이페이지',
+          headerTitleAlign: 'center',
+          headerShown: true,
+          headerTitleStyle: {
+            fontFamily: 'Noto500',
+            color: '#333',
+            fontSize: 16,
           },
+          headerBackVisible: true,
+          headerRight: () => (
+            <View style={{ paddingRight: 16 }}>
+              <Image
+                style={{ width: 24, height: 24 }}
+                source={require('./assets/common/bell.png')}
+              />
+            </View>
+          ),
         }}
       />
     </Tab.Navigator>
@@ -374,45 +381,45 @@ export default function App() {
               options={{ title: '', headerShown: true }}
             />
             <Stack.Screen
-            name="CustomService/Notice"
-            component={Notice}
-            options={{
-              headerShown:true,
-              title:'',
-            }}
+              name="CustomService/Notice"
+              component={Notice}
+              options={{
+                headerShown: true,
+                title: '',
+              }}
             />
             <Stack.Screen
-            name="Notice/Details"
-            component={NoticeDetail}
-            options={{
-              headerShown:true,
-              title:'',
-            }}
+              name="Notice/Details"
+              component={NoticeDetail}
+              options={{
+                headerShown: true,
+                title: '',
+              }}
             />
-            
+
             <Stack.Screen
-            name="CustomService/Inquiry"
-            component={Inquiry}
-            options={{
-              headerShown:true,
-              title:'',
-            }}
-            />
-            <Stack.Screen
-            name="CustomService/InfomationUse"
-            component={InfomationUse}
-            options={{
-              headerShown:true,
-              title:'',
-            }}
+              name="CustomService/Inquiry"
+              component={Inquiry}
+              options={{
+                headerShown: true,
+                title: '',
+              }}
             />
             <Stack.Screen
-            name="CustomService/AboutUs"
-            component={AboutUs}
-            options={{
-              headerShown:true,
-              title:'',
-            }}
+              name="CustomService/InfomationUse"
+              component={InfomationUse}
+              options={{
+                headerShown: true,
+                title: '',
+              }}
+            />
+            <Stack.Screen
+              name="CustomService/AboutUs"
+              component={AboutUs}
+              options={{
+                headerShown: true,
+                title: '',
+              }}
             />
           </Stack.Navigator>
         </NavigationContainer>
