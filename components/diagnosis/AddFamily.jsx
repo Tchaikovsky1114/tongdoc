@@ -82,10 +82,11 @@ export default function AddFamily() {
       </View>
       <View style={{marginTop:40,backgroundColor:'#F6F9FF',padding:8,borderRadius:8}}>
         <View style={{flexDirection:'row',alignItems:'center'}}>
-        <P_12M style={{marginRight:8,color:'#2D63E2'}}>1.</P_12M><P_12R style={{color:'#666',marginVertical:4}}>가족에게 동의 요청 안내가 발송됩니다.</P_12R>
+        
+        <P_12M style={{marginRight:8,color:'#2D63E2'}}>1.</P_12M><P_12R style={{color:'#666',marginVertical:4}}>해당 가족에게 동의 요청 안내 문자를 발송합니다.</P_12R>
         </View>
         <View style={{flexDirection:'row',alignItems:'center'}}>
-        <P_12M style={{marginRight:8,color:'#2D63E2'}}>2.</P_12M><P_12R style={{color:'#666',marginVertical:4}}>동의 완료 후 가족의 가계통신비 점검이 진행됩니다.</P_12R>
+        <P_12M style={{marginRight:8,color:'#2D63E2'}}>2.</P_12M><P_12R style={{color:'#666',marginVertical:4}}>해당 가족의 휴대폰 요금 청구서를 수신 후 가계통신비 점검이 진행됩니다.</P_12R>
         </View>
       </View>
       <Pressable onPress={sendSMSConsentHandler} style={({pressed}) => [{backgroundColor: pressed ? '#2D63E273' : '#2D63E2'},styles.bottomButton]}><P_16M style={{color:'#fff'}}>문자 동의 요청</P_16M></Pressable>

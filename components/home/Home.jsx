@@ -5,7 +5,8 @@ import {
   ScrollView,
   ActivityIndicator,
   Alert,
-  BackHandler
+  BackHandler,
+  RefreshControl
 } from 'react-native';
 import React, { useCallback, useEffect, useState } from 'react';
 import Banner from './Banner';
@@ -74,7 +75,6 @@ export default function Home() {
   };
   const fetchGetDiagnosisData = async () => {
     const token = await AsyncStorage.getItem('access');
-
     try {
       const { data } = await axios.get('https://api.tongdoc.co.kr/v1/doctor', {
         headers: {
@@ -89,48 +89,48 @@ export default function Home() {
 
 
   // FCM을 사용한다면..?
-  // const hintChangeBillingEmailPushNotification = async () => {
-  //   try {
-  //     await fetch('https://fcm.googleapis.com/fcm/send', {
-  //       method: 'POST',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //         Authorization: `key=AIzaSyD8VQEdXQpVctHxbq0BV4X2cq7uCnVYrqM`,
-  //       },
-  //       body: JSON.stringify({
-  //         to: currentUser.userPushToken,
-  //         priority: 'normal',
-  //         data: {
-  //           experienceId: '@ermerskim/tongdoc_app',
-  //           scopeKey: '@ermerskim/tongdoc_app',
-  //           title: `청구서 이메일을  ${currentUser.inbound_email}로 변경해주세요!`,
-  //           message: '가입하신 통신사의 고객센터 / 어플리케이션으로 변경 가능합니다! 🌐',
-  //           icon: '../../assets/push.png'
-  //         },
-  //       }),
-  //     });  
-  //   } catch (error) {
-  //     console.error(error)
-  //   }
-  // };
-
-  /** 로그인 시 요금서 청구 받는 이메일을 당사의 인바운드 이메일로 변경하라는 푸시 알림을 보내는 함수입니다 */
   const hintChangeBillingEmailPushNotification = async () => {
     try {
-      await axios.post('https://exp.host/--/api/v2/push/send',{
-        "to": currentUser.device_token,
-        "title": `청구서 이메일을  ${currentUser.inbound_email}로 변경해주세요!`,
-        "body": '가입하신 통신사의 고객센터 / 어플리케이션으로 변경 가능합니다!'
-      },{
+      await fetch('https://fcm.googleapis.com/fcm/send', {
+        method: 'POST',
         headers: {
-          Accept: 'application/json',
-          "Content-Type":"application/json"
-        }
-      })
+          'Content-Type': 'application/json',
+          Authorization: `key=AIzaSyD8VQEdXQpVctHxbq0BV4X2cq7uCnVYrqM`,
+        },
+        body: JSON.stringify({
+          to: currentUser.userPushToken,
+          priority: 'normal',
+          data: {
+            experienceId: '@ermerskim/tongdoc_app',
+            scopeKey: '@ermerskim/tongdoc_app',
+            title: `청구서 이메일을  ${currentUser.inbound_email}로 변경해주세요!`,
+            message: '가입하신 통신사의 고객센터 / 어플리케이션으로 변경 가능합니다! 🌐',
+            icon: '../../assets/push.png'
+          },
+        }),
+      });  
     } catch (error) {
-    console.error(error);  
+      console.error(error)
     }
-  }
+  };
+
+  /** 로그인 시 요금서 청구 받는 이메일을 당사의 인바운드 이메일로 변경하라는 푸시 알림을 보내는 함수입니다 */
+  // const hintChangeBillingEmailPushNotification = async () => {
+  //   try {
+  //     await axios.post('https://exp.host/--/api/v2/push/send',{
+  //       "to": currentUser.device_token,
+  //       "title": `청구서 이메일을  ${currentUser.inbound_email}로 변경해주세요!`,
+  //       "body": '가입하신 통신사의 고객센터 / 어플리케이션으로 변경 가능합니다!'
+  //     },{
+  //       headers: {
+  //         Accept: 'application/json',
+  //         "Content-Type":"application/json"
+  //       }
+  //     })
+  //   } catch (error) {
+  //   console.error(error);  
+  //   }
+  // }
 
 
   /** 기기의 백버튼을 누르면 splash image로 넘어가는 것이 아니라, 앱 종료를 묻는 알럿이 뜨게 만드는 함수입니다.*/
@@ -174,7 +174,16 @@ export default function Home() {
   // Notification.addNotificationReceivedListener((notification) => {})
   
   return (
-    <ScrollView contentContainerStyle={styles.container}>
+    <ScrollView contentContainerStyle={styles.container} refreshControl={
+      <RefreshControl
+      refreshing={false}
+      enabled
+      colors={["#fff","#f91","#f51","#c31","#ff3","#2df"]}
+      progressBackgroundColor="#4499FA"
+      onRefresh={fetchGetDiagnosisData}
+      />
+    }>
+      
       {mainConfiguringData && diagnosisResultData ? (
         <>
           <View style={styles.topInner}>
