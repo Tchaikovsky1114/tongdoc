@@ -1,12 +1,13 @@
 import { ActivityIndicator, Pressable, SafeAreaView, StyleSheet } from 'react-native'
 import React, { useEffect, useState } from 'react'
-import H2_28M from '../../../style/H2_28M'
+import H4_24M from '../../../style/H4_24M'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import axios from 'axios'
 import P_14R from '../../../style/paragraph/P_14R'
 import P_12R from '../../../style/paragraph/P_12R'
 import { ScrollView } from 'react-native-gesture-handler'
 import { useNavigation } from '@react-navigation/native'
+import H4_24R from '../../../style/H4_24R'
 
 
 export default function Notice() {
@@ -39,7 +40,7 @@ export default function Notice() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <H2_28M style={styles.title}>공지사항</H2_28M>
+      <H4_24R style={styles.title}>공지사항</H4_24R>
       {
       !notice
       ? <ActivityIndicator />

@@ -15,16 +15,14 @@ import AddFamilyBanner from './AddFamilyBanner';
 import PhoneContractDateCalculatorBanner from './PhoneContractDateCalculatorBanner';
 import TongdocNews from './TongdocNews';
 import Reviews from './Reviews';
-import { useNavigation, useRoute } from '@react-navigation/native';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useNavigation } from '@react-navigation/native';
+import { useRecoilState } from 'recoil';
 import { loggedUserState } from '../../store/loggedUser';
-import { signupState } from '../../store/signup';
-import * as Notification from 'expo-notifications';
+
+
 export default function Home() {
   const navigation = useNavigation();
-  const route = useRoute()
   
-  const userInfo = useRecoilValue(signupState);
   const [isAddFamilyBannerShow, SetIsAddFamilyBannerShow] = useState(true);
   const [mainConfiguringData, setMainConfiguringData] = useState();
   const [diagnosisResultData, setDiagnosisResultData] = useState();
@@ -156,8 +154,6 @@ export default function Home() {
     return true
   },[])
 
-  
-
   useEffect(() => {
     fetchGetMainConfiguringData();
     fetchGetDiagnosisData();  
@@ -165,7 +161,6 @@ export default function Home() {
 
   useEffect(() => {
     if(!currentUser) return;
-    console.log('excuted');
     hintChangeBillingEmailPushNotification();
   }, [currentUser])
 

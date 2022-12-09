@@ -80,7 +80,6 @@
         "SMS",
         "NOTIFICATIONS"
       ],
-      "useNextNotificationsApi": true,
       "googleServicesFile": "./google-services.json"
     },
     "web": {

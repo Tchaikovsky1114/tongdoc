@@ -38,11 +38,12 @@ import DetailInternet from './components/diagnosis/detail/DetailInternet';
 import BackButton from './components/common/BackButton';
 import Notice from './components/customservice/notice/Notice';
 import Inquiry from './components/customservice/Inquiry';
-import InfomationUse from './components/customservice/InfomationUse';
+
 import AboutUs from './components/customservice/AboutUs';
 import NoticeDetail from './components/customservice/notice/NoticeDetail';
 import InquiryDetail from './components/customservice/inquiry/InquiryDetail';
 import MyPageCertification from './components/myPage/page/MyPageCertification';
+import AddFamily from './components/diagnosis/AddFamily';
 
 enableScreens();
 const Stack = createNativeStackNavigator();
@@ -342,6 +343,11 @@ export default function App() {
             <Stack.Screen
               name="Diagnosis/familyRegistration"
               component={FamilyRegistrationScreen}
+              options={{ title: '', headerShown: true }}
+            />
+            <Stack.Screen
+              name="Diagnosis/AddFamily"
+              component={AddFamily}
               options={{ title: '', headerShown: true }}
             />
             <Stack.Screen

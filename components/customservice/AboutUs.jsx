@@ -5,6 +5,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import axios from 'axios'
 import P_12R from '../../style/paragraph/P_12R'
 import P_14R from '../../style/paragraph/P_14R'
+import H4_24M from '../../style/H4_24M'
+import H4_24R from '../../style/H4_24R'
 
 export default function AboutUs() {
   const [aboutUs,setAboutUs] = useState()
@@ -29,7 +31,8 @@ export default function AboutUs() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <H2_28M style={styles.title}>회사소개</H2_28M>
+      <H4_24R style={styles.title}>회사소개</H4_24R>
+      
       {
         !aboutUs 
         ? <ActivityIndicator />

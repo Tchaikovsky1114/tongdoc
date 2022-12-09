@@ -18,6 +18,7 @@ import FamilyCard from './FamilyCard';
 import RegisterCard from './RegisterCard';
 import axios from 'axios';
 import SummaryBannerCard from './SummaryBannerCard';
+import { useNavigation, useRoute } from '@react-navigation/native';
 
 
 const { width } = Dimensions.get('window');
@@ -28,11 +29,11 @@ const currentYear = date.getFullYear();
 const currentMonth = date.getMonth() + 1;
 
 export default function Diagnosis() {
+  const navigation = useNavigation();
+  const route = useRoute()
   const [diagnosisResultData, setDiagnosisResultData] = useState();
-  const [isSelectMonthModalVisible, setIsSelectMonthModalVisible] =
-    useState(false);
-  const [isPrepareServiceModalVisible, setIsPrepareServiceModalVisible] =
-    useState(false);
+  const [isSelectMonthModalVisible, setIsSelectMonthModalVisible] = useState(false);
+  
 
   const toggleSelectMonthModalHandler = useCallback(() => {
     setIsSelectMonthModalVisible((prev) => !prev);
@@ -63,6 +64,12 @@ export default function Diagnosis() {
     fetchGetDiagnosisData();
   }, []);
 
+  useEffect(() => {
+    if((route.params && route.params.remove) || (route.params && route.params.add) ){
+      fetchGetDiagnosisData();
+    }
+  },[route.params])
+  
   return (
     <ScrollView contentContainerStyle={styles.container}>
       {!diagnosisResultData ? (
@@ -140,7 +147,7 @@ export default function Diagnosis() {
                 />
               ))}
               <RegisterCard
-                onPress={() => {}}
+                onPress={() => navigation.navigate('Diagnosis/AddFamily')}
                 text="가족을 등록해 주세요."
               />
             </View>
