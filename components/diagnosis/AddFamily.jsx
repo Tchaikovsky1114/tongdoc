@@ -58,6 +58,7 @@ export default function AddFamily() {
           addFamilyForm.familyPhoneNumber,
           message
         )
+        
         navigation.navigate('Diagnosis',{
           add:true
         })

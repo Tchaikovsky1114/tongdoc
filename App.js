@@ -381,7 +381,8 @@ export default function App() {
               component={BottomTabs}
               options={{ title: '', headerShown: false }}
             />
-            <Stack.Screen name="Diagnosis" component={DiagnosisScreen} />
+            
+            {/* <Stack.Screen name="Diagnosis" component={DiagnosisScreen} /> */}
             <Stack.Screen
               name="Diagnosis/familyRegistration"
               component={FamilyRegistrationScreen}

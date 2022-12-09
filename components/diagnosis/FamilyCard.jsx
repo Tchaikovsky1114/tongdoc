@@ -108,14 +108,14 @@ export default function FamilyCard({ item, index, billType }) {
           style={[
             styles.container,
             {
-              borderColor: index === 0 ? '#2D63E2' : '#ddd',
-              borderWidth: index === 0 ? 2 : 1,
+              borderColor: item.family_id === 0 ? '#2D63E2' : '#ddd',
+              borderWidth: item.family_id ? 2 : 1,
             },
           ]}
         >
           <View>
             <P_16M>
-              {name} {index === 0 ? <Text>(나)</Text> : null}
+              {name} {item.family_id === 0 ? <Text>(나)</Text> : null}
             </P_16M>
             <View style={{ flexDirection: 'row' }}>
               {
@@ -143,7 +143,7 @@ export default function FamilyCard({ item, index, billType }) {
                 {parseInt(savings).toLocaleString()})
               </P_14M>
             </View>
-            {index !== 0 && <Pressable onPress={toggleDeleteFamilyModalHandler}><Image style={{width:24, height:24,marginLeft:8}} source={require('../../assets/common/remove.png')} /></Pressable>}
+            {item.family_id !== 0 && <Pressable onPress={toggleDeleteFamilyModalHandler}><Image style={{width:24, height:24,marginLeft:8}} source={require('../../assets/common/remove.png')} /></Pressable>}
           </View>
           : <View style={{flexDirection:'row',alignItems:'center'}}>
               <View>
@@ -159,7 +159,7 @@ export default function FamilyCard({ item, index, billType }) {
                 </View>
               </View>
               <View>
-                {index !== 0 && <Pressable onPress={toggleDeleteFamilyModalHandler}><Image style={{width:24, height:24,marginLeft:8}} source={require('../../assets/common/remove.png')} /></Pressable>}  
+                {item.family_id !== 0 && <Pressable onPress={toggleDeleteFamilyModalHandler}><Image style={{width:24, height:24,marginLeft:8}} source={require('../../assets/common/remove.png')} /></Pressable>}  
               </View>
             </View>
             
