@@ -82,7 +82,6 @@ export default function AddFamily() {
       </View>
       <View style={{marginTop:40,backgroundColor:'#F6F9FF',padding:8,borderRadius:8}}>
         <View style={{flexDirection:'row',alignItems:'center'}}>
-        
         <P_12M style={{marginRight:8,color:'#2D63E2'}}>1.</P_12M><P_12R style={{color:'#666',marginVertical:4}}>해당 가족에게 동의 요청 안내 문자를 발송합니다.</P_12R>
         </View>
         <View style={{flexDirection:'row',alignItems:'center'}}>

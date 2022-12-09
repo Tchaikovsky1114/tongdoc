@@ -67,7 +67,7 @@ export default function FamilyCard({ item, index, billType }) {
    
     const token = await AsyncStorage.getItem('access');
     try {
-      const { data } = await axios.delete(`https://api.tongdoc.co.kr/v1/family/${item.family_id}?family_type=phone`,{
+      const { data } = await axios.delete(`https://api.tongdoc.co.kr/v1/family/${item.family_id}?family_type=${billType}`,{
         headers:{
           Authorization:`Bearer ${token}`
         }
@@ -79,6 +79,8 @@ export default function FamilyCard({ item, index, billType }) {
       console.error(error)
     } 
   }
+
+  console.log(item);
 
   return (
     <>

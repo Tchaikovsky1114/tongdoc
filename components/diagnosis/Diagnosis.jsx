@@ -7,6 +7,7 @@ import {
   ActivityIndicator,
   Pressable,
   Modal,
+  RefreshControl,
 } from 'react-native';
 import React, { useCallback, useEffect, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -19,7 +20,7 @@ import RegisterCard from './RegisterCard';
 import axios from 'axios';
 import SummaryBannerCard from './SummaryBannerCard';
 import { useNavigation, useRoute } from '@react-navigation/native';
-
+import Toast  from 'react-native-toast-message';
 
 const { width } = Dimensions.get('window');
 
@@ -33,12 +34,10 @@ export default function Diagnosis() {
   const route = useRoute()
   const [diagnosisResultData, setDiagnosisResultData] = useState();
   const [isSelectMonthModalVisible, setIsSelectMonthModalVisible] = useState(false);
-  
 
   const toggleSelectMonthModalHandler = useCallback(() => {
     setIsSelectMonthModalVisible((prev) => !prev);
   }, []);
-
 
   const fetchGetDiagnosisData = async (
     year = currentYear,
@@ -60,18 +59,45 @@ export default function Diagnosis() {
       console.error(error);
     }
   };
+
+  const showToast = () => {
+    Toast.show({
+      type:'refreshToast',
+      autoHide:true,
+      text1:'페이지 새로고침 ✨',
+      visibilityTime:1000,
+      position:'bottom',
+      bottomOffset:20
+    })
+  }
+
+  const moveToAddInternetPageHandler = useCallback(() => {
+    navigation.navigate('Diagnosis/AddInternet')
+  },[])
+
   useEffect(() => {
     fetchGetDiagnosisData();
   }, []);
 
   useEffect(() => {
-    if((route.params && route.params.remove) || (route.params && route.params.add) ){
+    if((route.params && route.params.remove) || (route.params && route.params.add) || (route.params && route.params.internet) ){
       fetchGetDiagnosisData();
     }
   },[route.params])
   
   return (
-    <ScrollView contentContainerStyle={styles.container}>
+    <ScrollView
+    contentContainerStyle={styles.container}
+    refreshControl={
+    <RefreshControl
+      refreshing={false}
+      enabled
+      colors={["#fff","#f91","#f51","#c31","#ff3","#2df"]}
+      progressBackgroundColor="#4499FA"
+      onRefresh={() => {fetchGetDiagnosisData(); showToast();}}
+      
+    />}
+    >
       {!diagnosisResultData ? (
         <ActivityIndicator />
       ) : (
@@ -98,7 +124,7 @@ export default function Diagnosis() {
                 <View style={{ alignItems: 'flex-start', width: '100%' }}>
                   {diagnosisResultData.dates.map((item) => (
                     <Pressable
-                      key={item.text}
+                      key={item.text + Math.random()}
                       style={({ pressed }) => [styles.monthBox,{backgroundColor: pressed ? 'rgba(0,0,255,0.2)': '#fff'}]}
                       onPress={() => {
                         fetchGetDiagnosisData(item.year, item.month);
@@ -142,7 +168,7 @@ export default function Diagnosis() {
                 <FamilyCard
                   item={item}
                   index={index}
-                  key={item.id}
+                  key={item.id + Math.random()}
                   billType="phone"
                 />
               ))}
@@ -154,12 +180,11 @@ export default function Diagnosis() {
             <P_16R style={styles.internetPrice}>
               인터넷 요금
             </P_16R>
-
             {diagnosisResultData.internet.map((item, index) => (
-              <FamilyCard item={item} index={index} key={item.id} />
+              <FamilyCard item={item} index={index} key={item.id + Math.random()} billType="internet" />
             ))}
             <RegisterCard
-              onPress={() => {}}
+              onPress={moveToAddInternetPageHandler}
               text="인터넷 가입 정보를 등록해 주세요"
             />
           </View>
