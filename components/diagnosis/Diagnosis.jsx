@@ -1,26 +1,26 @@
 import {
   Dimensions,
   StyleSheet,
-  Text,
   View,
   Image,
   ScrollView,
-  FlatList,
   ActivityIndicator,
   Pressable,
   Modal,
+  RefreshControl,
 } from 'react-native';
 import React, { useCallback, useEffect, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import P_16M from '../../style/paragraph/P_16M';
 import P_16R from '../../style/paragraph/P_16R';
-import P_12R from '../../style/paragraph/P_12R';
+
 import P_14R from '../../style/paragraph/P_14R';
 import FamilyCard from './FamilyCard';
 import RegisterCard from './RegisterCard';
 import axios from 'axios';
 import SummaryBannerCard from './SummaryBannerCard';
-import ConfirmModal from '../common/ConfirmModal';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import Toast  from 'react-native-toast-message';
 
 const { width } = Dimensions.get('window');
 
@@ -30,18 +30,13 @@ const currentYear = date.getFullYear();
 const currentMonth = date.getMonth() + 1;
 
 export default function Diagnosis() {
+  const navigation = useNavigation();
+  const route = useRoute()
   const [diagnosisResultData, setDiagnosisResultData] = useState();
-  const [isSelectMonthModalVisible, setIsSelectMonthModalVisible] =
-    useState(false);
-  const [isPrepareServiceModalVisible, setIsPrepareServiceModalVisible] =
-    useState(false);
+  const [isSelectMonthModalVisible, setIsSelectMonthModalVisible] = useState(false);
 
   const toggleSelectMonthModalHandler = useCallback(() => {
     setIsSelectMonthModalVisible((prev) => !prev);
-  }, []);
-
-  const togglePrepareServiceModalHandler = useCallback(() => {
-    setIsPrepareServiceModalVisible((prev) => !prev);
   }, []);
 
   const fetchGetDiagnosisData = async (
@@ -64,12 +59,45 @@ export default function Diagnosis() {
       console.error(error);
     }
   };
+
+  const showToast = () => {
+    Toast.show({
+      type:'refreshToast',
+      autoHide:true,
+      text1:'페이지 새로고침 ✨',
+      visibilityTime:1000,
+      position:'bottom',
+      bottomOffset:20
+    })
+  }
+
+  const moveToAddInternetPageHandler = useCallback(() => {
+    navigation.navigate('Diagnosis/AddInternet')
+  },[])
+
   useEffect(() => {
     fetchGetDiagnosisData();
   }, []);
 
+  useEffect(() => {
+    if((route.params && route.params.remove) || (route.params && route.params.add) || (route.params && route.params.internet) ){
+      fetchGetDiagnosisData();
+    }
+  },[route.params])
+  
   return (
-    <ScrollView contentContainerStyle={styles.container}>
+    <ScrollView
+    contentContainerStyle={styles.container}
+    refreshControl={
+    <RefreshControl
+      refreshing={false}
+      enabled
+      colors={["#fff","#f91","#f51","#c31","#ff3","#2df"]}
+      progressBackgroundColor="#4499FA"
+      onRefresh={() => {fetchGetDiagnosisData(); showToast();}}
+      
+    />}
+    >
       {!diagnosisResultData ? (
         <ActivityIndicator />
       ) : (
@@ -96,7 +124,7 @@ export default function Diagnosis() {
                 <View style={{ alignItems: 'flex-start', width: '100%' }}>
                   {diagnosisResultData.dates.map((item) => (
                     <Pressable
-                      key={item.text}
+                      key={item.text + Math.random()}
                       style={({ pressed }) => [styles.monthBox,{backgroundColor: pressed ? 'rgba(0,0,255,0.2)': '#fff'}]}
                       onPress={() => {
                         fetchGetDiagnosisData(item.year, item.month);
@@ -110,12 +138,7 @@ export default function Diagnosis() {
               </View>
             </View>
           </Modal>
-          <ConfirmModal
-            firstInfoText={`현재 서비스 준비중인 ${'\n'} 페이지 입니다.`}
-            buttonText="뒤로가기"
-            isVisible={isPrepareServiceModalVisible}
-            pressBtn={togglePrepareServiceModalHandler}
-          />
+         
           <View style={styles.header}>
             <View style={styles.headerInner}>
               <Pressable>
@@ -137,20 +160,20 @@ export default function Diagnosis() {
               <SummaryBannerCard diagnosisResultData={diagnosisResultData} />
             </View>
           </View>
-
           <View style={styles.body}>
             <View style={{ flex: 1 }}>
               <P_16R style={{ color: '#333333' }}>휴대폰 통신비</P_16R>
+
               {diagnosisResultData.phone.map((item, index) => (
                 <FamilyCard
                   item={item}
                   index={index}
-                  key={item.id}
+                  key={item.id + Math.random()}
                   billType="phone"
                 />
               ))}
               <RegisterCard
-                onPress={togglePrepareServiceModalHandler}
+                onPress={() => navigation.navigate('Diagnosis/AddFamily')}
                 text="가족을 등록해 주세요."
               />
             </View>
@@ -158,10 +181,10 @@ export default function Diagnosis() {
               인터넷 요금
             </P_16R>
             {diagnosisResultData.internet.map((item, index) => (
-              <FamilyCard item={item} index={index} key={item.id} />
+              <FamilyCard item={item} index={index} key={item.id + Math.random()} billType="internet" />
             ))}
             <RegisterCard
-              onPress={togglePrepareServiceModalHandler}
+              onPress={moveToAddInternetPageHandler}
               text="인터넷 가입 정보를 등록해 주세요"
             />
           </View>

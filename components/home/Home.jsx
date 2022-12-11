@@ -5,7 +5,8 @@ import {
   ScrollView,
   ActivityIndicator,
   Alert,
-  BackHandler
+  BackHandler,
+  RefreshControl
 } from 'react-native';
 import React, { useCallback, useEffect, useState } from 'react';
 import Banner from './Banner';
@@ -15,16 +16,14 @@ import AddFamilyBanner from './AddFamilyBanner';
 import PhoneContractDateCalculatorBanner from './PhoneContractDateCalculatorBanner';
 import TongdocNews from './TongdocNews';
 import Reviews from './Reviews';
-import { useNavigation, useRoute } from '@react-navigation/native';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useNavigation } from '@react-navigation/native';
+import { useRecoilState } from 'recoil';
 import { loggedUserState } from '../../store/loggedUser';
-import { signupState } from '../../store/signup';
-import * as Notification from 'expo-notifications';
+import Toast from 'react-native-toast-message'
+
 export default function Home() {
   const navigation = useNavigation();
-  const route = useRoute()
   
-  const userInfo = useRecoilValue(signupState);
   const [isAddFamilyBannerShow, SetIsAddFamilyBannerShow] = useState(true);
   const [mainConfiguringData, setMainConfiguringData] = useState();
   const [diagnosisResultData, setDiagnosisResultData] = useState();
@@ -74,9 +73,9 @@ export default function Home() {
         console.error(error);
       }    
   };
+
   const fetchGetDiagnosisData = async () => {
     const token = await AsyncStorage.getItem('access');
-
     try {
       const { data } = await axios.get('https://api.tongdoc.co.kr/v1/doctor', {
         headers: {
@@ -89,6 +88,7 @@ export default function Home() {
     }
   };
 
+  
 
   // FCM을 사용한다면..?
   // const hintChangeBillingEmailPushNotification = async () => {
@@ -133,7 +133,16 @@ export default function Home() {
     console.error(error);  
     }
   }
-
+  const showToast = () => {
+    Toast.show({
+      type:'refreshToast',
+      autoHide:true,
+      text1:'페이지 새로고침 ✨',
+      visibilityTime:1000,
+      position:'bottom',
+      bottomOffset:20
+    })
+  }
 
   /** 기기의 백버튼을 누르면 splash image로 넘어가는 것이 아니라, 앱 종료를 묻는 알럿이 뜨게 만드는 함수입니다.*/
   const confirmExitAppHandler = useCallback(() => {
@@ -156,8 +165,6 @@ export default function Home() {
     return true
   },[])
 
-  
-
   useEffect(() => {
     fetchGetMainConfiguringData();
     fetchGetDiagnosisData();  
@@ -165,21 +172,30 @@ export default function Home() {
 
   useEffect(() => {
     if(!currentUser) return;
-    console.log('excuted');
     hintChangeBillingEmailPushNotification();
   }, [currentUser])
 
 
   useEffect(() => {
     const backHandler = BackHandler.addEventListener("hardwareBackPress",confirmExitAppHandler);
-
     return () => backHandler.remove()
   }, [])
   
   // Notification.addNotificationReceivedListener((notification) => {})
   
+
+  
   return (
-    <ScrollView contentContainerStyle={styles.container}>
+    <ScrollView contentContainerStyle={styles.container} refreshControl={
+      <RefreshControl
+      refreshing={false}
+      enabled
+      colors={["#fff","#f91","#f51","#c31","#ff3","#2df"]}
+      progressBackgroundColor="#4499FA"
+      onRefresh={() => {fetchGetDiagnosisData(); showToast();}}
+      />
+    }>
+      
       {mainConfiguringData && diagnosisResultData ? (
         <>
           <View style={styles.topInner}>

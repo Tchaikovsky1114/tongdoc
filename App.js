@@ -38,12 +38,58 @@ import DetailInternet from './components/diagnosis/detail/DetailInternet';
 import BackButton from './components/common/BackButton';
 import Notice from './components/customservice/notice/Notice';
 import Inquiry from './components/customservice/Inquiry';
-import InfomationUse from './components/customservice/InfomationUse';
+import AddInternet from './components/diagnosis/AddInternet';
 import AboutUs from './components/customservice/AboutUs';
 import NoticeDetail from './components/customservice/notice/NoticeDetail';
 import InquiryDetail from './components/customservice/inquiry/InquiryDetail';
 import MyPageCertification from './components/myPage/page/MyPageCertification';
+
 import MyPageNotification from './components/myPage/page/MyPageNotification';
+
+import AddFamily from './components/diagnosis/AddFamily';
+import Toast, { BaseToast, ErrorToast } from 'react-native-toast-message';
+import P_14R from './style/paragraph/P_14R';
+
+
+
+
+const toastConfig = {
+  /* 기본토스트 */
+  success: (props) => (
+    <BaseToast
+      {...props}
+      style={{ borderLeftColor: 'pink',backgroundColor:'rgba(0,0,0,0.6)' }}
+      contentContainerStyle={{ paddingHorizontal: 15 }}
+      text1Style={{
+        fontSize: 15,
+        fontFamily:'Noto400'
+      }}
+    />
+  ),
+  /* 에러토스트 */
+  error: (props) => (
+    <ErrorToast
+      {...props}
+      text1Style={{
+        fontSize: 17,
+        fontFamily:'Noto400'
+      }}
+      text2Style={{
+        fontSize: 15,
+        fontFamily:'Noto400'
+      }}
+    />
+  ),
+  
+  /* 커스텀 토스트 */
+  refreshToast: ({text1}) => (
+    <View style={{ height: 60, width: '100%', backgroundColor: 'rgba(0,0,0,0.4)',justifyContent:'center',alignItems:'center' }}>
+      <P_14R style={{color:'#fff',textAlign:'center'}}>{text1}</P_14R>
+    </View>
+  )
+};
+
+
 
 enableScreens();
 const Stack = createNativeStackNavigator();
@@ -339,11 +385,22 @@ export default function App() {
               component={BottomTabs}
               options={{ title: '', headerShown: false }}
             />
-            <Stack.Screen name="Diagnosis" component={DiagnosisScreen} />
+            
+            {/* <Stack.Screen name="Diagnosis" component={DiagnosisScreen} /> */}
             <Stack.Screen
               name="Diagnosis/familyRegistration"
               component={FamilyRegistrationScreen}
               options={{ title: '', headerShown: true }}
+            />
+            <Stack.Screen
+              name="Diagnosis/AddFamily"
+              component={AddFamily}
+              options={{ title: '', headerShown: true }}
+            />
+            <Stack.Screen
+            name="Diagnosis/AddInternet"
+            component={AddInternet}
+            options={{ title:'', headerShown:true}}
             />
             <Stack.Screen
               name="Diagnosis/internetRegistration"
@@ -484,6 +541,7 @@ export default function App() {
             />
           </Stack.Navigator>
         </NavigationContainer>
+        <Toast config={toastConfig}/>
       </View>
     </RecoilRoot>
   );

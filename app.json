@@ -2,7 +2,7 @@
   "expo": {
     "name": "통신닥터",
     "slug": "tongdoc_app",
-    "version": "1.5.0",
+    "version": "1.6.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -59,7 +59,7 @@
     },
     "android": {
       "package": "kr.co.tongdoc",
-      "versionCode": 6,
+      "versionCode": 7,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
@@ -80,7 +80,6 @@
         "SMS",
         "NOTIFICATIONS"
       ],
-      "useNextNotificationsApi": true,
       "googleServicesFile": "./google-services.json"
     },
     "web": {

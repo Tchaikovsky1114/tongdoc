@@ -32,7 +32,7 @@ export default function InquiryItem({subject,id,badgeText}) {
       inquiryDetail
     });
   }, [inquiryDetail])
-  
+
   return (
     <Pressable onPress={() => getInquiryDetailHandler(id)} style={({pressed}) => [styles.inquiryItem,{backgroundColor: pressed ? '#f6f9ff' : '#fff'}]}>
     <View>
@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
     flexDirection:'row',
     justifyContent:'space-between',
     alignItems:'center', 
-    paddingBottom:32,
+    paddingBottom:16,
     borderBottomWidth:1,
     borderBottomColor:'#ddd',
     paddingHorizontal:8,

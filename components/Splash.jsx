@@ -1,4 +1,4 @@
-import { StyleSheet, Image, View } from 'react-native';
+import { StyleSheet, Image, View, Alert } from 'react-native';
 import React, { useLayoutEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import {CLIENT_ID,CLIENT_SECRET} from 'react-native-dotenv';
@@ -49,7 +49,17 @@ export default function Splash() {
       return userInfo;
 
     } catch (error) {
-      console.log(error);
+      Alert.alert(
+        '로그인 과정에서 오류가 발생하였습니다.',
+        '불편하시지만 재로그인 부탁드릴게요',
+        [
+          {
+            text: '확인',
+            onPress: async () => {await AsyncStorage.clear();navigation.navigate('Signin');}
+          }
+        ]
+        )
+      
     }
   }
   }

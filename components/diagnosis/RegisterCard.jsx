@@ -1,4 +1,4 @@
-import { StyleSheet, Image, View,Pressable } from 'react-native'
+import { StyleSheet, Image,Pressable } from 'react-native'
 import React from 'react'
 import P_14R from '../../style/paragraph/P_14R'
 
