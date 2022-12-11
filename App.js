@@ -43,6 +43,9 @@ import AboutUs from './components/customservice/AboutUs';
 import NoticeDetail from './components/customservice/notice/NoticeDetail';
 import InquiryDetail from './components/customservice/inquiry/InquiryDetail';
 import MyPageCertification from './components/myPage/page/MyPageCertification';
+
+import MyPageNotification from './components/myPage/page/MyPageNotification';
+
 import AddFamily from './components/diagnosis/AddFamily';
 import Toast, { BaseToast, ErrorToast } from 'react-native-toast-message';
 import P_14R from './style/paragraph/P_14R';
@@ -85,6 +88,7 @@ const toastConfig = {
     </View>
   )
 };
+
 
 
 enableScreens();
@@ -508,6 +512,21 @@ export default function App() {
             <Stack.Screen
               name="MyPage/Certification"
               component={MyPageCertification}
+              options={{
+                headerShown: true,
+                title: '',
+                headerBackVisible: false,
+                headerBackTitleVisible: false,
+                headerLeft: () => <BackButton />,
+                headerStyle: {
+                  shadowColor: 'transparent',
+                  elevation: 0,
+                },
+              }}
+            />
+            <Stack.Screen
+              name="MyPage/Notification"
+              component={MyPageNotification}
               options={{
                 headerShown: true,
                 title: '',

@@ -79,7 +79,7 @@ const MyPage = () => {
           <MyPageTab url={'MyPage/Certification'} image={true}>
             이용약관
           </MyPageTab>
-          <MyPageTab url={'Signup/EmailAndPassword'} image={true}>
+          <MyPageTab url={'MyPage/Notification'} image={true}>
             알림설정
           </MyPageTab>
           <MyPageTab image={true}>비밀번호 변경</MyPageTab>
