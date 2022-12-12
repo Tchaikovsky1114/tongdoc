@@ -117,16 +117,27 @@ export default function AddFamily() {
             borderRadius: 8,
           }}
         >
-          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'flex-start',
+              marginBottom: 4,
+            }}
+          >
             <P_12M style={{ marginRight: 8, color: '#2D63E2' }}>1.</P_12M>
-            <P_12R style={{ color: '#666', marginVertical: 4 }}>
+            <P_12R style={{ color: '#666' }}>
               해당 가족에게 동의 요청 안내 문자를 발송합니다.
             </P_12R>
           </View>
-          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'flex-start',
+            }}
+          >
             <P_12M style={{ marginRight: 8, color: '#2D63E2' }}>2.</P_12M>
-            <P_12R style={{ color: '#666', marginVertical: 4 }}>
-              해당 가족의 휴대폰 요금 청구서를 수신 후 가계통신비 점검이
+            <P_12R style={{ color: '#666' }}>
+              해당 가족의 휴대폰 요금 청구서를 수신 후 가계통신비 {'\n'}점검이
               진행됩니다.
             </P_12R>
           </View>

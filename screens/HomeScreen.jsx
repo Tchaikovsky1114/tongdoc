@@ -1,3 +1,4 @@
+import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { SafeAreaView } from 'react-native';
 import Home from '../components/home/Home';
@@ -10,8 +11,11 @@ export default function HomeScreen({ route }) {
   return (
     <>
       <SafeAreaView style={{ flex: 1 }}>
+        <StatusBar style="dark" />
         <Home />
-        {(tongkind && inBoundEmail) && <HomeModal tongkind={tongkind} inBoundEmail={inBoundEmail} />}
+        {tongkind && inBoundEmail && (
+          <HomeModal tongkind={tongkind} inBoundEmail={inBoundEmail} />
+        )}
       </SafeAreaView>
     </>
   );
