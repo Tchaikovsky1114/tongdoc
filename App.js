@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState, useCallback, useRef } from 'react';
 import { View, Image, Dimensions, Alert } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -49,6 +49,7 @@ import MyPageNotification from './components/myPage/page/MyPageNotification';
 import AddFamily from './components/diagnosis/AddFamily';
 import Toast, { BaseToast, ErrorToast } from 'react-native-toast-message';
 import P_14R from './style/paragraph/P_14R';
+import { navigate, navigationRef } from './RootNavigation';
 
 
 
@@ -332,8 +333,17 @@ const BottomTabs = () => {
   );
 };
 
+
+
+
+
+
 export default function App() {
   const [appIsReady, setAppIsReady] = useState(false);
+  const [notification,setNotification] = useState(false);
+  const notificationListener = useRef()
+  const responseListener = useRef()
+  
 
   const onLayoutRootView = useCallback(async () => {
     if (appIsReady) {
@@ -341,6 +351,24 @@ export default function App() {
     }
   }, []);
 
+
+  useEffect(() => {
+    notificationListener.current = Notification.addNotificationReceivedListener(notification => {
+      setNotification(notification)
+    })
+
+    responseListener.current = Notification.addNotificationResponseReceivedListener(response => {
+      console.log(response);
+      navigate('Diagnosis');
+    })
+
+    return () => {
+      Notification.removeNotificationSubscription(notificationListener.current);
+      Notification.removeNotificationSubscription(responseListener.current);
+    }
+  },[])
+
+  
   useEffect(() => {
     async function prepare() {
       try {
@@ -366,7 +394,7 @@ export default function App() {
   return (
     <RecoilRoot>
       <View style={{ flex: 1 }} onLayout={onLayoutRootView}>
-        <NavigationContainer>
+        <NavigationContainer ref={navigationRef}>
           <Stack.Navigator
             screenOptions={{
               animation: 'slide_from_right',

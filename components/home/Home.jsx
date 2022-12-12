@@ -118,14 +118,18 @@ export default function Home() {
 
   /** 로그인 시 요금서 청구 받는 이메일을 당사의 인바운드 이메일로 변경하라는 푸시 알림을 보내는 함수입니다 */
   const hintChangeBillingEmailPushNotification = async () => {
+    const message = {
+      to: currentUser.device_token,
+      sound:'default',
+      title:`청구서 이메일을 ${currentUser.inbound_email}로 변경해주세요!`,
+      body: '가입하신 통신사의 고객센터 / 어플리케이션으로 변경 가능합니다!'
+    }
     try {
-      await axios.post('https://exp.host/--/api/v2/push/send',{
-        "to": currentUser.device_token,
-        "title": `청구서 이메일을  ${currentUser.inbound_email}로 변경해주세요!`,
-        "body": '가입하신 통신사의 고객센터 / 어플리케이션으로 변경 가능합니다!'
-      },{
+      await axios.post('https://exp.host/--/api/v2/push/send',
+      message,{
         headers: {
           Accept: 'application/json',
+          "Accept-encoding": 'gzip,deflate',
           "Content-Type":"application/json"
         }
       })
@@ -174,7 +178,7 @@ export default function Home() {
     if(!currentUser) return;
     hintChangeBillingEmailPushNotification();
   }, [currentUser])
-
+  
 
   useEffect(() => {
     const backHandler = BackHandler.addEventListener("hardwareBackPress",confirmExitAppHandler);

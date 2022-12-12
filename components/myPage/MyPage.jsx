@@ -23,8 +23,7 @@ const MyPage = () => {
   const userInfo = useRecoilValue(loggedUserState);
   // const version = Constants.manifest2.extra.expoClient.version;
   
-  const {version} = Constants.expoConfig;
-  console.log(version);
+  const { version } = Constants.expoConfig;
   const navigation = useNavigation();
   const logoOut = async () => {
     const keys = ['refresh', 'access'];

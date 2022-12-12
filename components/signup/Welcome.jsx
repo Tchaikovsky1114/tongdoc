@@ -35,20 +35,20 @@ export default function Welcome({navigation}) {
   },[])
 
 
-  async function schedulePushNotification() {
+  // async function schedulePushNotification() {
     
-    await Notifications.scheduleNotificationAsync({
-      content: {
-        title: `안녕하세요, ${userInfo.name}님! 📬`,
-        body: '통신닥터의 회원이 되신 것을 진심으로 축하드립니다!',
-        data: { data: 'goes here' },
-      },
-      trigger: { seconds: 2 },
-    });
-  }
+  //   await Notifications.scheduleNotificationAsync({
+  //     content: {
+  //       title: `안녕하세요, ${userInfo.name}님! 📬`,
+  //       body: '통신닥터의 회원이 되신 것을 진심으로 축하드립니다!',
+  //       data: { data: 'goes here' },
+  //     },
+  //     trigger: { seconds: 2 },
+  //   });
+  // }
 
   useEffect(() => {
-    schedulePushNotification()
+    // schedulePushNotification()
   },[])
 
 
