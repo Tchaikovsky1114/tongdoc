@@ -354,17 +354,17 @@ export default function App() {
       }
     );
 
-
-    responseListener.current = Notification.addNotificationResponseReceivedListener(response => {
-      const notificationType = response.notification.request.content.data.messageType;
-      if(notificationType === 'inboundEmail'){
-        navigate('Mypage');
-      }
-      if(notificationType === 'sendInquiry'){
-        navigate('CustomService/Inquiry');
-      }
-    })
-
+    responseListener.current =
+      Notification.addNotificationResponseReceivedListener((response) => {
+        const notificationType =
+          response.notification.request.content.data.messageType;
+        if (notificationType === 'inboundEmail') {
+          navigate('Mypage');
+        }
+        if (notificationType === 'sendInquiry') {
+          navigate('CustomService/Inquiry');
+        }
+      });
 
     return () => {
       Notification.removeNotificationSubscription(notificationListener.current);
@@ -417,12 +417,6 @@ export default function App() {
               options={{ title: '', headerShown: false }}
             />
 
-            {/* <Stack.Screen name="Diagnosis" component={DiagnosisScreen} /> */}
-            <Stack.Screen
-              name="Diagnosis/familyRegistration"
-              component={FamilyRegistrationScreen}
-              options={{ title: '', headerShown: true }}
-            />
             <Stack.Screen
               name="Diagnosis/AddFamily"
               component={AddFamily}
@@ -458,7 +452,7 @@ export default function App() {
               component={InternetRegistration}
               options={{ title: '', headerShown: true }}
             />
-            
+
             <Stack.Screen
               name="Diagnosis/detailInternet"
               component={DetailInternet}
@@ -596,7 +590,7 @@ export default function App() {
               }}
             />
             {/* 임시 테스트 마이페이지 */}
-             {/* <Stack.Screen
+            {/* <Stack.Screen
               name="MyPage"
               component={MyPage}
               options={{
