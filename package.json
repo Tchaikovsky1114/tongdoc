@@ -1,6 +1,6 @@
 {
   "name": "tongdoc_app",
-  "version": "1.6.0",
+  "version": "1.7.1",
   "scripts": {
     "start": "expo start --dev-client",
     "android": "expo run:android",
@@ -45,7 +45,8 @@
     "react-native-web": "~0.18.7",
     "react-native-webview": "11.23.1",
     "recoil": "^0.7.6",
-    "svg": "^0.1.0"
+    "svg": "^0.1.0",
+    "expo-application": "~5.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.19.3",

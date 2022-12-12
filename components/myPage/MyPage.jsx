@@ -10,17 +10,21 @@ import P_12R from '../../style/paragraph/P_12R';
 import P_14M from '../../style/paragraph/P_14M';
 import HandlerBtn from './myPageCommon/HandlerBtn';
 import MyPageTab from './myPageCommon/MyPageTab';
-import Constants from 'expo-constants';
+import {version} from '../../package.json'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import DoubleCheckModal from './myPageCommon/DoubleCheckModal';
 import { useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import { loggedUserState } from '../../store/loggedUser';
 import { useNavigation } from '@react-navigation/native';
+import Constants from 'expo-constants';
 const MyPage = () => {
   const [isVisible, setIsVisible] = useState(false);
   const userInfo = useRecoilValue(loggedUserState);
-  const version = Constants.manifest2.extra.expoClient.version;
+  // const version = Constants.manifest2.extra.expoClient.version;
+  
+  const {version} = Constants.expoConfig;
+  console.log(version);
   const navigation = useNavigation();
   const logoOut = async () => {
     const keys = ['refresh', 'access'];
@@ -86,7 +90,10 @@ const MyPage = () => {
           <MyPageTab image={true} url={'MyPage/MyPageChangePW'}>
             비밀번호 변경
           </MyPageTab>
-          <MyPageTab version={version}>앱정보</MyPageTab>
+
+          <MyPageTab image={true}>비밀번호 변경</MyPageTab>
+          <MyPageTab version={version ? version : '1.7.1'}>앱정보</MyPageTab>
+
           <MyPageTab quit={true}>탈퇴하기</MyPageTab>
         </KeyboardAvoidingView>
       </ScrollView>

@@ -5,7 +5,7 @@ import {CLIENT_ID,CLIENT_SECRET} from 'react-native-dotenv';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import P_20R from '../style/paragraph/P_20R';
-
+import { version } from '../package.json'
 
 
 
@@ -81,7 +81,7 @@ export default function Splash() {
         style={styles.splashImage}
       />
       <View style={{position:'absolute',bottom:20,justifyContent:'center'}}>
-      <P_20R style={{color:'#fff'}}>더욱 새로워진 통신닥터! version 1.5.0</P_20R>
+      <P_20R style={{color:'#fff'}}>새로워진 통신닥터! {version ? `ver ${version}` : ''}</P_20R>
       </View>
     </View>
   );
