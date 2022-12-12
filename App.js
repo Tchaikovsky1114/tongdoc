@@ -43,14 +43,12 @@ import AboutUs from './components/customservice/AboutUs';
 import NoticeDetail from './components/customservice/notice/NoticeDetail';
 import InquiryDetail from './components/customservice/inquiry/InquiryDetail';
 import MyPageCertification from './components/myPage/page/MyPageCertification';
-
-import MyPageNotification from './components/myPage/page/MyPageNotification';
-
 import AddFamily from './components/diagnosis/AddFamily';
 import Toast, { BaseToast, ErrorToast } from 'react-native-toast-message';
 import P_14R from './style/paragraph/P_14R';
 import { navigate, navigationRef } from './RootNavigation';
 import MyPageChangePW from './components/myPage/page/MyPageChangePW';
+import MyPage from './components/myPage/MyPage';
 
 
 const toastConfig = {
@@ -363,8 +361,13 @@ export default function App() {
     })
 
     responseListener.current = Notification.addNotificationResponseReceivedListener(response => {
-      console.log(response);
-      navigate('Diagnosis');
+      const notificationType = response.notification.request.content.data.messageType;
+      if(notificationType === 'inboundEmail'){
+        navigate('Mypage');
+      }
+      if(notificationType === 'sendInquiry'){
+        navigate('CustomService/Inquiry');
+      }
     })
 
     return () => {
@@ -440,7 +443,7 @@ export default function App() {
               component={InternetRegistration}
               options={{ title: '', headerShown: true }}
             />
-            {/* 밑에는 나중에 지울 예정 */}
+            
             <Stack.Screen
               name="Diagnosis/detailInternet"
               component={DetailInternet}
@@ -542,6 +545,22 @@ export default function App() {
                 title: '',
               }}
             />
+            {/* 임시 테스트 마이페이지 */}
+             {/* <Stack.Screen
+              name="MyPage"
+              component={MyPage}
+              options={{
+                headerShown: true,
+                title: '',
+                headerBackVisible: false,
+                headerBackTitleVisible: false,
+                headerLeft: () => <BackButton />,
+                headerStyle: {
+                  shadowColor: 'transparent',
+                  elevation: 0,
+                },
+              }}
+            /> */}
             <Stack.Screen
               name="MyPage/Certification"
               component={MyPageCertification}

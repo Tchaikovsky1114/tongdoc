@@ -122,7 +122,10 @@ export default function Home() {
       to: currentUser.device_token,
       sound:'default',
       title:`청구서 이메일을 ${currentUser.inbound_email}로 변경해주세요!`,
-      body: '가입하신 통신사의 고객센터 / 어플리케이션으로 변경 가능합니다!'
+      body: '가입하신 통신사의 고객센터 / 어플리케이션으로 변경 가능합니다!',
+      data:{
+        messageType : 'inboundEmail'
+      }
     }
     try {
       await axios.post('https://exp.host/--/api/v2/push/send',

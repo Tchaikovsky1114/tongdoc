@@ -9,8 +9,9 @@
     "runtimeVersion": {
       "policy": "sdkVersion"
     },
+    
     "notification": {
-      "icon": "./assets/icon.png",
+      "icon": "./assets/push.png",
       "color": "#ffffff",
       "androidMode": "default",
       "iosDisplayInForeground": true
