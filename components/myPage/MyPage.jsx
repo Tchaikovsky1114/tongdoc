@@ -10,7 +10,7 @@ import P_12R from '../../style/paragraph/P_12R';
 import P_14M from '../../style/paragraph/P_14M';
 import HandlerBtn from './myPageCommon/HandlerBtn';
 import MyPageTab from './myPageCommon/MyPageTab';
-import Constants from 'expo-constants';
+import {version} from '../../package.json'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import DoubleCheckModal from './myPageCommon/DoubleCheckModal';
 import { useState } from 'react';
@@ -21,8 +21,7 @@ const MyPage = () => {
   const [isVisible, setIsVisible] = useState(false);
   const userInfo = useRecoilValue(loggedUserState);
   // const version = Constants.manifest2.extra.expoClient.version;
-  const version = Constants.expoConfig.version;
-
+  
   console.log(version);
   const navigation = useNavigation();
   const logoOut = async () => {
