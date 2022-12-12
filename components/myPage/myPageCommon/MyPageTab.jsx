@@ -4,7 +4,7 @@ import P_12R from '../../../style/paragraph/P_12R';
 import P_14R from '../../../style/paragraph/P_14R';
 import HandlerBtn from './HandlerBtn';
 
-const MyPageTab = ({ url, children, version, image, quit }) => {
+const MyPageTab = ({ url, children, version, image, quit, modalHandler }) => {
   const navigation = useNavigation();
 
   const FunctionHandler = () => {
@@ -22,7 +22,7 @@ const MyPageTab = ({ url, children, version, image, quit }) => {
             source={require('../../../assets/common/nextarrow.png')}
           />
         )}
-        {quit && <HandlerBtn>탈퇴하기</HandlerBtn>}
+        {quit && <HandlerBtn onPress={modalHandler}>탈퇴하기</HandlerBtn>}
       </View>
     </Pressable>
   );
