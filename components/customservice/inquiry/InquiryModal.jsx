@@ -1,4 +1,5 @@
-import { Dimensions,StyleSheet, Text, View,TextInput,Modal, Pressable, Alert, KeyboardAvoidingView, ScrollView } from 'react-native'
+import { Dimensions,StyleSheet, Text, View,TextInput,Modal, Pressable, Alert, KeyboardAvoidingView, ScrollView, } from 'react-native'
+import * as Linking from 'expo-linking'
 import React, { useState } from 'react'
 import ImageButton from '../../common/ImageButton'
 import P_16R from '../../../style/paragraph/P_16R'
@@ -41,13 +42,15 @@ export default function InquiryModal({isInquiryModalVisible,showInquiryModalHand
   }
 
   const hintSentInquiryPushNotification = async () => {
+    const prefix = Linking.createURL('/');
     const message = {
       to: currentUser.device_token,
       sound:'default',
       title:`1:1 문의가 등록되었습니다.`,
       body: '답변이 도착하면 알려드릴게요',
       data: {
-        messageType : 'sendInquiry'
+        messageType : 'sendInquiry',
+        url: `${prefix}/myinquiry`
       }
     }
       await axios.post('https://exp.host/--/api/v2/push/send',

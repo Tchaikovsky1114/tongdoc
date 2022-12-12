@@ -2,10 +2,11 @@
   "expo": {
     "name": "통신닥터",
     "slug": "tongdoc_app",
-    "version": "1.7.1",
+    "version": "1.7.2",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
+    "scheme":"kr.co.tongdoc",
     "runtimeVersion": {
       "policy": "sdkVersion"
     },
@@ -60,7 +61,7 @@
     },
     "android": {
       "package": "kr.co.tongdoc",
-      "versionCode": 8,
+      "versionCode": 9,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
@@ -68,10 +69,14 @@
       "intentFilters": [
         {
           "action": "VIEW",
-          "category": ["DEFAULT", "BROWSABLE"],
-          "data": {
-            "scheme": "exampleformanagedexpo"
-          }
+          "autoVerify":true,
+          "data": [
+            {
+            "scheme": "kr.co.tongdoc",
+            "host":"*.tongdoc.io"
+            }
+        ],
+        "category": ["DEFAULT", "BROWSABLE"]
         }
       ],
       "permissions": [
@@ -81,6 +86,7 @@
         "SMS",
         "NOTIFICATIONS"
       ],
+      "useNextNotificationsApi":true,
       "googleServicesFile": "./google-services.json"
     },
     "web": {

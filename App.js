@@ -27,7 +27,6 @@ import ChoiceSignMethod from './components/signup/ChoiceSignMethod';
 import FindInfoPage from './screens/FindInfo';
 import Welcome from './components/signup/Welcome';
 import DiagnosisScreen from './screens/DiagnosisScreen';
-
 import PurchaseMobileScreen from './screens/PurchaseMobileScreen';
 import CustomServiceScreen from './screens/CustomServiceScreen';
 import MyPageScreen from './screens/MyPageScreen';
@@ -49,7 +48,13 @@ import P_14R from './style/paragraph/P_14R';
 import { navigate, navigationRef } from './RootNavigation';
 import MyPageChangePW from './components/myPage/page/MyPageChangePW';
 import MyPage from './components/myPage/MyPage';
+import * as Linking from 'expo-linking';
+import H3_26M from './style/H3_26M';
 
+
+// 프로덕션 모드 kr.co.tongdoc://...
+// 디밸롭 모드 exp://101.111.134.45:19000 ... 
+const prefix = Linking.createURL('/')
 
 const toastConfig = {
   /* 기본토스트 */
@@ -298,7 +303,7 @@ const BottomTabs = () => {
           title: '마이페이지',
           headerTitleAlign: 'center',
           headerShown: true,
-
+          
           headerLeft: () => (
             <View>
               <BackButton />
@@ -339,8 +344,6 @@ const BottomTabs = () => {
 
 
 
-
-
 export default function App() {
   const [appIsReady, setAppIsReady] = useState(false);
   const [notification,setNotification] = useState(false);
@@ -356,18 +359,19 @@ export default function App() {
 
 
   useEffect(() => {
+    
     notificationListener.current = Notification.addNotificationReceivedListener(notification => {
       setNotification(notification)
     })
 
     responseListener.current = Notification.addNotificationResponseReceivedListener(response => {
-      const notificationType = response.notification.request.content.data.messageType;
-      if(notificationType === 'inboundEmail'){
-        navigate('Mypage');
-      }
-      if(notificationType === 'sendInquiry'){
-        navigate('CustomService/Inquiry');
-      }
+      // const notificationType = response.notification.request.content.data.messageType;
+      // if(notificationType === 'inboundEmail'){
+      //   navigate('Mypage');
+      // }
+      // if(notificationType === 'sendInquiry'){
+      //   navigate('CustomService/Inquiry');
+      // }
     })
 
     return () => {
@@ -375,7 +379,6 @@ export default function App() {
       Notification.removeNotificationSubscription(responseListener.current);
     }
   },[])
-
   
   useEffect(() => {
     async function prepare() {
@@ -398,11 +401,64 @@ export default function App() {
   }, []);
 
   if (!appIsReady) return <View></View>;
-
+  
   return (
     <RecoilRoot>
       <View style={{ flex: 1 }} onLayout={onLayoutRootView}>
-        <NavigationContainer ref={navigationRef}>
+        {/* NavigationContainer의 linking props에는 prefixes와 config를 포함해야 한다. */}
+        <NavigationContainer
+        linking={{
+          prefixes: [prefix],
+          config: {
+            initialRouteName:'Main',
+            screens:{
+              HomeScreen:{
+                screens:{
+                  MyPageScreen: "mypage",
+                  Inquiry:"myinquiry"
+                },
+              }
+            }
+          },
+          
+          async getInitialURL() {
+            
+            let url = await Linking.getInitialURL();
+            if(url != null) {
+              return url;
+            }
+            const response = await Notification.getLastNotificationResponseAsync();
+             url = response?.notification.request.content.data.url;
+            return null;
+          },
+
+          subscribe(listener){
+            const onReceiveURL = ({url}) => listener(url);
+            Linking.addEventListener('url',onReceiveURL);
+            
+            const subscription = Notification.addNotificationResponseReceivedListener(response => {
+              const url = response?.notification.request.content.data.url;
+
+              // const notificationType = response.notification.request.content.data.messageType;
+              // if(notificationType === 'inboundEmail'){
+              //   listener(prefix + 'home');
+              //   listener(url);                
+              // }
+              // if(notificationType === 'sendInquiry'){
+              //   listener(prefix + 'home');
+              //   listener(url);
+              // }
+              
+              listener(url);
+            })
+            return () => {
+              // 
+              subscription.remove()
+            }
+          }
+        }}
+        // fallback={<H3_26M>잠시만 기다려주세요...</H3_26M>}
+        ref={navigationRef}>
           <Stack.Navigator
             screenOptions={{
               animation: 'slide_from_right',

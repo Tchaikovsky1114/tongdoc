@@ -12,8 +12,11 @@ import { version } from '../package.json'
 
 export default function Splash() {
   const navigation = useNavigation();
-  // onboarding에서 유저가 어플리케이션 실행 이력이 있는 경우(asyncStorage에 접속 이력) signin page로 redirecting.
-
+  
+  /*
+  * 어플리케이션 실행 시 유저가 어플리케이션 실행 이력이 있는 경우(asyncStorage에 refreshToken 확인) signin page로 redirecting.
+  * refreshToken이 있으면서 로그인 error가 발생하는 경우, AsyncStorage를 비우고 재 로그인으로 redirecting
+  */
   const checkExistUserHandler = async () => {
     const refreshToken = await AsyncStorage.getItem('refresh');
     if(!refreshToken) {
