@@ -55,7 +55,7 @@ export default function Splash() {
         [
           {
             text: '확인',
-            onPress: async () => {await AsyncStorage.clear();navigation.navigate('Signin');}
+            onPress: async () => {await AsyncStorage.clear()}
           }
         ]
         )
