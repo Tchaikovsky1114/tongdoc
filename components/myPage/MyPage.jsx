@@ -17,11 +17,14 @@ import { useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import { loggedUserState } from '../../store/loggedUser';
 import { useNavigation } from '@react-navigation/native';
+import Constants from 'expo-constants';
 const MyPage = () => {
   const [isVisible, setIsVisible] = useState(false);
   const userInfo = useRecoilValue(loggedUserState);
   // const version = Constants.manifest2.extra.expoClient.version;
-  // console.log(version);
+  
+  const {version} = Constants.expoConfig;
+  console.log(version);
   const navigation = useNavigation();
   const logoOut = async () => {
     const keys = ['refresh', 'access'];

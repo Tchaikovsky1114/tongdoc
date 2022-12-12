@@ -2,7 +2,7 @@
   "expo": {
     "name": "통신닥터",
     "slug": "tongdoc_app",
-    "version": "1.7.0",
+    "version": "1.7.1",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
