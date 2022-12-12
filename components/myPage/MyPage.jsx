@@ -21,8 +21,7 @@ const MyPage = () => {
   const [isVisible, setIsVisible] = useState(false);
   const userInfo = useRecoilValue(loggedUserState);
   // const version = Constants.manifest2.extra.expoClient.version;
-  
-  console.log(version);
+  // console.log(version);
   const navigation = useNavigation();
   const logoOut = async () => {
     const keys = ['refresh', 'access'];
@@ -85,7 +84,7 @@ const MyPage = () => {
             알림설정
           </MyPageTab>
           <MyPageTab image={true}>비밀번호 변경</MyPageTab>
-          <MyPageTab version={version}>앱정보</MyPageTab>
+          <MyPageTab version={version ? version : '1.7.1'}>앱정보</MyPageTab>
           <MyPageTab quit={true}>탈퇴하기</MyPageTab>
         </KeyboardAvoidingView>
       </ScrollView>
