@@ -50,8 +50,7 @@ import AddFamily from './components/diagnosis/AddFamily';
 import Toast, { BaseToast, ErrorToast } from 'react-native-toast-message';
 import P_14R from './style/paragraph/P_14R';
 import { navigate, navigationRef } from './RootNavigation';
-
-
+import MyPageChangePW from './components/myPage/page/MyPageChangePW';
 
 
 const toastConfig = {
@@ -59,11 +58,11 @@ const toastConfig = {
   success: (props) => (
     <BaseToast
       {...props}
-      style={{ borderLeftColor: 'pink',backgroundColor:'rgba(0,0,0,0.6)' }}
+      style={{ borderLeftColor: 'pink', backgroundColor: 'rgba(0,0,0,0.6)' }}
       contentContainerStyle={{ paddingHorizontal: 15 }}
       text1Style={{
         fontSize: 15,
-        fontFamily:'Noto400'
+        fontFamily: 'Noto400',
       }}
     />
   ),
@@ -73,24 +72,30 @@ const toastConfig = {
       {...props}
       text1Style={{
         fontSize: 17,
-        fontFamily:'Noto400'
+        fontFamily: 'Noto400',
       }}
       text2Style={{
         fontSize: 15,
-        fontFamily:'Noto400'
+        fontFamily: 'Noto400',
       }}
     />
   ),
-  
+
   /* 커스텀 토스트 */
-  refreshToast: ({text1}) => (
-    <View style={{ height: 60, width: '100%', backgroundColor: 'rgba(0,0,0,0.4)',justifyContent:'center',alignItems:'center' }}>
-      <P_14R style={{color:'#fff',textAlign:'center'}}>{text1}</P_14R>
+  refreshToast: ({ text1 }) => (
+    <View
+      style={{
+        height: 60,
+        width: '100%',
+        backgroundColor: 'rgba(0,0,0,0.4)',
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}
+    >
+      <P_14R style={{ color: '#fff', textAlign: 'center' }}>{text1}</P_14R>
     </View>
-  )
+  ),
 };
-
-
 
 enableScreens();
 const Stack = createNativeStackNavigator();
@@ -413,7 +418,7 @@ export default function App() {
               component={BottomTabs}
               options={{ title: '', headerShown: false }}
             />
-            
+
             {/* <Stack.Screen name="Diagnosis" component={DiagnosisScreen} /> */}
             <Stack.Screen
               name="Diagnosis/familyRegistration"
@@ -426,9 +431,9 @@ export default function App() {
               options={{ title: '', headerShown: true }}
             />
             <Stack.Screen
-            name="Diagnosis/AddInternet"
-            component={AddInternet}
-            options={{ title:'', headerShown:true}}
+              name="Diagnosis/AddInternet"
+              component={AddInternet}
+              options={{ title: '', headerShown: true }}
             />
             <Stack.Screen
               name="Diagnosis/internetRegistration"
@@ -553,6 +558,22 @@ export default function App() {
               }}
             />
             <Stack.Screen
+              name="MyPage/MyPageChangePW"
+              component={MyPageChangePW}
+              options={{
+                headerShown: true,
+                title: '',
+                headerBackVisible: false,
+                headerBackTitleVisible: false,
+                headerLeft: () => <BackButton />,
+                headerStyle: {
+                  shadowColor: 'transparent',
+                  elevation: 0,
+                },
+              }}
+            />
+            {/* 1차에서 제외 */}
+            {/* <Stack.Screen
               name="MyPage/Notification"
               component={MyPageNotification}
               options={{
@@ -566,10 +587,10 @@ export default function App() {
                   elevation: 0,
                 },
               }}
-            />
+            /> */}
           </Stack.Navigator>
         </NavigationContainer>
-        <Toast config={toastConfig}/>
+        <Toast config={toastConfig} />
       </View>
     </RecoilRoot>
   );

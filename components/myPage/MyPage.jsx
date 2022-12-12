@@ -82,11 +82,17 @@ const MyPage = () => {
           <MyPageTab url={'MyPage/Certification'} image={true}>
             이용약관
           </MyPageTab>
-          <MyPageTab url={'MyPage/Notification'} image={true}>
+          {/* 1차에서 제외 */}
+          {/* <MyPageTab url={'MyPage/Notification'} image={true}>
             알림설정
+          </MyPageTab> */}
+          <MyPageTab image={true} url={'MyPage/MyPageChangePW'}>
+            비밀번호 변경
           </MyPageTab>
+
           <MyPageTab image={true}>비밀번호 변경</MyPageTab>
           <MyPageTab version={version ? version : '1.7.1'}>앱정보</MyPageTab>
+
           <MyPageTab quit={true}>탈퇴하기</MyPageTab>
         </KeyboardAvoidingView>
       </ScrollView>
