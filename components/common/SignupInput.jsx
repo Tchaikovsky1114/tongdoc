@@ -1,4 +1,4 @@
-import { StyleSheet, Text, TextInput } from 'react-native';
+import { StyleSheet, Text, TextInput, View } from 'react-native';
 import React, { useState, useEffect, forwardRef, useCallback } from 'react';
 
 const SignupInput = forwardRef(
@@ -81,7 +81,7 @@ const SignupInput = forwardRef(
     }, [value]);
 
     return (
-      <>
+      <View style={styles.container}>
         <TextInput
           ref={ref ? ref : null}
           selectTextOnFocus={true}
@@ -111,25 +111,33 @@ const SignupInput = forwardRef(
           onChange={onChange}
           onBlur={onBlur}
         />
-        {isError && startValidation && (
-          <Text
-            style={[styles.errorText, { color: isError ? 'red' : '#2D63E2' }]}
-          >
-            {errorText}
-          </Text>
-        )}
-      </>
+        {/* {isError && startValidation && ( */}
+        <Text
+          style={[
+            styles.errorText,
+            {
+              color: isError ? 'red' : '#2D63E2',
+              opacity: isError && startValidation ? 1 : 0,
+            },
+          ]}
+        >
+          {errorText}
+        </Text>
+        {/* )} */}
+      </View>
     );
   }
 );
 export default SignupInput;
 
 const styles = StyleSheet.create({
+  container: {
+    paddingBottom: 24,
+  },
   errorText: {
-    marginTop: -30,
     fontFamily: 'Noto400',
     fontSize: 12,
-    marginBottom: 8,
+    includeFontPadding: false,
   },
   input: {
     fontFamily: 'Noto400',
@@ -138,7 +146,6 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     height: 30,
     borderColor: '#999999',
-    marginBottom: 24,
     color: '#333',
     includeFontPadding: false,
     paddingBottom: 8,
