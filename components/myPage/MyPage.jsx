@@ -6,11 +6,12 @@ import {
   Text,
   View,
 } from 'react-native';
+import axios from 'axios';
 import P_12R from '../../style/paragraph/P_12R';
 import P_14M from '../../style/paragraph/P_14M';
 import HandlerBtn from './myPageCommon/HandlerBtn';
 import MyPageTab from './myPageCommon/MyPageTab';
-import {version} from '../../package.json'
+import { version } from '../../package.json';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import DoubleCheckModal from './myPageCommon/DoubleCheckModal';
 import { useState } from 'react';
@@ -19,25 +20,39 @@ import { loggedUserState } from '../../store/loggedUser';
 import { useNavigation } from '@react-navigation/native';
 import Constants from 'expo-constants';
 const MyPage = () => {
-  const [isVisible, setIsVisible] = useState(false);
+  const [logoutModalIsVisible, setLogoutModalIsVisible] = useState(false);
+  const [quitModalIsVisible, setQuitModalIsVisible] = useState(false);
   const userInfo = useRecoilValue(loggedUserState);
   // const version = Constants.manifest2.extra.expoClient.version;
+
   
   const { version } = Constants.expoConfig;
+
   const navigation = useNavigation();
   const logoOut = async () => {
     const keys = ['refresh', 'access'];
     try {
       await AsyncStorage.multiRemove(keys);
-      setIsVisible((prev) => !prev);
+      setLogoutModalIsVisible((prev) => !prev);
       navigation.navigate('Signin');
     } catch (error) {
       console.log(error);
     }
   };
+  const quitService = async () => {
+    try {
+      const response = await axios.delete('https://api.tongdoc.co.kr/v1/user');
+      console.log(response);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
-  const modalHandler = () => {
-    setIsVisible((prev) => !prev);
+  const logoutModalHandler = () => {
+    setLogoutModalIsVisible((prev) => !prev);
+  };
+  const quitModalHandler = () => {
+    setQuitModalIsVisible((prev) => !prev);
   };
 
   return (
@@ -71,7 +86,7 @@ const MyPage = () => {
           <HandlerBtn
             borderStyle={styles.logoOutBtnBorder}
             textStyle={styles.userInfoBtnText}
-            onPress={modalHandler}
+            onPress={logoutModalHandler}
           >
             로그아웃
           </HandlerBtn>
@@ -93,14 +108,22 @@ const MyPage = () => {
           <MyPageTab image={true}>비밀번호 변경</MyPageTab>
           <MyPageTab version={version ? version : '1.7.1'}>앱정보</MyPageTab>
 
-          <MyPageTab quit={true}>탈퇴하기</MyPageTab>
+          <MyPageTab quit={true} modalHandler={quitModalHandler}>
+            탈퇴하기
+          </MyPageTab>
         </KeyboardAvoidingView>
       </ScrollView>
       <DoubleCheckModal
-        isVisible={isVisible}
+        isVisible={logoutModalIsVisible}
         firstInfoText={'정말 로그아웃 하시겠습니까?'}
-        pressBtnCancel={modalHandler}
+        pressBtnCancel={logoutModalHandler}
         pressBtnConfirm={logoOut}
+      />
+      <DoubleCheckModal
+        isVisible={quitModalIsVisible}
+        firstInfoText={'정말 탈퇴하시겠습니까?'}
+        pressBtnCancel={quitModalHandler}
+        pressBtnConfirm={quitService}
       />
     </View>
   );
