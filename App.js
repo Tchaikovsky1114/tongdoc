@@ -50,7 +50,6 @@ import { navigate, navigationRef } from './RootNavigation';
 import MyPageChangePW from './components/myPage/page/MyPageChangePW';
 import MyPage from './components/myPage/MyPage';
 
-
 const toastConfig = {
   /* 기본토스트 */
   success: (props) => (
@@ -336,17 +335,11 @@ const BottomTabs = () => {
   );
 };
 
-
-
-
-
-
 export default function App() {
   const [appIsReady, setAppIsReady] = useState(false);
-  const [notification,setNotification] = useState(false);
-  const notificationListener = useRef()
-  const responseListener = useRef()
-  
+  const [notification, setNotification] = useState(false);
+  const notificationListener = useRef();
+  const responseListener = useRef();
 
   const onLayoutRootView = useCallback(async () => {
     if (appIsReady) {
@@ -354,11 +347,13 @@ export default function App() {
     }
   }, []);
 
-
   useEffect(() => {
-    notificationListener.current = Notification.addNotificationReceivedListener(notification => {
-      setNotification(notification)
-    })
+    notificationListener.current = Notification.addNotificationReceivedListener(
+      (notification) => {
+        setNotification(notification);
+      }
+    );
+
 
     responseListener.current = Notification.addNotificationResponseReceivedListener(response => {
       const notificationType = response.notification.request.content.data.messageType;
@@ -370,13 +365,13 @@ export default function App() {
       }
     })
 
+
     return () => {
       Notification.removeNotificationSubscription(notificationListener.current);
       Notification.removeNotificationSubscription(responseListener.current);
-    }
-  },[])
+    };
+  }, []);
 
-  
   useEffect(() => {
     async function prepare() {
       try {
@@ -431,12 +426,32 @@ export default function App() {
             <Stack.Screen
               name="Diagnosis/AddFamily"
               component={AddFamily}
-              options={{ title: '', headerShown: true }}
+              options={{
+                headerShown: true,
+                title: '',
+                headerBackVisible: false,
+                headerBackTitleVisible: false,
+                headerLeft: () => <BackButton />,
+                headerStyle: {
+                  shadowColor: 'transparent',
+                  elevation: 0,
+                },
+              }}
             />
             <Stack.Screen
               name="Diagnosis/AddInternet"
               component={AddInternet}
-              options={{ title: '', headerShown: true }}
+              options={{
+                headerShown: true,
+                title: '',
+                headerBackVisible: false,
+                headerBackTitleVisible: false,
+                headerLeft: () => <BackButton />,
+                headerStyle: {
+                  shadowColor: 'transparent',
+                  elevation: 0,
+                },
+              }}
             />
             <Stack.Screen
               name="Diagnosis/internetRegistration"
@@ -509,6 +524,13 @@ export default function App() {
               options={{
                 headerShown: true,
                 title: '',
+                headerBackVisible: false,
+                headerBackTitleVisible: false,
+                headerLeft: () => <BackButton />,
+                headerStyle: {
+                  shadowColor: 'transparent',
+                  elevation: 0,
+                },
               }}
             />
             <Stack.Screen
@@ -517,6 +539,13 @@ export default function App() {
               options={{
                 headerShown: true,
                 title: '',
+                headerBackVisible: false,
+                headerBackTitleVisible: false,
+                headerLeft: () => <BackButton />,
+                headerStyle: {
+                  shadowColor: 'transparent',
+                  elevation: 0,
+                },
               }}
             />
 
@@ -526,6 +555,13 @@ export default function App() {
               options={{
                 headerShown: true,
                 title: '',
+                headerBackVisible: false,
+                headerBackTitleVisible: false,
+                headerLeft: () => <BackButton />,
+                headerStyle: {
+                  shadowColor: 'transparent',
+                  elevation: 0,
+                },
               }}
             />
             <Stack.Screen
@@ -534,6 +570,13 @@ export default function App() {
               options={{
                 headerShown: true,
                 title: '',
+                headerBackVisible: false,
+                headerBackTitleVisible: false,
+                headerLeft: () => <BackButton />,
+                headerStyle: {
+                  shadowColor: 'transparent',
+                  elevation: 0,
+                },
               }}
             />
 
@@ -543,6 +586,13 @@ export default function App() {
               options={{
                 headerShown: true,
                 title: '',
+                headerBackVisible: false,
+                headerBackTitleVisible: false,
+                headerLeft: () => <BackButton />,
+                headerStyle: {
+                  shadowColor: 'transparent',
+                  elevation: 0,
+                },
               }}
             />
             {/* 임시 테스트 마이페이지 */}
