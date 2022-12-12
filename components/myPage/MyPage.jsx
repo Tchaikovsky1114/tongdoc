@@ -20,7 +20,10 @@ import { useNavigation } from '@react-navigation/native';
 const MyPage = () => {
   const [isVisible, setIsVisible] = useState(false);
   const userInfo = useRecoilValue(loggedUserState);
-  const version = Constants.manifest2.extra.expoClient.version;
+  // const version = Constants.manifest2.extra.expoClient.version;
+  const version = Constants.expoConfig.version;
+
+  console.log(version);
   const navigation = useNavigation();
   const logoOut = async () => {
     const keys = ['refresh', 'access'];
