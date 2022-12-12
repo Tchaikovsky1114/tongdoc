@@ -8,12 +8,15 @@ import { useNavigation } from '@react-navigation/native';
 import P_14R from '../../../style/paragraph/P_14R';
 import P_12R from '../../../style/paragraph/P_12R';
 import P_18R from '../../../style/paragraph/P_18R';
+import { loggedUserState } from '../../../store/loggedUser';
+import { useRecoilState } from 'recoil';
 
 
 const { width } = Dimensions.get('window');
 
 export default function InquiryModal({isInquiryModalVisible,showInquiryModalHandler}) {
   const navigation = useNavigation()
+  const [currentUser,setCurrentUser] = useRecoilState(loggedUserState);
   const [isTitleBorderHighlight,setIsTitleBorderHighlight] = useState(false)
   const [isAlertModalVisible,setIsAlertModalVisible] = useState(false)
   const [inquiryValues,setInquiryValues] = useState({
@@ -36,6 +39,27 @@ export default function InquiryModal({isInquiryModalVisible,showInquiryModalHand
         [name]:text
       }))
   }
+
+  const hintSentInquiryPushNotification = async () => {
+    const message = {
+      to: currentUser.device_token,
+      sound:'default',
+      title:`1:1 문의가 등록되었습니다.`,
+      body: '답변이 도착하면 알려드릴게요',
+      data: {
+        messageType : 'sendInquiry'
+      }
+    }
+      await axios.post('https://exp.host/--/api/v2/push/send',
+      message,{
+        headers: {
+          Accept: 'application/json',
+          "Accept-encoding": 'gzip,deflate',
+          "Content-Type":"application/json"
+        }
+      })
+  }
+
   const postInquiryHandler = async () => {
       const token = await AsyncStorage.getItem('access');
       const {subject,contents} = inquiryValues;
@@ -60,13 +84,12 @@ export default function InquiryModal({isInquiryModalVisible,showInquiryModalHand
             }
           })
           showInquiryModalHandler()
+          hintSentInquiryPushNotification()
           navigation.navigate('CustomService')
         } catch (error) {
           console.error(error);
         }
       }
-    
-  
   
   return (
     <>
