@@ -25,7 +25,6 @@ const MyPage = () => {
   const userInfo = useRecoilValue(loggedUserState);
   // const version = Constants.manifest2.extra.expoClient.version;
 
-  
   const { version } = Constants.expoConfig;
 
   const navigation = useNavigation();
@@ -40,9 +39,16 @@ const MyPage = () => {
     }
   };
   const quitService = async () => {
+    const token = await AsyncStorage.getItem('access');
     try {
-      const response = await axios.delete('https://api.tongdoc.co.kr/v1/user');
-      console.log(response);
+      await axios.delete('https://api.tongdoc.co.kr/v1/user', {
+        headers: {
+          accept: '*/*',
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setQuitModalIsVisible((prev) => !prev);
+      navigation.navigate('Signin');
     } catch (err) {
       console.log(err);
     }
@@ -105,7 +111,6 @@ const MyPage = () => {
             비밀번호 변경
           </MyPageTab>
 
-          <MyPageTab image={true}>비밀번호 변경</MyPageTab>
           <MyPageTab version={version ? version : '1.7.1'}>앱정보</MyPageTab>
 
           <MyPageTab quit={true} modalHandler={quitModalHandler}>
