@@ -448,7 +448,7 @@ export default function App() {
               //   listener(prefix + 'home');
               //   listener(url);
               // }
-              
+
               listener(url);
             })
             return () => {
@@ -647,8 +647,8 @@ export default function App() {
                 },
               }}
             />
-            {/* 1차에서 제외 */}
-            {/* <Stack.Screen
+            {/* 1차에서 제외 
+             <Stack.Screen
               name="MyPage/Notification"
               component={MyPageNotification}
               options={{
