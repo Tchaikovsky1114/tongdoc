@@ -31,7 +31,7 @@ import PurchaseMobileScreen from './screens/PurchaseMobileScreen';
 import CustomServiceScreen from './screens/CustomServiceScreen';
 import MyPageScreen from './screens/MyPageScreen';
 import PersonSvg from './components/common/svg/PersonSvg';
-import FamilyRegistrationScreen from './components/diagnosis/familyRegistraion/FamilyRegistration';
+
 import InternetRegistration from './components/diagnosis/internetRegistration/InternetRegistration';
 import DetailInternet from './components/diagnosis/detail/DetailInternet';
 import BackButton from './components/common/BackButton';
@@ -49,7 +49,7 @@ import { navigate, navigationRef } from './RootNavigation';
 import MyPageChangePW from './components/myPage/page/MyPageChangePW';
 import MyPage from './components/myPage/MyPage';
 import * as Linking from 'expo-linking';
-import H3_26M from './style/H3_26M';
+
 
 
 // 프로덕션 모드 kr.co.tongdoc://...
@@ -350,6 +350,85 @@ export default function App() {
   const notificationListener = useRef()
   const responseListener = useRef()
   
+  const linking = {
+    prefixes: [prefix],
+    config: {
+      initialRouteName:'Main',
+      screens:{
+
+    Splash: "splash",
+    OnBoarding: "onboarding",
+    BottomTabs : {
+      screens:{
+        HomeScreen: "main",
+        DiagnosisScreen: "diagnosis",
+        PurchaseMobileScreen: "purchasemobile",
+        CustomServiceScreen: "customservice",
+        MyPageScreen: "mypage",
+        }
+      },
+      AddFamily: "diagnosis/addfamily",
+      AddInternet: "diagnosis/addinternet",
+      InternetRegistration: "diagnosis/internetregistration",
+      DetailInternet: "diagnosis/detailinternet",
+      SignupPage: "signup",
+      CertificationScreen: "signup/certification",
+      ChoiceSignMethod: "signup/choicesignmethod",
+      CertificationInProgress: "signup/certificationinprogress",
+      CertificationResult: "signup/certificationresult",
+      EamilAndPassword: "signup/emailandpassword",
+      Welcome: "signup/welcome",
+      SigninPage: "signin",
+      FindInfoPage: "signin/findinfo",
+      Notice: "customservice/notice",
+      NoticeDetail: "notice/details",
+      Inquiry: "customservice/inquiry",
+      InquiryDetail: "inquiry/details",
+      AboutUs: "customservice/aboutus",
+      MyPageCertification: "mypage/certificataion",
+      MyPageChangePW: "mypage/mypagechangepw",
+      }
+    },
+    
+    async getInitialURL() {
+      
+      let url = await Linking.getInitialURL();
+      if(url != null) {
+        return url;
+      }
+      const response = await Notification.getLastNotificationResponseAsync();
+       url = response?.notification.request.content.data.url;
+      return null;
+    },
+
+    subscribe(listener){
+      const onReceiveURL = ({url}) => listener(url);
+      Linking.addEventListener('url',onReceiveURL);
+      
+      const subscription = Notification.addNotificationResponseReceivedListener(response => {
+        const url = response?.notification.request.content.data.url;
+
+        // const notificationType = response.notification.request.content.data.messageType;
+        // if(notificationType === 'inboundEmail'){
+        //   listener(prefix + 'home');
+        //   listener(url);                
+        // }
+        // if(notificationType === 'sendInquiry'){
+        //   listener(prefix + 'home');
+        //   listener(url);
+        // }
+        console.log(prefix);
+        console.log(url);
+        listener(prefix);
+        listener(url);
+      })
+      return () => {
+        // 
+        subscription.remove()
+      }
+    }
+  }
+
 
   const onLayoutRootView = useCallback(async () => {
     if (appIsReady) {
@@ -359,24 +438,22 @@ export default function App() {
 
 
   useEffect(() => {
-    
     notificationListener.current = Notification.addNotificationReceivedListener(notification => {
       setNotification(notification)
     })
-
-    responseListener.current = Notification.addNotificationResponseReceivedListener(response => {
-      // const notificationType = response.notification.request.content.data.messageType;
-      // if(notificationType === 'inboundEmail'){
-      //   navigate('Mypage');
-      // }
-      // if(notificationType === 'sendInquiry'){
-      //   navigate('CustomService/Inquiry');
-      // }
-    })
+    // responseListener.current = Notification.addNotificationResponseReceivedListener(response => {
+    //   const notificationType = response.notification.request.content.data.messageType;
+    //   if(notificationType === 'inboundEmail'){
+    //     navigate('Mypage');
+    //   }
+    //   if(notificationType === 'sendInquiry'){
+    //     navigate('CustomService/Inquiry');
+    //   }
+    // })
 
     return () => {
       Notification.removeNotificationSubscription(notificationListener.current);
-      Notification.removeNotificationSubscription(responseListener.current);
+      // Notification.removeNotificationSubscription(responseListener.current);
     }
   },[])
   
@@ -407,56 +484,7 @@ export default function App() {
       <View style={{ flex: 1 }} onLayout={onLayoutRootView}>
         {/* NavigationContainer의 linking props에는 prefixes와 config를 포함해야 한다. */}
         <NavigationContainer
-        linking={{
-          prefixes: [prefix],
-          config: {
-            initialRouteName:'Main',
-            screens:{
-              HomeScreen:{
-                screens:{
-                  MyPageScreen: "mypage",
-                  Inquiry:"myinquiry"
-                },
-              }
-            }
-          },
-          
-          async getInitialURL() {
-            
-            let url = await Linking.getInitialURL();
-            if(url != null) {
-              return url;
-            }
-            const response = await Notification.getLastNotificationResponseAsync();
-             url = response?.notification.request.content.data.url;
-            return null;
-          },
-
-          subscribe(listener){
-            const onReceiveURL = ({url}) => listener(url);
-            Linking.addEventListener('url',onReceiveURL);
-            
-            const subscription = Notification.addNotificationResponseReceivedListener(response => {
-              const url = response?.notification.request.content.data.url;
-
-              // const notificationType = response.notification.request.content.data.messageType;
-              // if(notificationType === 'inboundEmail'){
-              //   listener(prefix + 'home');
-              //   listener(url);                
-              // }
-              // if(notificationType === 'sendInquiry'){
-              //   listener(prefix + 'home');
-              //   listener(url);
-              // }
-
-              listener(url);
-            })
-            return () => {
-              // 
-              subscription.remove()
-            }
-          }
-        }}
+        linking={linking}
         // fallback={<H3_26M>잠시만 기다려주세요...</H3_26M>}
         ref={navigationRef}>
           <Stack.Navigator
@@ -476,13 +504,6 @@ export default function App() {
               name="Home"
               component={BottomTabs}
               options={{ title: '', headerShown: false }}
-            />
-
-            {/* <Stack.Screen name="Diagnosis" component={DiagnosisScreen} /> */}
-            <Stack.Screen
-              name="Diagnosis/familyRegistration"
-              component={FamilyRegistrationScreen}
-              options={{ title: '', headerShown: true }}
             />
             <Stack.Screen
               name="Diagnosis/AddFamily"

@@ -1,0 +1,11 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "kr.co.tongdoc",
+      "sha256_cert_fingerprints":
+        ["D8:4E:E8:F8:BF:75:25:52:43:DB:85:76:67:64:75:AE:10:CF:A0:DC:FC:3D:3F:FD:5C:CF:A0:74:18:26:35:49"]
+    }
+  }
+]

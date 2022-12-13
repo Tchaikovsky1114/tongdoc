@@ -73,7 +73,8 @@
           "data": [
             {
             "scheme": "kr.co.tongdoc",
-            "host":"*.tongdoc.io"
+            "host":"*.tongdoc.io",
+            "pathPrefix":"/*"
             }
         ],
         "category": ["DEFAULT", "BROWSABLE"]
@@ -86,7 +87,7 @@
         "SMS",
         "NOTIFICATIONS"
       ],
-      "useNextNotificationsApi":true,
+      
       "googleServicesFile": "./google-services.json"
     },
     "web": {

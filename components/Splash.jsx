@@ -1,6 +1,6 @@
 import { StyleSheet, Image, View, Alert } from 'react-native';
 import React, { useLayoutEffect } from 'react';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import {CLIENT_ID,CLIENT_SECRET} from 'react-native-dotenv';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -71,7 +71,8 @@ export default function Splash() {
   // const removeAsyncStorage = async () => {
   //   await AsyncStorage.clear()
   // }
-
+  const route = useRoute()
+  console.log(route.params);
   useLayoutEffect(() => {
     // removeAsyncStorage(); 
     checkExistUserHandler();

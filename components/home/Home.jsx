@@ -119,6 +119,7 @@ export default function Home() {
 
   /** 로그인 시 요금서 청구 받는 이메일을 당사의 인바운드 이메일로 변경하라는 푸시 알림을 보내는 함수입니다 */
   const hintChangeBillingEmailPushNotification = async () => {
+    console.log('sendmail')
     const prefix = Linking.createURL();
     const message = {
       to: currentUser.device_token,
@@ -127,7 +128,7 @@ export default function Home() {
       body: '가입하신 통신사의 고객센터 / 어플리케이션으로 변경 가능합니다!',
       data:{
         messageType : 'inboundEmail',
-        url: `${prefix}/mypage`
+        url: `${prefix}/diagnosis/addfamily`
       }
     }
     try {
