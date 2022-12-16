@@ -45,7 +45,7 @@ const InternetRegistration = () => {
     setIsDisable((prev) => !prev);
   }, [form.internet !== '' && form.name !== '' && form.phone !== '']);
 
-  const testBtnPressHandler = () => {
+  const smsAllowBtnPressHandler = () => {
     setConfirmModalVisible((prev) => !prev);
   };
 
@@ -125,7 +125,7 @@ const InternetRegistration = () => {
           />
         </KeyboardAvoidingView>
       </ScrollView>
-      <DimensionBtn isDisable={isDisable} onPress={testBtnPressHandler}>
+      <DimensionBtn isDisable={isDisable} onPress={smsAllowBtnPressHandler}>
         SMS 동의 요청
       </DimensionBtn>
     </View>

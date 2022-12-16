@@ -33,13 +33,23 @@
         "CLIENT_ID": "2",
         "CLIENT_SECRET": "9IbXBERjdJ8zOyBOcyPJ0gwWOHhBfKbN9cTEgLiN"
       }
+    },
+    "ios_production": {
+      "channel": "ios_production",
+      "env": {
+        "CLIENT_ID": "2",
+        "CLIENT_SECRET": "9IbXBERjdJ8zOyBOcyPJ0gwWOHhBfKbN9cTEgLiN"
+      },
+      "ios": {
+        "simulator": true
+      }
     }
   },
   "submit": {
     "production": {
       "android": {
-        "serviceAccountKeyPath":"./pc-api-6612058537315475822-937-6e6cd9f559db.json",
-        "track":"internal"
+        "serviceAccountKeyPath": "./pc-api-6612058537315475822-937-6e6cd9f559db.json",
+        "track": "internal"
       },
       "ios": {
         "bundleIdentifier": "co.kr.tongdoc",

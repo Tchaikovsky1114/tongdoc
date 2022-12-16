@@ -9,21 +9,7 @@ const MyPageNotification = () => {
   const [sms, setSms] = useState(false);
   const [email, setEmail] = useState(false);
 
-  const testFunc = async () => {
-    try {
-      const isAvailable = await SMS.isAvailableAsync();
-      //   isAvailable = false;
-      if (isAvailable) {
-        console.log(isAvailable, '1');
-      } else {
-        console.log(isAvailable, '2');
-      }
-    } catch (error) {
-      console.log(isAvailable, '3');
-    }
-  };
-  testFunc();
-  const onchangeTest = () => {
+  const onchangeValue = () => {
     setApp((prev) => !prev);
   };
   return (
@@ -33,13 +19,13 @@ const MyPageNotification = () => {
         통식닥터 소식 및 혜택 정보를 받으실 수 있습니다.
       </P_14R>
       <View>
-        <MyPageSwitch value={app} onValueChange={onchangeTest}>
+        <MyPageSwitch value={app} onValueChange={onchangeValue}>
           앱 알림
         </MyPageSwitch>
-        <MyPageSwitch value={sms} onValueChange={onchangeTest}>
+        <MyPageSwitch value={sms} onValueChange={onchangeValue}>
           문자
         </MyPageSwitch>
-        <MyPageSwitch value={email} onValueChange={onchangeTest}>
+        <MyPageSwitch value={email} onValueChange={onchangeValue}>
           이메일
         </MyPageSwitch>
       </View>

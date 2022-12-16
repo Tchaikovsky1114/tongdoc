@@ -31,7 +31,7 @@ import PurchaseMobileScreen from './screens/PurchaseMobileScreen';
 import CustomServiceScreen from './screens/CustomServiceScreen';
 import MyPageScreen from './screens/MyPageScreen';
 import PersonSvg from './components/common/svg/PersonSvg';
-import FamilyRegistrationScreen from './components/diagnosis/familyRegistraion/FamilyRegistration';
+
 import InternetRegistration from './components/diagnosis/internetRegistration/InternetRegistration';
 import DetailInternet from './components/diagnosis/detail/DetailInternet';
 import BackButton from './components/common/BackButton';
@@ -51,10 +51,9 @@ import MyPage from './components/myPage/MyPage';
 import * as Linking from 'expo-linking';
 import H3_26M from './style/H3_26M';
 
-
 // 프로덕션 모드 kr.co.tongdoc://...
-// 디밸롭 모드 exp://101.111.134.45:19000 ... 
-const prefix = Linking.createURL('/')
+// 디밸롭 모드 exp://101.111.134.45:19000 ...
+const prefix = Linking.createURL('/');
 
 const toastConfig = {
   /* 기본토스트 */
@@ -303,7 +302,7 @@ const BottomTabs = () => {
           title: '마이페이지',
           headerTitleAlign: 'center',
           headerShown: true,
-          
+
           headerLeft: () => (
             <View>
               <BackButton />
@@ -341,15 +340,11 @@ const BottomTabs = () => {
   );
 };
 
-
-
-
 export default function App() {
   const [appIsReady, setAppIsReady] = useState(false);
-  const [notification,setNotification] = useState(false);
-  const notificationListener = useRef()
-  const responseListener = useRef()
-  
+  const [notification, setNotification] = useState(false);
+  const notificationListener = useRef();
+  const responseListener = useRef();
 
   const onLayoutRootView = useCallback(async () => {
     if (appIsReady) {
@@ -357,29 +352,30 @@ export default function App() {
     }
   }, []);
 
-
   useEffect(() => {
-    
-    notificationListener.current = Notification.addNotificationReceivedListener(notification => {
-      setNotification(notification)
-    })
+    notificationListener.current = Notification.addNotificationReceivedListener(
+      (notification) => {
+        setNotification(notification);
+      }
+    );
 
-    responseListener.current = Notification.addNotificationResponseReceivedListener(response => {
-      // const notificationType = response.notification.request.content.data.messageType;
-      // if(notificationType === 'inboundEmail'){
-      //   navigate('Mypage');
-      // }
-      // if(notificationType === 'sendInquiry'){
-      //   navigate('CustomService/Inquiry');
-      // }
-    })
+    responseListener.current =
+      Notification.addNotificationResponseReceivedListener((response) => {
+        // const notificationType = response.notification.request.content.data.messageType;
+        // if(notificationType === 'inboundEmail'){
+        //   navigate('Mypage');
+        // }
+        // if(notificationType === 'sendInquiry'){
+        //   navigate('CustomService/Inquiry');
+        // }
+      });
 
     return () => {
       Notification.removeNotificationSubscription(notificationListener.current);
       Notification.removeNotificationSubscription(responseListener.current);
-    }
-  },[])
-  
+    };
+  }, []);
+
   useEffect(() => {
     async function prepare() {
       try {
@@ -401,64 +397,68 @@ export default function App() {
   }, []);
 
   if (!appIsReady) return <View></View>;
-  
+
   return (
     <RecoilRoot>
       <View style={{ flex: 1 }} onLayout={onLayoutRootView}>
         {/* NavigationContainer의 linking props에는 prefixes와 config를 포함해야 한다. */}
         <NavigationContainer
-        linking={{
-          prefixes: [prefix],
-          config: {
-            initialRouteName:'Main',
-            screens:{
-              HomeScreen:{
-                screens:{
-                  MyPageScreen: "mypage",
-                  Inquiry:"myinquiry"
+          linking={{
+            prefixes: [prefix],
+            config: {
+              initialRouteName: 'Main',
+              screens: {
+                HomeScreen: {
+                  screens: {
+                    MyPageScreen: 'mypage',
+                    Inquiry: 'myinquiry',
+                  },
                 },
+              },
+            },
+
+            async getInitialURL() {
+              let url = await Linking.getInitialURL();
+              if (url != null) {
+                return url;
               }
-            }
-          },
-          
-          async getInitialURL() {
-            
-            let url = await Linking.getInitialURL();
-            if(url != null) {
-              return url;
-            }
-            const response = await Notification.getLastNotificationResponseAsync();
-             url = response?.notification.request.content.data.url;
-            return null;
-          },
+              const response =
+                await Notification.getLastNotificationResponseAsync();
+              url = response?.notification.request.content.data.url;
+              return null;
+            },
 
-          subscribe(listener){
-            const onReceiveURL = ({url}) => listener(url);
-            Linking.addEventListener('url',onReceiveURL);
-            
-            const subscription = Notification.addNotificationResponseReceivedListener(response => {
-              const url = response?.notification.request.content.data.url;
+            subscribe(listener) {
+              const onReceiveURL = ({ url }) => listener(url);
+              Linking.addEventListener('url', onReceiveURL);
 
-              // const notificationType = response.notification.request.content.data.messageType;
-              // if(notificationType === 'inboundEmail'){
-              //   listener(prefix + 'home');
-              //   listener(url);                
-              // }
-              // if(notificationType === 'sendInquiry'){
-              //   listener(prefix + 'home');
-              //   listener(url);
-              // }
+              const subscription =
+                Notification.addNotificationResponseReceivedListener(
+                  (response) => {
+                    const url = response?.notification.request.content.data.url;
 
-              listener(url);
-            })
-            return () => {
-              // 
-              subscription.remove()
-            }
-          }
-        }}
-        // fallback={<H3_26M>잠시만 기다려주세요...</H3_26M>}
-        ref={navigationRef}>
+                    // const notificationType = response.notification.request.content.data.messageType;
+                    // if(notificationType === 'inboundEmail'){
+                    //   listener(prefix + 'home');
+                    //   listener(url);
+                    // }
+                    // if(notificationType === 'sendInquiry'){
+                    //   listener(prefix + 'home');
+                    //   listener(url);
+                    // }
+
+                    listener(url);
+                  }
+                );
+              return () => {
+                //
+                subscription.remove();
+              };
+            },
+          }}
+          // fallback={<H3_26M>잠시만 기다려주세요...</H3_26M>}
+          ref={navigationRef}
+        >
           <Stack.Navigator
             screenOptions={{
               animation: 'slide_from_right',
@@ -479,11 +479,7 @@ export default function App() {
             />
 
             {/* <Stack.Screen name="Diagnosis" component={DiagnosisScreen} /> */}
-            <Stack.Screen
-              name="Diagnosis/familyRegistration"
-              component={FamilyRegistrationScreen}
-              options={{ title: '', headerShown: true }}
-            />
+
             <Stack.Screen
               name="Diagnosis/AddFamily"
               component={AddFamily}
@@ -499,7 +495,7 @@ export default function App() {
               component={InternetRegistration}
               options={{ title: '', headerShown: true }}
             />
-            
+
             <Stack.Screen
               name="Diagnosis/detailInternet"
               component={DetailInternet}
@@ -602,7 +598,7 @@ export default function App() {
               }}
             />
             {/* 임시 테스트 마이페이지 */}
-             {/* <Stack.Screen
+            {/* <Stack.Screen
               name="MyPage"
               component={MyPage}
               options={{
