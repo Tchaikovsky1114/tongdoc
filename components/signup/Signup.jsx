@@ -33,8 +33,8 @@ export default function Signup() {
   const [isLoading, setIsLoading] = useState(false);
   const [userInfo, setUserInfo] = useRecoilState(signupState);
 
-
   const getAuthorityPressHandler = async () => {
+<<<<<<< HEAD
     let allPermissionIsGranted = false;
     if(!isDevice){
       Alert.alert(
@@ -49,6 +49,24 @@ export default function Signup() {
       {
         cancelable:true
       });
+=======
+    if (!isDevice) {
+      Alert.alert(
+        '데스크탑에서 실행중이신가요?',
+        '스마트폰 외에는 접근 권한을 설정할 수 없습니다. 다음 페이지로 이동합니다.',
+        [
+          {
+            text: 'OK',
+            onPress: () => {
+              navigation.navigate('Signup/ChoiceSignMethod');
+            },
+          },
+        ],
+        {
+          cancelable: true,
+        }
+      );
+>>>>>>> 8209c389a563fd01594e13ff7ed95cf75add4526
       return;
     }
     setIsLoading(true);
@@ -71,7 +89,7 @@ export default function Signup() {
       allPermissionIsGranted = false;
     }
 
-    /** SMS PERMISSION 
+    /** SMS PERMISSION
      * https://docs.expo.dev/versions/latest/sdk/sms/
      * 권한 승인 후 SMS.sendSMSAsync(address, message, options)로 SMS 발송 가능
      */
@@ -110,33 +128,43 @@ export default function Signup() {
         allPermissionIsGranted = true;
       }
 
-      if (NotificationStatus !== "granted") {
+      if (NotificationStatus !== 'granted') {
         Alert.alert(
+<<<<<<< HEAD
           "알림 권한 요청",
           '푸시 알람을 허용해주세요.',
+=======
+          '앱 푸시 알림에 동의를 해주세요.',
+          '통신비 진단서 도착 및 휴대폰 최저가 매장 확인을 위하여 알림을 보내드립니다.',
+>>>>>>> 8209c389a563fd01594e13ff7ed95cf75add4526
           [
             {
-               text:'확인',
+              text: '거절하기',
             },
             {
-              text:'Setting으로 이동하기',
+              text: 'Setting으로 이동하기',
               onPress: async () => openSettings(),
-            }
+            },
           ]
         );
         allPermissionIsGranted = false;
         
       }
+<<<<<<< HEAD
       // firebase의 Cloud Message를 사용하기 때문에 Expo Push Token이 아닌 Native Device Token을 가져옵니다.
       const { data:pushToken } = await Notifications.getDevicePushTokenAsync({
+=======
+
+      const { data: pushToken } = await Notifications.getExpoPushTokenAsync({
+>>>>>>> 8209c389a563fd01594e13ff7ed95cf75add4526
         experienceId: '@ermerskim/tongdoc_app',
       });
-      token = pushToken
+      token = pushToken;
       setUserInfo((prev) => ({
         ...prev,
         userPushToken: pushToken,
       }));
-      await AsyncStorage.setItem('pushToken',JSON.stringify(pushToken));
+      await AsyncStorage.setItem('pushToken', JSON.stringify(pushToken));
 
       if (Platform.OS === 'android') {
         Notifications.setNotificationChannelAsync('default', {
@@ -149,9 +177,15 @@ export default function Signup() {
     } catch (err) {
       console.error(err);
     }
+<<<<<<< HEAD
       navigation.navigate('ChoiceSignMethod')
       setIsLoading(false)
       return token; 
+=======
+    navigation.navigate('Signup/ChoiceSignMethod');
+    setIsLoading(false);
+    return token;
+>>>>>>> 8209c389a563fd01594e13ff7ed95cf75add4526
   };
 
   return (

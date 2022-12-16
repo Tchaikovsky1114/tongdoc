@@ -33,6 +33,16 @@
         "CLIENT_ID": "2",
         "CLIENT_SECRET": "9IbXBERjdJ8zOyBOcyPJ0gwWOHhBfKbN9cTEgLiN"
       }
+    },
+    "ios_production": {
+      "channel": "ios_production",
+      "env": {
+        "CLIENT_ID": "2",
+        "CLIENT_SECRET": "9IbXBERjdJ8zOyBOcyPJ0gwWOHhBfKbN9cTEgLiN"
+      },
+      "ios": {
+        "simulator": true
+      }
     }
   },
   "submit": {

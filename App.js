@@ -47,8 +47,8 @@ import MyPageChangePW from './components/myPage/page/MyPageChangePW';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // 프로덕션 모드 kr.co.tongdoc://...
-// 디밸롭 모드 exp://101.111.134.45:19000 ... 
-const prefix = Linking.createURL('/')
+// 디밸롭 모드 exp://101.111.134.45:19000 ...
+const prefix = Linking.createURL('/');
 
 const toastConfig = {
   /* 기본토스트 */
@@ -293,7 +293,7 @@ const Home = () => {
           title: '마이페이지',
           headerTitleAlign: 'center',
           headerShown: true,
-          
+
           headerLeft: () => (
             <View>
               <BackButton />
@@ -331,6 +331,7 @@ const Home = () => {
   );
 };
 
+
 const getToken = async () => {
   try {
     const token = await AsyncStorage.getItem('access');
@@ -345,9 +346,11 @@ const handleOpenURL = (event) => {
   return event.url
 }
 
+
 export default function App() {
   const [isLoggedIn,setIsLoggedIn] = useState(false);
   const [appIsReady, setAppIsReady] = useState(false);
+
   const [notification,setNotification] = useState(false);
   const notificationListener = useRef()
   const responseListener = useRef()
@@ -426,7 +429,6 @@ export default function App() {
   }, []);
 
 
-
   useEffect(() => {
     getToken().then((token) => {
       if(!token) {
@@ -439,28 +441,31 @@ export default function App() {
     
   }, [])
 
+
   useEffect(() => {
-    notificationListener.current = Notification.addNotificationReceivedListener(notification => {
-      console.log(notification);
-      setNotification(notification)
-    })
-    responseListener.current = Notification.addNotificationResponseReceivedListener(response => {
-      
-      // const notificationType = response.notification.request.content.data.messageType;
-      // if(notificationType === 'inboundEmail'){
-      //  ...
-      // }
-      // if(notificationType === 'sendInquiry'){
-      //  ...
-      // }
-    })
+    notificationListener.current = Notification.addNotificationReceivedListener(
+      (notification) => {
+        setNotification(notification);
+      }
+    );
+
+    responseListener.current =
+      Notification.addNotificationResponseReceivedListener((response) => {
+        // const notificationType = response.notification.request.content.data.messageType;
+        // if(notificationType === 'inboundEmail'){
+        //   navigate('Mypage');
+        // }
+        // if(notificationType === 'sendInquiry'){
+        //   navigate('CustomService/Inquiry');
+        // }
+      });
 
     return () => {
       Notification.removeNotificationSubscription(notificationListener.current);
       Notification.removeNotificationSubscription(responseListener.current);
-    }
-  },[])
-  
+    };
+  }, []);
+
   useEffect(() => {
     async function prepare() {
       try {
@@ -480,17 +485,17 @@ export default function App() {
     prepare();
   }, []);
   if (!appIsReady) return <View></View>;
-  
+
   return (
     <RecoilRoot>
       <View style={{ flex: 1 }} onLayout={onLayoutRootView}>
         
         <NavigationContainer
+
         linking={isLoggedIn && linking}
         // fallback={<H3_26M>잠시만 기다려주세요...</H3_26M>}
         ref={navigationRef}
         >
-
           <Stack.Navigator
             initialRouteName='Home'
             screenOptions={{
@@ -505,6 +510,7 @@ export default function App() {
               component={Home}
               options={{ title: '', headerShown: false }}
             />
+
              <Stack.Screen name="OnBoarding" component={OnBoarding} />
             <Stack.Screen
               name="AddFamily"
@@ -521,7 +527,7 @@ export default function App() {
               component={InternetRegistration}
               options={{ title: '', headerShown: true }}
             />
-            
+
             <Stack.Screen
               name="detailInternet"
               component={DetailInternet}
@@ -624,7 +630,7 @@ export default function App() {
               }}
             />
             {/* 임시 테스트 마이페이지 */}
-             {/* <Stack.Screen
+            {/* <Stack.Screen
               name="MyPage"
               component={MyPage}
               options={{

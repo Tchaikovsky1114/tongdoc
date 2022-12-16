@@ -6,11 +6,11 @@
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
-    "scheme":"kr.co.tongdoc",
+    "scheme": "kr.co.tongdoc",
     "runtimeVersion": {
       "policy": "sdkVersion"
     },
-    
+
     "notification": {
       "icon": "./assets/push.png",
       "color": "#ffffff",
@@ -48,15 +48,15 @@
     "ios": {
       "bundleIdentifier": "co.kr.tongdoc",
       "supportsTablet": true,
-      "buildNumber": "1.4.1",
+      "buildNumber": "1.7.2",
       "infoPlist": {
         "NSAppTransportSecurity": {
           "NSAllowsArbitraryLoads": true,
           "NSAllowsArbitraryLoadsInWebContent": true
         },
-        "NSContactsUsageDescription": "연락처 권한이 필요합니다.",
-        "NSMessage": "SMS 수신 동의가 필요합니다.",
-        "NSLocationWhenInUseUsageDescription": "위치 동의가 필요합니다."
+        "NSContactsUsageDescription": "해당 연락처의 통신비 진단을 위하여 연락처 권한이 필요합니다.",
+        "NSMessage": "통신비 진단 및 휴대폰 구매 관련 SMS 알림을 위하여 수신 동의가 필요합니다.",
+        "NSLocationWhenInUseUsageDescription": "휴대폰 최저가 매장 검색 및 추천을 위하여 사용자의 위치 권한이 필요합니다."
       }
     },
     "android": {
@@ -69,15 +69,15 @@
       "intentFilters": [
         {
           "action": "VIEW",
-          "autoVerify":true,
+          "autoVerify": true,
           "data": [
             {
             "scheme": "kr.co.tongdoc",
             "host":"*.tongdoc.io",
             "pathPrefix":"/*"
             }
-        ],
-        "category": ["DEFAULT", "BROWSABLE"]
+          ],
+          "category": ["DEFAULT", "BROWSABLE"]
         }
       ],
       "permissions": [
@@ -86,8 +86,7 @@
         "android.permission.ACCESS_MEDIA_LOCATION",
         "SMS",
         "NOTIFICATIONS"
-      ],
-      
+      ],      
       "googleServicesFile": "./google-services.json"
     },
     "web": {
