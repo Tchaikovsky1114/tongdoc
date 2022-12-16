@@ -1,22 +1,24 @@
-import { StyleSheet, View } from 'react-native'
-import React from 'react'
+import { SafeAreaView, StyleSheet, View } from 'react-native';
+import React from 'react';
+import { StatusBar } from 'expo-status-bar';
+import Purchase from '../components/purchase/Purchase';
 
-
-export default function PurchaseMobileScreen({route}) {
-
+export default function PurchaseMobileScreen({ route }) {
   return (
-    <View style={styles.container}>
-      
-    </View>
-  )
+    <SafeAreaView style={{ flex: 1 }}>
+      <StatusBar style="dark" />
+      <View style={styles.container}>
+        <Purchase />
+      </View>
+    </SafeAreaView>
+  );
 }
 
-
-
 const styles = StyleSheet.create({
-  container:{
-    marginTop:50,
-    flex:1,
-    backgroundColor:'#fff'
-  }
-})
+  container: {
+    flex: 1,
+    paddingHorizontal: 24,
+    paddingTop: 31,
+    backgroundColor: '#fff',
+  },
+});

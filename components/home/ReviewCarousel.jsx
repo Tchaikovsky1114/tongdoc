@@ -45,7 +45,9 @@ export default function ReviewCarousel() {
           <P_14M>{item.title}</P_14M>
         </View>
         <View style={styles.description}>
-          <P_14R numberOfLines={5} style={{ color: '#666666' }}>{item.description}</P_14R>
+          <P_14R numberOfLines={5} style={{ color: '#666666' }}>
+            {item.description}
+          </P_14R>
         </View>
         <View style={styles.viewMoreBox}>
           <P_12M style={styles.viewMore}>더보기</P_12M>
@@ -76,7 +78,7 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
   },
   itemInner: {
-    position:'relative',
+    position: 'relative',
     width: width - 64,
     backgroundColor: '#fff',
     borderRadius: 16,
@@ -92,16 +94,18 @@ const styles = StyleSheet.create({
   title: {
     marginVertical: 8,
   },
-  description: {},
-  reviewCount:{
-    textAlign: 'left', 
-    color: '#2D63E2'
+  description: {
+    marginBottom: 24,
   },
-  viewMoreBox:{
-    position:'absolute',
+  reviewCount: {
+    textAlign: 'left',
+    color: '#2D63E2',
+  },
+  viewMoreBox: {
+    position: 'absolute',
     width: '100%',
-    bottom:16,
-    right:16,
+    bottom: 16,
+    right: 16,
   },
-  viewMore:{ textAlign: 'right', color: '#2D63E2' }
+  viewMore: { textAlign: 'right', color: '#2D63E2' },
 });
