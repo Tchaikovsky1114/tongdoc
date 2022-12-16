@@ -10,7 +10,7 @@ export default function ChoiceSignMethod() {
   const navigation = useNavigation()
 
   const moveSignupPageHandler = () => {
-    navigation.navigate('Signup/Certification')
+    navigation.navigate('Certification')
   }
   const moveSigninPageHandler = () => {
     navigation.navigate('Signin')

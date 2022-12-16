@@ -50,7 +50,7 @@ export default function InquiryModal({isInquiryModalVisible,showInquiryModalHand
       body: '답변이 도착하면 알려드릴게요',
       data: {
         messageType : 'sendInquiry',
-        url: `${prefix}/myinquiry`
+        url: `${prefix}myinquiry`
       }
     }
       await axios.post('https://exp.host/--/api/v2/push/send',

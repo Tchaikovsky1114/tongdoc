@@ -38,7 +38,7 @@
   "submit": {
     "production": {
       "android": {
-        "serviceAccountKeyPath":"./pc-api-6612058537315475822-937-6e6cd9f559db.json",
+        "serviceAccountKeyPath":"./tongdoc-9a7a9-651ec6369863.json",
         "track":"internal"
       },
       "ios": {

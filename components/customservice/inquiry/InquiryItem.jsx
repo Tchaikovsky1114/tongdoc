@@ -28,7 +28,7 @@ export default function InquiryItem({subject,id,badgeText}) {
 
   useEffect(() => {
     if(!inquiryDetail) return;
-    navigation.navigate('Inquiry/Details',{
+    navigation.navigate('InquiryDetails',{
       inquiryDetail
     });
   }, [inquiryDetail])

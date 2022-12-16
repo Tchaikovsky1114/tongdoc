@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "tongdoc-9a7a9",
+  "private_key_id": "651ec6369863c24bc0491a1733ae8598b4ffced3",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDFNzOnGJU5xEPY\nG9g6WoTCvs5SuAXdWDhmkXHbNIBs4O++gy8iLvi8e8+gh4aHpeSxY0Ip+fK31r/P\nZaNNQoOQQBzo4FfKv2/FJpVCjkvAkNXf7fOHMkHKdL4LDVFpTqiXmOsxZBLLF8Zw\n0Zhlr6XP4d9/Q+g5qDe6IQJM5GuQEjZeZvswcV6Buq9TJlwlqlhqa5wGuN3G0QyL\njck+Cm9xwffVjy1+e1wRkjdwRNW0TQIafbQXd92UNe70kXc28E8COO8wVAB2zbXg\nEQ3dA7EyeX2KPX4juH1A+qRMtIkw5n7lo98db9EBkwiZQyXH92LVyoHE6Z/8kz6O\naecYHDIVAgMBAAECggEAEvf5xF8lbz505hLbi9VMAq02jBc+HSmQlzDzGgnlNlO2\nS4Uzod6RtxNTh5Wxd1eZ9QPeh8oOMed6YHjeqZ41qEi6Xx3A4/PgzL4myhWErLth\njt3EuCK52D69TrPTukTCC36+VGxTMGyTfiNyvIkV8jY/+G4wJmeLIKBvJ7UqsVsb\nyOXr3zezinEIWpkcFSfRH72ARyb9eeF8sjAXvLczs4EvFa1xglm487EBs9QlJCDF\nPDYtQZVdco9rnI9jHDeczJXBXCaK9ANOVyu9ZlNNJ546KTVktUXTYIuglOf1Omip\n6b80JLGPqavUnqVwqC7lNl5xGH5k/TjplRTueXfPkQKBgQDuxW08dxPpN27IMrZ5\nHQ7O7EcdCSReTFrTe/rNAn/jlLFiVuViCPev75XzdJacuoI2WKAeflOTXdSrqtDV\nq9QPH7P1J9S/8TKhTb0Z+8hIp8Azd0UNhXN1VxkcTCkwCA3VSwY9pYeQHbOPpGvC\nF3+qbsULvX+RipJc7KyLdByTTQKBgQDTcil+gqMOqDB1CpGbqrx2XKxDLsAxD6cd\n9x0hmo5oa72b+mM+VudNctN0Vr1aFYOBqSgRmPQ+hOOUt3eAZkQRvb4kDO2CqCgI\nEF15L+4+5a4RqoiYzCPTADznZjIJR8we2wB8VSJ/V63p4Ui554P9T5Ts9wHdud76\nXW3bZBAl6QKBgQCEoX4QPET/Ix+SbTkXBaEYJ/9Ija96AgfhudiS0HShwhLWgVZh\nooGTZQ5ycazH2oJCFfC7f4iFL3XW9ceTKSNeU0nvP/TZue1Z1IjaShXy5dvJutLM\ns/hykbMNGPE4EQE+HbKVw8ENuLHpdHe3FL6BuY4S+2xFOCgdHgqqXBETcQKBgBLW\ntgm2e+6fX4neAjEbWiU1hoeJz8fPPDV4QdkvmwaEquUNvu/b8Em/NEXGQKKZDhls\nR8yhkwlK77fdTMFc2y21eQ5fNH4Sm1Z0ls9oTNK/xe1/AyKR9ZMkD0kSmtymz/Hj\n0zxAnY04857F2qPtk53rDDq8myb1G3+0+Ue1t5aZAoGALhFyqmVPJQI4x0sbG2fm\nwzqva9N2N4hlevWj/3S10fQoudXpdv2Fh5EvaYjR3pRxFrtAN2npnGq3vMma59dJ\n6y5kWfAniuy4OExbm1OhdgTsH4tI0QEeFN2kov1gr0s/ZAmWb27IjL1V+VMX56A6\nb9csarpoVMg9KZ7R0Zd667s=\n-----END PRIVATE KEY-----\n",
+  "client_email": "expo-tongdoc-co-kr@tongdoc-9a7a9.iam.gserviceaccount.com",
+  "client_id": "112767424540460605551",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/expo-tongdoc-co-kr%40tongdoc-9a7a9.iam.gserviceaccount.com"
+}

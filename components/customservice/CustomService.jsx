@@ -19,7 +19,7 @@ export default function CustomService() {
         <View style={styles.inner}>
           <View style={styles.tabsList}>
             <ImageButton
-              onPress={() => moveToPageHandler('CustomService/Notice')}
+              onPress={() => moveToPageHandler('Notice')}
               buttonText="공지사항"
               pressedColor="#F6F9FF"
               imageURL={require('../../assets/common/nextarrow.png')}
@@ -33,7 +33,7 @@ export default function CustomService() {
               }}
             />
             <ImageButton
-              onPress={() => moveToPageHandler('CustomService/Inquiry')}
+              onPress={() => moveToPageHandler('Inquiry')}
               buttonText="1:1 문의"
               pressedColor="#F6F9FF"
               imageURL={require('../../assets/common/nextarrow.png')}
@@ -47,7 +47,7 @@ export default function CustomService() {
               }}
             />
             <ImageButton
-              onPress={() => moveToPageHandler('CustomService/AboutUs')}
+              onPress={() => moveToPageHandler('AboutUs')}
               buttonText="회사소개"
               pressedColor="#F6F9FF"
               imageURL={require('../../assets/common/nextarrow.png')}

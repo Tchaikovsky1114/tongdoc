@@ -35,17 +35,22 @@ export default function Signup() {
 
 
   const getAuthorityPressHandler = async () => {
+    let allPermissionIsGranted = false;
     if(!isDevice){
-      Alert.alert('데스크탑에서 실행중이신가요?','스마트폰 외에는 접근 권한을 설정할 수 없습니다. 다음 페이지로 이동합니다.',
+      Alert.alert(
+        '데스크탑에서 실행중이신가요?',
+        '스마트폰 외에는 접근 권한을 설정할 수 없습니다. 다음 페이지로 이동합니다.',
       [
-        {text:'OK',onPress: () => {navigation.navigate('Signup/ChoiceSignMethod')} }
+        {
+          text:'OK',
+          onPress: () => {navigation.navigate('ChoiceSignMethod')}
+        }
       ],
       {
         cancelable:true
       });
       return;
     }
-    let allGrantedPermission = false;
     setIsLoading(true);
     try {
       const { status } = await Contacts.requestPermissionsAsync();
@@ -57,13 +62,13 @@ export default function Signup() {
         //    const contact = data[1];
         //    console.log(contact); 유저 기기의 연락처를 확인할 수 있음.
         //  }
-        allGrantedPermission = true;
+        allPermissionIsGranted = true;
       } else {
-        allGrantedPermission = false;
+        allPermissionIsGranted = false;
       }
     } catch (err) {
       console.error(err);
-      allGrantedPermission = false;
+      allPermissionIsGranted = false;
     }
 
     /** SMS PERMISSION 
@@ -73,12 +78,12 @@ export default function Signup() {
     try {
       const isAvailable = await SMS.isAvailableAsync();
       if (isAvailable) {
-        allGrantedPermission = true;
+        allPermissionIsGranted = true;
       } else {
-        allGrantedPermission = false;
+        allPermissionIsGranted = false;
       }
     } catch (error) {
-      allGrantedPermission = false;
+      allPermissionIsGranted = false;
     }
 
     try {
@@ -86,30 +91,29 @@ export default function Signup() {
       if (status === 'granted') {
         let location = await Location.getCurrentPositionAsync({});
 
-        allGrantedPermission = true;
+        allPermissionIsGranted = true;
       } else {
-        allGrantedPermission = false;
+        allPermissionIsGranted = false;
       }
     } catch (err) {
       console.error(err);
-      allGrantedPermission = false;
+      allPermissionIsGranted = false;
     }
 
     let token;
     try {
-      const { status: existingStatus } =
-        await Notifications.getPermissionsAsync();
-      let NotificationStatus = existingStatus;
-      if (existingStatus !== 'granted') {
+      const { status: notificationStatus } = await Notifications.getPermissionsAsync();
+      let NotificationStatus = notificationStatus;
+      if (notificationStatus !== 'granted') {
         const { status } = await Notifications.requestPermissionsAsync();
         NotificationStatus = status;
-        allGrantedPermission = true;
+        allPermissionIsGranted = true;
       }
 
       if (NotificationStatus !== "granted") {
         Alert.alert(
-          "권한 오류",
-          '푸시 알람 권한 획득에 실패하였습니다.',
+          "알림 권한 요청",
+          '푸시 알람을 허용해주세요.',
           [
             {
                text:'확인',
@@ -120,11 +124,11 @@ export default function Signup() {
             }
           ]
         );
-        allGrantedPermission = false;
-        return;
+        allPermissionIsGranted = false;
+        
       }
-      
-      const { data:pushToken } = await Notifications.getExpoPushTokenAsync({
+      // firebase의 Cloud Message를 사용하기 때문에 Expo Push Token이 아닌 Native Device Token을 가져옵니다.
+      const { data:pushToken } = await Notifications.getDevicePushTokenAsync({
         experienceId: '@ermerskim/tongdoc_app',
       });
       token = pushToken
@@ -145,7 +149,7 @@ export default function Signup() {
     } catch (err) {
       console.error(err);
     }
-      navigation.navigate('Signup/ChoiceSignMethod')
+      navigation.navigate('ChoiceSignMethod')
       setIsLoading(false)
       return token; 
   };
@@ -164,7 +168,6 @@ export default function Signup() {
             source={require('../../assets/signup/authorities.png')}
           />
         </View>
-
         <View style={styles.noticeBox}>
           <P_14R style={{ color: '#999999' }}>
             각 선택 권한을 허용하지 않아도 앱 사용이 가능하지만 일부 서비스

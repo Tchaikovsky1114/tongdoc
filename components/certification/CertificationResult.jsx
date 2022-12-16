@@ -15,7 +15,7 @@ export default function CertificationResult({ route, navigation }) {
   const [modalVisible, setModalVisible] = useState(true);
 
   const moveEmailAndPasswordPageHandler = () => {
-    navigation.navigate('Signup/EmailAndPassword');
+    navigation.navigate('EmailAndPassword');
     setModalVisible((prev) => !prev);
   };
   useEffect(() => {

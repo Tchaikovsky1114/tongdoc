@@ -21,7 +21,7 @@ export default function Certification() {
 
 
   const getCertificationHandler = () => {
-    navigation.navigate('Signup/CertificationInProgress');
+    navigation.navigate('CertificationInProgress');
   };
 
   return (

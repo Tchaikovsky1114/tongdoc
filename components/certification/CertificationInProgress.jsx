@@ -13,15 +13,15 @@ export default function CertificationInProgress() {
     const {
       nativeEvent: { data },
     } = event;
-    navigation.navigate('Signup/CertificationResult', {
-      screen: 'Signup/CertificationResult',
+    navigation.navigate('CertificationResult', {
+      screen: 'CertificationResult',
       userInfo: data,
     });
   };
 
   const receiveCertificationFailedFromWebviewHandler = (err) => {
-    navigation.navigate('Signup/ChoiceSignMethod',{
-        screen: 'Signup/CertificationResult',
+    navigation.navigate('ChoiceSignMethod',{
+        screen: 'CertificationResult',
     });
     console.error(err.nativeEvent.description);
    

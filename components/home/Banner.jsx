@@ -3,7 +3,7 @@ import React from 'react';
 import P_18M from '../../style/paragraph/P_18M';
 import P_14M from '../../style/paragraph/P_14M';
 
-export default function Banner({ mainConfiguringData, diagnosisResultData }) {
+export default function Banner({ diagnosisResultData }) {
   const { phone, month, total_save: totalSave } = diagnosisResultData;
 
   return (

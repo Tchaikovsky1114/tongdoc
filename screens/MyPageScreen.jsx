@@ -1,9 +1,11 @@
 import { SafeAreaView, StyleSheet, View } from 'react-native';
-import React from 'react';
+import React, { useEffect } from 'react';
 import MyPage from '../components/myPage/MyPage';
 import { StatusBar } from 'expo-status-bar';
 
-export default function MyPageScreen() {
+
+export default function MyPageScreen({navigation}) {
+  
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <StatusBar style="dark" />
@@ -13,6 +15,7 @@ export default function MyPageScreen() {
     </SafeAreaView>
   );
 }
+
 
 const styles = StyleSheet.create({
   container: {

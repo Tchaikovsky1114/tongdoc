@@ -64,14 +64,14 @@ const Signin = () => {
 
   // 주석 : 이동 함수
   const moveFindEmail = () => {
-    navigation.navigate('Signin/FindInfo', { id: 'email' });
+    navigation.navigate('FindInfo', { id: 'email' });
   };
   const moveFindPassword = () => {
-    navigation.navigate('Signin/FindInfo', { id: 'password' });
+    navigation.navigate('FindInfo', { id: 'password' });
   };
 
   const moveSignupPageHandler = () => {
-    navigation.navigate('Signup/Certification');
+    navigation.navigate('Certification');
   };
 
   // 주석 : 모달 닫기
@@ -93,36 +93,27 @@ const Signin = () => {
           name: response.user_name,
           tongkind: response.tcom,
         });
-        const inBoundEmail = response.inbound_email;
-
-        navigation.navigate('Home', {
-          screen: 'Main',
-          params: {
-            tongkind: response.tcom,
-            inBoundEmail: inBoundEmail,
-          },
-        });
       }
+      navigation.navigate('Main',{
+        login:true
+      });
     } catch (error) {
       console.log(error);
     }
   };
 
-  const getPushToken = async () => {
-    const pushToken = await AsyncStorage.getItem('pushToken');
-    if (!pushToken) return;
-
-    setSigninForm((prev) => ({
-      ...prev,
-      device_token: JSON.parse(pushToken),
-    }));
-  };
-
-  useEffect(() => {
-    getPushToken();
-  }, []);
-
-  console.log(signinForm);
+  // const getPushToken = async () => {
+  //   const token = await AsyncStorage.getItem('access');
+  //   if (!token) return;
+  //   setSigninForm((prev) => ({
+  //     ...prev,
+  //     device_token: JSON.parse(pushToken),
+  //   }));
+  // };
+  // useEffect(() => {
+  //   getPushToken();
+  // }, []);
+  // console.log(signinForm);
   return (
     <View style={styles.container}>
       <ScrollView style={styles.screen}>

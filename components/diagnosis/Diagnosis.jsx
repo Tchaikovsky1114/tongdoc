@@ -72,7 +72,7 @@ export default function Diagnosis() {
   }
 
   const moveToAddInternetPageHandler = useCallback(() => {
-    navigation.navigate('Diagnosis/AddInternet')
+    navigation.navigate('AddInternet')
   },[])
 
   useEffect(() => {
@@ -173,7 +173,7 @@ export default function Diagnosis() {
                 />
               ))}
               <RegisterCard
-                onPress={() => navigation.navigate('Diagnosis/AddFamily')}
+                onPress={() => navigation.navigate('AddFamily')}
                 text="가족을 등록해 주세요."
               />
             </View>

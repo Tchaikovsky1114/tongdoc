@@ -37,7 +37,7 @@ export default function Notice() {
   };
 
   const moveToDetailPage = (id) => {
-    naivgation.navigate('Notice/Details', {
+    naivgation.navigate('Details', {
       detailsId: id,
     });
   };

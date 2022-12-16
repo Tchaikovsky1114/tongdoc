@@ -1,20 +1,18 @@
 import { useEffect, useState, useCallback, useRef } from 'react';
-import { View, Image, Dimensions, Alert } from 'react-native';
+import { View, Image, Alert } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { enableScreens } from 'react-native-screens';
+import Toast, { BaseToast, ErrorToast } from 'react-native-toast-message';
 import { RecoilRoot } from 'recoil';
-
 import 'react-native-gesture-handler';
-
 import 'expo-dev-client';
-
 import * as Font from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import * as Notification from 'expo-notifications';
+import * as Linking from 'expo-linking';
 
-import Splash from './components/Splash';
 import OnBoarding from './components/onboarding/OnBoarding';
 import HomeScreen from './screens/HomeScreen';
 import SignupPage from './screens/SignupPage';
@@ -31,7 +29,6 @@ import PurchaseMobileScreen from './screens/PurchaseMobileScreen';
 import CustomServiceScreen from './screens/CustomServiceScreen';
 import MyPageScreen from './screens/MyPageScreen';
 import PersonSvg from './components/common/svg/PersonSvg';
-
 import InternetRegistration from './components/diagnosis/internetRegistration/InternetRegistration';
 import DetailInternet from './components/diagnosis/detail/DetailInternet';
 import BackButton from './components/common/BackButton';
@@ -43,14 +40,11 @@ import NoticeDetail from './components/customservice/notice/NoticeDetail';
 import InquiryDetail from './components/customservice/inquiry/InquiryDetail';
 import MyPageCertification from './components/myPage/page/MyPageCertification';
 import AddFamily from './components/diagnosis/AddFamily';
-import Toast, { BaseToast, ErrorToast } from 'react-native-toast-message';
+
 import P_14R from './style/paragraph/P_14R';
-import { navigate, navigationRef } from './RootNavigation';
+import { navigationRef } from './RootNavigation';
 import MyPageChangePW from './components/myPage/page/MyPageChangePW';
-import MyPage from './components/myPage/MyPage';
-import * as Linking from 'expo-linking';
-
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // 프로덕션 모드 kr.co.tongdoc://...
 // 디밸롭 모드 exp://101.111.134.45:19000 ... 
@@ -102,7 +96,6 @@ const toastConfig = {
 
 enableScreens();
 const Stack = createNativeStackNavigator();
-
 Notification.setNotificationHandler({
   handleNotification: async () => ({
     shouldShowAlert: true,
@@ -110,13 +103,10 @@ Notification.setNotificationHandler({
     shouldSetBadge: false,
   }),
 });
-
 const Tab = createBottomTabNavigator();
-
-const BottomTabs = () => {
+const Home = () => {
   return (
     <Tab.Navigator
-      initialRouteName="Main"
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused, size, color }) => {
           let imageSource;
@@ -341,73 +331,74 @@ const BottomTabs = () => {
   );
 };
 
+const getToken = async () => {
+  try {
+    const token = await AsyncStorage.getItem('access');
+    return token ? token : '';
+  } catch (error) {
+    console.error(`토큰을 가져오는데 실패했습니다.${error}`)
+  }
+};
 
-
+const handleOpenURL = (event) => {
+  console.log('handleOpenURL',event.url);
+  return event.url
+}
 
 export default function App() {
+  const [isLoggedIn,setIsLoggedIn] = useState(false);
   const [appIsReady, setAppIsReady] = useState(false);
   const [notification,setNotification] = useState(false);
   const notificationListener = useRef()
   const responseListener = useRef()
   
   const linking = {
-    prefixes: [prefix],
+    prefixes: [prefix,"kr.co.tongdoc://","tongdoc://"],
     config: {
-      initialRouteName:'Main',
-      screens:{
-
-    Splash: "splash",
-    OnBoarding: "onboarding",
-    BottomTabs : {
-      screens:{
-        HomeScreen: "main",
-        DiagnosisScreen: "diagnosis",
-        PurchaseMobileScreen: "purchasemobile",
-        CustomServiceScreen: "customservice",
-        MyPageScreen: "mypage",
-        }
-      },
-      AddFamily: "diagnosis/addfamily",
-      AddInternet: "diagnosis/addinternet",
-      InternetRegistration: "diagnosis/internetregistration",
-      DetailInternet: "diagnosis/detailinternet",
-      SignupPage: "signup",
-      CertificationScreen: "signup/certification",
-      ChoiceSignMethod: "signup/choicesignmethod",
-      CertificationInProgress: "signup/certificationinprogress",
-      CertificationResult: "signup/certificationresult",
-      EamilAndPassword: "signup/emailandpassword",
-      Welcome: "signup/welcome",
-      SigninPage: "signin",
-      FindInfoPage: "signin/findinfo",
-      Notice: "customservice/notice",
-      NoticeDetail: "notice/details",
-      Inquiry: "customservice/inquiry",
-      InquiryDetail: "inquiry/details",
-      AboutUs: "customservice/aboutus",
-      MyPageCertification: "mypage/certificataion",
-      MyPageChangePW: "mypage/mypagechangepw",
+      
+      screens: {
+        
+        initialRouteName:'Main',
+        Home:{
+          
+          screens:{
+            Main:'home',
+            Diagnosis: 'diagnosis',
+            PurchaseMobile:'purchasemobile',
+            CustomService:'customservice',
+            Mypage:'mypage'
+          }
+        },
+        // SignupPage:'signup',
+        // SigninPage:'signin',
+        Inquiry:'inquiry',
+        Notice:'notice',
+        NoticeDetail:{
+          path:'noticedetail',
+        },
+        AboutUs:'aboutus',
+        MyPageChangePW:'changepassword',
+        FindInfo:'findinfo',
+        MyPageCertification:'mypagecertification',
+        OnBoarding:'onboarding',
       }
     },
     
     async getInitialURL() {
-      
       let url = await Linking.getInitialURL();
       if(url != null) {
         return url;
       }
       const response = await Notification.getLastNotificationResponseAsync();
        url = response?.notification.request.content.data.url;
-      return null;
+      return url;
     },
 
     subscribe(listener){
       const onReceiveURL = ({url}) => listener(url);
       Linking.addEventListener('url',onReceiveURL);
-      
       const subscription = Notification.addNotificationResponseReceivedListener(response => {
         const url = response?.notification.request.content.data.url;
-
         // const notificationType = response.notification.request.content.data.messageType;
         // if(notificationType === 'inboundEmail'){
         //   listener(prefix + 'home');
@@ -417,9 +408,9 @@ export default function App() {
         //   listener(prefix + 'home');
         //   listener(url);
         // }
-        console.log(prefix);
-        console.log(url);
-        listener(prefix);
+        console.log('prefix',prefix);
+        console.log('url',url);
+        listener(prefix + 'home');
         listener(url);
       })
       return () => {
@@ -428,8 +419,6 @@ export default function App() {
       }
     }
   }
-
-
   const onLayoutRootView = useCallback(async () => {
     if (appIsReady) {
       await SplashScreen.hideAsync();
@@ -437,23 +426,38 @@ export default function App() {
   }, []);
 
 
+
+  useEffect(() => {
+    getToken().then((token) => {
+      if(!token) {
+        setIsLoggedIn(false);
+      }else{
+        setIsLoggedIn(true);
+      }
+    })
+    Linking.addEventListener('url',handleOpenURL);
+    
+  }, [])
+
   useEffect(() => {
     notificationListener.current = Notification.addNotificationReceivedListener(notification => {
+      console.log(notification);
       setNotification(notification)
     })
-    // responseListener.current = Notification.addNotificationResponseReceivedListener(response => {
-    //   const notificationType = response.notification.request.content.data.messageType;
-    //   if(notificationType === 'inboundEmail'){
-    //     navigate('Mypage');
-    //   }
-    //   if(notificationType === 'sendInquiry'){
-    //     navigate('CustomService/Inquiry');
-    //   }
-    // })
+    responseListener.current = Notification.addNotificationResponseReceivedListener(response => {
+      
+      // const notificationType = response.notification.request.content.data.messageType;
+      // if(notificationType === 'inboundEmail'){
+      //  ...
+      // }
+      // if(notificationType === 'sendInquiry'){
+      //  ...
+      // }
+    })
 
     return () => {
       Notification.removeNotificationSubscription(notificationListener.current);
-      // Notification.removeNotificationSubscription(responseListener.current);
+      Notification.removeNotificationSubscription(responseListener.current);
     }
   },[])
   
@@ -472,22 +476,23 @@ export default function App() {
       } catch (e) {
         console.warn(e);
       }
-      console.log('fonts loaded');
     }
     prepare();
   }, []);
-
   if (!appIsReady) return <View></View>;
   
   return (
     <RecoilRoot>
       <View style={{ flex: 1 }} onLayout={onLayoutRootView}>
-        {/* NavigationContainer의 linking props에는 prefixes와 config를 포함해야 한다. */}
+        
         <NavigationContainer
-        linking={linking}
+        linking={isLoggedIn && linking}
         // fallback={<H3_26M>잠시만 기다려주세요...</H3_26M>}
-        ref={navigationRef}>
+        ref={navigationRef}
+        >
+
           <Stack.Navigator
+            initialRouteName='Home'
             screenOptions={{
               animation: 'slide_from_right',
               headerShadowVisible: false,
@@ -495,34 +500,30 @@ export default function App() {
               headerShown: false,
             }}
           >
-            <Stack.Group screenOptions={{ headerShown: false }}>
-              <Stack.Screen name="Splash" component={Splash} />
-              <Stack.Screen name="OnBoarding" component={OnBoarding} />
-            </Stack.Group>
-
             <Stack.Screen
               name="Home"
-              component={BottomTabs}
+              component={Home}
               options={{ title: '', headerShown: false }}
             />
+             <Stack.Screen name="OnBoarding" component={OnBoarding} />
             <Stack.Screen
-              name="Diagnosis/AddFamily"
+              name="AddFamily"
               component={AddFamily}
               options={{ title: '', headerShown: true }}
             />
             <Stack.Screen
-              name="Diagnosis/AddInternet"
+              name="AddInternet"
               component={AddInternet}
               options={{ title: '', headerShown: true }}
             />
             <Stack.Screen
-              name="Diagnosis/internetRegistration"
+              name="internetRegistration"
               component={InternetRegistration}
               options={{ title: '', headerShown: true }}
             />
             
             <Stack.Screen
-              name="Diagnosis/detailInternet"
+              name="detailInternet"
               component={DetailInternet}
               options={{ title: '', headerShown: true }}
             />
@@ -536,32 +537,32 @@ export default function App() {
               }}
             />
             <Stack.Screen
-              name="Signup/Certification"
+              name="Certification"
               component={CertificationScreen}
               options={{ title: '', headerShown: true }}
             />
             <Stack.Screen
-              name="Signup/ChoiceSignMethod"
+              name="ChoiceSignMethod"
               component={ChoiceSignMethod}
               options={{ title: '', headerShown: true }}
             />
             <Stack.Screen
-              name="Signup/CertificationInProgress"
+              name="CertificationInProgress"
               component={CertificationInProgress}
               options={{ title: '', headerShown: true }}
             />
             <Stack.Screen
-              name="Signup/CertificationResult"
+              name="CertificationResult"
               component={CertificationResult}
               options={{ title: '', headerShown: true }}
             />
             <Stack.Screen
-              name="Signup/EmailAndPassword"
+              name="EmailAndPassword"
               component={EmailAndPassword}
               options={{ title: '', headerShown: true }}
             />
             <Stack.Screen
-              name="Signup/Welcome"
+              name="Welcome"
               component={Welcome}
               options={{ title: '' }}
             />
@@ -576,12 +577,12 @@ export default function App() {
             />
 
             <Stack.Screen
-              name="Signin/FindInfo"
+              name="FindInfo"
               component={FindInfoPage}
               options={{ title: '', headerShown: true }}
             />
             <Stack.Screen
-              name="CustomService/Notice"
+              name="Notice"
               component={Notice}
               options={{
                 headerShown: true,
@@ -589,7 +590,7 @@ export default function App() {
               }}
             />
             <Stack.Screen
-              name="Notice/Details"
+              name="NoticeDetails"
               component={NoticeDetail}
               options={{
                 headerShown: true,
@@ -598,7 +599,7 @@ export default function App() {
             />
 
             <Stack.Screen
-              name="CustomService/Inquiry"
+              name="Inquiry"
               component={Inquiry}
               options={{
                 headerShown: true,
@@ -606,7 +607,7 @@ export default function App() {
               }}
             />
             <Stack.Screen
-              name="Inquiry/Details"
+              name="InquiryDetails"
               component={InquiryDetail}
               options={{
                 headerShown: true,
@@ -615,7 +616,7 @@ export default function App() {
             />
 
             <Stack.Screen
-              name="CustomService/AboutUs"
+              name="AboutUs"
               component={AboutUs}
               options={{
                 headerShown: true,
@@ -639,7 +640,7 @@ export default function App() {
               }}
             /> */}
             <Stack.Screen
-              name="MyPage/Certification"
+              name="MyPageCertification"
               component={MyPageCertification}
               options={{
                 headerShown: true,
@@ -654,7 +655,7 @@ export default function App() {
               }}
             />
             <Stack.Screen
-              name="MyPage/MyPageChangePW"
+              name="MyPageChangePW"
               component={MyPageChangePW}
               options={{
                 headerShown: true,
