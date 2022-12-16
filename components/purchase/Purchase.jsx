@@ -12,9 +12,6 @@ const Purchase = () => {
       <Pressable style={styles.PressStyle} onPress={moveToSelectPhone}>
         <Text>휴대폰 구매하기</Text>
       </Pressable>
-      <Pressable style={styles.PressStyle}>
-        <Text>받은 제안서</Text>
-      </Pressable>
     </View>
   );
 };

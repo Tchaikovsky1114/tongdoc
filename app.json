@@ -47,7 +47,7 @@
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "bundleIdentifier": "co.kr.tongdoc",
-      "supportsTablet": true,
+      "supportsTablet": false,
       "buildNumber": "1.7.2",
       "infoPlist": {
         "NSAppTransportSecurity": {
@@ -72,9 +72,9 @@
           "autoVerify": true,
           "data": [
             {
-            "scheme": "kr.co.tongdoc",
-            "host":"*.tongdoc.io",
-            "pathPrefix":"/*"
+              "scheme": "kr.co.tongdoc",
+              "host": "*.tongdoc.io",
+              "pathPrefix": "/*"
             }
           ],
           "category": ["DEFAULT", "BROWSABLE"]
@@ -86,7 +86,7 @@
         "android.permission.ACCESS_MEDIA_LOCATION",
         "SMS",
         "NOTIFICATIONS"
-      ],      
+      ],
       "googleServicesFile": "./google-services.json"
     },
     "web": {
