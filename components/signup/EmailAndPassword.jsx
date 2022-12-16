@@ -24,12 +24,11 @@ import {
 } from './constants/Constants';
 import { useRecoilValue } from 'recoil';
 import { signupState } from '../../store/signup';
-import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from 'axios';
 const { width } = Dimensions.get('window');
 
 export default function EmailAndPassword({ navigation }) {
-  
   const [totalTermsCheck, setTotalTermsCheck] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const emailRef = useRef(null);
@@ -47,13 +46,15 @@ export default function EmailAndPassword({ navigation }) {
     passwordConfirm: '',
     recommendCode: '',
   });
-  
+
   const toggleTotalTermsCheckHandler = useCallback(() => {
     setTotalTermsCheck((prev) => !prev);
   }, []);
 
   const changeSignupFormHandler = (e, name) => {
-    const {nativeEvent: { text }} = e;
+    const {
+      nativeEvent: { text },
+    } = e;
     setSignupForm((prev) => ({
       ...prev,
       [name]: text,
@@ -66,11 +67,15 @@ export default function EmailAndPassword({ navigation }) {
   }, []);
 
   const isValidEmail = useCallback((email) => {
-    return /^[a-zA-Z0-9][a-zA-Z0-9._]+[@][a-zA-Z][A-Za-z.]+[.]\w{3,}/.test(email);
+    return /^[a-zA-Z0-9][a-zA-Z0-9._]+[@][a-zA-Z][A-Za-z.]+[.]\w{3,}/.test(
+      email
+    );
   }, []);
 
   const isValidPassword = useCallback((password) => {
-    return /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{10,20}$/.test(password);
+    return /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{10,20}$/.test(
+      password
+    );
   }, []);
 
   const detectBackspaceKeyHandler = (e) => {
@@ -105,33 +110,21 @@ export default function EmailAndPassword({ navigation }) {
         recommender: signupForm.recommendCode,
         third_party: 1,
         marketing: 1,
-      }
-      await axios.post(
-        'https://api.tongdoc.co.kr/v1/register',
-        obj,{}
-      );
-      Alert.alert(
-        "회원가입이 완료되었습니다",
-        '로그인 페이지로 이동합니다',
-        [
-          {
-            text:'확인',
-            onPress: () => navigation.navigate('Signin')
-          }
-        ]
-      );
-      
+      };
+      await axios.post('https://api.tongdoc.co.kr/v1/register', obj, {});
+      Alert.alert('회원가입이 완료되었습니다', '로그인 페이지로 이동합니다', [
+        {
+          text: '확인',
+          onPress: () => navigation.navigate('Signin'),
+        },
+      ]);
     } catch (error) {
       console.error(error.message);
-      Alert.alert(
-        error.message,
-        '',
-        [
-          {
-            text:'확인',
-          }
-        ]
-      );
+      Alert.alert(error.message, '', [
+        {
+          text: '확인',
+        },
+      ]);
     }
   };
 
@@ -142,18 +135,18 @@ export default function EmailAndPassword({ navigation }) {
     setTotalFormCheck(true);
 
     for (const inputs in extractRequiredPropertyObj) {
-      if(inputs !== 'recommendCode'){
-      if (inputs === 'password') {
-        if (!isValidPassword(signupForm[inputs])) {
-          setTotalFormCheck(false);
+      if (inputs !== 'recommendCode') {
+        if (inputs === 'password') {
+          if (!isValidPassword(signupForm[inputs])) {
+            setTotalFormCheck(false);
+          }
+        }
+        if (inputs === 'passwordConfirm') {
+          if (signupForm.password !== signupForm[inputs]) {
+            setTotalFormCheck(false);
+          }
         }
       }
-      if (inputs === 'passwordConfirm') {
-        if (signupForm.password !== signupForm[inputs]) {
-          setTotalFormCheck(false);
-        }
-      }
-    }
     }
     if (
       totalFormCheck &&
@@ -162,7 +155,12 @@ export default function EmailAndPassword({ navigation }) {
     ) {
       Keyboard.dismiss();
     }
-  }, [signupForm.email,signupForm.password,signupForm.passwordConfirm, totalFormCheck]);
+  }, [
+    signupForm.email,
+    signupForm.password,
+    signupForm.passwordConfirm,
+    totalFormCheck,
+  ]);
 
   return (
     <View style={styles.container}>
@@ -170,7 +168,6 @@ export default function EmailAndPassword({ navigation }) {
         modalVisible={modalVisible}
         setModalVisible={setModalVisible}
         termsDetail={termsDetail}
-        
       />
       <View style={styles.inner}>
         <ScrollView scrollEnabled>
