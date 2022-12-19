@@ -1,5 +1,7 @@
 # 통신닥터- 어플리케이션
 
+# IOS
+
 ## IOS Build 방법
 
 ### 1. EAS 설치 및 배포 환경 준비
@@ -39,12 +41,17 @@
 ※ 방금 빌드한 버전 제출
 ※ 완료 후 애플 개발자 - testFlight에서 확인
 
+## IOS reject 의견 대응
+
+https://velog.io/@acwell94/React-Native-IOS-%EC%8B%AC%EC%82%AC-%EA%B1%B0%EC%A0%88-%ED%95%B4%EA%B2%B0-%EA%B3%BC%EC%A0%95
+참고
 
 ## Android 배포 방법
 
 1. 빌드 `eas build --platform android`
 
 2. 배포 `eas submit --platform android`
+
 - 배포시 versionCode 및 version을 수정해주어야 합니다. (ex: versionCode:3 => 4, version: 1.4.3 => 1.4.4)
 
 ### OTA(EAS UPDATE 사용 방법)
@@ -54,7 +61,6 @@ build.production / build.development 등 eas.json에는 각 build에 맞는 chan
 branch와 channel을 연결하여 리빌드 없이 핫픽스 업데이트를 제공할 수 있습니다.
 
 - 새 업데이트를 만들고 게시하는 방법
-`eas update --branch production --message "write your message..."`
+  `eas update --branch production --message "write your message..."`
 
 ** UPDATE로 변경되지 않는 부분은 리빌드 후 다시 branch를 연결해야 합니다 **
- 

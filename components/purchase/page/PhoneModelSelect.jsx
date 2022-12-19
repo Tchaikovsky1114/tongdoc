@@ -10,11 +10,11 @@ const COMPANY = [
   },
   {
     num: 2,
-    title: '삼성',
+    title: '애플',
   },
   {
     num: 3,
-    title: '애플',
+    title: '기타',
   },
 ];
 
