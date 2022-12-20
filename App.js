@@ -1,17 +1,21 @@
 import { useEffect, useState, useCallback, useRef } from 'react';
-import { View, Image, Alert } from 'react-native';
+import { View, Image, Alert, Share, ToastAndroid, Pressable } from 'react-native';
+
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { enableScreens } from 'react-native-screens';
 import Toast, { BaseToast, ErrorToast } from 'react-native-toast-message';
 import { RecoilRoot } from 'recoil';
+
 import 'react-native-gesture-handler';
 import 'expo-dev-client';
 import * as Font from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import * as Notification from 'expo-notifications';
 import * as Linking from 'expo-linking';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { WEB_API_KEY } from 'react-native-dotenv';
 
 import OnBoarding from './components/onboarding/OnBoarding';
 import HomeScreen from './screens/HomeScreen';
@@ -42,10 +46,11 @@ import MyPageCertification from './components/myPage/page/MyPageCertification';
 import AddFamily from './components/diagnosis/AddFamily';
 
 import P_14R from './style/paragraph/P_14R';
-import { navigationRef } from './RootNavigation';
+import { navigate, navigationRef } from './RootNavigation';
 import MyPageChangePW from './components/myPage/page/MyPageChangePW';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
+import axios from 'axios';
+import dynamicLinks from '@react-native-firebase/dynamic-links'
 // 프로덕션 모드 kr.co.tongdoc://...
 // 디밸롭 모드 exp://101.111.134.45:19000 ...
 const prefix = Linking.createURL('/');
@@ -94,6 +99,56 @@ const toastConfig = {
   ),
 };
 
+const shareAppWithFriendsHandler = async () => {
+  try {
+    const payload = {
+      dynamicLinkInfo : {
+        domainUriPrefix: 'https://tongdoc.page.link',
+        link:'https://tongdoc-9a7a9.page.link/mypage',
+        androidInfo: {
+          androidPackageName: 'kr.co.tongdoc'
+        },
+        socialMetaTagInfo: {
+          socialTitle: '통신닥터',
+          socialDescription: '우리집 통신요금 전문의!',
+          socialImageLink: 'https://velog.velcdn.com/images/tchaikovsky/post/ab8450da-ff9a-4531-b25b-2320c753f3f0/image.png'
+        }
+      }
+    };
+    //
+    const url = `https://firebasedynamiclinks.googleapis.com/v1/shortLinks?key=${WEB_API_KEY}`  
+    const { data } = await axios.post(
+      url,
+      payload,
+      {
+        headers:{
+          'Content-Type': 'application/json'
+        }
+      }
+    )
+    const result = await Share.share({
+      message: data.shortLink,
+      url: JSON.shortLink,
+      title: '통닥',
+    },
+    {
+      dialogTitle:'통신요금 분석 전문가'
+    })
+    if(result.action === Share.sharedAction){
+      if(result.activityType) {
+        console.log(result.activityType)
+      }else {
+        console.log(result);
+      }
+    }else if (result.action === Share.dismissedAction){
+      ToastAndroid.show('공유를 취소하였습니다',ToastAndroid.SHORT)
+    }  
+  } catch (error) {
+    console.error(error.message);
+    ToastAndroid.show('링크 공유에 오류가 발생했습니다. 잠시 후 다시 시도해주세요',ToastAndroid.SHORT)
+  }
+}
+
 enableScreens();
 const Stack = createNativeStackNavigator();
 Notification.setNotificationHandler({
@@ -103,7 +158,9 @@ Notification.setNotificationHandler({
     shouldSetBadge: false,
   }),
 });
+
 const Tab = createBottomTabNavigator();
+
 const Home = () => {
   return (
     <Tab.Navigator
@@ -192,10 +249,12 @@ const Home = () => {
                 style={{ width: 94, height: 24 }}
                 source={require('./assets/common/logo.png')}
               />
+              <Pressable onPress={shareAppWithFriendsHandler}>
               <Image
                 style={{ width: 24, height: 24 }}
                 source={require('./assets/common/bell.png')}
               />
+              </Pressable>
             </View>
           ),
           headerShown: true,
@@ -208,7 +267,6 @@ const Home = () => {
           title: '통신비 진단',
           headerTitleAlign: 'center',
           headerShown: true,
-
           headerLeft: () => (
             <View>
               <BackButton />
@@ -341,29 +399,34 @@ const getToken = async () => {
   }
 };
 
-const handleOpenURL = (event) => {
-  console.log('handleOpenURL',event.url);
-  return event.url
-}
-
-
 export default function App() {
   const [isLoggedIn,setIsLoggedIn] = useState(false);
   const [appIsReady, setAppIsReady] = useState(false);
-
   const [notification,setNotification] = useState(false);
-  const notificationListener = useRef()
-  const responseListener = useRef()
+  const notificationListener = useRef(null);
+  const responseListener = useRef(null); 
+  
+  const handleOpenURL = (link) => {
+    console.log('handleOpenURL',link.url);
+    // 앱이 살아 있을때 정상적으로 작동 중 
+    if(link.url === 'https://tongdoc-9a7a9.page.link/mypage'){
+      navigate('Home')
+      navigate('Mypage');
+    }
+  }
   
   const linking = {
-    prefixes: [prefix,"kr.co.tongdoc://","tongdoc://"],
+    prefixes: [
+      'https://tongdoc-9a7a9.page.link',
+      prefix,
+      'https://tongdoc-9a7a9.web.app',
+      "kr.co.tongdoc://",
+      "tongdoc://",
+      "https://tongdoc.page.link"],
     config: {
-      
       screens: {
-        
         initialRouteName:'Main',
         Home:{
-          
           screens:{
             Main:'home',
             Diagnosis: 'diagnosis',
@@ -372,8 +435,6 @@ export default function App() {
             Mypage:'mypage'
           }
         },
-        // SignupPage:'signup',
-        // SigninPage:'signin',
         Inquiry:'inquiry',
         Notice:'notice',
         NoticeDetail:{
@@ -384,50 +445,46 @@ export default function App() {
         FindInfo:'findinfo',
         MyPageCertification:'mypagecertification',
         OnBoarding:'onboarding',
+
+        // dynamic segment를 사용한다면 아래와 같이 작성
+        // NavigateName: {
+        // path: 'foo/:slug', 
+        // parse: {
+        // slug: slug => Number(slug)
+        // }
       }
     },
     
-    async getInitialURL() {
-      let url = await Linking.getInitialURL();
-      if(url != null) {
-        return url;
-      }
-      const response = await Notification.getLastNotificationResponseAsync();
-       url = response?.notification.request.content.data.url;
-      return url;
-    },
-
-    subscribe(listener){
-      const onReceiveURL = ({url}) => listener(url);
-      Linking.addEventListener('url',onReceiveURL);
-      const subscription = Notification.addNotificationResponseReceivedListener(response => {
-        const url = response?.notification.request.content.data.url;
-        // const notificationType = response.notification.request.content.data.messageType;
-        // if(notificationType === 'inboundEmail'){
-        //   listener(prefix + 'home');
-        //   listener(url);                
-        // }
-        // if(notificationType === 'sendInquiry'){
-        //   listener(prefix + 'home');
-        //   listener(url);
-        // }
-        console.log('prefix',prefix);
-        console.log('url',url);
-        listener(prefix + 'home');
-        listener(url);
-      })
-      return () => {
-        // 
-        subscription.remove()
-      }
-    }
+    // async getInitialURL() {
+    //   let url = await Linking.getInitialURL();
+    //   if(url != null) {
+    //     return url;
+    //   }
+    //   const response = await Notification.getLastNotificationResponseAsync();
+    //    url = response?.notification.request.content.data.url;
+    //   return url;
+    // },
+    // subscribe(listener){
+    //   const onReceiveURL = ({url}) => listener(url);
+    //   Linking.addEventListener('url',onReceiveURL);
+    //   const subscription = Notification.addNotificationResponseReceivedListener(response => {
+    //     const url = response?.notification.request.content.data.url;
+    //     listener(prefix + 'home');
+    //     listener(url);
+    //   })
+      
+    //   return () => {
+    //     // 
+    //     subscription.remove()
+    //   }
+    // }
   }
+
   const onLayoutRootView = useCallback(async () => {
     if (appIsReady) {
       await SplashScreen.hideAsync();
     }
   }, []);
-
 
   useEffect(() => {
     getToken().then((token) => {
@@ -437,34 +494,8 @@ export default function App() {
         setIsLoggedIn(true);
       }
     })
-    Linking.addEventListener('url',handleOpenURL);
-    
   }, [])
 
-
-  useEffect(() => {
-    notificationListener.current = Notification.addNotificationReceivedListener(
-      (notification) => {
-        setNotification(notification);
-      }
-    );
-
-    responseListener.current =
-      Notification.addNotificationResponseReceivedListener((response) => {
-        // const notificationType = response.notification.request.content.data.messageType;
-        // if(notificationType === 'inboundEmail'){
-        //   navigate('Mypage');
-        // }
-        // if(notificationType === 'sendInquiry'){
-        //   navigate('CustomService/Inquiry');
-        // }
-      });
-
-    return () => {
-      Notification.removeNotificationSubscription(notificationListener.current);
-      Notification.removeNotificationSubscription(responseListener.current);
-    };
-  }, []);
 
   useEffect(() => {
     async function prepare() {
@@ -484,14 +515,33 @@ export default function App() {
     }
     prepare();
   }, []);
+
+  useEffect(() => {
+    // foreground 일 때 발생하는 dynamic Link 처리
+    // 앱이 살아 있을때 정상적으로 작동 중 
+   const unsubscribe = dynamicLinks().onLink(handleOpenURL);
+   return () => unsubscribe();
+  }, []);
+
+  useEffect(() => {
+    // background,Quit 상태일 때 발생하는 dynamic Link 처리
+    dynamicLinks()
+      .getInitialLink()
+        .then(link => {
+          // 백그라운드로 실행시 링크 받는중 https://tongdoc-9a7a9.page.link/mypage
+          Alert.alert(link.url,'',[{text:'확인'}]);
+          // if(link.url === 'https://tongdoc-9a7a9.page.link/mypage'){
+
+          // }
+        })
+  },[])
+
   if (!appIsReady) return <View></View>;
 
   return (
     <RecoilRoot>
       <View style={{ flex: 1 }} onLayout={onLayoutRootView}>
-        
         <NavigationContainer
-
         linking={isLoggedIn && linking}
         // fallback={<H3_26M>잠시만 기다려주세요...</H3_26M>}
         ref={navigationRef}

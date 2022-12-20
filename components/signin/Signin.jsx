@@ -102,18 +102,6 @@ const Signin = () => {
     }
   };
 
-  // const getPushToken = async () => {
-  //   const token = await AsyncStorage.getItem('access');
-  //   if (!token) return;
-  //   setSigninForm((prev) => ({
-  //     ...prev,
-  //     device_token: JSON.parse(pushToken),
-  //   }));
-  // };
-  // useEffect(() => {
-  //   getPushToken();
-  // }, []);
-  // console.log(signinForm);
   return (
     <View style={styles.container}>
       <ScrollView style={styles.screen}>
