@@ -5,7 +5,7 @@ const Purchase = () => {
   const navigation = useNavigation();
 
   const moveToSelectPhone = () => {
-    navigation.navigate('PhoneModelSelect');
+    navigation.navigate('PhoneConditionSelect');
   };
   return (
     <View>

@@ -45,6 +45,7 @@ import P_14R from './style/paragraph/P_14R';
 import { navigationRef } from './RootNavigation';
 import MyPageChangePW from './components/myPage/page/MyPageChangePW';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import PhoneConditionSelect from './components/purchase/page/PhoneConditionSelect';
 import PhoneModelSelect from './components/purchase/page/PhoneModelSelect';
 
 // 프로덕션 모드 kr.co.tongdoc://...
@@ -835,6 +836,21 @@ export default function App() {
                 },
               }}
             /> */}
+            <Stack.Screen
+              name="PhoneConditionSelect"
+              component={PhoneConditionSelect}
+              options={{
+                headerShown: true,
+                title: '휴대폰 모델 선택',
+                headerBackVisible: false,
+                headerBackTitleVisible: false,
+                headerLeft: () => <BackButton />,
+                headerStyle: {
+                  shadowColor: 'transparent',
+                  elevation: 0,
+                },
+              }}
+            />
             <Stack.Screen
               name="PhoneModelSelect"
               component={PhoneModelSelect}

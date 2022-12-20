@@ -1,65 +1,91 @@
-import { Text, View, StyleSheet } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+import {
+  Image,
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  View,
+} from 'react-native';
 import P_14R from '../../../style/paragraph/P_14R';
 import P_16M from '../../../style/paragraph/P_16M';
-import PhoneModelSelectBox from '../purchaseCommon/PhoneModelSelectBox';
+import PurchaseModel from '../purchaseCommon/PurchaseModel';
 
-const COMPANY = [
+const PHONE = [
   {
-    num: 1,
-    title: '전체',
+    id: 1,
+    phone_name: 'iPhone 12 64G',
+    phone_produce: 'Apple',
+    phone_storage: 64,
+    phone_price: 1078000,
+    img: 'https://api.tongdoc.co.kr/storage/files/img/thumbnail/107_iphone-12-white',
+    service_type_txt: '5G',
+    month_price: 47720,
   },
   {
-    num: 2,
-    title: '애플',
-  },
-  {
-    num: 3,
-    title: '기타',
+    id: 2,
+    phone_name: 'iPhone 13 64G',
+    phone_produce: 'Apple',
+    phone_storage: 64,
+    phone_price: 1078000,
+    img: 'https://api.tongdoc.co.kr/storage/files/img/thumbnail/107_iphone-12-white',
+    service_type_txt: '5G',
+    month_price: 47720,
   },
 ];
 
-const PRICE = [
-  {
-    num: 1,
-    title: '최신 고급형',
-    smallTitle: '80만원 이상',
-  },
-  {
-    num: 2,
-    title: '중급형',
-    smallTitle: '50만원 이상',
-  },
-  {
-    num: 3,
-    title: '보급형',
-    smallTitle: '50만원 이하',
-  },
-];
+const PhoneModelSelect = ({ route }) => {
+  const [modelList, setModelList] = useState();
+  const { params } = route;
 
-const PhoneModelSelect = () => {
+  useEffect(() => {
+    const getPhoneModelList = async () => {
+      const token = await AsyncStorage.getItem('access');
+      const phoneModel = await axios.get(
+        `https://api.tongdoc.co.kr/v1/buy/phone?company=${params.company}&filter=0`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      setModelList(phoneModel);
+    };
+
+    getPhoneModelList();
+  }, []);
+
   return (
     <View style={styles.container}>
-      <View style={styles.itemBox}>
-        <View style={styles.modelSelectTitle}>
-          <P_16M>제조사</P_16M>
-          <P_14R style={{ color: '#666666' }}>(중복선택가능)</P_14R>
+      <View style={styles.titleBox}>
+        <P_16M>모델</P_16M>
+        <P_14R style={{ color: '#666666' }}>(중복선택 가능)</P_14R>
+      </View>
+      <View style={styles.conditionBox}>
+        <View style={styles.totalCount}>
+          <P_14R>전체</P_14R>
+          <P_14R style={{ color: '#2D63E2', marginLeft: 2 }}>7</P_14R>
         </View>
-        <View style={styles.modelSelectItemBox}>
-          {COMPANY.map((item) => (
-            <PhoneModelSelectBox item={item} />
-          ))}
+        <View style={styles.searchConditionBox}>
+          <P_14R>인기상품순</P_14R>
+          <Image
+            style={styles.downIconImg}
+            source={require('../../../assets/downIcon.png')}
+          />
         </View>
       </View>
-      <View style={styles.itemBox}>
-        <View style={styles.modelSelectTitle}>
-          <P_16M>사양 및 가격</P_16M>
-        </View>
-        <View style={styles.modelSelectItemBox}>
-          {PRICE.map((item) => (
-            <PhoneModelSelectBox item={item} />
-          ))}
-        </View>
-      </View>
+      <SafeAreaView style={{ flex: 1 }}>
+        <ScrollView style={{ flex: 1 }}>
+          {modelList ? (
+            <>
+              {modelList.data.map((item) => (
+                <PurchaseModel item={item} key={item.id} />
+              ))}
+            </>
+          ) : null}
+        </ScrollView>
+      </SafeAreaView>
     </View>
   );
 };
@@ -73,16 +99,27 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
     paddingTop: 32,
   },
-  itemBox: {
-    marginBottom: 24,
-  },
-  modelSelectTitle: {
+  titleBox: {
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: 16,
   },
-  modelSelectItemBox: {
+  conditionBox: {
     flexDirection: 'row',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 16,
+  },
+  totalCount: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  searchConditionBox: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  downIconImg: {
+    width: 24,
+    height: 24,
   },
 });
