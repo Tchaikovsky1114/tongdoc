@@ -176,10 +176,6 @@ export default function HomeScreen({ navigation,route }) {
           { (!mainConfiguringData || !diagnosisResultData)
           ? <ActivityIndicator />
           : <>
-          <View style={{backgroundColor:'#4e2111'}}>
-          <H2_28M style={{color:'#fff',textAlign:'center'}}>안녕하세요? 통신닥터 프론트엔드 개발자 김명성입니다.</H2_28M>
-          <P_18M style={{color:'#fff',textAlign:'center'}}>Expo 만세!</P_18M>
-          </View>
               <Home
                 mainConfiguringData={mainConfiguringData}
                 diagnosisResultData={diagnosisResultData}
