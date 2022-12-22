@@ -32,7 +32,17 @@ const TermsModal = ({ modalVisible, setModalVisible, termsDetail }) => {
               style={[styles.button, styles.buttonClose]}
               onPress={() => setModalVisible(!modalVisible)}
             >
-              <H6_18M>서비스 이용약관</H6_18M>
+              {termsDetail === 'https://api.tongdoc.co.kr/web/agree/1' && (
+                <H6_18M style={{ PaddingTop: 24 }}>서비스 이용약관</H6_18M>
+              )}
+              {termsDetail === 'https://api.tongdoc.co.kr/web/agree/2' && (
+                <H6_18M style={{ PaddingTop: 24 }}>
+                  개인정보 수집 및 이용동의
+                </H6_18M>
+              )}
+              {termsDetail === 'https://api.tongdoc.co.kr/web/agree/3' && (
+                <H6_18M style={{ PaddingTop: 24 }}>제3자 정보제공동의</H6_18M>
+              )}
               <Image
                 style={{ width: 32, height: 32 }}
                 source={require('../../assets/common/close.png')}

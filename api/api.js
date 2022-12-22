@@ -31,15 +31,15 @@ const apis = {
         const token = await data.access_token;
         const refreshToken = await data.refresh_token;
         await AsyncStorage.setItem('access', token);
-        await AsyncStorage.setItem('refresh',refreshToken)
+        await AsyncStorage.setItem('refresh', refreshToken);
         const userInfo = await instance.get('v1/user');
         return userInfo.data;
       }
     } catch (error) {
-      console.error(error);
+      console.error(error.response.data);
       return;
     }
-  }
+  },
 };
 
 export default apis;
