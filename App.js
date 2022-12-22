@@ -1,7 +1,7 @@
 import { useEffect, useState, useCallback, useRef } from 'react';
 import { View, Image, Alert, Share, ToastAndroid, Pressable } from 'react-native';
 
-import { NavigationContainer } from '@react-navigation/native';
+import { getStateFromPath, Link, NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { enableScreens } from 'react-native-screens';
@@ -51,8 +51,7 @@ import MyPageChangePW from './components/myPage/page/MyPageChangePW';
 
 import axios from 'axios';
 import dynamicLinks from '@react-native-firebase/dynamic-links'
-// 프로덕션 모드 kr.co.tongdoc://...
-// 디밸롭 모드 exp://101.111.134.45:19000 ...
+
 const prefix = Linking.createURL('/');
 
 const toastConfig = {
@@ -115,7 +114,7 @@ const shareAppWithFriendsHandler = async () => {
         }
       }
     };
-    //
+    //f
     const url = `https://firebasedynamiclinks.googleapis.com/v1/shortLinks?key=${WEB_API_KEY}`  
     const { data } = await axios.post(
       url,
@@ -144,7 +143,7 @@ const shareAppWithFriendsHandler = async () => {
       ToastAndroid.show('공유를 취소하였습니다',ToastAndroid.SHORT)
     }  
   } catch (error) {
-    console.error(error.message);
+    console.error(error.response.data);
     ToastAndroid.show('링크 공유에 오류가 발생했습니다. 잠시 후 다시 시도해주세요',ToastAndroid.SHORT)
   }
 }
@@ -395,7 +394,7 @@ const getToken = async () => {
     const token = await AsyncStorage.getItem('access');
     return token ? token : '';
   } catch (error) {
-    console.error(`토큰을 가져오는데 실패했습니다.${error}`)
+    console.error(`토큰을 가져오는데 실패했습니다.${error.response.message}`)
   }
 };
 
@@ -410,7 +409,6 @@ export default function App() {
     console.log('handleOpenURL',link.url);
     // 앱이 살아 있을때 정상적으로 작동 중 
     if(link.url === 'https://tongdoc-9a7a9.page.link/mypage'){
-      navigate('Home')
       navigate('Mypage');
     }
   }
@@ -445,16 +443,14 @@ export default function App() {
         FindInfo:'findinfo',
         MyPageCertification:'mypagecertification',
         OnBoarding:'onboarding',
-
         // dynamic segment를 사용한다면 아래와 같이 작성
         // NavigateName: {
         // path: 'foo/:slug', 
         // parse: {
         // slug: slug => Number(slug)
         // }
-      }
+      },
     },
-    
     // async getInitialURL() {
     //   let url = await Linking.getInitialURL();
     //   if(url != null) {
@@ -528,10 +524,10 @@ export default function App() {
     dynamicLinks()
       .getInitialLink()
         .then(link => {
-          // 백그라운드로 실행시 링크 받는중 https://tongdoc-9a7a9.page.link/mypage
-          Alert.alert(link.url,'',[{text:'확인'}]);
-          // if(link.url === 'https://tongdoc-9a7a9.page.link/mypage'){
-
+          // 백그라운드로 실행시 링크 받는중 https://tongdoc-9a7a9.page.link/mypage          
+          // 링크 이동 
+            console.log('getInitialLink excuted');
+          // if(link && link.url === 'https://tongdoc-9a7a9.page.link/mypage'){  
           // }
         })
   },[])

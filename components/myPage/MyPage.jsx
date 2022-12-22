@@ -65,7 +65,7 @@ const MyPage = () => {
   };
   const getUserInfo = async() => {
     const token = await AsyncStorage.getItem('access');
-    console.log('mypage is running...')
+    
     try {
       const { data } = await axios.get('https://api.tongdoc.co.kr/v1/user',{
         headers:{

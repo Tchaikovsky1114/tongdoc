@@ -36,7 +36,7 @@ const apis = {
         return userInfo.data;
       }
     } catch (error) {
-      console.error(error);
+      console.error(error.response.data.message);
       return;
     }
   }

@@ -98,7 +98,7 @@ const Signin = () => {
         login:true
       });
     } catch (error) {
-      console.log(error);
+      console.log(error.response.message);
     }
   };
 

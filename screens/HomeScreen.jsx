@@ -3,7 +3,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useLayoutEffect, useState } from 'react';
-import { ActivityIndicator, SafeAreaView,Alert, Button} from 'react-native';
+import { ActivityIndicator, SafeAreaView,Alert, Button,Text, View} from 'react-native';
 import Home from '../components/home/Home';
 import HomeModal from '../components/sendingBills/homeModal/HomeModal';
 import {FCM_KEY} from 'react-native-dotenv';
@@ -11,6 +11,10 @@ import { loggedUserState } from '../store/loggedUser';
 import { useRecoilState } from 'recoil';
 import * as Notifications from 'expo-notifications';
 import * as Linking from 'expo-linking'
+import H2_28M from '../style/H2_28M';
+import P_18M from '../style/paragraph/P_18M';
+
+
 
 const prefix = Linking.createURL('/')
 
@@ -126,8 +130,8 @@ export default function HomeScreen({ navigation,route }) {
           icon: '../../assets/push.png',
           // prefix를 변경해야함. 
           // kr.co.tongdoc:// 은 foreground 상태에서 이동되긴 하지만 background 상태에서는 이동하지 못함 
-          // 어떻게 수정할것인가?
-          url:`https://tongdoc-9a7a9.page.link/mypage`,
+          // pageLink에 대한 개선 필요..
+          link:`https://tongdoc-9a7a9.page.link/mypage`,
           image:'../assets/icon.png',
         },
       },{
@@ -136,7 +140,7 @@ export default function HomeScreen({ navigation,route }) {
           Authorization: `key=${FCM_KEY}`,
         }
       })
-      // 발송 실패가 error로 response 되지 않고 success 처리 후 data로 전송되기에 주시해야 합니다.
+      // 발송 실패가 error로 response 되지 않고 success 처리 후 관련 메세지가 전송되기에 주시해야 합니다.
       console.log(data);
     } catch (error) {
       console.error(error);
@@ -165,17 +169,6 @@ export default function HomeScreen({ navigation,route }) {
       // Signin 컴포넌트에서 redirect 되면서 route.params를 받아옵니다
       // 위 함수를 실행하기 위해서는 route.params의 값이 필수이기에 의존성 배열의 값을 지우면 안됩니다.
   }, [route]);
-
-  
-
-  /** 테스트 시 사용하세요. */
-  // const removeAsyncStorage = async () => {
-  //   await AsyncStorage.clear()
-  // }
-  // useEffect(() => {
-  //   removeAsyncStorage();
-  // }, [])
-
   
   return (
         <SafeAreaView style={{ flex: 1 }}>
@@ -183,6 +176,10 @@ export default function HomeScreen({ navigation,route }) {
           { (!mainConfiguringData || !diagnosisResultData)
           ? <ActivityIndicator />
           : <>
+          <View style={{backgroundColor:'#4e2111'}}>
+          <H2_28M style={{color:'#fff',textAlign:'center'}}>안녕하세요? 통신닥터 프론트엔드 개발자 김명성입니다.</H2_28M>
+          <P_18M style={{color:'#fff',textAlign:'center'}}>Expo 만세!</P_18M>
+          </View>
               <Home
                 mainConfiguringData={mainConfiguringData}
                 diagnosisResultData={diagnosisResultData}
