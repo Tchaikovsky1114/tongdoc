@@ -17,5 +17,6 @@ const styles = StyleSheet.create({
     letterSpacing: -0.5,
     lineHeight: 22,
     fontSize: 14,
+    includeFontPadding: false,
   },
 });

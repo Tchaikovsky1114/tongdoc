@@ -49,6 +49,10 @@ import P_14R from './style/paragraph/P_14R';
 import { navigate, navigationRef } from './RootNavigation';
 import MyPageChangePW from './components/myPage/page/MyPageChangePW';
 
+import PhoneConditionSelect from './components/purchase/page/PhoneConditionSelect';
+import PhoneModelSelect from './components/purchase/page/PhoneModelSelect';
+
+
 import axios from 'axios';
 import dynamicLinks from '@react-native-firebase/dynamic-links'
 
@@ -303,17 +307,53 @@ const Home = () => {
       <Tab.Screen
         name="PurchaseMobile"
         component={PurchaseMobileScreen}
-        options={{ title: '휴대폰 구매' }}
-        listeners={{
-          tabPress: (e) => {
-            e.preventDefault();
-            Alert.alert('현재 서비스 준비 중인 페이지입니다.', '', [
-              {
-                text: '확인',
-              },
-            ]);
+        options={{
+          title: '휴대폰 구매',
+          headerTitleAlign: 'center',
+          headerShown: true,
+
+          headerLeft: () => (
+            <View>
+              <BackButton />
+            </View>
+          ),
+          headerRight: () => (
+            <View>
+              <Image
+                style={{ width: 24, height: 24 }}
+                source={require('./assets/common/bell.png')}
+              />
+            </View>
+          ),
+          headerTitle: '휴대폰 구매',
+          headerStyle: {
+            shadowColor: 'transparent',
+            elevation: 0,
+          },
+          headerTitleStyle: {
+            fontSize: 16,
+            fontFamily: 'Noto500',
+            color: '#333',
+            includeFontPadding: false,
+          },
+          headerLeftContainerStyle: {
+            paddingLeft: 16,
+          },
+
+          headerRightContainerStyle: {
+            paddingRight: 16,
           },
         }}
+        // listeners={{
+        //   tabPress: (e) => {
+        //     e.preventDefault();
+        //     Alert.alert('현재 서비스 준비 중인 페이지입니다.', '', [
+        //       {
+        //         text: '확인',
+        //       },
+        //     ]);
+        //   },
+        // }}
       />
       <Tab.Screen
         name="CustomService"
@@ -388,18 +428,21 @@ const Home = () => {
   );
 };
 
-
 const getToken = async () => {
   try {
     const token = await AsyncStorage.getItem('access');
     return token ? token : '';
   } catch (error) {
+
     console.error(`토큰을 가져오는데 실패했습니다.${error.response.message}`)
   }
 };
 
+
+
+
 export default function App() {
-  const [isLoggedIn,setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [appIsReady, setAppIsReady] = useState(false);
   const [notification,setNotification] = useState(false);
   const notificationListener = useRef(null);
@@ -428,10 +471,10 @@ export default function App() {
           screens:{
             Main:'home',
             Diagnosis: 'diagnosis',
-            PurchaseMobile:'purchasemobile',
-            CustomService:'customservice',
-            Mypage:'mypage'
-          }
+            PurchaseMobile: 'purchasemobile',
+            CustomService: 'customservice',
+            Mypage: 'mypage',
+          },
         },
         Inquiry:'inquiry',
         Notice:'notice',
@@ -484,14 +527,14 @@ export default function App() {
 
   useEffect(() => {
     getToken().then((token) => {
-      if(!token) {
+      if (!token) {
         setIsLoggedIn(false);
-      }else{
+      } else {
         setIsLoggedIn(true);
       }
-    })
-  }, [])
-
+    });
+    Linking.addEventListener('url', handleOpenURL);
+  }, []);
 
   useEffect(() => {
     async function prepare() {
@@ -543,7 +586,7 @@ export default function App() {
         ref={navigationRef}
         >
           <Stack.Navigator
-            initialRouteName='Home'
+            initialRouteName="Home"
             screenOptions={{
               animation: 'slide_from_right',
               headerShadowVisible: false,
@@ -557,16 +600,36 @@ export default function App() {
               options={{ title: '', headerShown: false }}
             />
 
-             <Stack.Screen name="OnBoarding" component={OnBoarding} />
+            <Stack.Screen name="OnBoarding" component={OnBoarding} />
             <Stack.Screen
               name="AddFamily"
               component={AddFamily}
-              options={{ title: '', headerShown: true }}
+              options={{
+                headerShown: true,
+                title: '',
+                headerBackVisible: false,
+                headerBackTitleVisible: false,
+                headerLeft: () => <BackButton />,
+                headerStyle: {
+                  shadowColor: 'transparent',
+                  elevation: 0,
+                },
+              }}
             />
             <Stack.Screen
               name="AddInternet"
               component={AddInternet}
-              options={{ title: '', headerShown: true }}
+              options={{
+                headerShown: true,
+                title: '',
+                headerBackVisible: false,
+                headerBackTitleVisible: false,
+                headerLeft: () => <BackButton />,
+                headerStyle: {
+                  shadowColor: 'transparent',
+                  elevation: 0,
+                },
+              }}
             />
             <Stack.Screen
               name="internetRegistration"
@@ -591,27 +654,77 @@ export default function App() {
             <Stack.Screen
               name="Certification"
               component={CertificationScreen}
-              options={{ title: '', headerShown: true }}
+              options={{
+                headerShown: true,
+                title: '',
+                headerBackVisible: false,
+                headerBackTitleVisible: false,
+                headerLeft: () => <BackButton />,
+                headerStyle: {
+                  shadowColor: 'transparent',
+                  elevation: 0,
+                },
+              }}
             />
             <Stack.Screen
               name="ChoiceSignMethod"
               component={ChoiceSignMethod}
-              options={{ title: '', headerShown: true }}
+              options={{
+                headerShown: true,
+                title: '',
+                headerBackVisible: false,
+                headerBackTitleVisible: false,
+                headerLeft: () => <BackButton />,
+                headerStyle: {
+                  shadowColor: 'transparent',
+                  elevation: 0,
+                },
+              }}
             />
             <Stack.Screen
               name="CertificationInProgress"
               component={CertificationInProgress}
-              options={{ title: '', headerShown: true }}
+              options={{
+                headerShown: true,
+                title: '',
+                headerBackVisible: false,
+                headerBackTitleVisible: false,
+                headerLeft: () => <BackButton />,
+                headerStyle: {
+                  shadowColor: 'transparent',
+                  elevation: 0,
+                },
+              }}
             />
             <Stack.Screen
               name="CertificationResult"
               component={CertificationResult}
-              options={{ title: '', headerShown: true }}
+              options={{
+                headerShown: true,
+                title: '',
+                headerBackVisible: false,
+                headerBackTitleVisible: false,
+                headerLeft: () => <BackButton />,
+                headerStyle: {
+                  shadowColor: 'transparent',
+                  elevation: 0,
+                },
+              }}
             />
             <Stack.Screen
               name="EmailAndPassword"
               component={EmailAndPassword}
-              options={{ title: '', headerShown: true }}
+              options={{
+                headerShown: true,
+                title: '',
+                headerBackVisible: false,
+                headerBackTitleVisible: false,
+                headerLeft: () => <BackButton />,
+                headerStyle: {
+                  shadowColor: 'transparent',
+                  elevation: 0,
+                },
+              }}
             />
             <Stack.Screen
               name="Welcome"
@@ -631,7 +744,17 @@ export default function App() {
             <Stack.Screen
               name="FindInfo"
               component={FindInfoPage}
-              options={{ title: '', headerShown: true }}
+              options={{
+                headerShown: true,
+                title: '',
+                headerBackVisible: false,
+                headerBackTitleVisible: false,
+                headerLeft: () => <BackButton />,
+                headerStyle: {
+                  shadowColor: 'transparent',
+                  elevation: 0,
+                },
+              }}
             />
             <Stack.Screen
               name="Notice"
@@ -639,6 +762,13 @@ export default function App() {
               options={{
                 headerShown: true,
                 title: '',
+                headerBackVisible: false,
+                headerBackTitleVisible: false,
+                headerLeft: () => <BackButton />,
+                headerStyle: {
+                  shadowColor: 'transparent',
+                  elevation: 0,
+                },
               }}
             />
             <Stack.Screen
@@ -647,6 +777,13 @@ export default function App() {
               options={{
                 headerShown: true,
                 title: '',
+                headerBackVisible: false,
+                headerBackTitleVisible: false,
+                headerLeft: () => <BackButton />,
+                headerStyle: {
+                  shadowColor: 'transparent',
+                  elevation: 0,
+                },
               }}
             />
 
@@ -656,6 +793,13 @@ export default function App() {
               options={{
                 headerShown: true,
                 title: '',
+                headerBackVisible: false,
+                headerBackTitleVisible: false,
+                headerLeft: () => <BackButton />,
+                headerStyle: {
+                  shadowColor: 'transparent',
+                  elevation: 0,
+                },
               }}
             />
             <Stack.Screen
@@ -664,6 +808,13 @@ export default function App() {
               options={{
                 headerShown: true,
                 title: '',
+                headerBackVisible: false,
+                headerBackTitleVisible: false,
+                headerLeft: () => <BackButton />,
+                headerStyle: {
+                  shadowColor: 'transparent',
+                  elevation: 0,
+                },
               }}
             />
 
@@ -673,6 +824,13 @@ export default function App() {
               options={{
                 headerShown: true,
                 title: '',
+                headerBackVisible: false,
+                headerBackTitleVisible: false,
+                headerLeft: () => <BackButton />,
+                headerStyle: {
+                  shadowColor: 'transparent',
+                  elevation: 0,
+                },
               }}
             />
             {/* 임시 테스트 마이페이지 */}
@@ -737,6 +895,36 @@ export default function App() {
                 },
               }}
             /> */}
+            <Stack.Screen
+              name="PhoneConditionSelect"
+              component={PhoneConditionSelect}
+              options={{
+                headerShown: true,
+                title: '휴대폰 모델 선택',
+                headerBackVisible: false,
+                headerBackTitleVisible: false,
+                headerLeft: () => <BackButton />,
+                headerStyle: {
+                  shadowColor: 'transparent',
+                  elevation: 0,
+                },
+              }}
+            />
+            <Stack.Screen
+              name="PhoneModelSelect"
+              component={PhoneModelSelect}
+              options={{
+                headerShown: true,
+                title: '휴대폰 모델 선택',
+                headerBackVisible: false,
+                headerBackTitleVisible: false,
+                headerLeft: () => <BackButton />,
+                headerStyle: {
+                  shadowColor: 'transparent',
+                  elevation: 0,
+                },
+              }}
+            />
           </Stack.Navigator>
         </NavigationContainer>
         <Toast config={toastConfig} />
