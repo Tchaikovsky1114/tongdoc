@@ -1,12 +1,15 @@
-import { Image, StyleSheet, Text, View } from 'react-native';
+import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
 import P_12R from '../../../style/paragraph/P_12R';
 import P_16M from '../../../style/paragraph/P_16M';
 import P_18M from '../../../style/paragraph/P_18M';
 import usePrice from '../../../hooks/usePrice';
-const PurchaseModel = ({ item }) => {
-  //   console.log(item);
+const PurchaseModel = ({ item, selectHandler, style }) => {
+  // console.log(item.id);
   return (
-    <View style={styles.container}>
+    <Pressable
+      style={[styles.container, style]}
+      onPress={() => selectHandler(item.id)}
+    >
       <View style={styles.imgBox}>
         <Image
           source={{
@@ -29,7 +32,7 @@ const PurchaseModel = ({ item }) => {
           <P_18M>{usePrice(item.phone_price)}원</P_18M>
         </View>
       </View>
-    </View>
+    </Pressable>
   );
 };
 
@@ -37,7 +40,7 @@ export default PurchaseModel;
 
 const styles = StyleSheet.create({
   container: {
-    borderWidth: 1,
+    borderWidth: 2,
     borderRadius: 16,
     padding: 16,
     marginBottom: 8,

@@ -249,7 +249,7 @@ const Home = () => {
         name="PurchaseMobile"
         component={PurchaseMobileScreen}
         options={{
-          title: '휴대폰 구매',
+          title: '휴대폰 주문 내역',
           headerTitleAlign: 'center',
           headerShown: true,
 
@@ -266,7 +266,7 @@ const Home = () => {
               />
             </View>
           ),
-          headerTitle: '휴대폰 구매',
+          headerTitle: '휴대폰 주문 내역',
           headerStyle: {
             shadowColor: 'transparent',
             elevation: 0,
@@ -849,6 +849,13 @@ export default function App() {
                   shadowColor: 'transparent',
                   elevation: 0,
                 },
+                headerTitleAlign: 'center',
+                headerTitleStyle: {
+                  fontSize: 16,
+                  fontFamily: 'Noto500',
+                  color: '#333',
+                  includeFontPadding: false,
+                },
               }}
             />
             <Stack.Screen
@@ -863,6 +870,13 @@ export default function App() {
                 headerStyle: {
                   shadowColor: 'transparent',
                   elevation: 0,
+                },
+                headerTitleAlign: 'center',
+                headerTitleStyle: {
+                  fontSize: 16,
+                  fontFamily: 'Noto500',
+                  color: '#333',
+                  includeFontPadding: false,
                 },
               }}
             />
