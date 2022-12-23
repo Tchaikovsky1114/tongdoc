@@ -12,12 +12,9 @@ import P_12R from '../../style/paragraph/P_12R';
 import P_14M from '../../style/paragraph/P_14M';
 import HandlerBtn from './myPageCommon/HandlerBtn';
 import MyPageTab from './myPageCommon/MyPageTab';
-import { version } from '../../package.json';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import DoubleCheckModal from './myPageCommon/DoubleCheckModal';
 import { useEffect, useState } from 'react';
-import { useRecoilValue } from 'recoil';
-import { loggedUserState } from '../../store/loggedUser';
 import { useNavigation } from '@react-navigation/native';
 import Constants from 'expo-constants';
 
@@ -65,7 +62,6 @@ const MyPage = () => {
   };
   const getUserInfo = async () => {
     const token = await AsyncStorage.getItem('access');
-    console.log('mypage is running...');
     try {
       const { data } = await axios.get('https://api.tongdoc.co.kr/v1/user', {
         headers: {

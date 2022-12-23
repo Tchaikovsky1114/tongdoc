@@ -68,7 +68,7 @@ export default function Signup() {
         allPermissionIsGranted = false;
       }
     } catch (err) {
-      console.error(err);
+      console.error(err.response);
       allPermissionIsGranted = false;
     }
 
@@ -97,7 +97,7 @@ export default function Signup() {
         allPermissionIsGranted = false;
       }
     } catch (err) {
-      console.error(err);
+      console.error(err.response);
       allPermissionIsGranted = false;
     }
 
@@ -149,7 +149,7 @@ export default function Signup() {
         });
       }
     } catch (err) {
-      console.error(err);
+      console.error(err.response);
     }
 
       navigation.navigate('ChoiceSignMethod')
