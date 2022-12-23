@@ -34,6 +34,7 @@ const TermsModal = ({ modalVisible, setModalVisible, termsDetail }) => {
               paddingHorizontal: 12,
             }}
           >
+
            
               {termsDetail === 'https://api.tongdoc.co.kr/web/agree/1' && (
                 <View>
@@ -100,6 +101,7 @@ const TermsModal = ({ modalVisible, setModalVisible, termsDetail }) => {
                   </ScrollView>
                   </View>
               )}
+
           </View>
         </View>
       </SafeAreaView>
