@@ -60,6 +60,7 @@ const MyPage = () => {
   const quitModalHandler = () => {
     setQuitModalIsVisible((prev) => !prev);
   };
+  
   const getUserInfo = async () => {
     const token = await AsyncStorage.getItem('access');
     try {
@@ -130,9 +131,7 @@ const MyPage = () => {
           <MyPageTab image={true} url={'MyPageChangePW'}>
             비밀번호 변경
           </MyPageTab>
-
           <MyPageTab version={version ? version : '1.7.1'}>앱정보</MyPageTab>
-
           <MyPageTab quit={true} modalHandler={quitModalHandler}>
             탈퇴하기
           </MyPageTab>

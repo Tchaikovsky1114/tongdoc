@@ -3,7 +3,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useLayoutEffect, useState } from 'react';
-import { ActivityIndicator, SafeAreaView,Alert, Button,Text, View} from 'react-native';
+import { ActivityIndicator, SafeAreaView,Alert, Button,Text, View, Pressable} from 'react-native';
 import Home from '../components/home/Home';
 import HomeModal from '../components/sendingBills/homeModal/HomeModal';
 import {FCM_KEY} from 'react-native-dotenv';

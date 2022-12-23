@@ -55,6 +55,7 @@ import PhoneModelSelect from './components/purchase/page/PhoneModelSelect';
 
 import axios from 'axios';
 import dynamicLinks from '@react-native-firebase/dynamic-links'
+import ReceivedProposal from './components/purchase/ReceivedProposal';
 
 const prefix = Linking.createURL('/');
 
@@ -925,6 +926,22 @@ export default function App() {
                 },
               }}
             />
+            <Stack.Screen
+              name="ReceivedProposal"
+              component={ReceivedProposal}
+              options={{
+                headerShown: true,
+                title: '받은 구매 제안서',
+                headerBackVisible: false,
+                headerBackTitleVisible: false,
+                headerLeft: () => <BackButton />,
+                headerStyle: {
+                  shadowColor: 'transparent',
+                  elevation: 0,
+                },
+              }}
+            />
+            
           </Stack.Navigator>
         </NavigationContainer>
         <Toast config={toastConfig} />
