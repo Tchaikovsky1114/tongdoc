@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import P_14R from '../../../style/paragraph/P_14R';
 import P_16M from '../../../style/paragraph/P_16M';
+import DimensionBtn from '../../common/DimensionBtn';
 import PurchaseModel from '../purchaseCommon/PurchaseModel';
 
 const PHONE = [
@@ -27,7 +28,7 @@ const PHONE = [
     id: 2,
     phone_name: 'iPhone 13 64G',
     phone_produce: 'Apple',
-    phone_storage: 64,
+    phone_storage: 164,
     phone_price: 1078000,
     img: 'https://api.tongdoc.co.kr/storage/files/img/thumbnail/107_iphone-12-white',
     service_type_txt: '5G',
@@ -37,12 +38,14 @@ const PHONE = [
 
 const PhoneModelSelect = ({ route }) => {
   const [modelList, setModelList] = useState();
+  const [selectModel, setSelectModel] = useState([]);
+  const [isDisable, setIsDisable] = useState(false);
   const { params } = route;
 
   useEffect(() => {
     const getPhoneModelList = async () => {
       const token = await AsyncStorage.getItem('access');
-      const phoneModel = await axios.get(
+      const { data } = await axios.get(
         `https://api.tongdoc.co.kr/v1/buy/phone?company=${params.company}&filter=0`,
         {
           headers: {
@@ -50,12 +53,21 @@ const PhoneModelSelect = ({ route }) => {
           },
         }
       );
-      setModelList(phoneModel);
+      setModelList(data);
     };
-
     getPhoneModelList();
   }, []);
+  useEffect(() => {
+    setIsDisable((prev) => !prev);
+  }, [selectModel.length === 0]);
 
+  const selectModelHandler = (num) => {
+    if (selectModel.includes(num)) {
+      setSelectModel(selectModel.filter((el) => el !== num));
+    } else {
+      setSelectModel([...selectModel, num]);
+    }
+  };
   return (
     <View style={styles.container}>
       <View style={styles.titleBox}>
@@ -75,17 +87,27 @@ const PhoneModelSelect = ({ route }) => {
           />
         </View>
       </View>
-      <SafeAreaView style={{ flex: 1 }}>
+      <SafeAreaView style={{ flex: 1, marginBottom: 100 }}>
         <ScrollView style={{ flex: 1 }}>
           {modelList ? (
             <>
-              {modelList.data.map((item) => (
-                <PurchaseModel item={item} key={item.id} />
+              {modelList.map((item) => (
+                <PurchaseModel
+                  item={item}
+                  key={item.id}
+                  selectHandler={selectModelHandler}
+                  style={
+                    selectModel.includes(item.id)
+                      ? { borderColor: '#2D63E2' }
+                      : { borderColor: '#DDDDDD' }
+                  }
+                />
               ))}
             </>
           ) : null}
         </ScrollView>
       </SafeAreaView>
+      <DimensionBtn isDisable={isDisable}>다음</DimensionBtn>
     </View>
   );
 };
