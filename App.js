@@ -249,7 +249,7 @@ const Home = () => {
         name="PurchaseMobile"
         component={PurchaseMobileScreen}
         options={{
-          title: '휴대폰 주문 내역',
+          title: '휴대폰 구매',
           headerTitleAlign: 'center',
           headerShown: true,
 
