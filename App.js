@@ -56,6 +56,9 @@ import PhoneModelSelect from './components/purchase/page/PhoneModelSelect';
 import axios from 'axios';
 import dynamicLinks from '@react-native-firebase/dynamic-links'
 import ReceivedProposal from './components/purchase/ReceivedProposal';
+import 'intl';
+import ProposalDetail from './components/purchase/proposal/ProposalDetail';
+
 
 const prefix = Linking.createURL('/');
 
@@ -955,7 +958,21 @@ export default function App() {
                 },
               }}
             />
-            
+            <Stack.Screen
+              name="ProposalDetail"
+              component={ProposalDetail}
+              options={{
+                headerShown: true,
+                title: '',
+                headerBackVisible: false,
+                headerBackTitleVisible: false,
+                headerLeft: () => <BackButton />,
+                headerStyle: {
+                  shadowColor: 'transparent',
+                  elevation: 0,
+                },
+              }}
+              />
           </Stack.Navigator>
         </NavigationContainer>
         <Toast config={toastConfig} />

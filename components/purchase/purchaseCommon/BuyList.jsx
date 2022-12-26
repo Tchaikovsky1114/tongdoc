@@ -1,13 +1,17 @@
-import { Image, StyleSheet, View } from 'react-native';
+import { Image, Pressable, StyleSheet, View } from 'react-native';
 import P_16M from '../../../style/paragraph/P_16M';
 import P_12R from '../../../style/paragraph/P_12R';
 import P_12M from '../../../style/paragraph/P_12M';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useEffect, useState } from 'react';
+import { useNavigation } from '@react-navigation/native';
+
 const BuyList = ({ item }) => {
-  const [phoneName, setPhoneName] = useState('');
-  const getPhoneName = async () => {
+  const naivgation = useNavigation();
+  const [buyInfo, setBuyInfo] = useState('');
+
+  const getBuyInfo = async () => {
     const token = await AsyncStorage.getItem('access');
     try {
       const { data } = await axios.get(
@@ -18,21 +22,26 @@ const BuyList = ({ item }) => {
           },
         }
       );
-      setPhoneName(data.buy.choice_spec);
+      setBuyInfo(data);
     } catch (err) {
       console.log(err);
     }
   };
+  const goToReceivedProposalPageHandler = () => {
+    naivgation.navigate('ReceivedProposal',{
+      buyInfo
+    })
+  }
 
   useEffect(() => {
-    getPhoneName();
+    getBuyInfo();
   }, []);
-
+  
   return (
-    <View style={[styles.container, { borderColor: '#dddddd' }]}>
+    <Pressable onPress={goToReceivedProposalPageHandler} style={[styles.container, { borderColor: '#dddddd' }]}>
       <View style={styles.phoneModelBox}>
         <Image source={require('../../../assets/purchase/phoneDefault.png')} />
-        <P_16M style={{ marginLeft: 16 }}>{phoneName}</P_16M>
+        {buyInfo && <P_16M style={{ marginLeft: 16 }}>{buyInfo.buy.choice_spec}</P_16M>}
       </View>
       <View style={styles.phonePurchaseStatus}>
         <P_12R>{item?.created_at}</P_12R>
@@ -52,7 +61,7 @@ const BuyList = ({ item }) => {
           </View>
         )}
       </View>
-    </View>
+    </Pressable>
   );
 };
 export default BuyList;

@@ -22,20 +22,7 @@ const Purchase = () => {
   const moveToSelectPhone = () => {
     navigation.navigate('PhoneConditionSelect');
   };
-<<<<<<< HEAD
 
-  const moveToReceivedProposal = () => {
-    navigation.navigate('ReceivedProposal')
-  }
-  return (
-    <View>
-      <Pressable style={styles.PressStyle} onPress={moveToSelectPhone}>
-        <Text>휴대폰 구매하기</Text>
-      </Pressable>
-      <Pressable style={styles.PressStyle} onPress={moveToReceivedProposal}>
-        <Text>받은 구매 제안서</Text>
-      </Pressable>
-=======
   const getBuyList = async () => {
     const token = await AsyncStorage.getItem('access');
     try {
@@ -52,6 +39,7 @@ const Purchase = () => {
   useEffect(() => {
     getBuyList();
   }, []);
+  
   return (
     <View style={{ flex: 1 }}>
       <View style={{ marginBottom: 24 }}>
@@ -69,6 +57,7 @@ const Purchase = () => {
         </Pressable>
       </View>
       <P_16M style={{ color: '#333333', marginBottom: 8 }}>주문 내역</P_16M>
+
       {buyList?.length === 0 ? (
         <View
           style={{
@@ -91,7 +80,7 @@ const Purchase = () => {
       ) : (
         <ScrollView style={{ flex: 1, marginBottom: 24 }}>
           {buyList?.map((el) => (
-            <BuyList key={el.buy_id} item={el} />
+            <BuyList key={el.buy_id} item={el}/>
           ))}
         </ScrollView>
       )}
@@ -115,7 +104,9 @@ const Purchase = () => {
           동안 유효하나{'\n'}매장마다 상이합니다.
         </P_14R>
       </View>
->>>>>>> 72360377e5325449f6578f3cd6640c9437cf183d
+          <Pressable onPress={() => navigation.navigate('ReceivedProposal')}>
+            <Text>받은구메제안서로이동</Text>
+          </Pressable>
     </View>
   );
 };
