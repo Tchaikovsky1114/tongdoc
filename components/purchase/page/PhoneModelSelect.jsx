@@ -1,4 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import {
@@ -37,19 +38,22 @@ const PHONE = [
 ];
 
 const PhoneModelSelect = ({ route }) => {
+  const navigation = useNavigation();
   const [modelList, setModelList] = useState();
   const [selectModel, setSelectModel] = useState([]);
   const [isDisable, setIsDisable] = useState(false);
+  const [token, setToken] = useState('');
   const { params } = route;
 
   useEffect(() => {
     const getPhoneModelList = async () => {
-      const token = await AsyncStorage.getItem('access');
+      const getToken = await AsyncStorage.getItem('access');
+      setToken(getToken);
       const { data } = await axios.get(
         `https://api.tongdoc.co.kr/v1/buy/phone?company=${params.company}&filter=0`,
         {
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${getToken}`,
           },
         }
       );
@@ -57,6 +61,7 @@ const PhoneModelSelect = ({ route }) => {
     };
     getPhoneModelList();
   }, []);
+  console.log(modelList, 'model');
   useEffect(() => {
     setIsDisable((prev) => !prev);
   }, [selectModel.length === 0]);
@@ -67,6 +72,16 @@ const PhoneModelSelect = ({ route }) => {
     } else {
       setSelectModel([...selectModel, num]);
     }
+  };
+  const linkToOrder = () => {
+    navigation.navigate('PhoneOrderSuggest', {
+      token: token,
+      buyer_id: 297,
+      buyer_type: 'family',
+      phone_id: 107,
+      choice_spec: 0,
+      choice_com: 0,
+    });
   };
   return (
     <View style={styles.container}>
@@ -107,7 +122,9 @@ const PhoneModelSelect = ({ route }) => {
           ) : null}
         </ScrollView>
       </SafeAreaView>
-      <DimensionBtn isDisable={isDisable}>다음</DimensionBtn>
+      <DimensionBtn isDisable={isDisable} onPress={linkToOrder}>
+        다음
+      </DimensionBtn>
     </View>
   );
 };
