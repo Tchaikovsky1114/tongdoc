@@ -6,6 +6,7 @@ import {
   Keyboard,
   Dimensions,
   Platform,
+  KeyboardAvoidingView,
 } from 'react-native';
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import H4_24R from '../../style/H4_24R';
@@ -169,62 +170,64 @@ export default function EmailAndPassword({ navigation }) {
         setModalVisible={setModalVisible}
         termsDetail={termsDetail}
       />
+      <View style={styles.heading}>
+        <H4_24R>회원가입</H4_24R>
+        <P_14R style={styles.subTitle}>
+          서비스 이용을 위해 본인 이메일을 입력해 주세요.
+        </P_14R>
+      </View>
       <View style={styles.inner}>
-        <ScrollView scrollEnabled>
-          <View style={styles.heading}>
-            <H4_24R>회원가입</H4_24R>
-            <P_14R style={styles.subTitle}>
-              서비스 이용을 위해 본인 이메일을 입력해 주세요.
-            </P_14R>
-          </View>
-          <View style={styles.body}>
-            <SignupInput
-              ref={emailRef}
-              type="email"
-              value={signupForm.email}
-              clearButtonMode="while-editing"
-              autoCapitalize="none"
-              placeholder="이메일"
-              keyboardType="email-address"
-              onChange={(e) => changeSignupFormHandler(e, 'email')}
-              errorText="이메일 주소를 다시 확인해 주세요."
-              onKeyPress={detectBackspaceKeyHandler}
-            />
-            <SignupInput
-              type="password"
-              value={signupForm.password}
-              clearTextOnFocus
-              autoCapitalize="none"
-              placeholder="비밀번호"
-              secureTextEntry
-              maxLength={20}
-              onChange={(e) => changeSignupFormHandler(e, 'password')}
-              errorText="* 10자리 이상 *영문 소문자,숫자,특수기호 2가지 조합"
-              onKeyPress={detectBackspaceKeyHandler}
-            />
-            <SignupInput
-              type="passwordConfirm"
-              value={signupForm.passwordConfirm}
-              signupForm={signupForm}
-              clearTextOnFocus
-              placeholder="비밀번호 확인"
-              autoCapitalize="none"
-              secureTextEntry
-              maxLength={20}
-              onChange={(e) => changeSignupFormHandler(e, 'passwordConfirm')}
-              errorText="입력하신 비밀번호와 다릅니다."
-              onKeyPress={detectBackspaceKeyHandler}
-            />
-            <SignupInput
-              type="recommendCode"
-              value={signupForm.recommendCode}
-              signupForm={signupForm}
-              placeholder="(선택) 추천인 코드"
-              onChange={(e) => changeSignupFormHandler(e, 'recommendCode')}
-              errorText="해당 추천인 코드가 존재하지 않습니다."
-            />
-          </View>
-        </ScrollView>
+        <KeyboardAvoidingView behavior="position">
+          <ScrollView scrollEnabled>
+            <View style={styles.body}>
+              <SignupInput
+                ref={emailRef}
+                type="email"
+                value={signupForm.email}
+                clearButtonMode="while-editing"
+                autoCapitalize="none"
+                placeholder="이메일"
+                keyboardType="email-address"
+                onChange={(e) => changeSignupFormHandler(e, 'email')}
+                errorText="이메일 주소를 다시 확인해 주세요."
+                onKeyPress={detectBackspaceKeyHandler}
+              />
+              <SignupInput
+                type="password"
+                value={signupForm.password}
+                clearTextOnFocus
+                autoCapitalize="none"
+                placeholder="비밀번호"
+                secureTextEntry
+                maxLength={20}
+                onChange={(e) => changeSignupFormHandler(e, 'password')}
+                errorText="* 10자리 이상 *영문 소문자,숫자,특수기호 2가지 조합"
+                onKeyPress={detectBackspaceKeyHandler}
+              />
+              <SignupInput
+                type="passwordConfirm"
+                value={signupForm.passwordConfirm}
+                signupForm={signupForm}
+                clearTextOnFocus
+                placeholder="비밀번호 확인"
+                autoCapitalize="none"
+                secureTextEntry
+                maxLength={20}
+                onChange={(e) => changeSignupFormHandler(e, 'passwordConfirm')}
+                errorText="입력하신 비밀번호와 다릅니다."
+                onKeyPress={detectBackspaceKeyHandler}
+              />
+              <SignupInput
+                type="recommendCode"
+                value={signupForm.recommendCode}
+                signupForm={signupForm}
+                placeholder="(선택) 추천인 코드"
+                onChange={(e) => changeSignupFormHandler(e, 'recommendCode')}
+                errorText="해당 추천인 코드가 존재하지 않습니다."
+              />
+            </View>
+          </ScrollView>
+        </KeyboardAvoidingView>
 
         <View style={styles.bottom}>
           <View style={styles.checkBoxGroup}>
@@ -274,7 +277,7 @@ export default function EmailAndPassword({ navigation }) {
                 setRequiredTemrsConsent={setRequiredTemrsConsent}
                 name="privacy"
               />
-              <P_14R>(필수) 개인정보 수집 및 이용동의</P_14R>
+              <P_14R>(필수) 제3자 정보제공동의</P_14R>
             </View>
             <Pressable
               onPress={() => showDetailTermsModalHandler(POLICY_PRIVACY_URL)}
@@ -295,7 +298,7 @@ export default function EmailAndPassword({ navigation }) {
                 totalTermsCheck={totalTermsCheck}
                 setTotalTermsCheck={setTotalTermsCheck}
               />
-              <P_14R>(선택) 제3자 정보제공동의</P_14R>
+              <P_14R>(선택) 마케팅정보 활용 및 수신동의</P_14R>
             </View>
             <Pressable
               onPress={() => showDetailTermsModalHandler(POLICY_OTHER_URL)}
@@ -308,7 +311,7 @@ export default function EmailAndPassword({ navigation }) {
               </P_14R>
             </Pressable>
           </View>
-          <View style={[styles.checkBoxGroup]}>
+          {/* <View style={[styles.checkBoxGroup]}>
             <View style={styles.checkBoxInner}>
               <CheckBox
                 style={{ marginRight: 8 }}
@@ -328,7 +331,7 @@ export default function EmailAndPassword({ navigation }) {
                 상세보기
               </P_14R>
             </Pressable>
-          </View>
+          </View> */}
         </View>
       </View>
       <View style={{ position: 'absolute', width, bottom: 0 }}>
@@ -355,18 +358,17 @@ const styles = StyleSheet.create({
   },
   inner: {
     flex: 1,
-    marginTop: 8,
+    marginTop: 40,
     paddingHorizontal: 24,
   },
   heading: {
-    flex: 1,
+    paddingTop: 32,
+    paddingHorizontal: 24,
   },
   body: {
-    paddingTop: 40,
+    paddingBottom: 40,
   },
-  bottom: {
-    flex: 2,
-  },
+  bottom: {},
   subTitle: {
     color: '#666666',
     marginTop: 16,

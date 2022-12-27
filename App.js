@@ -47,6 +47,7 @@ import MyPageChangePW from './components/myPage/page/MyPageChangePW';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import PhoneConditionSelect from './components/purchase/page/PhoneConditionSelect';
 import PhoneModelSelect from './components/purchase/page/PhoneModelSelect';
+import PhoneOrderSuggest from './components/purchase/page/PhoneOrderSuggest';
 
 // 프로덕션 모드 kr.co.tongdoc://...
 // 디밸롭 모드 exp://101.111.134.45:19000 ...
@@ -864,6 +865,28 @@ export default function App() {
               options={{
                 headerShown: true,
                 title: '휴대폰 모델 선택',
+                headerBackVisible: false,
+                headerBackTitleVisible: false,
+                headerLeft: () => <BackButton />,
+                headerStyle: {
+                  shadowColor: 'transparent',
+                  elevation: 0,
+                },
+                headerTitleAlign: 'center',
+                headerTitleStyle: {
+                  fontSize: 16,
+                  fontFamily: 'Noto500',
+                  color: '#333',
+                  includeFontPadding: false,
+                },
+              }}
+            />
+            <Stack.Screen
+              name="PhoneOrderSuggest"
+              component={PhoneOrderSuggest}
+              options={{
+                headerShown: true,
+                title: '휴대폰 구매조건 선택',
                 headerBackVisible: false,
                 headerBackTitleVisible: false,
                 headerLeft: () => <BackButton />,
