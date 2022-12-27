@@ -2,8 +2,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import axios from 'axios';
 import { StatusBar } from 'expo-status-bar';
-import React, { useEffect, useLayoutEffect, useState } from 'react';
-import { ActivityIndicator, SafeAreaView,Alert, Button,Text, View, Pressable} from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { ActivityIndicator, SafeAreaView,Alert} from 'react-native';
 import Home from '../components/home/Home';
 import HomeModal from '../components/sendingBills/homeModal/HomeModal';
 import {FCM_KEY} from 'react-native-dotenv';
@@ -164,8 +164,9 @@ export default function HomeScreen({ navigation,route }) {
               })
             })
            })
-        }
-      })
+          }
+        })
+      // 의존성 배열의 route
       // Signin 컴포넌트에서 redirect 되면서 route.params를 받아옵니다
       // 위 함수를 실행하기 위해서는 route.params의 값이 필수이기에 의존성 배열의 값을 지우면 안됩니다.
   }, [route]);

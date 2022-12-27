@@ -5,7 +5,8 @@ import {
   ScrollView,
   Alert,
   BackHandler,
-  RefreshControl
+  RefreshControl,
+  Text,
 } from 'react-native';
 
 import React, { useCallback, useEffect, useState } from 'react';
@@ -17,12 +18,15 @@ import Reviews from './Reviews';
 import { useNavigation } from '@react-navigation/native';
 import { Toast } from 'react-native-toast-message/lib/src/Toast';
 
-export default function Home({mainConfiguringData,diagnosisResultData,fetchGetMainConfiguringData}) {
+export default function Home({
+  mainConfiguringData,
+  diagnosisResultData,
+  fetchGetMainConfiguringData,
+}) {
   const navigation = useNavigation();
-  
+
   const [isAddFamilyBannerShow, SetIsAddFamilyBannerShow] = useState(true);
-  
-  
+
   const closeAddFamilyBannerHandler = useCallback(() => {
     SetIsAddFamilyBannerShow(false);
   }, []);
@@ -34,103 +38,109 @@ export default function Home({mainConfiguringData,diagnosisResultData,fetchGetMa
         onPress: () => navigation.navigate('Main'),
       },
     ]);
-  },[]);
+  }, []);
 
   const goToPageHandler = useCallback((page) => {
     navigation.navigate(page);
-  },[]);
+  }, []);
 
- 
-
-  
   const showToast = () => {
     Toast.show({
-      type:'refreshToast',
-      autoHide:true,
-      text1:'페이지 새로고침 ✨',
-      visibilityTime:1000,
-      position:'bottom',
-      bottomOffset:20
-    })
-  }
- 
+      type: 'refreshToast',
+      autoHide: true,
+      text1: '페이지 새로고침 ✨',
+      visibilityTime: 1000,
+      position: 'bottom',
+      bottomOffset: 20,
+    });
+  };
 
   /** 기기의 백버튼을 누르면, 앱 종료를 묻는 알럿이 뜨게 만드는 함수입니다.*/
   const confirmExitAppHandler = useCallback(() => {
     Alert.alert(
       '통신닥터를 종료할까요?',
       '',
-      [{
-        text: '아니요',
-        onPress: () => null,
-        style: "cancel"
-      },
+      [
+        {
+          text: '아니요',
+          onPress: () => null,
+          style: 'cancel',
+        },
+        {
+          text: '네',
+          onPress: () => BackHandler.exitApp(),
+        },
+      ],
       {
-        text: "네",
-        onPress: () => BackHandler.exitApp()
-      }],
-      {
-        cancelable:true
+        cancelable: true,
       }
-    )
-    return true
-  },[])
+    );
+    return true;
+  }, []);
 
   useEffect(() => {
-    const backHandler = BackHandler.addEventListener("hardwareBackPress",confirmExitAppHandler);
-    return () => backHandler.remove()
-  }, [])
-  
-  
-  // Notification.addNotificationReceivedListener((notification) => {})
-  
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      confirmExitAppHandler
+    );
+    return () => backHandler.remove();
+  }, []);
 
-  
+  // Notification.addNotificationReceivedListener((notification) => {})
+
+  const test = () => {
+    navigation.navigate('EmailAndPassword');
+  };
+
   return (
     <ScrollView
-    contentContainerStyle={styles.container}
-    refreshControl={
-      <RefreshControl
-      refreshing={false}
-      enabled
-      colors={["#fff","#f91","#f51","#c31","#ff3","#2df"]}
-      progressBackgroundColor="#4499FA"
-      onRefresh={() => {fetchGetMainConfiguringData(); showToast();}}
-      />}
-      >
-      
+      contentContainerStyle={styles.container}
+      refreshControl={
+        <RefreshControl
+          refreshing={false}
+          enabled
+          colors={['#fff', '#f91', '#f51', '#c31', '#ff3', '#2df']}
+          progressBackgroundColor="#4499FA"
+          onRefresh={() => {
+            fetchGetMainConfiguringData();
+            showToast();
+          }}
+        />
+      }
+    >
       <View style={styles.topInner}>
-            {isAddFamilyBannerShow && (
-              <AddFamilyBanner onPress={closeAddFamilyBannerHandler} />
-            )}
-            <Pressable
-              onPress={() => goToPageHandler('Diagnosis')}
-              style={({ pressed }) => []}
-            >
-              <Banner
-                diagnosisResultData={diagnosisResultData}
-                mainConfiguringData={mainConfiguringData}
-              />
-            </Pressable>
+        {isAddFamilyBannerShow && (
+          <AddFamilyBanner onPress={closeAddFamilyBannerHandler} />
+        )}
+        <Pressable onPress={test}>
+          <Text>테스트테스트</Text>
+        </Pressable>
+        <Pressable
+          onPress={() => goToPageHandler('Diagnosis')}
+          style={({ pressed }) => []}
+        >
+          <Banner
+            diagnosisResultData={diagnosisResultData}
+            mainConfiguringData={mainConfiguringData}
+          />
+        </Pressable>
 
-            <Pressable
-              onPress={showPrepareServiceAlertHandler}
-              style={({ pressed }) => []}
-            >
-              <PhoneContractDateCalculatorBanner />
-            </Pressable>
-            <Pressable
-              onPress={showPrepareServiceAlertHandler}
-              style={({ pressed }) => []}
-            >
-              <TongdocNews mainConfiguringData={mainConfiguringData} />
-            </Pressable>
-          </View>
-          <View style={styles.bottomInner}>
-            <Reviews />
-          </View>
-
-       
+        <Pressable
+          onPress={showPrepareServiceAlertHandler}
+          style={({ pressed }) => []}
+        >
+          <PhoneContractDateCalculatorBanner />
+        </Pressable>
+        <Pressable
+          onPress={showPrepareServiceAlertHandler}
+          style={({ pressed }) => []}
+        >
+          <TongdocNews mainConfiguringData={mainConfiguringData} />
+        </Pressable>
+      </View>
+      <View style={styles.bottomInner}>
+        <Reviews />
+      </View>
     </ScrollView>
   );
 }

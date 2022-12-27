@@ -120,10 +120,9 @@ export default function ReceivedProposal() {
               keyExtractor={(item) => item.id}
               showsHorizontalScrollIndicator={false}
               ListEmptyComponent={<AwaitSuggestion />}
-              
             />
           </View>
-        </View>
+    </View>
       </ScrollView>
     </SafeAreaView>
     

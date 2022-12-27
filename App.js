@@ -51,6 +51,7 @@ import MyPageChangePW from './components/myPage/page/MyPageChangePW';
 
 import PhoneConditionSelect from './components/purchase/page/PhoneConditionSelect';
 import PhoneModelSelect from './components/purchase/page/PhoneModelSelect';
+import PhoneOrderSuggest from './components/purchase/page/PhoneOrderSuggest';
 
 
 import axios from 'axios';
@@ -312,7 +313,7 @@ const Home = () => {
         name="PurchaseMobile"
         component={PurchaseMobileScreen}
         options={{
-          title: '휴대폰 주문 내역',
+          title: '휴대폰 구매',
           headerTitleAlign: 'center',
           headerShown: true,
 
@@ -956,8 +957,32 @@ export default function App() {
                   shadowColor: 'transparent',
                   elevation: 0,
                 },
+
               }}
             />
+            <Stack.Screen
+              name="PhoneOrderSuggest"
+              component={PhoneOrderSuggest}
+              options={{
+                headerShown: true,
+                title: '휴대폰 구매조건 선택',
+                headerBackVisible: false,
+                headerBackTitleVisible: false,
+                headerLeft: () => <BackButton />,
+                headerStyle: {
+                  shadowColor: 'transparent',
+                  elevation: 0,
+                },
+                headerTitleAlign: 'center',
+                headerTitleStyle: {
+                  fontSize: 16,
+                  fontFamily: 'Noto500',
+                  color: '#333',
+                  includeFontPadding: false,
+                },
+              }}
+            />
+
             <Stack.Screen
               name="ProposalDetail"
               component={ProposalDetail}
