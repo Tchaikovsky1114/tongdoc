@@ -322,7 +322,7 @@ export default function EmailAndPassword({ navigation }) {
               <P_14R>(선택) 마케팅정보 활용 및 수신동의</P_14R>
             </View>
             <Pressable
-              onPress={() => showDetailTermsModalHandler(POLICY_MARKETING_URL)}
+              onPress={() => showDetailTermsModalHandler(POLICY_OTHER_URL)}
               style={({ pressed }) => [{ opacity: pressed ? 0.5 : 1 }]}
             >
               <P_14R
@@ -332,6 +332,7 @@ export default function EmailAndPassword({ navigation }) {
               </P_14R>
             </Pressable>
           </View> */}
+          </View>
         </View>
       </View>
       <View style={{ position: 'absolute', width, bottom: 0 }}>

@@ -7,6 +7,7 @@ import {
   View,
   SafeAreaView,
   ScrollView,
+
 } from 'react-native';
 import WebView from 'react-native-webview';
 
@@ -18,6 +19,7 @@ import {
   POLICY_PRIVACY_URL,
   POLICY_SERVICE_URL,
 } from '../signup/constants/Constants';
+
 const TermsModal = ({ modalVisible, setModalVisible, termsDetail }) => {
   return (
     <Modal

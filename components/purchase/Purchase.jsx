@@ -22,6 +22,20 @@ const Purchase = () => {
   const moveToSelectPhone = () => {
     navigation.navigate('PhoneConditionSelect');
   };
+<<<<<<< HEAD
+
+  const moveToReceivedProposal = () => {
+    navigation.navigate('ReceivedProposal')
+  }
+  return (
+    <View>
+      <Pressable style={styles.PressStyle} onPress={moveToSelectPhone}>
+        <Text>휴대폰 구매하기</Text>
+      </Pressable>
+      <Pressable style={styles.PressStyle} onPress={moveToReceivedProposal}>
+        <Text>받은 구매 제안서</Text>
+      </Pressable>
+=======
   const getBuyList = async () => {
     const token = await AsyncStorage.getItem('access');
     try {
@@ -101,6 +115,7 @@ const Purchase = () => {
           동안 유효하나{'\n'}매장마다 상이합니다.
         </P_14R>
       </View>
+>>>>>>> 72360377e5325449f6578f3cd6640c9437cf183d
     </View>
   );
 };
