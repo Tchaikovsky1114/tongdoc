@@ -7,6 +7,7 @@ import {
   View,
   SafeAreaView,
   ScrollView,
+
 } from 'react-native';
 
 import H6_18M from '../../style/H6_18M';
@@ -18,6 +19,7 @@ import {
 import PolicyOther from './PolicyOther';
 import PolicyPrivacy from './PolicyPrivacy';
 import PolicyService from './PolicyService';
+
 const TermsModal = ({ modalVisible, setModalVisible, termsDetail }) => {
   return (
     <Modal
