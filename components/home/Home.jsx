@@ -88,10 +88,6 @@ export default function Home({
 
   // Notification.addNotificationReceivedListener((notification) => {})
 
-  const test = () => {
-    navigation.navigate('EmailAndPassword');
-  };
-
   return (
     <ScrollView
       contentContainerStyle={styles.container}
@@ -112,9 +108,7 @@ export default function Home({
         {isAddFamilyBannerShow && (
           <AddFamilyBanner onPress={closeAddFamilyBannerHandler} />
         )}
-        <Pressable onPress={test}>
-          <Text>테스트테스트</Text>
-        </Pressable>
+
         <Pressable
           onPress={() => goToPageHandler('Diagnosis')}
           style={({ pressed }) => []}
