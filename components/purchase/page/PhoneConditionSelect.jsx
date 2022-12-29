@@ -144,7 +144,7 @@ const PhoneConditionSelect = () => {
         <View style={styles.itemBox}>
           <View style={styles.modelSelectTitle}>
             <P_16M>제조사</P_16M>
-            <P_14R style={{ color: '#666666' }}>(중복선택 가능)</P_14R>
+            <P_14R style={{ color: '#666666' }}></P_14R>
           </View>
           <View style={styles.modelSelectItemBox}>
             {COMPANY.map((item) => (
