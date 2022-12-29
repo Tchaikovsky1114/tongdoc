@@ -40,20 +40,19 @@ const PHONE = [
 const PhoneModelSelect = ({ route }) => {
   const navigation = useNavigation();
   const [modelList, setModelList] = useState();
-  const [selectModel, setSelectModel] = useState([]);
+  const [selectModel, setSelectModel] = useState('');
+  // 중복선택시 아래 것 사용
+  // const [selectModel, setSelectModel] = useState('');
   const [isDisable, setIsDisable] = useState(false);
-  const [token, setToken] = useState('');
-  const { params } = route;
 
+  const { params } = route;
   useEffect(() => {
     const getPhoneModelList = async () => {
-      const getToken = await AsyncStorage.getItem('access');
-      setToken(getToken);
       const { data } = await axios.get(
         `https://api.tongdoc.co.kr/v1/buy/phone?company=${params.company}&filter=0`,
         {
           headers: {
-            Authorization: `Bearer ${getToken}`,
+            Authorization: `Bearer ${params.token}`,
           },
         }
       );
@@ -61,38 +60,41 @@ const PhoneModelSelect = ({ route }) => {
     };
     getPhoneModelList();
   }, []);
-  console.log(modelList, 'model');
   useEffect(() => {
     setIsDisable((prev) => !prev);
   }, [selectModel.length === 0]);
 
   const selectModelHandler = (num) => {
-    if (selectModel.includes(num)) {
-      setSelectModel(selectModel.filter((el) => el !== num));
-    } else {
-      setSelectModel([...selectModel, num]);
-    }
+    // 중복선택시
+    // if (selectModel.includes(num)) {
+    //   setSelectModel(selectModel.filter((el) => el !== num));
+    // } else {
+    //   setSelectModel([...selectModel, num]);
+    // }
+    setSelectModel(num);
   };
   const linkToOrder = () => {
     navigation.navigate('PhoneOrderSuggest', {
-      token: token,
-      buyer_id: 297,
-      buyer_type: 'family',
-      phone_id: 107,
-      choice_spec: 0,
-      choice_com: 0,
+      id: params.id,
+      token: params.token,
+      gubun: params.gubun,
+      spec: params.spec,
+      company: params.company,
+      phoneId: selectModel,
     });
   };
   return (
     <View style={styles.container}>
       <View style={styles.titleBox}>
         <P_16M>모델</P_16M>
-        <P_14R style={{ color: '#666666' }}>(중복선택 가능)</P_14R>
+        <P_14R style={{ color: '#666666' }}></P_14R>
       </View>
       <View style={styles.conditionBox}>
         <View style={styles.totalCount}>
           <P_14R>전체</P_14R>
-          <P_14R style={{ color: '#2D63E2', marginLeft: 2 }}>7</P_14R>
+          <P_14R style={{ color: '#2D63E2', marginLeft: 2 }}>
+            {modelList?.length ? modelList?.length : 0}
+          </P_14R>
         </View>
         <View style={styles.searchConditionBox}>
           <P_14R>인기상품순</P_14R>
@@ -112,7 +114,9 @@ const PhoneModelSelect = ({ route }) => {
                   key={item.id}
                   selectHandler={selectModelHandler}
                   style={
-                    selectModel.includes(item.id)
+                    // 중복선택시
+                    // selectModel.includes(item.id)
+                    selectModel === item.id
                       ? { borderColor: '#2D63E2' }
                       : { borderColor: '#DDDDDD' }
                   }

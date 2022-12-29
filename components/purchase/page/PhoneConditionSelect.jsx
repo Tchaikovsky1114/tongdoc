@@ -1,4 +1,6 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
+import axios from 'axios';
 import { useCallback, useEffect, useState } from 'react';
 import { Text, View, StyleSheet } from 'react-native';
 import P_14R from '../../../style/paragraph/P_14R';
@@ -61,10 +63,11 @@ const PRICE = [
 const PhoneConditionSelect = () => {
   const navigation = useNavigation();
   const [isDisable, setIsDisable] = useState(false);
+  const [id, setId] = useState('');
   const [gubun, setGubun] = useState('');
   const [company, setCompany] = useState('');
-  const [price, setPrice] = useState('');
-
+  const [spec, setSpec] = useState('');
+  const [token, setToken] = useState('');
   const gubunHandler = useCallback(
     (num) => {
       setGubun(num);
@@ -77,22 +80,47 @@ const PhoneConditionSelect = () => {
     },
     [company]
   );
-  const priceHandler = useCallback(
+  const specHandler = useCallback(
     (num) => {
-      setPrice(num);
+      setSpec(num);
     },
-    [price]
+    [spec]
   );
-
   const linkToSelectModel = () => {
-    navigation.navigate('PhoneModelSelect', {
-      company,
+    if (gubun === 0) {
+      navigation.navigate('PhoneOrderSuggest', {
+        id,
+        token,
+        gubun,
+        company,
+        spec,
+      });
+    } else {
+      navigation.navigate('PhoneModelSelect', {
+        id,
+        token,
+        gubun,
+        company,
+        spec,
+      });
+    }
+  };
+
+  const getUser = async () => {
+    const getToken = await AsyncStorage.getItem('access');
+    setToken(getToken);
+    const { data } = await axios.get('https://api.tongdoc.co.kr/v1/user', {
+      headers: {
+        Authorization: `Bearer ${getToken}`,
+      },
     });
+    setId(data.user_id);
   };
 
   useEffect(() => {
+    getUser();
     setIsDisable((prev) => !prev);
-  }, [price !== '']);
+  }, [spec !== '']);
 
   return (
     <View style={styles.container}>
@@ -143,9 +171,9 @@ const PhoneConditionSelect = () => {
                 item={item}
                 key={item.num}
                 center={true}
-                handler={priceHandler}
-                style={price === item.num && styles.select}
-                textStyle={price === item.num && styles.textSelect}
+                handler={specHandler}
+                style={spec === item.num && styles.select}
+                textStyle={spec === item.num && styles.textSelect}
               />
             ))}
           </View>

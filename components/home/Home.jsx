@@ -101,6 +101,8 @@ export default function Home({
             fetchGetMainConfiguringData();
             showToast();
           }}
+          progressViewOffset={10}
+          tintColor="#4499FA"
         />
       }
     >
@@ -120,7 +122,7 @@ export default function Home({
         </Pressable>
 
         <Pressable
-          onPress={showPrepareServiceAlertHandler}
+          onPress={() => goToPageHandler('PurchaseMobile')}
           style={({ pressed }) => []}
         >
           <PhoneContractDateCalculatorBanner />
