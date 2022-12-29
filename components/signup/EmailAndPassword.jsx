@@ -37,7 +37,7 @@ export default function EmailAndPassword({ navigation }) {
   const userInfo = useRecoilValue(signupState);
   const [totalFormCheck, setTotalFormCheck] = useState(true);
   const [detectBackspaceKey, setDetectBackspaceKey] = useState(false);
-  const [requiredTermsConsent, setRequiredTemrsConsent] = useState({
+  const [requiredTermsConsent, setRequiredTermsConsent] = useState({
     service: false,
     privacy: false,
   });
@@ -250,7 +250,7 @@ export default function EmailAndPassword({ navigation }) {
                 totalTermsCheck={totalTermsCheck}
                 setTotalTermsCheck={setTotalTermsCheck}
                 isRequired
-                setRequiredTemrsConsent={setRequiredTemrsConsent}
+                setRequiredTermsConsent={setRequiredTermsConsent}
                 name="service"
               />
               <P_14R>(필수) 서비스 이용약관</P_14R>
@@ -274,13 +274,37 @@ export default function EmailAndPassword({ navigation }) {
                 totalTermsCheck={totalTermsCheck}
                 setTotalTermsCheck={setTotalTermsCheck}
                 isRequired
-                setRequiredTemrsConsent={setRequiredTemrsConsent}
+                setRequiredTermsConsent={setRequiredTermsConsent}
+                name="service"
+              />
+              <P_14R>(필수) 개인정보 수집 및 이용동의</P_14R>
+            </View>
+            <Pressable
+              onPress={() => showDetailTermsModalHandler(POLICY_PRIVACY_URL)}
+              style={({ pressed }) => [{ opacity: pressed ? 0.5 : 1 }]}
+            >
+              <P_14R
+                style={{ color: '#999999', textDecorationLine: 'underline' }}
+              >
+                상세보기
+              </P_14R>
+            </Pressable>
+          </View>
+          <View style={[styles.checkBoxGroup]}>
+            <View style={styles.checkBoxInner}>
+              <CheckBox
+                style={{ marginRight: 8 }}
+                type="non-outline"
+                totalTermsCheck={totalTermsCheck}
+                setTotalTermsCheck={setTotalTermsCheck}
+                isRequired
+                setRequiredTermsConsent={setRequiredTermsConsent}
                 name="privacy"
               />
               <P_14R>(필수) 제3자 정보제공동의</P_14R>
             </View>
             <Pressable
-              onPress={() => showDetailTermsModalHandler(POLICY_PRIVACY_URL)}
+              onPress={() => showDetailTermsModalHandler(POLICY_OTHER_URL)}
               style={({ pressed }) => [{ opacity: pressed ? 0.5 : 1 }]}
             >
               <P_14R
@@ -301,7 +325,7 @@ export default function EmailAndPassword({ navigation }) {
               <P_14R>(선택) 마케팅정보 활용 및 수신동의</P_14R>
             </View>
             <Pressable
-              onPress={() => showDetailTermsModalHandler(POLICY_OTHER_URL)}
+              onPress={() => showDetailTermsModalHandler(POLICY_MARKETING_URL)}
               style={({ pressed }) => [{ opacity: pressed ? 0.5 : 1 }]}
             >
               <P_14R

@@ -66,7 +66,7 @@ const PhoneOrderSuggest = ({ route }) => {
       );
     } else {
       setUrl(
-        `https://api.tongdoc.co.kr/web/buy/recommend?buyer_id=${params.id}&buyer_type=family&phone_id=${params.phoneId}&choice_spec=${params.spec}&choice_com=${params.company}`
+        `https://api.tongdoc.co.kr/web/buy/recommend?buyer_id=${params.id}&buyer_type=family&phone_id=${params.phoneId}`
       );
     }
   }, []);

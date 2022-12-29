@@ -1,69 +1,132 @@
-import { StyleSheet, Image,View,Pressable } from 'react-native'
-import React,{useState,useEffect,useCallback} from 'react'
+import { StyleSheet, Image, View, Pressable } from 'react-native';
+import React, { useState, useEffect, useCallback } from 'react';
 
-
-export default function CheckBox({type,style,onPress,totalTermsCheck,setTotalTermsCheck,setRequiredTemrsConsent,isRequired,name}) {
-  const [isSelected,setIsSelected] = useState(false)
+export default function CheckBox({
+  type,
+  style,
+  onPress,
+  totalTermsCheck,
+  setTotalTermsCheck,
+  setRequiredTermsConsent,
+  isRequired,
+  name,
+}) {
+  const [isSelected, setIsSelected] = useState(false);
 
   const toggleCheckBoxHandler = () => {
-    
-    if(isRequired){
+    if (isRequired) {
       setTotalTermsCheck(false);
-      setIsSelected(prev => !prev)
-    }else{
+      setIsSelected((prev) => !prev);
+    } else {
       setTotalTermsCheck(false);
-      setIsSelected(prev => !prev)
+      setIsSelected((prev) => !prev);
     }
-  }
+  };
 
   useEffect(() => {
     setIsSelected(totalTermsCheck);
-  },[totalTermsCheck])
-  
-  useEffect(() => {
-    if(isRequired){
-      setRequiredTemrsConsent(prev => ({
-        ...prev,
-        [name]: isSelected
-      }))
-    }
-  },[isSelected])
+  }, [totalTermsCheck]);
 
-  
-  if(type === 'full')
-  return ( 
-    <View style={style}>
-      {totalTermsCheck
-      ? <View><Pressable onPress={onPress}><View><Image style={styles.image} source={require('../../assets/common/tongdoc_checked.png')} /></View></Pressable></View>
-      : <View><Pressable onPress={onPress}><View><Image style={styles.image} source={require('../../assets/common/tongdoc_noncheck.png')} /></View></Pressable></View>
-      }
-    </View>
-  )
-  if(type ==='non-outline'){
-    return ( 
+  useEffect(() => {
+    if (isRequired) {
+      setRequiredTermsConsent((prev) => ({
+        ...prev,
+        [name]: isSelected,
+      }));
+    }
+  }, [isSelected]);
+
+  if (type === 'full')
+    return (
       <View style={style}>
-        {isSelected
-        ? <View><Pressable onPress={toggleCheckBoxHandler}><View><Image style={styles.image} source={require('../../assets/common/tongdoc_checked_nonoutline.png')} /></View></Pressable></View>
-        : <View><Pressable onPress={toggleCheckBoxHandler}><View><Image style={styles.image} source={require('../../assets/common/tongdoc_noncheck_nonoutline.png')} /></View></Pressable></View>
-        }
+        {totalTermsCheck ? (
+          <View>
+            <Pressable onPress={onPress}>
+              <View>
+                <Image
+                  style={styles.image}
+                  source={require('../../assets/common/tongdoc_checked.png')}
+                />
+              </View>
+            </Pressable>
+          </View>
+        ) : (
+          <View>
+            <Pressable onPress={onPress}>
+              <View>
+                <Image
+                  style={styles.image}
+                  source={require('../../assets/common/tongdoc_noncheck.png')}
+                />
+              </View>
+            </Pressable>
+          </View>
+        )}
       </View>
-    )
+    );
+  if (type === 'non-outline') {
+    return (
+      <View style={style}>
+        {isSelected ? (
+          <View>
+            <Pressable onPress={toggleCheckBoxHandler}>
+              <View>
+                <Image
+                  style={styles.image}
+                  source={require('../../assets/common/tongdoc_checked_nonoutline.png')}
+                />
+              </View>
+            </Pressable>
+          </View>
+        ) : (
+          <View>
+            <Pressable onPress={toggleCheckBoxHandler}>
+              <View>
+                <Image
+                  style={styles.image}
+                  source={require('../../assets/common/tongdoc_noncheck_nonoutline.png')}
+                />
+              </View>
+            </Pressable>
+          </View>
+        )}
+      </View>
+    );
   }
-  if(type ==='outline'){
-    return ( 
+  if (type === 'outline') {
+    return (
       <View style={style}>
-        {isSelected
-        ? <View><Pressable onPress={toggleCheckBoxHandler}><View><Image style={styles.image} source={require('../../assets/common/tongdoc_checked_outline.png')} /></View></Pressable></View>
-        : <View><Pressable onPress={toggleCheckBoxHandler}><View><Image style={styles.image} source={require('../../assets/common/tongdoc_noncheck_outline.png')} /></View></Pressable></View>
-        }
+        {isSelected ? (
+          <View>
+            <Pressable onPress={toggleCheckBoxHandler}>
+              <View>
+                <Image
+                  style={styles.image}
+                  source={require('../../assets/common/tongdoc_checked_outline.png')}
+                />
+              </View>
+            </Pressable>
+          </View>
+        ) : (
+          <View>
+            <Pressable onPress={toggleCheckBoxHandler}>
+              <View>
+                <Image
+                  style={styles.image}
+                  source={require('../../assets/common/tongdoc_noncheck_outline.png')}
+                />
+              </View>
+            </Pressable>
+          </View>
+        )}
       </View>
-    )
+    );
   }
 }
 
 const styles = StyleSheet.create({
-  image:{
-    width:26,
-    height:26
-  }
-})
+  image: {
+    width: 26,
+    height: 26,
+  },
+});

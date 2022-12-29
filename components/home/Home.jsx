@@ -110,7 +110,9 @@ export default function Home({
         {isAddFamilyBannerShow && (
           <AddFamilyBanner onPress={closeAddFamilyBannerHandler} />
         )}
-
+        <Pressable onPress={() => goToPageHandler('EmailAndPassword')}>
+          <Text>테스트테스트</Text>
+        </Pressable>
         <Pressable
           onPress={() => goToPageHandler('Diagnosis')}
           style={({ pressed }) => []}

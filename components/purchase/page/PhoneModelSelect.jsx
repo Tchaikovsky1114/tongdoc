@@ -78,8 +78,6 @@ const PhoneModelSelect = ({ route }) => {
       id: params.id,
       token: params.token,
       gubun: params.gubun,
-      spec: params.spec,
-      company: params.company,
       phoneId: selectModel,
     });
   };

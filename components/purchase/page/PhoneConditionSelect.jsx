@@ -62,15 +62,17 @@ const PRICE = [
 
 const PhoneConditionSelect = () => {
   const navigation = useNavigation();
-  const [isDisable, setIsDisable] = useState(false);
+  const [isDisable, setIsDisable] = useState(true);
   const [id, setId] = useState('');
   const [gubun, setGubun] = useState('');
   const [company, setCompany] = useState('');
   const [spec, setSpec] = useState('');
   const [token, setToken] = useState('');
+
   const gubunHandler = useCallback(
     (num) => {
       setGubun(num);
+      setIsDisable(true);
     },
     [gubun]
   );
@@ -101,7 +103,6 @@ const PhoneConditionSelect = () => {
         token,
         gubun,
         company,
-        spec,
       });
     }
   };
@@ -119,8 +120,20 @@ const PhoneConditionSelect = () => {
 
   useEffect(() => {
     getUser();
-    setIsDisable((prev) => !prev);
-  }, [spec !== '']);
+  }, []);
+
+  useEffect(() => {
+    if (gubun === 0) {
+      if (spec !== '') {
+        setIsDisable(false);
+      }
+    }
+    if (gubun === 1) {
+      if (company !== '') {
+        setIsDisable(false);
+      }
+    }
+  }, [gubun, spec, company]);
 
   return (
     <View style={styles.container}>
@@ -160,7 +173,7 @@ const PhoneConditionSelect = () => {
           </View>
         </View>
       )}
-      {company !== '' && (
+      {gubun === 0 && company !== '' && (
         <View style={styles.itemBox}>
           <View style={styles.modelSelectTitle}>
             <P_16M>사양 및 가격</P_16M>
