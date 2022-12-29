@@ -5,7 +5,7 @@ import {
   StyleSheet,
   Text,
   View,
-  ActivityIndicator,
+  
 } from 'react-native';
 import axios from 'axios';
 import P_12R from '../../style/paragraph/P_12R';
@@ -17,6 +17,7 @@ import DoubleCheckModal from './myPageCommon/DoubleCheckModal';
 import { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import Constants from 'expo-constants';
+import LoadingIndicator from '../common/LoadingIndicator';
 
 const MyPage = () => {
   const [logoutModalIsVisible, setLogoutModalIsVisible] = useState(false);
@@ -117,7 +118,7 @@ const MyPage = () => {
           </View>
         </View>
       ) : (
-        <ActivityIndicator />
+        <LoadingIndicator />
       )}
       <ScrollView>
         <KeyboardAvoidingView>

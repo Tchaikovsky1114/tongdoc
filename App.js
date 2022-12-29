@@ -57,7 +57,6 @@ import PhoneOrderSuggest from './components/purchase/page/PhoneOrderSuggest';
 import ReceivedProposal from './components/purchase/proposal/ReceivedProposal';
 import ProposalDetail from './components/purchase/proposal/ProposalDetail';
 
-
 const prefix = Linking.createURL('/');
 
 const toastConfig = {
@@ -120,7 +119,6 @@ const shareAppWithFriendsHandler = async () => {
         }
       }
     };
-    //f
     const url = `https://firebasedynamiclinks.googleapis.com/v1/shortLinks?key=${WEB_API_KEY}`  
     const { data } = await axios.post(
       url,

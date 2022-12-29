@@ -1,5 +1,4 @@
-import { FlatList,
-   Image, StyleSheet, Text, View } from 'react-native'
+import { FlatList,Image, StyleSheet, View } from 'react-native'
 import React from 'react'
 import P_12R from '../../style/paragraph/P_12R'
 import P_12M from '../../style/paragraph/P_12M'
@@ -7,9 +6,6 @@ import P_16M from '../../style/paragraph/P_16M'
 import AwaitSuggestion from './suggest/AwaitSuggestion'
 import SuggestionCard from './suggest/SuggestionCard'
 const agentImage = require('../../assets/tongdocdirect.png');
-
-
-
 
 export default function AgentProposalTemplate({agent}) {
   
@@ -60,13 +56,13 @@ export default function AgentProposalTemplate({agent}) {
           </View>
         </View>
           <FlatList
-              pagingEnabled
-              horizontal
-              renderItem={renderSuggestionCard}
-              data={agent.offer}
-              keyExtractor={(item) => item.id}
-              showsHorizontalScrollIndicator={false}
-              ListEmptyComponent={<AwaitSuggestion />}
+            pagingEnabled
+            horizontal
+            renderItem={renderSuggestionCard}
+            data={agent.offer}
+            keyExtractor={(item) => item.id}
+            showsHorizontalScrollIndicator={false}
+            ListEmptyComponent={<AwaitSuggestion />}
             />
           </View>
   )

@@ -8,10 +8,15 @@ import axios from 'axios';
 import { useNavigation } from '@react-navigation/native';
 import * as SMS from 'expo-sms';
 import InternetSelectButton from './InternetSelectButton';
+import SelectInternetModal from './SelectInternetModal';
 const { width } = Dimensions.get('window');
 
 export default function AddInternet() {
   const navigation = useNavigation();
+  const [isBorderHighlight, setIsBorderHighlight] = useState(false);
+  const [isBorderHighlight2, setIsBorderHighlight2] = useState(false);
+  const [isChoiceTelecomModalVisible, setIsChoiceTelecomModalVisible] = useState(false);
+  const [selectedTelecom, setSelectedTelecom] = useState('');
   const [internetForm, setInternetForm] = useState({
     name: '',
     phoneNumber: '',
@@ -21,10 +26,7 @@ export default function AddInternet() {
     SKT: 'SKT',
     KT: 'KT',
   });
-  const [isBorderHighlight, setIsBorderHighlight] = useState(false);
-  const [isBorderHighlight2, setIsBorderHighlight2] = useState(false);
-  const [isChoiceTelecomModalVisible, setIsChoiceTelecomModalVisible] = useState(false);
-  const [selectedTelecom, setSelectedTelecom] = useState('');
+  
 
   const onChangeTextHandler = useCallback((name, text) => {
     setInternetForm((prev) => ({
@@ -71,32 +73,15 @@ export default function AddInternet() {
       }
     }
   };
+  
+  const selectTelecomHandler = useCallback((telecom) => {
+    setSelectedTelecom(telecom);
+    showChoiceTelecomModalHandler();
+  },[])
 
   return (
     <>
-      <Modal
-        animationType="fade"
-        transparent={true}
-        visible={isChoiceTelecomModalVisible}
-        onRequestClose={showChoiceTelecomModalHandler}
-      >
-        <View style={styles.outer}>
-          <View style={styles.inner}>
-            <View style={styles.selectBox}>
-              <P_16M>통신사 선택하기</P_16M>
-              <Pressable onPress={showChoiceTelecomModalHandler}>
-                <Image style={{ width: 16, height: 16 }} source={require('../../assets/xBtn.png')} />
-              </Pressable>
-            </View>
-            <View>
-              <InternetSelectButton text="SKT" onPress={() => {setSelectedTelecom(telecoms.SKT);showChoiceTelecomModalHandler();}} />
-              <InternetSelectButton text="LGU+" onPress={() => { setSelectedTelecom(telecoms.LG);showChoiceTelecomModalHandler(); }} />
-              <InternetSelectButton text="KT" onPress={() => { setSelectedTelecom(telecoms.KT);showChoiceTelecomModalHandler(); }} />
-            </View>
-          </View>
-        </View>
-      </Modal>
-
+    <SelectInternetModal isChoiceTelecomModalVisible={isChoiceTelecomModalVisible} onPress={selectTelecomHandler} showChoiceTelecomModalHandler={showChoiceTelecomModalHandler}  />
       <View style={styles.container}>
         <H4_24R style={{ marginTop: 40 }}>
           인터넷 가입정보 {'\n'}등록하기
@@ -118,15 +103,7 @@ export default function AddInternet() {
             },
           ]}
         >
-          <View
-            style={{
-              height: 46,
-              flexDirection: 'row',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              width: '100%',
-            }}
-          >
+          <View style={styles.selectInput}>
             <P_14R style={{ color: '#333' }}>
               {selectedTelecom || '통신사를 선택해주세요'}
             </P_14R>
@@ -136,12 +113,7 @@ export default function AddInternet() {
             />
           </View>
         </Pressable>
-        <View
-          style={[
-            styles.inputBox,
-            { borderBottomColor: isBorderHighlight ? '#2D63E2' : '#ddd' },
-          ]}
-        >
+        <View style={[styles.inputBox,{ borderBottomColor: isBorderHighlight ? '#2D63E2' : '#ddd' }]}>
           <TextInput
             onFocus={() => setIsBorderHighlight(() => true)}
             onBlur={() => setIsBorderHighlight(() => false)}
@@ -153,12 +125,7 @@ export default function AddInternet() {
             placeholder="인터넷 가입 명의자 이름 (실명)"
           />
         </View>
-        <View
-          style={[
-            styles.inputBox,
-            { borderBottomColor: isBorderHighlight2 ? '#2D63E2' : '#ddd' },
-          ]}
-        >
+        <View style={[styles.inputBox,{ borderBottomColor: isBorderHighlight2 ? '#2D63E2' : '#ddd' }]}>
           <TextInput
             onFocus={() => setIsBorderHighlight2(() => true)}
             onBlur={() => setIsBorderHighlight2(() => false)}
@@ -173,17 +140,7 @@ export default function AddInternet() {
         </View>
         <Pressable
           onPress={postAddInternetHandler}
-          style={({ pressed }) => [
-            {
-              backgroundColor: pressed ? '#2D63E278' : '#2d63e2',
-              height: 58,
-              alignItems: 'center',
-              justifyContent: 'center',
-              position: 'absolute',
-              bottom: 0,
-              width,
-            },
-          ]}
+          style={({ pressed }) => [ pressed ? styles.pressedConsentRequestButton : styles.consentRequestButton]}
         >
           <P_16M style={{ color: '#fff' }}>문자 동의 요청</P_16M>
         </Pressable>
@@ -196,7 +153,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-
     paddingHorizontal: 24,
     position: 'relative',
   },
@@ -229,5 +185,30 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     marginBottom: 16,
+  },
+  consentRequestButton: {
+    backgroundColor: '#2d63e2',
+    height: 58,
+    alignItems: 'center',
+    justifyContent: 'center',
+    position: 'absolute',
+    bottom: 0,
+    width,
+  },
+  pressedConsentRequestButton:{
+    backgroundColor: '#2D63E278',
+    height: 58,
+    alignItems: 'center',
+    justifyContent: 'center',
+    position: 'absolute',
+    bottom: 0,
+    width,
+  },
+  selectInput:{
+    height: 46,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    width: '100%',
   }
 });

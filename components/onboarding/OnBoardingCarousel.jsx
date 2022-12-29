@@ -66,13 +66,10 @@ const OnboardingCarousel = () => {
           </View>
         </View>
       ))}
-      
-    </ScrollView>
-
-    <View style={styles.indicatorBox}>
-    <CircleIndicator currentPageNumber={currentPageNumber} pressScrollXHandler={pressScrollXHandler} />
-    </View>
-
+      </ScrollView>
+        <View style={styles.indicatorBox}>
+      <CircleIndicator currentPageNumber={currentPageNumber} pressScrollXHandler={pressScrollXHandler} />
+      </View>
     </>
   )
 };

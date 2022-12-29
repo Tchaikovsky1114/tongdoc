@@ -1,4 +1,4 @@
-import {ActivityIndicator,Pressable,SafeAreaView,StyleSheet,View} from 'react-native';
+import { Pressable,SafeAreaView,StyleSheet,View} from 'react-native';
 import React, { useEffect, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
@@ -7,6 +7,7 @@ import P_12R from '../../../style/paragraph/P_12R';
 import { ScrollView } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
 import H4_24R from '../../../style/H4_24R';
+import LoadingIndicator from '../../common/LoadingIndicator';
 
 export default function Notice() {
   const naivgation = useNavigation();
@@ -44,7 +45,7 @@ export default function Notice() {
       <View style={styles.container}>
         <H4_24R style={styles.title}>공지사항</H4_24R>
         {!notice ? (
-          <ActivityIndicator />
+          <LoadingIndicator />
         ) : (
           <ScrollView
             contentContainerStyle={styles.noticeWrapper}
@@ -53,10 +54,7 @@ export default function Notice() {
             {notice.forwards.map((item) => (
               <Pressable
                 onPress={() => moveToDetailPage(item.id)}
-                style={({ pressed }) => [
-                  styles.noticeItem,
-                  { backgroundColor: pressed ? '#F6F9FF' : '#fff' },
-                ]}
+                style={({ pressed }) => [styles.noticeItem,{ backgroundColor: pressed ? '#F6F9FF' : '#fff' }]}
                 key={item.id}
               >
                 <P_14R style={{ color: '#333' }}>{item.subject}</P_14R>

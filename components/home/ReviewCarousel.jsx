@@ -34,7 +34,7 @@ const reviews = [
 
 const { width } = Dimensions.get('window');
 
-export default function ReviewCarousel() {
+const ReviewCarousel = () =>  {
   const renderItem = ({ item }) => (
     <View style={styles.item}>
       <View style={styles.itemInner}>
@@ -67,6 +67,8 @@ export default function ReviewCarousel() {
     />
   );
 }
+
+export default React.memo(ReviewCarousel); 
 
 const styles = StyleSheet.create({
   container: {

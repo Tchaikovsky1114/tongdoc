@@ -3,7 +3,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, SafeAreaView,Alert} from 'react-native';
+import {  SafeAreaView,Alert} from 'react-native';
 import Home from '../components/home/Home';
 import HomeModal from '../components/sendingBills/homeModal/HomeModal';
 import {FCM_KEY} from 'react-native-dotenv';
@@ -13,6 +13,7 @@ import * as Notifications from 'expo-notifications';
 import * as Linking from 'expo-linking'
 import H2_28M from '../style/H2_28M';
 import P_18M from '../style/paragraph/P_18M';
+import LoadingIndicator from '../components/common/LoadingIndicator';
 
 
 
@@ -140,7 +141,7 @@ export default function HomeScreen({ navigation,route }) {
         <SafeAreaView style={{ flex: 1 }}>
           <StatusBar style="dark" />
           { (!mainConfiguringData || !diagnosisResultData)
-          ? <ActivityIndicator />
+          ? <LoadingIndicator />
           : <>
               <Home
                 mainConfiguringData={mainConfiguringData}

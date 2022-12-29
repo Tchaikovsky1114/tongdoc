@@ -1,10 +1,8 @@
-import { StyleSheet, ActivityIndicator, View } from 'react-native';
-import React, { useState, useEffect } from 'react';
+import { StyleSheet } from 'react-native';
+import React from 'react';
 import { WebView } from 'react-native-webview';
 import { useNavigation } from '@react-navigation/native';
 import { PASS_URL } from './constants/Constants';
-
-
 
 export default function CertificationInProgress() {
   const navigation = useNavigation();

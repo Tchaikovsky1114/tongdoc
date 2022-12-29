@@ -4,7 +4,7 @@ import {
   View,
   Image,
   ScrollView,
-  ActivityIndicator,
+  
   Pressable,
   Modal,
   RefreshControl,
@@ -21,6 +21,7 @@ import axios from 'axios';
 import SummaryBannerCard from './SummaryBannerCard';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import Toast  from 'react-native-toast-message';
+import LoadingIndicator from '../common/LoadingIndicator';
 
 const { width } = Dimensions.get('window');
 
@@ -99,7 +100,7 @@ export default function Diagnosis() {
     />}
     >
       {!diagnosisResultData ? (
-        <ActivityIndicator />
+        <LoadingIndicator />
       ) : (
         <>
           <Modal

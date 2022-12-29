@@ -97,9 +97,6 @@ const Purchase = () => {
           동안 유효하나{'\n'}매장마다 상이합니다.
         </P_14R>
       </View>
-          <Pressable onPress={() => navigation.navigate('ReceivedProposal')}>
-            <Text>받은구메제안서로이동</Text>
-          </Pressable>
     </View>
   );
 };

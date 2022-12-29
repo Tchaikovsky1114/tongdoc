@@ -2,12 +2,11 @@ import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
 import React from 'react';
 import P_12R from '../../style/paragraph/P_12R';
 
-export default function AddFamilyBanner({ onPress }) {
+const AddFamilyBanner = ({ onPress }) => {
   return (
     <View style={styles.container}>
       <P_12R style={{ color: '#333333' }}>
-        아직 등록된 가족이 없으시네요. {'\n'} 가족 통신비도 진단 받고 할인
-        혜택을 확인해 보세요!
+        아직 등록된 가족이 없으시네요. {'\n'} 가족 통신비도 진단 받고 할인 혜택을 확인해 보세요!
       </P_12R>
       <Pressable style={styles.closeBox} onPress={onPress}>
         <Image
@@ -18,6 +17,8 @@ export default function AddFamilyBanner({ onPress }) {
     </View>
   );
 }
+
+export default React.memo(AddFamilyBanner);
 
 const styles = StyleSheet.create({
   container: {

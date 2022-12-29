@@ -32,9 +32,7 @@ export default function CertificationResult({ route, navigation }) {
           animationType="slide"
           transparent={true}
           visible={modalVisible}
-          onRequestClose={() => {
-            setModalVisible((prev) => !prev);
-          }}
+          onRequestClose={() => setModalVisible((prev) => !prev)}
         >
           <View style={styles.centeredView}>
             <View style={styles.modalView}>

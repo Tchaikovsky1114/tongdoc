@@ -6,7 +6,6 @@ import {
   View,
   Image,
   Platform,
-  ActivityIndicator,
   Alert,
 } from 'react-native';
 
@@ -25,6 +24,7 @@ import P_14R from '../../style/paragraph/P_14R';
 import { useRecoilState } from 'recoil';
 import { signupState } from '../../store/signup';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import LoadingIndicator from '../common/LoadingIndicator';
 
 const { width } = Dimensions.get('window');
 
@@ -179,7 +179,7 @@ export default function Signup() {
       <View style={styles.buttonBox}>
         {isLoading ? (
           <View style={[styles.button, { opacity: 0.8 }]}>
-            <ActivityIndicator size="large" color="#00ff00" />
+            <LoadingIndicator size="large" color="#00ff00" />
           </View>
         ) : (
           <Pressable onPress={getAuthorityPressHandler}>

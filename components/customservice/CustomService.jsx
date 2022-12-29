@@ -3,7 +3,7 @@ import React from 'react';
 import ImageButton from '../common/ImageButton';
 import { useNavigation } from '@react-navigation/native';
 
-export default function CustomService() {
+ const CustomService = () => {
   const navigation = useNavigation();
 
   const moveToPageHandler = (destination) => {
@@ -62,6 +62,8 @@ export default function CustomService() {
     </SafeAreaView>
   );
 }
+
+export default React.memo(CustomService);
 
 const styles = StyleSheet.create({
   container: {
