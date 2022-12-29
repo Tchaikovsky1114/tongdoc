@@ -70,7 +70,6 @@ export default function Home({
 
   // Notification.addNotificationReceivedListener((notification) => {})
 
-
   return (
     <ScrollView
       contentContainerStyle={styles.container}
@@ -88,11 +87,12 @@ export default function Home({
       }
     >
       <View style={styles.topInner}>
+
         {isAddFamilyBannerShow && (<AddFamilyBanner onPress={closeAddFamilyBannerHandler} />)}
         <Banner diagnosisResultData={diagnosisResultData} mainConfiguringData={mainConfiguringData} onPress={() => goToPageHandler('Diagnosis')} />
         <PhoneContractDateCalculatorBanner />
         <TongdocNews mainConfiguringData={mainConfiguringData} />
-        
+
       </View>
       <View style={styles.bottomInner}>
         <Reviews />
