@@ -2,7 +2,7 @@
   "expo": {
     "name": "통신닥터",
     "slug": "tongdoc_app",
-    "version": "1.8.1",
+    "version": "1.8.2",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -64,7 +64,7 @@
     },
     "android": {
       "package": "kr.co.tongdoc",
-      "versionCode": 18,
+      "versionCode": 19,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"

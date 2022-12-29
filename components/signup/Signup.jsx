@@ -126,9 +126,7 @@ export default function Signup() {
           ]
         );
         allPermissionIsGranted = false;
-        
       }
-
       // firebase의 Cloud Message를 사용하기 때문에 Expo Push Token이 아닌 Native Device Token을 가져옵니다.
       const { data:pushToken } = await Notifications.getDevicePushTokenAsync({
         experienceId: '@ermerskim/tongdoc_app',
@@ -151,11 +149,9 @@ export default function Signup() {
     } catch (err) {
       console.error(err.response);
     }
-
       navigation.navigate('ChoiceSignMethod')
       setIsLoading(false)
       return token; 
-
   };
 
   return (

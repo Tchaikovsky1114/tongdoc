@@ -42,7 +42,7 @@ const CircleIndicator = ({ pressScrollXHandler,currentPageNumber }) => {
   );
 };
 
-export default CircleIndicator;
+export default React.memo(CircleIndicator);
 
 const styles = StyleSheet.create({
   circleIndicator: {

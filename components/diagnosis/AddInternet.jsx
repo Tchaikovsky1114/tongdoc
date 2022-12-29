@@ -1,13 +1,4 @@
-import {
-  Dimensions,
-  Image,
-  Modal,
-  Pressable,
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-} from 'react-native';
+import {Dimensions,Image,Modal,Pressable,StyleSheet,Text,TextInput,View} from 'react-native';
 import React, { useCallback, useState } from 'react';
 import H4_24R from '../../style/H4_24R';
 import P_14R from '../../style/paragraph/P_14R';
@@ -16,6 +7,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import { useNavigation } from '@react-navigation/native';
 import * as SMS from 'expo-sms';
+import InternetSelectButton from './InternetSelectButton';
 const { width } = Dimensions.get('window');
 
 export default function AddInternet() {
@@ -31,10 +23,9 @@ export default function AddInternet() {
   });
   const [isBorderHighlight, setIsBorderHighlight] = useState(false);
   const [isBorderHighlight2, setIsBorderHighlight2] = useState(false);
-  const [isBorderHighlight3, setIsBorderHighlight3] = useState(false);
-  const [isChoiceTelecomModalVisible, setIsChoiceTelecomModalVisible] =
-    useState(false);
+  const [isChoiceTelecomModalVisible, setIsChoiceTelecomModalVisible] = useState(false);
   const [selectedTelecom, setSelectedTelecom] = useState('');
+
   const onChangeTextHandler = useCallback((name, text) => {
     setInternetForm((prev) => ({
       ...prev,
@@ -78,6 +69,7 @@ export default function AddInternet() {
       } catch (error) {}
     }
   };
+
   return (
     <>
       <Modal
@@ -86,81 +78,18 @@ export default function AddInternet() {
         visible={isChoiceTelecomModalVisible}
         onRequestClose={showChoiceTelecomModalHandler}
       >
-        <View
-          style={{
-            flex: 1,
-            backgroundColor: 'rgba(0,0,0,0.2)',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-        >
-          <View
-            style={{
-              width: '80%',
-              backgroundColor: '#fff',
-              padding: 16,
-              borderRadius: 8,
-            }}
-          >
-            <View
-              style={{
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                marginBottom: 16,
-              }}
-            >
+        <View style={styles.outer}>
+          <View style={styles.inner}>
+            <View style={styles.selectBox}>
               <P_16M>통신사 선택하기</P_16M>
               <Pressable onPress={showChoiceTelecomModalHandler}>
-                <Image
-                  style={{ width: 16, height: 16 }}
-                  source={require('../../assets/xBtn.png')}
-                />
+                <Image style={{ width: 16, height: 16 }} source={require('../../assets/xBtn.png')} />
               </Pressable>
             </View>
             <View>
-              <Pressable
-                onPress={() => {
-                  setSelectedTelecom(telecoms.SKT);
-                  showChoiceTelecomModalHandler();
-                }}
-                style={({ pressed }) => [
-                  {
-                    backgroundColor: pressed ? '#f6f9ff' : '#fff',
-                    marginBottom: 8,
-                  },
-                ]}
-              >
-                <P_14R style={{ color: '#333' }}>SKT(SKB)</P_14R>
-              </Pressable>
-              <Pressable
-                onPress={() => {
-                  setSelectedTelecom(telecoms.KT);
-                  showChoiceTelecomModalHandler();
-                }}
-                style={({ pressed }) => [
-                  {
-                    backgroundColor: pressed ? '#f6f9ff' : '#fff',
-                    marginBottom: 8,
-                  },
-                ]}
-              >
-                <P_14R style={{ color: '#333' }}>KT</P_14R>
-              </Pressable>
-              <Pressable
-                onPress={() => {
-                  setSelectedTelecom(telecoms.LG);
-                  showChoiceTelecomModalHandler();
-                }}
-                style={({ pressed }) => [
-                  {
-                    backgroundColor: pressed ? '#f6f9ff' : '#fff',
-                    marginBottom: 8,
-                  },
-                ]}
-              >
-                <P_14R style={{ color: '#333' }}>LG U+</P_14R>
-              </Pressable>
+              <InternetSelectButton text="SKT" onPress={() => {setSelectedTelecom(telecoms.KT);showChoiceTelecomModalHandler();}} />
+              <InternetSelectButton text="LGU+" onPress={() => { setSelectedTelecom(telecoms.LG);showChoiceTelecomModalHandler(); }} />
+              <InternetSelectButton text="KT" onPress={() => { setSelectedTelecom(telecoms.KT);showChoiceTelecomModalHandler(); }} />
             </View>
           </View>
         </View>
@@ -281,4 +210,22 @@ const styles = StyleSheet.create({
     height: 30,
     width: '100%',
   },
+  outer:{
+    flex: 1,
+    backgroundColor: 'rgba(0,0,0,0.2)',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  inner:{
+    width: '80%',
+    backgroundColor: '#fff',
+    padding: 16,
+    borderRadius: 8,
+  },
+  selectBox:{
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 16,
+  }
 });

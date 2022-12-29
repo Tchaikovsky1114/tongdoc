@@ -1,5 +1,5 @@
-import { ActivityIndicator, SafeAreaView, StyleSheet, Text, View } from 'react-native'
-import React, { useEffect, useState } from 'react'
+import { ActivityIndicator, SafeAreaView, StyleSheet, View } from 'react-native'
+import React from 'react'
 import H4_24R from '../../../style/H4_24R';
 import P_12R from '../../../style/paragraph/P_12R';
 import P_14R from '../../../style/paragraph/P_14R';

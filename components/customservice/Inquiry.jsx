@@ -1,12 +1,4 @@
-import {
-  ActivityIndicator,
-  SafeAreaView,
-  StyleSheet,
-  Text,
-  Modal,
-  View,
-  TextInput,
-} from 'react-native';
+import {ActivityIndicator,SafeAreaView,StyleSheet,Text,View} from 'react-native';
 import React, { useCallback, useLayoutEffect, useState } from 'react';
 import H4_24R from '../../style/H4_24R';
 import { ScrollView } from 'react-native-gesture-handler';

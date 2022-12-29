@@ -1,21 +1,26 @@
 import { useEffect, useState, useCallback, useRef } from 'react';
-import { View, Image, Alert, Share, ToastAndroid, Pressable } from 'react-native';
+import { View, Image, Share, ToastAndroid, Pressable } from 'react-native';
 
-import { getStateFromPath, Link, NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { enableScreens } from 'react-native-screens';
 import Toast, { BaseToast, ErrorToast } from 'react-native-toast-message';
 import { RecoilRoot } from 'recoil';
+import axios from 'axios';
+import dynamicLinks from '@react-native-firebase/dynamic-links'
+
 
 import 'react-native-gesture-handler';
 import 'expo-dev-client';
+import 'intl';
 import * as Font from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import * as Notification from 'expo-notifications';
 import * as Linking from 'expo-linking';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { WEB_API_KEY } from 'react-native-dotenv';
+import { navigate, navigationRef } from './RootNavigation';
 
 import OnBoarding from './components/onboarding/OnBoarding';
 import HomeScreen from './screens/HomeScreen';
@@ -44,20 +49,12 @@ import NoticeDetail from './components/customservice/notice/NoticeDetail';
 import InquiryDetail from './components/customservice/inquiry/InquiryDetail';
 import MyPageCertification from './components/myPage/page/MyPageCertification';
 import AddFamily from './components/diagnosis/AddFamily';
-
 import P_14R from './style/paragraph/P_14R';
-import { navigate, navigationRef } from './RootNavigation';
 import MyPageChangePW from './components/myPage/page/MyPageChangePW';
-
 import PhoneConditionSelect from './components/purchase/page/PhoneConditionSelect';
 import PhoneModelSelect from './components/purchase/page/PhoneModelSelect';
 import PhoneOrderSuggest from './components/purchase/page/PhoneOrderSuggest';
-
-
-import axios from 'axios';
-import dynamicLinks from '@react-native-firebase/dynamic-links'
-import ReceivedProposal from './components/purchase/ReceivedProposal';
-import 'intl';
+import ReceivedProposal from './components/purchase/proposal/ReceivedProposal';
 import ProposalDetail from './components/purchase/proposal/ProposalDetail';
 
 

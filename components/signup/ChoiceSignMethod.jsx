@@ -1,20 +1,19 @@
-import { Pressable,StyleSheet, Text, View,Dimensions } from 'react-native'
-import React from 'react'
+import { Pressable,StyleSheet, Text, View } from 'react-native'
+import React, { useCallback } from 'react'
 import H4_24R from '../../style/H4_24R'
-import Button from '../common/Button'
-import { useNavigation } from '@react-navigation/native'
 
-const {width} = Dimensions.get('window')
+import { useNavigation } from '@react-navigation/native'
 
 export default function ChoiceSignMethod() {
   const navigation = useNavigation()
 
-  const moveSignupPageHandler = () => {
+  const moveSignupPageHandler = useCallback(() => {
     navigation.navigate('Certification')
-  }
-  const moveSigninPageHandler = () => {
+  },[])
+  const moveSigninPageHandler = useCallback(() => {
     navigation.navigate('Signin')
-  }
+  },[])
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>

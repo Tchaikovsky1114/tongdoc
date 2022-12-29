@@ -1,12 +1,5 @@
-import {
-  ActivityIndicator,
-  Pressable,
-  SafeAreaView,
-  StyleSheet,
-  View,
-} from 'react-native';
+import {ActivityIndicator,Pressable,SafeAreaView,StyleSheet,View} from 'react-native';
 import React, { useEffect, useState } from 'react';
-import H4_24M from '../../../style/H4_24M';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import P_14R from '../../../style/paragraph/P_14R';
@@ -37,7 +30,7 @@ export default function Notice() {
   };
 
   const moveToDetailPage = (id) => {
-    naivgation.navigate('Details', {
+    naivgation.navigate('NoticeDetails', {
       detailsId: id,
     });
   };

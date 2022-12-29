@@ -1,17 +1,10 @@
 import { useNavigation } from '@react-navigation/native';
-import {
-  Image,
-  Pressable,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+import {Image,Pressable,ScrollView,StyleSheet,Text,View} from 'react-native';
+import { useEffect, useState } from 'react';
 import P_16M from '../../style/paragraph/P_16M';
 import P_14M from '../../style/paragraph/P_14M';
 import P_14R from '../../style/paragraph/P_14R';
 import BuyList from './purchaseCommon/BuyList';
-import { useEffect, useState } from 'react';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 

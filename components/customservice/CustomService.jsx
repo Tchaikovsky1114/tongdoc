@@ -1,9 +1,5 @@
 import { StyleSheet, View, SafeAreaView } from 'react-native';
-// import H2_28M from '../../style/H2_28M';
-// import P_16R from '../../style/paragraph/P_16R';
-// import P_12R from '../../style/paragraph/P_12R';
 import React from 'react';
-
 import ImageButton from '../common/ImageButton';
 import { useNavigation } from '@react-navigation/native';
 

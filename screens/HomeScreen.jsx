@@ -115,37 +115,7 @@ export default function HomeScreen({ navigation,route }) {
       }
   }
   
-  /** 로그인 시 요금서 청구 받는 이메일을 당사의 인바운드 이메일로 변경하라는 푸시 알림을 보내는 함수입니다 */
-  const hintChangeBillingEmailPushNotification = async (inboundEmail) => {
-    try {
-      const pushToken = (await Notifications.getDevicePushTokenAsync()).data;
-      const { data } = await axios.post('https://fcm.googleapis.com/fcm/send',{
-        to: pushToken,
-        priority: 'normal',
-        data: {
-          experienceId: '@ermerskim/tongdoc_app',
-          scopeKey: '@ermerskim/tongdoc_app',
-          title: `청구서 이메일을 ${inboundEmail}로 변경해주세요!`,
-          message: '가입하신 통신사의 고객센터 또는 통신사 앱에서 변경 가능합니다.',
-          icon: '../../assets/push.png',
-          // prefix를 변경해야함. 
-          // kr.co.tongdoc:// 은 foreground 상태에서 이동되긴 하지만 background 상태에서는 이동하지 못함 
-          // pageLink에 대한 개선 필요..
-          link:`https://tongdoc-9a7a9.page.link/mypage`,
-          image:'../assets/icon.png',
-        },
-      },{
-        headers:{
-          'Content-Type': 'application/json',
-          Authorization: `key=${FCM_KEY}`,
-        }
-      })
-      // 발송 실패가 error로 response 되지 않고 success 처리 후 관련 메세지가 전송되기에 주시해야 합니다.
-      console.log(data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+
 
   useEffect(() => {
       checkExistUserHandler().then((resolve) => {
@@ -157,11 +127,6 @@ export default function HomeScreen({ navigation,route }) {
             .then((data) => {
               setDiagnosisResultData(() => data);
               getUserInfo()
-              .then((resolve) => {
-                if(resolve){
-                  hintChangeBillingEmailPushNotification(resolve.inbound_email);
-                }
-              })
             })
            })
           }

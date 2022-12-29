@@ -6,7 +6,7 @@ const { width,height } = Dimensions.get('window')
 export default function AwaitSuggestion() {
   return (
     <View style={styles.container}>
-      <Image style={{width:211,height:80}} source={require('../../assets/purchase/await-suggestion.png')} />
+      <Image style={{width:211,height:80}} source={require('../../../assets/purchase/await-suggestion.png')} />
     </View>
   )
 }

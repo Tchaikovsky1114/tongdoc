@@ -1,13 +1,13 @@
-import { StyleSheet, Text, View, Image } from 'react-native';
+import { StyleSheet, Text, View, Image, Pressable } from 'react-native';
 import React from 'react';
 import P_18M from '../../style/paragraph/P_18M';
 import P_14M from '../../style/paragraph/P_14M';
 
-export default function Banner({ diagnosisResultData }) {
+export default function Banner({ diagnosisResultData,onPress }) {
   const { phone, month, total_save: totalSave } = diagnosisResultData;
 
   return (
-    <View style={styles.container}>
+    <Pressable onPress={onPress} style={styles.container}>
       <View style={styles.inner}>
         <View style={styles.diagnosisResultTitleBox}>
           <P_18M>{month}월 우리집 통신비 진단 결과 </P_18M>
@@ -99,7 +99,7 @@ export default function Banner({ diagnosisResultData }) {
           )}
         </View>
       </View>
-    </View>
+    </Pressable>
   );
 }
 
