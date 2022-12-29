@@ -57,7 +57,7 @@ export default function AddInternet() {
       );
       message = data.send_message;
     } catch (error) {
-      console.error(error);
+      console.error(error.response.data);
     }
     const isAvailable = SMS.isAvailableAsync();
     if (isAvailable) {
@@ -66,7 +66,9 @@ export default function AddInternet() {
         navigation.navigate('Diagnosis', {
           internet: true,
         });
-      } catch (error) {}
+      } catch (error) {
+        console.error(error.response.data)
+      }
     }
   };
 
@@ -87,7 +89,7 @@ export default function AddInternet() {
               </Pressable>
             </View>
             <View>
-              <InternetSelectButton text="SKT" onPress={() => {setSelectedTelecom(telecoms.KT);showChoiceTelecomModalHandler();}} />
+              <InternetSelectButton text="SKT" onPress={() => {setSelectedTelecom(telecoms.SKT);showChoiceTelecomModalHandler();}} />
               <InternetSelectButton text="LGU+" onPress={() => { setSelectedTelecom(telecoms.LG);showChoiceTelecomModalHandler(); }} />
               <InternetSelectButton text="KT" onPress={() => { setSelectedTelecom(telecoms.KT);showChoiceTelecomModalHandler(); }} />
             </View>

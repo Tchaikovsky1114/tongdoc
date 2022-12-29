@@ -3,13 +3,16 @@ import React from 'react'
 
 const { width,height } = Dimensions.get('window')
 
-export default function AwaitSuggestion() {
+const AwaitSuggestion = () => {
   return (
     <View style={styles.container}>
       <Image style={{width:211,height:80}} source={require('../../../assets/purchase/await-suggestion.png')} />
     </View>
   )
 }
+
+export default React.memo(AwaitSuggestion);
+
 
 const styles = StyleSheet.create({
   container: {

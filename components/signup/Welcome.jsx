@@ -1,58 +1,18 @@
 import { StyleSheet, View,Image,Dimensions } from 'react-native'
-import React,{useCallback, useEffect,useRef,useState} from 'react'
+import React,{useCallback} from 'react'
 import { useRecoilValue } from 'recoil'
 import {signupState} from '../../store/signup'
 import H4_24R from '../../style/H4_24R'
 import Button from '../common/Button'
-import useSendPushNotification from './utils/sendPushNotification'
-import * as Notifications from 'expo-notifications'
 
-const {width} = Dimensions.get('window')
+const { width } = Dimensions.get('window')
 
-  // const sendPushNotificationForWelcome = async () => {
-  //   await useSendPushNotification({
-  //     pushToken:userInfo.userPushToken,
-  //     message:'is this working????'
-  //   })
-  // }
-
-  // useEffect(() => {
-  //   sendPushNotificationForWelcome()
-  // },[])
-
-
-export default function Welcome({navigation}) {
+const Welcome = ({navigation}) => {
   const userInfo = useRecoilValue(signupState);
-  const [expoPushToken, setExpoPushToken] = useState('');
-  const [notification, setNotification] = useState(false);
-  const notificationListener = useRef();
-  const responseListener = useRef();
-
-
-  
   const moveToHomeScreenHandler = useCallback(() => {
     navigation.navigate('Home')
   },[])
 
-
-  // async function schedulePushNotification() {
-    
-  //   await Notifications.scheduleNotificationAsync({
-  //     content: {
-  //       title: `안녕하세요, ${userInfo.name}님! 📬`,
-  //       body: '통신닥터의 회원이 되신 것을 진심으로 축하드립니다!',
-  //       data: { data: 'goes here' },
-  //     },
-  //     trigger: { seconds: 2 },
-  //   });
-  // }
-
-  useEffect(() => {
-    // schedulePushNotification()
-  },[])
-
-
-  
   return (
     <View style={styles.container}>
       <View style={styles.inner}>
@@ -63,6 +23,8 @@ export default function Welcome({navigation}) {
     </View>
   )
 }
+
+export default React.memo(Welcome);
 
 const styles = StyleSheet.create({
   container:{

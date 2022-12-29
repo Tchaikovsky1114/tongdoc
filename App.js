@@ -954,7 +954,12 @@ export default function App() {
                   shadowColor: 'transparent',
                   elevation: 0,
                 },
-
+                headerTitleAlign:'center',
+                headerTitleStyle: {
+                  fontSize: 16,
+                  fontFamily: 'Noto500',
+                  color: '#333',
+                },
               }}
             />
             <Stack.Screen

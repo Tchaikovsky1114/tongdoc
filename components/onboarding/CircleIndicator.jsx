@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Pressable,Dimensions } from 'react-native';
+import { StyleSheet, View, Pressable } from 'react-native';
 
 
 

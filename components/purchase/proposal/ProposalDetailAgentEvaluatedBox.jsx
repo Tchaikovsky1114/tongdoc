@@ -20,7 +20,7 @@ const ProposalDeatailAgentEvaluatedBox = ({reviewCount}) => {
     </View>
   </View>
     <Pressable style={styles.rightButton} onPress={() => {}}>
-      <P_12R>전체보기</P_12R>
+      <P_12R style={{color:'#2d63e2'}}>전체보기</P_12R>
     </Pressable>
   </View>
   )

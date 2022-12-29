@@ -1,6 +1,5 @@
 import { StyleSheet, Image, View } from 'react-native'
 import React from 'react'
-import { ScrollView } from 'react-native-gesture-handler'
 import P_18M from '../../style/paragraph/P_18M'
 import P_14M from '../../style/paragraph/P_14M'
 

@@ -1,5 +1,5 @@
-import React, { useState,useRef, useEffect, useMemo } from 'react';
-import { Dimensions, View,StyleSheet,Text,ScrollView,Image } from 'react-native';
+import React, { useState,useRef } from 'react';
+import { Dimensions, View,StyleSheet,ScrollView,Image } from 'react-native';
 import CircleIndicator from './CircleIndicator';
 import H3_26M from '../../style/H3_26M';
 import P_20R from '../../style/paragraph/P_20R';

@@ -83,11 +83,11 @@ export default function ProposalDetail() {
   return (
     <SafeAreaView>
       <ScrollView contentContainerStyle={styles.inner}>
+        
         <ProposalDetailHeader showAllIntroduceHandler={showAllIntroduceHandler} isShowAllText={isShowAllText} agent={agent} />
         <ProposalDeatailAgentEvaluatedBox reviewCount={agent.review_cnt} />
 
         {agentReview ? <ProposalDetailFirstReviewBox review={agentReview.reviews[0]} /> : <P_12R>Loading...</P_12R>}
-        
         <ProposalDetailSuggestTitle />
         
         {agent.offer.map((offer,index) => (
@@ -153,39 +153,40 @@ const styles = StyleSheet.create({
   },
 
   reviewBox:{
-  width:'70%',
+  
   marginTop:16,
    backgroundColor:'#f6f9ff',
   padding:16,
   borderRadius:8
   },
   suggestHeader:{
-  justifyContent:'flex-start',
-  width:'80%',
-  marginTop:40,
-  marginBottom:16
+    justifyContent:'flex-start',
+    width:'80%',
+    marginTop:40,
+    marginBottom:16
   },
   cautionBox:{
-  flexDirection:'row',
-   justifyContent:'space-between',
-  alignItems:'center',
-  marginBottom:48,
-  width:'80%'
+    flexDirection:'row',
+    
+    alignItems:'center',
+    marginBottom:48,
+    width:'80%'
   },
   cautionInner:{
-  backgroundColor:'#fff1f1',
-  paddingVertical:4,
-  paddingHorizontal:8,
-  borderRadius:8
+    backgroundColor:'#fff1f1',
+    paddingVertical:4,
+    paddingHorizontal:8,
+    borderRadius:8,
+    marginRight:8
   },
   cautionText:{
-  color:'#666',
-  maxWidth:265
+    color:'#666',
+    maxWidth:265
   },
   devidedOfferHeader:{
-  paddingBottom:24,
-  borderBottomWidth:1,
-  borderBottomColor:'#ddd',
-  borderStyle:'dashed'
+    paddingBottom:24,
+    borderBottomWidth:1,
+    borderBottomColor:'#ddd',
+    borderStyle:'dashed'
 }
 })

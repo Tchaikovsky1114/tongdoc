@@ -1,4 +1,5 @@
-import { FlatList, Image, StyleSheet, Text, View } from 'react-native'
+import { FlatList,
+   Image, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import P_12R from '../../style/paragraph/P_12R'
 import P_12M from '../../style/paragraph/P_12M'
@@ -92,13 +93,41 @@ const styles = StyleSheet.create({
     justifyContent:'center',
     alignItems:'center',
   },
-  header:{flexDirection:'row',justifyContent:'space-between',alignItems:'center',width:'90%'},
-  reservationBox:{backgroundColor:'#f6f9ff',paddingVertical:4,paddingHorizontal:8,marginLeft:16,borderRadius:8},
-  agentBox:{justifyContent:'flex-start',alignItems:'flex-start'},
-  agentBoxInner:{
+  header:{
+  flexDirection:'row',
+  justifyContent:'space-between',
+  alignItems:'center',
+  width:'90%'
+},
 
+  reservationBox:{
+  backgroundColor:'#f6f9ff',
+  paddingVertical:4,
+  paddingHorizontal:8,
+  marginLeft:16,
+  borderRadius:8
+},
+  agentBox:{
+  justifyContent:'flex-start',
+  alignItems:'flex-start'
+},
+  agentBoxInner:{},
+  agentImage:{
+  width:50,
+    height:50,
+    marginRight:16
   },
-  agentImage:{width:50,height:50,marginRight:16},
-  agentEvaluatedBox:{flexDirection:'row',justifyContent:'flex-end',alignItems:'flex-end',width:'100%',marginVertical:16},
-  agentScoreBox:{flexDirection:'row',marginRight:8}
+
+  agentEvaluatedBox:{
+  flexDirection:'row',
+  justifyContent:'flex-end',
+  alignItems:'flex-end',
+  width:'100%',
+  marginVertical:16
+},
+
+  agentScoreBox:{
+  flexDirection:'row',
+  marginRight:8
+}
 })

@@ -39,13 +39,13 @@ const SuggestionCard = ({agent,item,device_price,phone_name,auct_id,bill_price,d
     <ProposalOrderCardTextLine title="별도오퍼" content={`${(offer_price).toLocaleString()}원 상당`} />
   </View>
   <View style={styles.buttonLayout}>
-  <Pressable
-    onPress={goToProposalDetailPage}
-    style={({pressed}) => pressed ? styles.pressedButton : styles.button}>
-    <View >
-      <P_16M style={{color:'#fff'}}>제안 상세보기</P_16M>
-    </View>
-  </Pressable>
+    <Pressable
+      onPress={goToProposalDetailPage}
+      style={({pressed}) => pressed ? styles.pressedButton : styles.button}>
+      <View>
+        <P_16M style={{color:'#fff'}}>제안 상세보기</P_16M>
+      </View>
+    </Pressable>
   </View>
 </View>
     )

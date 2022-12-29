@@ -3,8 +3,10 @@ import React from 'react'
 import P_18M from '../../style/paragraph/P_18M'
 import P_14M from '../../style/paragraph/P_14M'
 
-export default function TongdocNews({mainConfiguringData}) {
-  const {doctor:{news}} = mainConfiguringData;
+const TongdocNews = ({mainConfiguringData}) => {
+
+  const {doctor: { news }} = mainConfiguringData;
+
   return (
     <View style={styles.container}>
       <View style={styles.inner}>
@@ -15,12 +17,12 @@ export default function TongdocNews({mainConfiguringData}) {
         <View style={styles.newsContentBox}>
           <Image style={{width:40,height:40}} source={require('../../assets/home/notice.png')} />
           <P_14M style={styles.newsContent}>{news[0]?.contents}</P_14M>
-          
         </View>
       </View>
     </View>
   )
 }
+export default React.memo(TongdocNews);
 
 const styles = StyleSheet.create({
   container:{

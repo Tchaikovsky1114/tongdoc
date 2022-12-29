@@ -16,5 +16,5 @@ export default function CustomServiceScreen() {
 const styles = StyleSheet.create({
   marginTop: 50,
   flex: 1,
-  backgroundColor: '#fff',
+  backgroundColor: '#706262',
 });

@@ -7,7 +7,7 @@ const ProposalDetailSuggestTitle = () => {
   return (
     <View style={styles.suggestHeader}>
     <P_16M>제안 내용</P_16M>
-    <View style={{marginTop:8}}>
+    <View style={{marginTop:8,justifyContent:'center',alignItems:'center'}}>
       <P_12R style={{color:'#666'}}>아래 두 가지 중 원하는 제안서에 체크한 뒤 방문 예약 접수해 주세요.</P_12R>
     </View>
   </View>
