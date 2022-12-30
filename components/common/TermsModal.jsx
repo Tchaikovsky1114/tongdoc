@@ -15,7 +15,9 @@ import {
   POLICY_OTHER_URL,
   POLICY_PRIVACY_URL,
   POLICY_SERVICE_URL,
+  POLICY_MARKETING_URL,
 } from '../signup/constants/Constants';
+import PolicyMarketing from './PolicyMarketing';
 import PolicyOther from './PolicyOther';
 import PolicyPrivacy from './PolicyPrivacy';
 import PolicyService from './PolicyService';
@@ -46,9 +48,14 @@ const TermsModal = ({ modalVisible, setModalVisible, termsDetail }) => {
                 <H6_18M style={{ PaddingTop: 24 }}>서비스 이용약관</H6_18M>
               )}
               {termsDetail === POLICY_PRIVACY_URL && (
-                <H6_18M style={{ PaddingTop: 24 }}>제3자 정보제공동의</H6_18M>
+                <H6_18M style={{ PaddingTop: 24 }}>
+                  개인정보 수집 및 이용동의
+                </H6_18M>
               )}
               {termsDetail === POLICY_OTHER_URL && (
+                <H6_18M style={{ PaddingTop: 24 }}>제3자 정보제공동의</H6_18M>
+              )}
+              {termsDetail === POLICY_MARKETING_URL && (
                 <H6_18M style={{ PaddingTop: 24 }}>
                   마케팅정보 활용 및 수신동의
                 </H6_18M>
@@ -64,6 +71,7 @@ const TermsModal = ({ modalVisible, setModalVisible, termsDetail }) => {
       {termsDetail === POLICY_SERVICE_URL && <PolicyService />}
       {termsDetail === POLICY_PRIVACY_URL && <PolicyPrivacy />}
       {termsDetail === POLICY_OTHER_URL && <PolicyOther />}
+      {termsDetail === POLICY_MARKETING_URL && <PolicyMarketing />}
     </Modal>
   );
 };

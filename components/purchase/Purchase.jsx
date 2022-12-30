@@ -1,5 +1,14 @@
 import { useNavigation } from '@react-navigation/native';
-import {Image,Pressable,ScrollView,StyleSheet,Text,View} from 'react-native';
+
+import {
+  Image,
+  Pressable,
+  RefreshControl,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import { useEffect, useState } from 'react';
 import P_16M from '../../style/paragraph/P_16M';
 import P_14M from '../../style/paragraph/P_14M';
@@ -71,7 +80,23 @@ const Purchase = () => {
           </View>
         </View>
       ) : (
-        <ScrollView style={{ flex: 1, marginBottom: 24 }}>
+        <ScrollView
+          style={{ flex: 1, marginBottom: 24 }}
+          refreshControl={
+            <RefreshControl
+              refreshing={false}
+              enabled
+              colors={['#fff', '#f91', '#f51', '#c31', '#ff3', '#2df']}
+              progressBackgroundColor="#4499FA"
+              onRefresh={() => {
+                getBuyList();
+              }}
+              progressViewOffset={10}
+              tintColor="#4499FA"
+              title="주문 내역을 불러오는 중입니다."
+            />
+          }
+        >
           {buyList?.map((el) => (
             <BuyList key={el.buy_id} item={el}/>
           ))}
