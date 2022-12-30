@@ -76,15 +76,19 @@ export default function Home({mainConfiguringData,diagnosisResultData,fetchGetMa
             fetchGetMainConfiguringData();
             showToast();
           }}
+          progressViewOffset={10}
+          tintColor="#4499FA"
         />
       }
     >
       <View style={styles.topInner}>
 
+
         {isAddFamilyBannerShow && (<AddFamilyBanner onPress={closeAddFamilyBannerHandler} />)}
         <Banner diagnosisResultData={diagnosisResultData} mainConfiguringData={mainConfiguringData} onPress={() => goToPageHandler('Diagnosis')} />
         <PhoneContractDateCalculatorBanner />
         <TongdocNews mainConfiguringData={mainConfiguringData} />
+
 
       </View>
       <View style={styles.bottomInner}>

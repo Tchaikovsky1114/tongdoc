@@ -23,51 +23,52 @@ import PurchaseSuggestCheck from '../purchaseCommon/PurchaseSuggestCheck';
 
 const PhoneOrderSuggest = ({ route }) => {
   const { params } = route;
-  const [showTopInfo, setShowTopInfo] = useState(true);
+
   const [url, setUrl] = useState('');
-  const [selectOption, setSelectOption] = useState({
-    withInternet: '',
-    changeTelecom: '',
-    oneMorePhone: '',
-  });
-  const changeOption = (num, option) => {
-    setSelectOption({
-      ...selectOption,
-      [option]: num,
-    });
-  };
-  const changeOneMorePhone = (num, option) => {
-    if (selectOption.oneMorePhone !== '') {
-      setSelectOption({
-        ...selectOption,
-        oneMorePhone: '',
-      });
-    } else {
-      setSelectOption({
-        ...selectOption,
-        [option]: num,
-      });
-    }
-  };
 
-  const hideTopInfoHandler = () => {
-    setShowTopInfo(false);
-  };
+  // 웹뷰로 진행시 필요 없는 항목
+  // [---start---]
+  // const [showTopInfo, setShowTopInfo] = useState(true);
+  // const [selectOption, setSelectOption] = useState({
+  //   withInternet: '',
+  //   changeTelecom: '',
+  //   oneMorePhone: '',
+  // });
+  // const changeOption = (num, option) => {
+  //   setSelectOption({
+  //     ...selectOption,
+  //     [option]: num,
+  //   });
+  // };
+  // const changeOneMorePhone = (num, option) => {
+  //   if (selectOption.oneMorePhone !== '') {
+  //     setSelectOption({
+  //       ...selectOption,
+  //       oneMorePhone: '',
+  //     });
+  //   } else {
+  //     setSelectOption({
+  //       ...selectOption,
+  //       [option]: num,
+  //     });
+  //   }
+  // };
 
-  const test = async () => {
-    const ttt = await axios.get(
-      'https://api.tongdoc.co.kr/web/buy/recommend?buyer_id=527&buyer_type=family&phone_id=107&choice_spec=0&choice_com=2',
-      {
-        headers: {
-          Authorization: `Bearer ${params.token}`,
-        },
-      }
-    );
-    setUrl(ttt.data);
-    console.log(ttt.data);
-  };
+  // const hideTopInfoHandler = () => {
+  //   setShowTopInfo(false);
+  // };
+  // [---end---]
+
   useEffect(() => {
-    test();
+    if (params.gubun === 0) {
+      setUrl(
+        `https://api.tongdoc.co.kr/web/buy/recommend?buyer_id=${params.id}&buyer_type=family&choice_spec=${params.spec}&choice_com=${params.company}`
+      );
+    } else {
+      setUrl(
+        `https://api.tongdoc.co.kr/web/buy/recommend?buyer_id=${params.id}&buyer_type=family&phone_id=${params.phoneId}`
+      );
+    }
   }, []);
 
   return (
@@ -76,7 +77,7 @@ const PhoneOrderSuggest = ({ route }) => {
         <View style={{ flex: 1 }}>
           <WebView
             source={{
-              uri: 'https://api.tongdoc.co.kr/web/buy/recommend?buyer_id=527&buyer_type=family&phone_id=107&choice_spec=0&choice_com=2',
+              uri: url,
               headers: {
                 Authorization: `Bearer ${params.token}`,
               },

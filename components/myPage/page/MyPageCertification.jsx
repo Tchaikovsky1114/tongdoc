@@ -35,10 +35,17 @@ const MyPageCertification = () => {
           <Pressable
             onPress={() => showDetailTermsModalHandler(POLICY_PRIVACY_URL)}
           >
-            <MyPageCertTab image={true}>제3자 정보제공동의</MyPageCertTab>
+            <MyPageCertTab image={true}>
+              개인정보 수집 및 이용동의
+            </MyPageCertTab>
           </Pressable>
           <Pressable
             onPress={() => showDetailTermsModalHandler(POLICY_OTHER_URL)}
+          >
+            <MyPageCertTab image={true}>제3자 정보제공동의</MyPageCertTab>
+          </Pressable>
+          <Pressable
+            onPress={() => showDetailTermsModalHandler(POLICY_MARKETING_URL)}
           >
             <MyPageCertTab image={true}>
               마케팅정보 활용 및 수신동의

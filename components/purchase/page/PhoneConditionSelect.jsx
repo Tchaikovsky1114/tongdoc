@@ -1,4 +1,6 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
+import axios from 'axios';
 import { useCallback, useEffect, useState } from 'react';
 import { Text, View, StyleSheet } from 'react-native';
 import P_14R from '../../../style/paragraph/P_14R';
@@ -60,14 +62,17 @@ const PRICE = [
 
 const PhoneConditionSelect = () => {
   const navigation = useNavigation();
-  const [isDisable, setIsDisable] = useState(false);
+  const [isDisable, setIsDisable] = useState(true);
+  const [id, setId] = useState('');
   const [gubun, setGubun] = useState('');
   const [company, setCompany] = useState('');
-  const [price, setPrice] = useState('');
+  const [spec, setSpec] = useState('');
+  const [token, setToken] = useState('');
 
   const gubunHandler = useCallback(
     (num) => {
       setGubun(num);
+      setIsDisable(true);
     },
     [gubun]
   );
@@ -77,22 +82,58 @@ const PhoneConditionSelect = () => {
     },
     [company]
   );
-  const priceHandler = useCallback(
+  const specHandler = useCallback(
     (num) => {
-      setPrice(num);
+      setSpec(num);
     },
-    [price]
+    [spec]
   );
-
   const linkToSelectModel = () => {
-    navigation.navigate('PhoneModelSelect', {
-      company,
+    if (gubun === 0) {
+      navigation.navigate('PhoneOrderSuggest', {
+        id,
+        token,
+        gubun,
+        company,
+        spec,
+      });
+    } else {
+      navigation.navigate('PhoneModelSelect', {
+        id,
+        token,
+        gubun,
+        company,
+      });
+    }
+  };
+
+  const getUser = async () => {
+    const getToken = await AsyncStorage.getItem('access');
+    setToken(getToken);
+    const { data } = await axios.get('https://api.tongdoc.co.kr/v1/user', {
+      headers: {
+        Authorization: `Bearer ${getToken}`,
+      },
     });
+    setId(data.user_id);
   };
 
   useEffect(() => {
-    setIsDisable((prev) => !prev);
-  }, [price !== '']);
+    getUser();
+  }, []);
+
+  useEffect(() => {
+    if (gubun === 0) {
+      if (spec !== '') {
+        setIsDisable(false);
+      }
+    }
+    if (gubun === 1) {
+      if (company !== '') {
+        setIsDisable(false);
+      }
+    }
+  }, [gubun, spec, company]);
 
   return (
     <View style={styles.container}>
@@ -116,7 +157,7 @@ const PhoneConditionSelect = () => {
         <View style={styles.itemBox}>
           <View style={styles.modelSelectTitle}>
             <P_16M>제조사</P_16M>
-            <P_14R style={{ color: '#666666' }}>(중복선택 가능)</P_14R>
+            <P_14R style={{ color: '#666666' }}></P_14R>
           </View>
           <View style={styles.modelSelectItemBox}>
             {COMPANY.map((item) => (
@@ -132,7 +173,7 @@ const PhoneConditionSelect = () => {
           </View>
         </View>
       )}
-      {company !== '' && (
+      {gubun === 0 && company !== '' && (
         <View style={styles.itemBox}>
           <View style={styles.modelSelectTitle}>
             <P_16M>사양 및 가격</P_16M>
@@ -143,9 +184,9 @@ const PhoneConditionSelect = () => {
                 item={item}
                 key={item.num}
                 center={true}
-                handler={priceHandler}
-                style={price === item.num && styles.select}
-                textStyle={price === item.num && styles.textSelect}
+                handler={specHandler}
+                style={spec === item.num && styles.select}
+                textStyle={spec === item.num && styles.textSelect}
               />
             ))}
           </View>
