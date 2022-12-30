@@ -12,7 +12,7 @@ import P_14M from '../../style/paragraph/P_14M';
 import P_12M from '../../style/paragraph/P_12M';
 import axios from 'axios';
 
-export default function FamilyCard({ item, index, billType }) {
+export default function FamilyCard({ item, billType }) {
   const navigation = useNavigation()
   const {id, user_name: name, phone_number: phoneNumber, tcom: telecom, state, check_y, check_m, charge, save: savings} = item;
   const [phoneDetailModalIsVisible, setPhoneDetailModalIsVisible] = useState(false);
@@ -20,7 +20,12 @@ export default function FamilyCard({ item, index, billType }) {
   const [isDeleteFamilyModalVisible,setIsDeleteFamilyModalVisible] = useState(false);
   const [detail, setDetail] = useState();
 
-  const fetchGetDiagnosisDetail = async (year, month) => {
+    /**
+   * 통신비 진단 상세 페이지를 구성하는 Data를 불러오는 함수입니다.
+   * @param {number} year - 년도
+   * @param {number} month - 월
+   * */ 
+  const fetchGetDiagnosisDetail = useCallback(async (year, month) => {
     if (state !== 1) {
       setConfirmModalIsVisible((prev) => !prev);
       return;
@@ -43,7 +48,8 @@ export default function FamilyCard({ item, index, billType }) {
         console.log(error);
       }
     }
-  };
+  },[]);
+
   const changeData = (data) => {
     setDetail(data);
   };
@@ -60,11 +66,11 @@ export default function FamilyCard({ item, index, billType }) {
     setIsDeleteFamilyModalVisible(prev => !prev);
   },[])
 
-  const deleteFamilyHandler = async () => {
+  const deleteFamilyHandler = useCallback(async () => {
    
     const token = await AsyncStorage.getItem('access');
     try {
-      const { data } = await axios.delete(`https://api.tongdoc.co.kr/v1/family/${item.family_id}?family_type=${billType}`,{
+       await axios.delete(`https://api.tongdoc.co.kr/v1/family/${item.family_id}?family_type=${billType}`,{
         headers:{
           Authorization:`Bearer ${token}`
         }
@@ -75,9 +81,7 @@ export default function FamilyCard({ item, index, billType }) {
     } catch (error) {
       console.error(error)
     } 
-  }
-
-  console.log(item);
+  },[])
 
   return (
     <>
@@ -86,8 +90,8 @@ export default function FamilyCard({ item, index, billType }) {
         deleteFamilyHandler={deleteFamilyHandler}
         isDeleteFamilyModalVisible={isDeleteFamilyModalVisible}
         toggleDeleteFamilyModalHandler={toggleDeleteFamilyModalHandler}
+        item={item}
       />
-      
 
       <Pressable onPress={() => fetchGetDiagnosisDetail(check_y, check_m)}>
         <View

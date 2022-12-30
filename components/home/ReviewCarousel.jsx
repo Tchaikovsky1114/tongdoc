@@ -3,6 +3,11 @@ import React from 'react';
 import P_14M from '../../style/paragraph/P_14M';
 import P_14R from '../../style/paragraph/P_14R';
 import P_12M from '../../style/paragraph/P_12M';
+
+/**
+ * 리뷰 Carousel에 필요한 DATA입니다.
+ * 현재는 더미데이터로 랜더링하고 있습니다.
+ */
 const reviews = [
   {
     id: 1,

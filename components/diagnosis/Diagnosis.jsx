@@ -1,27 +1,17 @@
-import {
-  Dimensions,
-  StyleSheet,
-  View,
-  Image,
-  ScrollView,
-  
-  Pressable,
-  Modal,
-  RefreshControl,
-} from 'react-native';
 import React, { useCallback, useEffect, useState } from 'react';
+import {Dimensions,StyleSheet,View,Image,ScrollView,Pressable,Modal,RefreshControl} from 'react-native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import P_16M from '../../style/paragraph/P_16M';
-import P_16R from '../../style/paragraph/P_16R';
+import Toast  from 'react-native-toast-message';
+import axios from 'axios';
 
-import P_14R from '../../style/paragraph/P_14R';
 import FamilyCard from './FamilyCard';
 import RegisterCard from './RegisterCard';
-import axios from 'axios';
 import SummaryBannerCard from './SummaryBannerCard';
-import { useNavigation, useRoute } from '@react-navigation/native';
-import Toast  from 'react-native-toast-message';
 import LoadingIndicator from '../common/LoadingIndicator';
+import P_16M from '../../style/paragraph/P_16M';
+import P_16R from '../../style/paragraph/P_16R';
+import P_14R from '../../style/paragraph/P_14R';
 
 const { width } = Dimensions.get('window');
 
@@ -36,10 +26,16 @@ export default function Diagnosis() {
   const [diagnosisResultData, setDiagnosisResultData] = useState();
   const [isSelectMonthModalVisible, setIsSelectMonthModalVisible] = useState(false);
 
+  
   const toggleSelectMonthModalHandler = useCallback(() => {
     setIsSelectMonthModalVisible((prev) => !prev);
   }, []);
 
+
+  /** 통신비 진단 페이지를 구성하는 Data를 불러오는 함수입니다.
+   * @param {number} year - 년도
+   * @param {number} month - 월
+   * */ 
   const fetchGetDiagnosisData = async (
     year = currentYear,
     month = currentMonth
@@ -61,6 +57,7 @@ export default function Diagnosis() {
     }
   };
 
+  /** 페이지를 아래로 끌어 내렸을때 생성되는 토스트입니다. */
   const showToast = () => {
     Toast.show({
       type:'refreshToast',
@@ -96,12 +93,11 @@ export default function Diagnosis() {
       colors={["#fff","#f91","#f51","#c31","#ff3","#2df"]}
       progressBackgroundColor="#4499FA"
       onRefresh={() => {fetchGetDiagnosisData(); showToast();}}
-      
     />}
     >
-      {!diagnosisResultData ? (
-        <LoadingIndicator />
-      ) : (
+      {!diagnosisResultData
+       ? <LoadingIndicator />
+       : (
         <>
           <Modal
             visible={isSelectMonthModalVisible}
@@ -174,7 +170,7 @@ export default function Diagnosis() {
                 />
               ))}
               <RegisterCard
-                onPress={() => navigation.navigate('AddFamily')}
+                onPress={() => navigation.navigate('AddPhone')}
                 text="가족을 등록해 주세요."
               />
             </View>

@@ -3,6 +3,12 @@ import React from 'react';
 import P_18M from '../../style/paragraph/P_18M';
 import UserDiagnosisStatusSummaryBannerItem from './UserDiagnosisStatusSummaryBannerItem';
 
+
+/**
+ * 메인페이지의 통신비 진단 결과 베너입니다.
+ * 누르면 통신비 진단 페이지로 이동합니다.
+ * 청구서의 분석 상태에 따라 다른 UI로 랜더링됩니다.
+ */
 export default function Banner({ diagnosisResultData,onPress }) {
   const { phone, month, total_save: totalSave } = diagnosisResultData;
 

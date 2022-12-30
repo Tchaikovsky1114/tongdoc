@@ -4,8 +4,13 @@ import P_18M from '../../style/paragraph/P_18M'
 import P_14M from '../../style/paragraph/P_14M'
 import { useNavigation } from '@react-navigation/native'
 
+/**
+ * 메인페이지의 휴대폰 구매 베너입니다
+ * 클릭시 휴대폰 구매 페이지로 이동됩니다.
+ */
 const PhoneContractDateCalculatorBanner = () => {
   const navigation = useNavigation()
+  
   const moveToPurchaseMobilePageHandler = useCallback(() => {
     navigation.navigate('PurchaseMobile')
   },[])

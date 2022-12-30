@@ -1,7 +1,7 @@
-import { Image, StyleSheet, Text, View,Dimensions } from 'react-native'
+import { Image, StyleSheet, View,Dimensions } from 'react-native'
 import React from 'react'
 
-const { width,height } = Dimensions.get('window')
+const { height } = Dimensions.get('window')
 
 const AwaitSuggestion = () => {
   return (

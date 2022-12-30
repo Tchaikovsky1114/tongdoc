@@ -9,6 +9,7 @@ const SuggestIndexBox = ({index}) => {
     </View>
   )
 }
+export default React.memo(SuggestIndexBox);
 
 const styles = StyleSheet.create({
   indexBox: {
@@ -26,4 +27,3 @@ const styles = StyleSheet.create({
       
 })
 
-export default React.memo(SuggestIndexBox);

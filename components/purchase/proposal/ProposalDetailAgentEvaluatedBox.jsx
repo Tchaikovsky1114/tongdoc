@@ -26,7 +26,7 @@ const ProposalDeatailAgentEvaluatedBox = ({reviewCount}) => {
   )
 }
 
-export default ProposalDeatailAgentEvaluatedBox
+export default React.memo(ProposalDeatailAgentEvaluatedBox);
 
 const styles = StyleSheet.create({
   container:{

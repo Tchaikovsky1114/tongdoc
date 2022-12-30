@@ -6,7 +6,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import axios from 'axios'
 import { useNavigation } from '@react-navigation/native'
 
-export default function InquiryItem({subject,id,badgeText}) {
+const InquiryItem = ({subject,id,badgeText}) => {
   const navigation = useNavigation()
   const [inquiryDetail,setInquiryDetail] = useState()
   
@@ -33,16 +33,20 @@ export default function InquiryItem({subject,id,badgeText}) {
   }, [inquiryDetail])
 
   return (
-    <Pressable onPress={() => getInquiryDetailHandler(id)} style={({pressed}) => [styles.inquiryItem,{backgroundColor: pressed ? '#f6f9ff' : '#fff'}]}>
+    <Pressable
+      onPress={() => getInquiryDetailHandler(id)}
+      style={({pressed}) => [styles.inquiryItem,{backgroundColor: pressed ? '#f6f9ff' : '#fff'}]}>
     <View>
-     <P_14R style={{color:'#333'}}>{subject}</P_14R>
-     </View>
+      <P_14R style={{color:'#333'}}>{subject}</P_14R>
+    </View>
      <View style={[styles.badge,{backgroundColor:badgeText === '미답변' ? '#f7f7f7' : '#F6F9FF',}]}>
       <P_12M style={{color:badgeText === '미답변' ? '#666' : '#2D63E2'}}>{badgeText}</P_12M>
      </View>
   </Pressable>
   )
 }
+
+export default React.memo(InquiryItem);
 
 const styles = StyleSheet.create({
   inquiryItem:{

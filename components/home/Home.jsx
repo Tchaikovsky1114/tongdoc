@@ -9,17 +9,12 @@ import Reviews from './Reviews';
 import { useNavigation } from '@react-navigation/native';
 import { Toast } from 'react-native-toast-message/lib/src/Toast';
 
-export default function Home({
-  mainConfiguringData,
-  diagnosisResultData,
-  fetchGetMainConfiguringData,
-}) {
+export default function Home({mainConfiguringData,diagnosisResultData,fetchGetMainConfiguringData}) {
   const navigation = useNavigation();
-
-  const [isAddFamilyBannerShow, SetIsAddFamilyBannerShow] = useState(true);
+  const [isAddFamilyBannerShow, setIsAddFamilyBannerShow] = useState(true);
 
   const closeAddFamilyBannerHandler = useCallback(() => {
-    SetIsAddFamilyBannerShow(false);
+    setIsAddFamilyBannerShow(false);
   }, []);
 
   const goToPageHandler = useCallback((page) => {
@@ -37,7 +32,7 @@ export default function Home({
     });
   };
 
-  /** 기기의 백버튼을 누르면, 앱 종료를 묻는 알럿이 뜨게 만드는 함수입니다.*/
+  /** Device의 백버튼을 누르면, 앱 종료를 묻는 알럿이 뜨게 만드는 함수입니다.*/
   const confirmExitAppHandler = useCallback(() => {
     Alert.alert(
       '통신닥터를 종료할까요?',
@@ -67,8 +62,6 @@ export default function Home({
     );
     return () => backHandler.remove();
   }, []);
-
-  // Notification.addNotificationReceivedListener((notification) => {})
 
   return (
     <ScrollView

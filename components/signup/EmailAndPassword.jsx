@@ -1,32 +1,18 @@
-import {
-  StyleSheet,
-  View,
-  Alert,
-  ScrollView,
-  Keyboard,
-  Dimensions,
-  Platform,
-  KeyboardAvoidingView,
-} from 'react-native';
+import {StyleSheet,Pressable,View,Alert,ScrollView,Keyboard,Dimensions,Platform,KeyboardAvoidingView} from 'react-native';
 import React, { useState, useRef, useEffect, useCallback } from 'react';
-import H4_24R from '../../style/H4_24R';
-import P_14R from '../../style/paragraph/P_14R';
+import {POLICY_OTHER_URL,POLICY_PRIVACY_URL,POLICY_SERVICE_URL} from './constants/Constants';
+import { useRecoilValue } from 'recoil';
+import axios from 'axios';
+
 import CheckBox from '../common/CheckBox';
 import Button from '../common/Button';
-import Pressable from 'react-native/Libraries/Components/Pressable/Pressable';
-import P_16R from '../../style/paragraph/P_16R';
 import SignupInput from '../common/SignupInput';
 import Modal from '../common/TermsModal';
-import {
-  POLICY_MARKETING_URL,
-  POLICY_OTHER_URL,
-  POLICY_PRIVACY_URL,
-  POLICY_SERVICE_URL,
-} from './constants/Constants';
-import { useRecoilValue } from 'recoil';
 import { signupState } from '../../store/signup';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import axios from 'axios';
+import H4_24R from '../../style/H4_24R';
+import P_16R from '../../style/paragraph/P_16R';
+import P_14R from '../../style/paragraph/P_14R';
+
 const { width } = Dimensions.get('window');
 
 export default function EmailAndPassword({ navigation }) {

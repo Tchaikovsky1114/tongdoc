@@ -3,7 +3,7 @@ import React from 'react';
 import { StatusBar } from 'expo-status-bar';
 import Purchase from '../components/purchase/Purchase';
 
-export default function PurchaseMobileScreen({ route }) {
+export default function PurchaseMobileScreen() {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <StatusBar style="dark" />

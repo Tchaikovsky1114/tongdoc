@@ -36,35 +36,35 @@ export default function InquiryModal({isInquiryModalVisible,showInquiryModalHand
   }
 
   const postInquiryHandler = async () => {
-      const token = await AsyncStorage.getItem('access');
-      const {subject,contents} = inquiryValues;
-      if(subject.length < 10 || contents.length < 10){
-        Alert.alert(
-          '제목과 내용은 10자 이상이어야 해요',
-          '',
-          [
-            {
-              text:'확인',
-              onPress: () => null
-            }
-          ])
-          return;
+    const token = await AsyncStorage.getItem('access');
+    const {subject,contents} = inquiryValues;
+    if(subject.length < 10 || contents.length < 10){
+      Alert.alert(
+        '제목과 내용은 10자 이상이어야 해요',
+        '',
+        [
+          {
+            text:'확인',
+            onPress: () => null
+          }
+        ])
+        return;
+    }
+      try {
+        await axios.post('https://api.tongdoc.co.kr/v1/info/question',{
+          subject,
+          contents
+        },{
+          headers:{
+            Authorization:`Bearer ${token}`
+          }
+        })
+        showInquiryModalHandler()
+        navigation.navigate('CustomService')
+      } catch (error) {
+        console.error(error);
       }
-        try {
-          await axios.post('https://api.tongdoc.co.kr/v1/info/question',{
-            subject,
-            contents
-          },{
-            headers:{
-              Authorization:`Bearer ${token}`
-            }
-          })
-          showInquiryModalHandler()
-          navigation.navigate('CustomService')
-        } catch (error) {
-          console.error(error);
-        }
-      }
+    }
   
   return (
 <>
@@ -80,10 +80,10 @@ export default function InquiryModal({isInquiryModalVisible,showInquiryModalHand
       <View style={styles.container}>
         <View style={styles.closeBox}>
           <ImageButton
-          onPress={showInquiryModalHandler}
-          buttonStyle={styles.closeButton}
-          imageStyle={{width:24,height:24}}
-          imageURL={require('../../../assets/common/close.png')}
+            onPress={showInquiryModalHandler}
+            buttonStyle={styles.closeButton}
+            imageStyle={{width:24,height:24}}
+            imageURL={require('../../../assets/common/close.png')}
           />
         </View>
 

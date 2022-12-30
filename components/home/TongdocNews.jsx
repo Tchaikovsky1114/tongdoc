@@ -4,9 +4,14 @@ import P_18M from '../../style/paragraph/P_18M'
 import P_14M from '../../style/paragraph/P_14M'
 import { useNavigation } from '@react-navigation/native'
 
+/**
+ * 메인페이지의 통닥 소식 베너입니다.
+ * 클릭시 고객센터 - 공지사항 페이지로 이동합니다.
+ */
 const TongdocNews = ({mainConfiguringData}) => {
   const {doctor: { news }} = mainConfiguringData;
-  const navigation = useNavigation()
+  const navigation = useNavigation();
+
   const moveToNoticePageHandler = useCallback(() => {
     navigation.navigate('Notice');
   },[])

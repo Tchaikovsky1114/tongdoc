@@ -21,7 +21,7 @@ const ProposalDetailHeader = ({showAllIntroduceHandler,isShowAllText,agent}) => 
   )
 }
 
-export default ProposalDetailHeader
+export default React.memo(ProposalDetailHeader);
 
 
 const styles = StyleSheet.create({

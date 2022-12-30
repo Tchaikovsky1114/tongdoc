@@ -1,19 +1,22 @@
-import {SafeAreaView,StyleSheet,Text,View} from 'react-native';
+import {SafeAreaView,StyleSheet,View} from 'react-native';
 import React, { useCallback, useLayoutEffect, useState } from 'react';
-import H4_24R from '../../style/H4_24R';
 import { ScrollView } from 'react-native-gesture-handler';
-import ImageButton from '../common/ImageButton';
-import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from 'axios';
+
+
 import InquiryItem from './inquiry/InquiryItem';
 import InquiryModal from './inquiry/InquiryModal';
+import ImageButton from '../common/ImageButton';
 import LoadingIndicator from '../common/LoadingIndicator';
 import P_12M from '../../style/paragraph/P_12M';
+import H4_24R from '../../style/H4_24R';
 
-export default function Inquiry({ route }) {
+export default function Inquiry() {
   const [inquiries, setInquiries] = useState();
   const [isInquiryModalVisible, setIsInquiryModalVisible] = useState(false);
-  const getInquiryList = async () => {
+
+  const getInquiryList = useCallback(async () => {
     const token = await AsyncStorage.getItem('access');
     try {
       const { data } = await axios.get(
@@ -28,7 +31,7 @@ export default function Inquiry({ route }) {
     } catch (error) {
       console.error(error);
     }
-  };
+  },[]);
 
   const showInquiryModalHandler = useCallback(() => {
     setIsInquiryModalVisible((prev) => !prev);

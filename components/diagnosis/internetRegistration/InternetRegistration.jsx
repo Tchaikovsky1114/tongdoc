@@ -1,13 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import {
-  Image,
-  KeyboardAvoidingView,
-  Pressable,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+import {Image,KeyboardAvoidingView,Pressable,ScrollView,StyleSheet,View} from 'react-native';
 import H4_24R from '../../../style/H4_24R';
 import P_12M from '../../../style/paragraph/P_12M';
 import P_12R from '../../../style/paragraph/P_12R';
@@ -29,6 +21,7 @@ const InternetRegistration = () => {
   });
   const nameRef = useRef(null);
   const phoneRef = useRef(null);
+  
   const nameHandler = (inputWrite) => {
     setForm((prev) => ({
       ...prev,

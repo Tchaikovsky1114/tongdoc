@@ -1,8 +1,9 @@
-import { View, Modal,Pressable,Image } from 'react-native'
+import { View, Modal,Pressable,Image, StyleSheet } from 'react-native'
 import React from 'react'
 import InternetSelectButton from './InternetSelectButton';
+import P_16M from '../../style/paragraph/P_16M';
 
-const SelectInternetModal = ({isChoiceTelecomModalVisible,showChoiceTelecomModalHandler,onPress}) => {
+const SelectInternetModal = ({ isChoiceTelecomModalVisible,showChoiceTelecomModalHandler,onPress }) => {
   return (
     <Modal
     animationType="fade"
@@ -19,9 +20,9 @@ const SelectInternetModal = ({isChoiceTelecomModalVisible,showChoiceTelecomModal
           </Pressable>
         </View>
         <View>
-          <InternetSelectButton text="SKT" onPress={onPress} />
-          <InternetSelectButton text="LGU+" onPress={onPress} />
-          <InternetSelectButton text="KT" onPress={onPress} />
+          <InternetSelectButton text="SKT" onPress={() => onPress('SKT')} />
+          <InternetSelectButton text="LGU+" onPress={() => onPress('LGU+')} />
+          <InternetSelectButton text="KT" onPress={() => onPress('KT')} />
         </View>
       </View>
     </View>
@@ -30,3 +31,24 @@ const SelectInternetModal = ({isChoiceTelecomModalVisible,showChoiceTelecomModal
 }
 
 export default SelectInternetModal
+
+const styles = StyleSheet.create({
+  outer:{
+    flex: 1,
+    backgroundColor: 'rgba(0,0,0,0.2)',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  inner:{
+    width: '80%',
+    backgroundColor: '#fff',
+    padding: 16,
+    borderRadius: 8,
+  },
+  selectBox:{
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 16,
+  },
+})

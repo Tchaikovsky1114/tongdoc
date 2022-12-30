@@ -1,7 +1,6 @@
 import { StyleSheet, Text, View, Image } from 'react-native';
 import React from 'react';
 import P_12R from '../../style/paragraph/P_12R';
-import P_16M from '../../style/paragraph/P_16M';
 import P_14M from '../../style/paragraph/P_14M';
 import usePrice from '../../hooks/usePrice';
 import P_22M from '../../style/paragraph/P_22M';

@@ -6,7 +6,8 @@ import P_14R from '../../../style/paragraph/P_14R';
 import { ScrollView } from 'react-native-gesture-handler';
 import LoadingIndicator from '../../common/LoadingIndicator';
 
-export default function InquiryDetail({route}) {
+const InquiryDetail = ({route}) => {
+
   const { inquiryDetail } = route.params;
   const splitedInquiryDetail = inquiryDetail.updated_at.split('/');
 
@@ -25,17 +26,18 @@ export default function InquiryDetail({route}) {
             </View>
             <View style={[styles.receivedReview]}>
               <P_14R style={{marginBottom:8,color:'#333'}}>통닥 답변</P_14R>
-              
               { inquiryDetail.answer
               ? <P_14R>{inquiryDetail.answer}</P_14R>
               : <P_14R style={{color:'#999'}}>아직 답변이 도착하지 않았어요!</P_14R>
               }
-              
             </View>
-          </ScrollView>}
+          </ScrollView>
+      }
     </SafeAreaView>
   )
 }
+
+export default React.memo(InquiryDetail);
 
 const styles = StyleSheet.create({
   container:{

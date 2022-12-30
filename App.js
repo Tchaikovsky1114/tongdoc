@@ -1,6 +1,5 @@
 import { useEffect, useState, useCallback, useRef } from 'react';
 import { View, Image, Share, ToastAndroid, Pressable } from 'react-native';
-
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -43,12 +42,12 @@ import DetailInternet from './components/diagnosis/detail/DetailInternet';
 import BackButton from './components/common/BackButton';
 import Notice from './components/customservice/notice/Notice';
 import Inquiry from './components/customservice/Inquiry';
-import AddInternet from './components/diagnosis/AddInternet';
+import AddInternet from './components/diagnosis/add-internet/AddInternet';
 import AboutUs from './components/customservice/AboutUs';
 import NoticeDetail from './components/customservice/notice/NoticeDetail';
 import InquiryDetail from './components/customservice/inquiry/InquiryDetail';
 import MyPageCertification from './components/myPage/page/MyPageCertification';
-import AddFamily from './components/diagnosis/AddFamily';
+import AddPhone from './components/diagnosis/add-phone/AddPhone';
 import P_14R from './style/paragraph/P_14R';
 import MyPageChangePW from './components/myPage/page/MyPageChangePW';
 import PhoneConditionSelect from './components/purchase/page/PhoneConditionSelect';
@@ -602,8 +601,8 @@ export default function App() {
 
             <Stack.Screen name="OnBoarding" component={OnBoarding} />
             <Stack.Screen
-              name="AddFamily"
-              component={AddFamily}
+              name="AddPhone"
+              component={AddPhone}
               options={{
                 headerShown: true,
                 title: '',

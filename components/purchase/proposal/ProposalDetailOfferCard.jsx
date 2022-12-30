@@ -34,16 +34,16 @@ const ProposalDetailOfferCard = ({offer,index,isSelectedOffer,lastSelectOffer,se
 
               <View style={styles.devidedOfferHeader}>
                 <ProposalOrderCardTextLine fontSize={14} title="정상가" content={`${(offer.phone_price).toLocaleString()}원`} titleStyle={{color:'#666'}} contentStyle={{color:'#666'}} />
-                <ProposalOrderCardTextLine fontSize={14} title="공시지원금" content={`-${(offer.offer_price).toLocaleString()}원`} titleStyle={{color:'#666'}} contentStyle={{color:'#2d63e2'}} />
-                <ProposalOrderCardTextLine fontSize={14} title="추가할인" content={`-${offer.suggest}원`} titleStyle={{color:'#666'}} contentStyle={{color:'#2d63e2'}} />
+                <ProposalOrderCardTextLine fontSize={14} title="공시지원금" content={`- ${(offer.offer_price).toLocaleString()}원`} titleStyle={{color:'#666'}} contentStyle={{color:'#2d63e2'}} />
+                <ProposalOrderCardTextLine fontSize={14} title="추가할인" content={`- ${offer.suggest}원`} titleStyle={{color:'#666'}} contentStyle={{color:'#2d63e2'}} />
                 {/* <ProposalOrderCardTextLine fontSize={14} title="실구매가" content={`${}원`} titleStyle={{color:'#666'}} contentStyle={{color:'#666'}} /> */}
                 <ProposalOrderCardTextLine fontSize={14} title="부가가치세" content={`${(offer.device_vat).toLocaleString()}원`} titleStyle={{color:'#666'}} contentStyle={{color:'#666'}} />
                 <ProposalOrderCardTextLine fontSize={14} title="월 휴대폰 할부금" content={`${(offer.device_price).toLocaleString()}원`} titleStyle={{color:'#000'}} contentStyle={{color:'#000'}} />
               </View>
               <View style={{marginTop:24}}>
                 <ProposalOrderCardTextLine fontSize={14} title="월정액 (요금제 : 5G 스마트)" content={`${(offer.bill_price).toLocaleString()}원`} titleStyle={{color:'#666'}} contentStyle={{color:'#666'}} />
-                <ProposalOrderCardTextLine fontSize={14} title="선택약정할인" content={`-0원`} titleStyle={{color:'#666'}} contentStyle={{color:'#2d63e2'}} />
-                <ProposalOrderCardTextLine fontSize={14} title="기타할인" content={`-0원`} titleStyle={{color:'#666'}} contentStyle={{color:'#2d63e2'}} />
+                <ProposalOrderCardTextLine fontSize={14} title="선택약정할인" content={`- 0원`} titleStyle={{color:'#666'}} contentStyle={{color:'#2d63e2'}} />
+                <ProposalOrderCardTextLine fontSize={14} title="기타할인" content={`- 0원`} titleStyle={{color:'#666'}} contentStyle={{color:'#2d63e2'}} />
                 <ProposalOrderCardTextLine fontSize={14} title="월 통신요금" content={`${(offer.bill_price).toLocaleString()}원`} titleStyle={{color:'#000'}} contentStyle={{color:'#000'}} />
               </View>
               <View style={{marginTop:24}}>

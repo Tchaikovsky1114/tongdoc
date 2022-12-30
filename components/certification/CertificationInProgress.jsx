@@ -1,4 +1,3 @@
-import { StyleSheet } from 'react-native';
 import React from 'react';
 import { WebView } from 'react-native-webview';
 import { useNavigation } from '@react-navigation/native';
@@ -35,5 +34,3 @@ export default function CertificationInProgress() {
     />
   );
 }
-
-const styles = StyleSheet.create({});

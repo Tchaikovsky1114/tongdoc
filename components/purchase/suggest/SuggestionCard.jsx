@@ -9,7 +9,7 @@ import SuggestIndexBox from './SuggestIndexBox'
 
 const { width } = Dimensions.get('window');
 
-const SuggestionCard = ({agent,item,device_price,phone_name,auct_id,bill_price,device_vat,id,offer_comment,offer_price,phone_price,phone_storage,suggest,total_price}) => {
+const SuggestionCard = ({agent,device_price,phone_name,bill_price,offer_price,phone_price,total_price}) => {
   const navigation = useNavigation()
 
   const goToProposalDetailPage = () => {

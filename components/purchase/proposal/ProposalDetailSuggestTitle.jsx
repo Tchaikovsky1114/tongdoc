@@ -14,7 +14,7 @@ const ProposalDetailSuggestTitle = () => {
   )
 }
 
-export default ProposalDetailSuggestTitle
+export default React.memo(ProposalDetailSuggestTitle);
 
 const styles= StyleSheet.create({
   suggestHeader:{justifyContent:'flex-start',width:'80%',marginTop:40,marginBottom:16}

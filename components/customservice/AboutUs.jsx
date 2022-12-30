@@ -1,15 +1,15 @@
-import {Image,SafeAreaView,StyleSheet,View} from 'react-native';
+import {SafeAreaView,StyleSheet,View} from 'react-native';
 import React, { useEffect, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
-import P_12R from '../../style/paragraph/P_12R';
-import P_14R from '../../style/paragraph/P_14R';
+
 import H4_24R from '../../style/H4_24R';
 import LoadingIndicator from '../common/LoadingIndicator';
 import AboutUsItem from './AboutUsItem';
 
 
-export default function AboutUs() {
+const AboutUs = () =>  {
+
   const [aboutUs, setAboutUs] = useState();
   const getAboutUs = async () => {
     const token = await AsyncStorage.getItem('access');
@@ -52,6 +52,8 @@ export default function AboutUs() {
     </SafeAreaView>
   );
 }
+
+export default React.memo(AboutUs);
 
 const styles = StyleSheet.create({
   container: {

@@ -1,32 +1,25 @@
-import {
-  Dimensions,
-  Pressable,
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-} from 'react-native';
+import {Dimensions,StyleSheet,View} from 'react-native';
 import React, { useCallback, useState } from 'react';
 import * as SMS from 'expo-sms';
-
-import H4_24R from '../../style/H4_24R';
-import P_14R from '../../style/paragraph/P_14R';
-import P_12R from '../../style/paragraph/P_12R';
-import P_12M from '../../style/paragraph/P_12M';
-import P_16M from '../../style/paragraph/P_16M';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import { useNavigation } from '@react-navigation/native';
+import AddCommonHeader from '../add-common/AddCommonHeader';
+import AddPhoneInfoBox from './AddPhoneInfoBox';
+import AddCommonInputBox from '../add-common/AddCommonInputBox';
+import AddCommonRequestConsentButton from '../add-common/AddCommonRequestConsentButton';
 
 const { width } = Dimensions.get('window');
 
-export default function AddFamily() {
+export default function AddPhone() {
   const navigation = useNavigation();
   const [addFamilyForm, setAddFamilyForm] = useState({
     familyName: '',
     familyPhoneNumber: '',
   });
   const [SMSContents, setSMSContents] = useState('');
+  const [borderHighlight1,setBorderHighlight1] = useState(false);
+  const [borderHighlight2,setBorderHighlight2] = useState(false);
 
   const onChangeTextHandler = useCallback((property, text) => {
     setAddFamilyForm((prev) => ({
@@ -57,16 +50,13 @@ export default function AddFamily() {
     } catch (error) {
       console.error(error);
     }
-
     const isAvailable = await SMS.isAvailableAsync();
-
     if (isAvailable) {
       try {
-        const { result } = await SMS.sendSMSAsync(
+        await SMS.sendSMSAsync(
           addFamilyForm.familyPhoneNumber,
           message
         );
-
         navigation.navigate('Diagnosis', {
           add: true,
         });
@@ -81,76 +71,30 @@ export default function AddFamily() {
   return (
     <View style={styles.container}>
       <View style={styles.inner}>
-        <H4_24R>가족 등록하기</H4_24R>
-        <View style={{ marginTop: 16 }}>
-          <P_14R style={{ color: '#666' }}>
-            가족 등록은 함께 거주하지 않더라도 가능합니다. (배우자, 부모, 자녀,
-            형제자매, 며느리, 사위 등)
-          </P_14R>
-        </View>
+        <AddCommonHeader title="가족 등록하기" headerStyle={{marginTop:0}} />
         <View style={{ marginTop: 40 }}>
-          <TextInput
+          <AddCommonInputBox
+            isBorderHighlight={borderHighlight1}
+            placeholder={`가족의 이름(실명)      `}
+            style={styles.input}
+            onFocus={() => setBorderHighlight1(() => true)}
+            onBlur={() => setBorderHighlight1(() => false)}
             onChangeText={(text) => onChangeTextHandler('familyName', text)}
             value={addFamilyForm.familyName}
-            placeholderTextColor="#666"
-            cursorColor="#2d63e2"
-            style={styles.input}
-            placeholder="가족의 이름(실명)"
           />
-          <TextInput
-            keyboardType="phone-pad"
-            onChangeText={(text) =>
-              onChangeTextHandler('familyPhoneNumber', text)
-            }
-            value={addFamilyForm.familyPhoneNumber}
-            placeholderTextColor="#666"
-            cursorColor="#2d63e2"
+          <AddCommonInputBox
+            isBorderHighlight={borderHighlight2}
             style={styles.input}
             placeholder="가족의 휴대폰 번호 (-없이 숫자만 입력해 주세요)"
+            onFocus={() => setBorderHighlight2(() => true)}
+            onBlur={() => setBorderHighlight2(() => false)}
+            onChangeText={(text) => onChangeTextHandler('familyPhoneNumber', text)}
+            value={addFamilyForm.familyPhoneNumber}
+            keyboardType="phone-pad"
           />
         </View>
-        <View
-          style={{
-            marginTop: 40,
-            backgroundColor: '#F6F9FF',
-            padding: 8,
-            borderRadius: 8,
-          }}
-        >
-          <View
-            style={{
-              flexDirection: 'row',
-              alignItems: 'flex-start',
-              marginBottom: 4,
-            }}
-          >
-            <P_12M style={{ marginRight: 8, color: '#2D63E2' }}>1.</P_12M>
-            <P_12R style={{ color: '#666' }}>
-              해당 가족에게 동의 요청 안내 문자를 발송합니다.
-            </P_12R>
-          </View>
-          <View
-            style={{
-              flexDirection: 'row',
-              alignItems: 'flex-start',
-            }}
-          >
-            <P_12M style={{ marginRight: 8, color: '#2D63E2' }}>2.</P_12M>
-            <P_12R style={{ color: '#666' }}>
-              해당 가족의 휴대폰 요금 청구서를 수신 후 가계통신비 {'\n'}점검이
-              진행됩니다.
-            </P_12R>
-          </View>
-        </View>
-        <Pressable
-          onPress={sendSMSConsentHandler}
-          style={({ pressed }) => [
-            { backgroundColor: pressed ? '#2D63E273' : '#2D63E2' },
-            styles.bottomButton,
-          ]}
-        >
-          <P_16M style={{ color: '#fff' }}>문자 동의 요청</P_16M>
-        </Pressable>
+        <AddPhoneInfoBox />
+        <AddCommonRequestConsentButton onPress={sendSMSConsentHandler} />
       </View>
     </View>
   );
@@ -183,5 +127,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     width,
-  },
+  }
 });

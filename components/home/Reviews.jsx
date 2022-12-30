@@ -3,7 +3,12 @@ import React from 'react';
 import P_18M from '../../style/paragraph/P_18M';
 import ReviewCarousel from './ReviewCarousel';
 
+/**
+ * 메인페이지의 통신비 진단 및 구매 후기 페이지입니다.
+ * Carousel을 갖고 있습니다.
+ */
  const Reviews = () => {
+
   return (
     <View style={styles.container}>
       <View style={styles.inner}>
