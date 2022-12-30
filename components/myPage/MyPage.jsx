@@ -5,21 +5,19 @@ import {
   StyleSheet,
   Text,
   View,
-  ActivityIndicator,
+  
 } from 'react-native';
 import axios from 'axios';
 import P_12R from '../../style/paragraph/P_12R';
 import P_14M from '../../style/paragraph/P_14M';
 import HandlerBtn from './myPageCommon/HandlerBtn';
 import MyPageTab from './myPageCommon/MyPageTab';
-import { version } from '../../package.json';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import DoubleCheckModal from './myPageCommon/DoubleCheckModal';
 import { useEffect, useState } from 'react';
-import { useRecoilValue } from 'recoil';
-import { loggedUserState } from '../../store/loggedUser';
 import { useNavigation } from '@react-navigation/native';
 import Constants from 'expo-constants';
+import LoadingIndicator from '../common/LoadingIndicator';
 
 const MyPage = () => {
   const [logoutModalIsVisible, setLogoutModalIsVisible] = useState(false);
@@ -63,9 +61,9 @@ const MyPage = () => {
   const quitModalHandler = () => {
     setQuitModalIsVisible((prev) => !prev);
   };
+  
   const getUserInfo = async () => {
     const token = await AsyncStorage.getItem('access');
-    console.log('mypage is running...');
     try {
       const { data } = await axios.get('https://api.tongdoc.co.kr/v1/user', {
         headers: {
@@ -120,7 +118,7 @@ const MyPage = () => {
           </View>
         </View>
       ) : (
-        <ActivityIndicator />
+        <LoadingIndicator />
       )}
       <ScrollView>
         <KeyboardAvoidingView>
@@ -134,9 +132,7 @@ const MyPage = () => {
           <MyPageTab image={true} url={'MyPageChangePW'}>
             비밀번호 변경
           </MyPageTab>
-
           <MyPageTab version={version ? version : '1.7.1'}>앱정보</MyPageTab>
-
           <MyPageTab quit={true} modalHandler={quitModalHandler}>
             탈퇴하기
           </MyPageTab>

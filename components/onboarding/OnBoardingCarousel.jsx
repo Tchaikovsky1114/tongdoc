@@ -1,8 +1,9 @@
-import React, { useState,useRef, useEffect } from 'react';
-import { Dimensions, View,StyleSheet,Text,ScrollView,Image } from 'react-native';
+import React, { useState,useRef } from 'react';
+import { Dimensions, View,StyleSheet,ScrollView,Image } from 'react-native';
 import CircleIndicator from './CircleIndicator';
 import H3_26M from '../../style/H3_26M';
 import P_20R from '../../style/paragraph/P_20R';
+import react from 'react';
 
 const {width} = Dimensions.get('window');
 
@@ -52,7 +53,7 @@ const OnboardingCarousel = () => {
   <>
     <ScrollView ref={carouselRef} pagingEnabled horizontal contentContainerStyle={styles.carousel} showHorizontalScrollIndicator={false} onScroll={scrollHandler} scrollEventThrottle={300} >
       
-      {PAGES.map((item,index) => (
+      {PAGES.map((item) => (
         <View key={item.num} style={[styles.carouselItem]}>
           <View style={styles.titleBox}>
           <H3_26M style={styles.title}>{item.title}</H3_26M>
@@ -65,18 +66,15 @@ const OnboardingCarousel = () => {
           </View>
         </View>
       ))}
-      
-    </ScrollView>
-
-    <View style={styles.indicatorBox}>
-    <CircleIndicator currentPageNumber={currentPageNumber} pressScrollXHandler={pressScrollXHandler} />
-    </View>
-
+      </ScrollView>
+        <View style={styles.indicatorBox}>
+      <CircleIndicator currentPageNumber={currentPageNumber} pressScrollXHandler={pressScrollXHandler} />
+      </View>
     </>
   )
 };
 
-export default OnboardingCarousel;
+export default react.memo(OnboardingCarousel);
 
 const styles = StyleSheet.create({
   carousel: {

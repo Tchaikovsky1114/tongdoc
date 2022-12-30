@@ -1,5 +1,5 @@
-import { FlatList, StyleSheet, Text, View, Dimensions } from 'react-native';
-import React, { useEffect } from 'react';
+import { FlatList, StyleSheet, View, Dimensions } from 'react-native';
+import React from 'react';
 import P_14M from '../../style/paragraph/P_14M';
 import P_14R from '../../style/paragraph/P_14R';
 import P_12M from '../../style/paragraph/P_12M';
@@ -34,7 +34,7 @@ const reviews = [
 
 const { width } = Dimensions.get('window');
 
-export default function ReviewCarousel() {
+const ReviewCarousel = () =>  {
   const renderItem = ({ item }) => (
     <View style={styles.item}>
       <View style={styles.itemInner}>
@@ -55,8 +55,6 @@ export default function ReviewCarousel() {
       </View>
     </View>
   );
-
-  useEffect(() => {}, []);
   return (
     <FlatList
       contentContainerStyle={styles.container}
@@ -69,6 +67,8 @@ export default function ReviewCarousel() {
     />
   );
 }
+
+export default React.memo(ReviewCarousel); 
 
 const styles = StyleSheet.create({
   container: {

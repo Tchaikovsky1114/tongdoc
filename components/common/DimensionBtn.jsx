@@ -1,20 +1,12 @@
-import {
-  ActivityIndicator,
-  Dimensions,
-  Pressable,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+import {Dimensions,Pressable,StyleSheet,Text,View} from 'react-native';
+import LoadingIndicator from './LoadingIndicator';
 const { width } = Dimensions.get('window');
 const DimensionBtn = ({ isDisable, onPress, isLoading, children }) => {
   return (
     <View style={isDisable ? styles.loginBtnBoxDisabled : styles.loginBtnBox}>
       <Pressable style={styles.screen} disabled={isDisable} onPress={onPress}>
         {isLoading ? (
-          <View style={[styles.loginBtn, { opacity: 0.8 }]}>
-            <ActivityIndicator size="large" color="#00ff00" />
-          </View>
+          <LoadingIndicator />
         ) : (
           <View style={styles.loginBtn}>
             <Text style={styles.loginBtnText}>{children}</Text>

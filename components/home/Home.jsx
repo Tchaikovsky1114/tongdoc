@@ -1,13 +1,4 @@
-import {
-  StyleSheet,
-  View,
-  Pressable,
-  ScrollView,
-  Alert,
-  BackHandler,
-  RefreshControl,
-  Text,
-} from 'react-native';
+import {StyleSheet,View,ScrollView,Alert,BackHandler,RefreshControl} from 'react-native';
 
 import React, { useCallback, useEffect, useState } from 'react';
 import Banner from './Banner';
@@ -29,15 +20,6 @@ export default function Home({
 
   const closeAddFamilyBannerHandler = useCallback(() => {
     SetIsAddFamilyBannerShow(false);
-  }, []);
-
-  const showPrepareServiceAlertHandler = useCallback(() => {
-    return Alert.alert('현재 서비스 준비 중인 페이지입니다.', '', [
-      {
-        text: '확인',
-        onPress: () => navigation.navigate('Main'),
-      },
-    ]);
   }, []);
 
   const goToPageHandler = useCallback((page) => {
@@ -107,34 +89,14 @@ export default function Home({
       }
     >
       <View style={styles.topInner}>
-        {isAddFamilyBannerShow && (
-          <AddFamilyBanner onPress={closeAddFamilyBannerHandler} />
-        )}
-        <Pressable onPress={() => goToPageHandler('EmailAndPassword')}>
-          <Text>테스트테스트</Text>
-        </Pressable>
-        <Pressable
-          onPress={() => goToPageHandler('Diagnosis')}
-          style={({ pressed }) => []}
-        >
-          <Banner
-            diagnosisResultData={diagnosisResultData}
-            mainConfiguringData={mainConfiguringData}
-          />
-        </Pressable>
 
-        <Pressable
-          onPress={() => goToPageHandler('PurchaseMobile')}
-          style={({ pressed }) => []}
-        >
-          <PhoneContractDateCalculatorBanner />
-        </Pressable>
-        <Pressable
-          onPress={showPrepareServiceAlertHandler}
-          style={({ pressed }) => []}
-        >
-          <TongdocNews mainConfiguringData={mainConfiguringData} />
-        </Pressable>
+
+        {isAddFamilyBannerShow && (<AddFamilyBanner onPress={closeAddFamilyBannerHandler} />)}
+        <Banner diagnosisResultData={diagnosisResultData} mainConfiguringData={mainConfiguringData} onPress={() => goToPageHandler('Diagnosis')} />
+        <PhoneContractDateCalculatorBanner />
+        <TongdocNews mainConfiguringData={mainConfiguringData} />
+
+
       </View>
       <View style={styles.bottomInner}>
         <Reviews />

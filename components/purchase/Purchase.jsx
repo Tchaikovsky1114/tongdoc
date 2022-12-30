@@ -1,4 +1,5 @@
 import { useNavigation } from '@react-navigation/native';
+
 import {
   Image,
   Pressable,
@@ -8,11 +9,11 @@ import {
   Text,
   View,
 } from 'react-native';
+import { useEffect, useState } from 'react';
 import P_16M from '../../style/paragraph/P_16M';
 import P_14M from '../../style/paragraph/P_14M';
 import P_14R from '../../style/paragraph/P_14R';
 import BuyList from './purchaseCommon/BuyList';
-import { useEffect, useState } from 'react';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -23,6 +24,7 @@ const Purchase = () => {
   const moveToSelectPhone = () => {
     navigation.navigate('PhoneConditionSelect');
   };
+
   const getBuyList = async () => {
     const token = await AsyncStorage.getItem('access');
     try {
@@ -39,6 +41,7 @@ const Purchase = () => {
   useEffect(() => {
     getBuyList();
   }, []);
+  
   return (
     <View style={{ flex: 1 }}>
       <View style={{ marginBottom: 24 }}>
@@ -56,6 +59,7 @@ const Purchase = () => {
         </Pressable>
       </View>
       <P_16M style={{ color: '#333333', marginBottom: 8 }}>주문 내역</P_16M>
+
       {buyList?.length === 0 ? (
         <View
           style={{
@@ -94,7 +98,7 @@ const Purchase = () => {
           }
         >
           {buyList?.map((el) => (
-            <BuyList key={el.buy_id} item={el} />
+            <BuyList key={el.buy_id} item={el}/>
           ))}
         </ScrollView>
       )}

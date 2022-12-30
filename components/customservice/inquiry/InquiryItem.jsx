@@ -1,7 +1,6 @@
-import { Pressable, StyleSheet, Text, View } from 'react-native'
+import { Pressable, StyleSheet, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import P_14R from '../../../style/paragraph/P_14R'
-import P_12R from '../../../style/paragraph/P_12R'
 import P_12M from '../../../style/paragraph/P_12M'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import axios from 'axios'

@@ -3,7 +3,7 @@ import React from 'react';
 import P_18M from '../../style/paragraph/P_18M';
 import ReviewCarousel from './ReviewCarousel';
 
-export default function Reviews() {
+ const Reviews = () => {
   return (
     <View style={styles.container}>
       <View style={styles.inner}>
@@ -19,6 +19,8 @@ export default function Reviews() {
     </View>
   );
 }
+
+export default React.memo(Reviews);
 
 const styles = StyleSheet.create({
   container: {

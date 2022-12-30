@@ -6,7 +6,6 @@ import {
   View,
   Image,
   Platform,
-  ActivityIndicator,
   Alert,
 } from 'react-native';
 
@@ -25,6 +24,7 @@ import P_14R from '../../style/paragraph/P_14R';
 import { useRecoilState } from 'recoil';
 import { signupState } from '../../store/signup';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import LoadingIndicator from '../common/LoadingIndicator';
 
 const { width } = Dimensions.get('window');
 
@@ -68,7 +68,7 @@ export default function Signup() {
         allPermissionIsGranted = false;
       }
     } catch (err) {
-      console.error(err);
+      console.error(err.response);
       allPermissionIsGranted = false;
     }
 
@@ -97,7 +97,7 @@ export default function Signup() {
         allPermissionIsGranted = false;
       }
     } catch (err) {
-      console.error(err);
+      console.error(err.response);
       allPermissionIsGranted = false;
     }
 
@@ -126,9 +126,7 @@ export default function Signup() {
           ]
         );
         allPermissionIsGranted = false;
-        
       }
-
       // firebase의 Cloud Message를 사용하기 때문에 Expo Push Token이 아닌 Native Device Token을 가져옵니다.
       const { data:pushToken } = await Notifications.getDevicePushTokenAsync({
         experienceId: '@ermerskim/tongdoc_app',
@@ -149,13 +147,11 @@ export default function Signup() {
         });
       }
     } catch (err) {
-      console.error(err);
+      console.error(err.response);
     }
-
       navigation.navigate('ChoiceSignMethod')
       setIsLoading(false)
       return token; 
-
   };
 
   return (
@@ -183,7 +179,7 @@ export default function Signup() {
       <View style={styles.buttonBox}>
         {isLoading ? (
           <View style={[styles.button, { opacity: 0.8 }]}>
-            <ActivityIndicator size="large" color="#00ff00" />
+            <LoadingIndicator size="large" color="#00ff00" />
           </View>
         ) : (
           <Pressable onPress={getAuthorityPressHandler}>

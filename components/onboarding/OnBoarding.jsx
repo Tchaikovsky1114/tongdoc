@@ -1,14 +1,7 @@
 import React, { useCallback } from 'react';
 import OnboardingCarousel from './OnBoardingCarousel';
-import {
-  Text,
-  View,
-  StyleSheet,
-  Dimensions,
-  Pressable,
-  StatusBar,
-  SafeAreaView,
-} from 'react-native';
+import { Text,View,StyleSheet,Dimensions,Pressable,StatusBar,SafeAreaView } from 'react-native';
+
 const { width } = Dimensions.get('window');
 
 const OnBoarding = ({ navigation }) => {

@@ -1,12 +1,4 @@
-import {
-  ActivityIndicator,
-  SafeAreaView,
-  StyleSheet,
-  Text,
-  Modal,
-  View,
-  TextInput,
-} from 'react-native';
+import {SafeAreaView,StyleSheet,Text,View} from 'react-native';
 import React, { useCallback, useLayoutEffect, useState } from 'react';
 import H4_24R from '../../style/H4_24R';
 import { ScrollView } from 'react-native-gesture-handler';
@@ -15,6 +7,8 @@ import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import InquiryItem from './inquiry/InquiryItem';
 import InquiryModal from './inquiry/InquiryModal';
+import LoadingIndicator from '../common/LoadingIndicator';
+import P_12M from '../../style/paragraph/P_12M';
 
 export default function Inquiry({ route }) {
   const [inquiries, setInquiries] = useState();
@@ -62,9 +56,10 @@ export default function Inquiry({ route }) {
               id={0}
               badgeText="1:1 문의 안내"
             />
-            {!inquiries ? (
-              <ActivityIndicator />
-            ) : (
+            {
+            !inquiries
+            ? <LoadingIndicator />
+            : (
               inquiries.questions.map((item) => (
                 <InquiryItem
                   id={item.id}
@@ -74,9 +69,11 @@ export default function Inquiry({ route }) {
                 />
               ))
             )}
-            {inquiries && inquiries.questions.length === 0 && (
-              <Text>'문의 내역이 없습니다'</Text>
-            )}
+          { inquiries && inquiries.questions.length === 0 && (
+          <View style={{marginTop:28}}>
+            <P_12M>문의 내역이 존재하지 않습니다.</P_12M>
+          </View>
+          ) }
           </ScrollView>
           <ImageButton
             onPress={showInquiryModalHandler}

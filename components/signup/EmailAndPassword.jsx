@@ -228,7 +228,6 @@ export default function EmailAndPassword({ navigation }) {
             </View>
           </ScrollView>
         </KeyboardAvoidingView>
-
         <View style={styles.bottom}>
           <View style={styles.checkBoxGroup}>
             <View style={styles.checkBoxInner}>

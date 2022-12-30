@@ -1,5 +1,5 @@
 import {
-  ActivityIndicator,
+  
   SafeAreaView,
   StyleSheet,
   Text,
@@ -12,11 +12,11 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import H4_24R from '../../../style/H4_24R';
 import P_12R from '../../../style/paragraph/P_12R';
 import P_14R from '../../../style/paragraph/P_14R';
+import LoadingIndicator from '../../common/LoadingIndicator';
 
 export default function NoticeDetail({ route }) {
   const { detailsId } = route.params;
   const [noticeDetail, setNoticeDetail] = useState();
-  console.log(detailsId);
 
   const getNoticeDetail = async (detailsId) => {
     const token = await AsyncStorage.getItem('access');
@@ -34,6 +34,7 @@ export default function NoticeDetail({ route }) {
       console.error(error);
     }
   };
+
   useEffect(() => {
     getNoticeDetail(detailsId);
   }, [route.params]);
@@ -41,9 +42,10 @@ export default function NoticeDetail({ route }) {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <View style={styles.container}>
-        {!noticeDetail ? (
-          <ActivityIndicator />
-        ) : (
+        {
+        !noticeDetail
+        ? <LoadingIndicator />
+        : (
           <>
             <H4_24R style={styles.title}>{noticeDetail.subject}</H4_24R>
             <P_12R style={styles.date}>

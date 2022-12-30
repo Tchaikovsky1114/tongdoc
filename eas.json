@@ -25,7 +25,8 @@
     "preview2": {
       "android": {
         "gradleCommand": ":app:assembleRelease"
-      }
+      },
+      "channel": "preview2"
     },
     "production": {
       "channel": "production",
@@ -48,8 +49,8 @@
   "submit": {
     "production": {
       "android": {
-        "serviceAccountKeyPath":"./tongdoc-9a7a9-651ec6369863.json",
-        "track":"internal"
+        "serviceAccountKeyPath": "./tongdoc-9a7a9-651ec6369863.json",
+        "track": "internal"
       },
       "ios": {
         "bundleIdentifier": "co.kr.tongdoc",

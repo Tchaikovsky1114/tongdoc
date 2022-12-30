@@ -1,13 +1,13 @@
-import { StyleSheet, Text, View, Image } from 'react-native';
+import { StyleSheet, Text, View, Image, Pressable } from 'react-native';
 import React from 'react';
 import P_18M from '../../style/paragraph/P_18M';
-import P_14M from '../../style/paragraph/P_14M';
+import UserDiagnosisStatusSummaryBannerItem from './UserDiagnosisStatusSummaryBannerItem';
 
-export default function Banner({ diagnosisResultData }) {
+export default function Banner({ diagnosisResultData,onPress }) {
   const { phone, month, total_save: totalSave } = diagnosisResultData;
 
   return (
-    <View style={styles.container}>
+    <Pressable onPress={onPress} style={styles.container}>
       <View style={styles.inner}>
         <View style={styles.diagnosisResultTitleBox}>
           <P_18M>{month}월 우리집 통신비 진단 결과 </P_18M>
@@ -16,90 +16,53 @@ export default function Banner({ diagnosisResultData }) {
             source={require('../../assets/common/graynextarrow.png')}
           />
         </View>
+
         <View style={styles.diagnosisStatusBox}>
           {phone && phone[0].state === 0 && (
-            <>
-              <Image
-                style={{ width: 52, height: 52, marginRight: 24 }}
-                source={require(`../../assets/diagnosis/status0.png`)}
-              />
-              <View>
-                <P_14M>{phone[0].user_name}님의 휴대폰 요금 청구서가</P_14M>
-                <P_14M>아직 통닥에 도착하지 않았어요</P_14M>
-              </View>
-            </>
-          )}
+            <UserDiagnosisStatusSummaryBannerItem
+            imageURL={require(`../../assets/diagnosis/status0.png`)}
+            title={`${phone[0].user_name}님의 휴대폰 요금 청구서가 `}
+            content="아직 통닥에 도착하지 않았어요" 
+            />)
+          }
           {phone && phone[0].state === 1 && (
-            <>
-              <Image
-                style={{ width: 52, height: 52, marginRight: 24 }}
-                source={require(`../../assets/diagnosis/status1.png`)}
-              />
-              <View>
-                <P_14M>{phone[0].user_name}님의 11월 통신비 진단 결과,</P_14M>
-                <P_14M style={{ color: '#2D63E2' }}>
-                  {parseInt(totalSave).toLocaleString()}원 절감 가능하네요!
-                </P_14M>
-              </View>
-            </>
+            <UserDiagnosisStatusSummaryBannerItem
+            imageURL={require(`../../assets/diagnosis/status1.png`)}
+            title={`${phone[0].user_name}님의 ${month}월 통신비 진단 결과, `}
+            content={`${parseInt(totalSave).toLocaleString()}원 절감 가능하네요!`} 
+            />
           )}
           {phone && phone[0].state === 2 && (
-            <>
-              <Image
-                style={{ width: 52, height: 52, marginRight: 24 }}
-                source={require(`../../assets/diagnosis/status2.png`)}
-              />
-              <View>
-                <P_14M>{phone[0].user_name}님의 11월 통신비 진단 결과,</P_14M>
-                <P_14M style={{ color: '#2D63E2' }}>
-                  {parseInt(totalSave).toLocaleString()}원 절감 가능하네요!
-                </P_14M>
-              </View>
-            </>
+            <UserDiagnosisStatusSummaryBannerItem
+            imageURL={require(`../../assets/diagnosis/status2.png`)}
+            title={`${phone[0].user_name}님의 ${month}월 통신비 진단 결과, `}
+            content={`${parseInt(totalSave).toLocaleString()}원 절감 가능하네요!`} 
+            />
           )}
           {phone && phone[0].state === 3 && (
-            <>
-              <Image
-                style={{ width: 52, height: 52, marginRight: 24 }}
-                source={require(`../../assets/diagnosis/status3.png`)}
-              />
-              <View>
-                <P_14M>{phone[0].user_name}님의 11월 통신비 진단 결과,</P_14M>
-                <P_14M style={{ color: '#2D63E2' }}>
-                  {parseInt(totalSave).toLocaleString()}원 절감 가능하네요!
-                </P_14M>
-              </View>
-            </>
+            <UserDiagnosisStatusSummaryBannerItem
+            imageURL={require(`../../assets/diagnosis/status3.png`)}
+            title={`${phone[0].user_name}님의 ${month}월 통신비 진단 결과, `}
+            content={`${parseInt(totalSave).toLocaleString()}원 절감 가능하네요!`} 
+            />
           )}
           {phone && phone[0].state === 4 && (
-            <>
-              <Image
-                style={{ width: 52, height: 52, marginRight: 24 }}
-                source={require(`../../assets/diagnosis/status4.png`)}
-              />
-              <View>
-                <P_14M>{phone[0].user_name}님의 11월 통신비 진단 결과,</P_14M>
-                <P_14M style={{ color: '#2D63E2' }}>
-                  {parseInt(totalSave).toLocaleString()}원 절감 가능하네요!
-                </P_14M>
-              </View>
-            </>
+            <UserDiagnosisStatusSummaryBannerItem
+            imageURL={require(`../../assets/diagnosis/status4.png`)}
+            title={`${phone[0].user_name}님의 ${month}월 통신비 진단 결과, `}
+            content={`${parseInt(totalSave).toLocaleString()}원 절감 가능하네요!`} 
+            />
           )}
           {phone && phone[0].state === 5 && (
-            <>
-              <Image
-                style={{ width: 52, height: 52, marginRight: 24 }}
-                source={require(`../../assets/diagnosis/status5.png`)}
-              />
-              <View>
-                <P_14M>휴대폰 요금 청구서 분석중입니다.</P_14M>
-                <P_14M>완료 즉시 알려드릴게요.</P_14M>
-              </View>
-            </>
+            <UserDiagnosisStatusSummaryBannerItem
+            imageURL={require(`../../assets/diagnosis/status5.png`)}
+            title="휴대폰 요금 청구서 분석중입니다."
+            content="완료 즉시 알려드릴게요."
+            />
           )}
         </View>
       </View>
-    </View>
+    </Pressable>
   );
 }
 

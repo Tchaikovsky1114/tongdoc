@@ -2,14 +2,22 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import axios from 'axios';
 import { StatusBar } from 'expo-status-bar';
-import React, { useEffect, useLayoutEffect, useState } from 'react';
-import { ActivityIndicator, SafeAreaView,Alert } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import {  SafeAreaView,Alert} from 'react-native';
 import Home from '../components/home/Home';
 import HomeModal from '../components/sendingBills/homeModal/HomeModal';
 import {FCM_KEY} from 'react-native-dotenv';
 import { loggedUserState } from '../store/loggedUser';
 import { useRecoilState } from 'recoil';
 import * as Notifications from 'expo-notifications';
+import * as Linking from 'expo-linking'
+import H2_28M from '../style/H2_28M';
+import P_18M from '../style/paragraph/P_18M';
+import LoadingIndicator from '../components/common/LoadingIndicator';
+
+
+
+const prefix = Linking.createURL('/')
 
 export default function HomeScreen({ navigation,route }) {
   const [tcom,setTcom] = useState('');
@@ -58,7 +66,8 @@ export default function HomeScreen({ navigation,route }) {
         }
     }
 
-  /** 메인 화면을 구성하는 정보와 유저 정보를 받아오는 함수입니다 */
+  
+    /** 메인 화면을 구성하는 정보와 유저 정보를 받아오는 함수입니다 */
   const fetchGetMainConfiguringData = async () => {
     
     const token = await AsyncStorage.getItem('access');
@@ -90,7 +99,6 @@ export default function HomeScreen({ navigation,route }) {
       console.error('2.진단정보')
     }
   }
-
   const getUserInfo = async () => {
     const token = await AsyncStorage.getItem('access');
     try {
@@ -107,70 +115,33 @@ export default function HomeScreen({ navigation,route }) {
         console.error('3.유저정보');
       }
   }
-  // FCM을 사용한다면..?
-  /** 로그인 시 요금서 청구 받는 이메일을 당사의 인바운드 이메일로 변경하라는 푸시 알림을 보내는 함수입니다 */
-  const hintChangeBillingEmailPushNotification = async (inboundEmail) => {
-    try {
-      const pushToken = (await Notifications.getDevicePushTokenAsync()).data;  
-      const { data } = await axios.post('https://fcm.googleapis.com/fcm/send',{
-        to: pushToken,
-        priority: 'normal',
-        data: {
-          experienceId: '@ermerskim/tongdoc_app',
-          scopeKey: '@ermerskim/tongdoc_app',
-          title: `청구서 이메일을 ${inboundEmail}로 변경해주세요!`,
-          message: '가입하신 통신사의 고객센터 또는 통신사 앱에서 변경 가능합니다...',
-          icon: '../../assets/push.png',
-        },
-      },{
-        headers:{
-          'Content-Type': 'application/json',
-          Authorization: `key=${FCM_KEY}`,
-        }
-      })
-      // 발송 실패가 error로 response 되지 않고 success 처리 후 data로 전송되기에 주시해야 합니다.
-      // console.log(data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
- 
+  
+
+
   useEffect(() => {
       checkExistUserHandler().then((resolve) => {
         if(resolve){
           fetchGetMainConfiguringData()
           .then((data) => {
-            setMainConfiguringData(data);
+            setMainConfiguringData(() => data);
             fetchGetDiagnosisData()
             .then((data) => {
               setDiagnosisResultData(() => data);
               getUserInfo()
-              .then((resolve) => {
-                if(resolve){
-                  hintChangeBillingEmailPushNotification(resolve.inbound_email);
-                }
-              })
             })
            })
-        }
-      })
+          }
+        })
+      // 의존성 배열의 route
+      // Signin 컴포넌트에서 redirect 되면서 route.params를 받아옵니다
+      // 위 함수를 실행하기 위해서는 route.params의 값이 필수이기에 의존성 배열의 값을 지우면 안됩니다.
   }, [route]);
-
-  
-
-  /** 테스트 시 사용하세요. */
-  // const removeAsyncStorage = async () => {
-  //   await AsyncStorage.clear()
-  // }
-  // useEffect(() => {
-  //   removeAsyncStorage();
-  // }, [])
   
   return (
         <SafeAreaView style={{ flex: 1 }}>
           <StatusBar style="dark" />
           { (!mainConfiguringData || !diagnosisResultData)
-          ? <ActivityIndicator />
+          ? <LoadingIndicator />
           : <>
               <Home
                 mainConfiguringData={mainConfiguringData}

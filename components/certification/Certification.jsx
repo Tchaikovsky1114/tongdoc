@@ -6,17 +6,15 @@ import {
   Pressable,
   Dimensions,
 } from 'react-native';
-import React, { useEffect } from 'react';
+import React from 'react';
 import H4_24R from '../../style/H4_24R';
 import P_14R from '../../style/paragraph/P_14R';
 
 import { useNavigation } from '@react-navigation/native';
-import { useRecoilState } from 'recoil';
-import { signupState } from '../../store/signup';
 
 const { width } = Dimensions.get('window');
 
-export default function Certification() {
+const Certification = ()  => {
   const navigation = useNavigation();
 
 
@@ -60,6 +58,8 @@ export default function Certification() {
     </View>
   );
 }
+
+export default React.memo(Certification);
 
 const styles = StyleSheet.create({
   container: {

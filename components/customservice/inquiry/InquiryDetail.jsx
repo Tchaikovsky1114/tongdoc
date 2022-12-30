@@ -1,21 +1,24 @@
-import { ActivityIndicator, SafeAreaView, StyleSheet, Text, View } from 'react-native'
-import React, { useEffect, useState } from 'react'
+import { SafeAreaView, StyleSheet, View } from 'react-native'
+import React from 'react'
 import H4_24R from '../../../style/H4_24R';
 import P_12R from '../../../style/paragraph/P_12R';
 import P_14R from '../../../style/paragraph/P_14R';
 import { ScrollView } from 'react-native-gesture-handler';
+import LoadingIndicator from '../../common/LoadingIndicator';
 
 export default function InquiryDetail({route}) {
   const { inquiryDetail } = route.params;
+  const splitedInquiryDetail = inquiryDetail.updated_at.split('/');
+
   return (
     <SafeAreaView style={styles.container}>
       {
         !inquiryDetail
-        ? <ActivityIndicator />
-        : <ScrollView>
+        ? <LoadingIndicator />
+        : <ScrollView >
             <View style={styles.header}>
             <H4_24R style={styles.title}>{inquiryDetail.subject}</H4_24R>
-            <P_12R style={{color:'#666'}}>{inquiryDetail.updated_at.split('/')[0]}년 {inquiryDetail.updated_at.split('/')[1]}월 {inquiryDetail.updated_at.split('/')[2]}일</P_12R>
+            <P_12R style={{color:'#666'}}>{splitedInquiryDetail[0]}년 {splitedInquiryDetail[1]}월 {splitedInquiryDetail[2]}일</P_12R>
             </View>
             <View style={[styles.postedReview]}>
               <P_14R>{inquiryDetail.contents}</P_14R>
